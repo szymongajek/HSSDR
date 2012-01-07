@@ -1,4 +1,4 @@
-package graphCheckerPlugin;
+package robotsChecker;
 
 public class Robot {
 	
