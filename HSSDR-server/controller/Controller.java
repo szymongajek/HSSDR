@@ -99,6 +99,53 @@ public class Controller
 		 checkLayout();
 	}
 
+    private static final Parser parser = new Parser();
+    
+	public static Object[] checkLayout(Structure structure, Vocabulary vocabulary,
+			String fname) {
+
+		StringBuffer resultMessage = new StringBuffer();
+		ArrayList<String> roomsToHighlight = new ArrayList<String>();
+		Object[] ret = new Object[2];
+
+		System.out.println("Processing " + fname + "...");
+		resultMessage.append("Result of: \"" + fname + "\":" + "\n");
+		Suite su = parser.suiteFromFile(fname, vocabulary);
+		if (su == null) {
+			System.out.println("syntax or file error!");
+			resultMessage.append("syntax or file error!  ");
+			String msg = parser.getErrorMessages();
+			if (msg != null) {
+				System.out.print(msg);
+				resultMessage.append( msg + "\n");
+			}
+			System.out.println();
+			ret[0] = resultMessage.toString();
+			ret[1] = roomsToHighlight;
+			return ret;
+		}
+		Result[] res = su.getCompleteResults(structure, 99);
+		for (int i = 0; i < res.length; ++i) {
+			System.out.print("#" + (i + 1) + ": ");
+			resultMessage.append( "#" + (i + 1) + ": ");
+			res[i].printResult();
+			resultMessage.append(res[i].getResult());
+
+			for (int k = 0;; ++k) {
+				Map<String, Object> qvars = res[i].getQVarsState(k);
+				if (qvars == null)
+					break;
+				for (String name : qvars.keySet())
+					roomsToHighlight.add(qvars.get(name).toString());
+			}
+		}
+		System.out.println();
+		resultMessage.append("\n");
+
+		ret[0] = resultMessage.toString();
+		ret[1] = roomsToHighlight;
+		return ret;
+	}
 	
     private void checkLayout()
     {
@@ -108,57 +155,32 @@ public class Controller
         
         // testy
         
-        Vocabulary voc;
-		Structure rs;
+        Vocabulary vocabulary;
+		Structure structure;
 		
 		Object [] tab = graph.createStructureAndVocabulary();
 		
-		rs= (Structure)tab[0];
-		voc =(Vocabulary)tab[1];
+		structure= (Structure)tab[0];
+		vocabulary =(Vocabulary)tab[1];
 		
-		System.out.println(rs.toString());
+		System.out.println(structure.toString());
 		
 		ArrayList<String> testFiles = testChooser.getTestFilesList(); 
 		
-        Parser p = new Parser();
-        String message="";
+         
         ArrayList<String> roomsToHighlight = new ArrayList<String>();
+        StringBuffer resultMessage = new StringBuffer();
+        
         for (String fname : testFiles) {
         	fname=TestChooser.TEST_DIR+"/"+fname;
-            System.out.println("Processing " + fname + "...");
-            message+="Result of: \""+ fname +"\":"+"\n";
-            Suite su = p.suiteFromFile(fname, voc);
-            if (su == null) {
-                System.out.println("syntax or file error!");
-                message+="syntax or file error!  ";
-                String msg = p.getErrorMessages();
-                if (msg != null){
-                	 System.out.print(msg);
-                	 message+=msg+"\n";
-                }
-                System.out.println();
-                continue;
-            }
-            Result[] res = su.getCompleteResults(rs, 99);
-            for (int i = 0; i < res.length; ++i) {
-                System.out.print("#" + (i+1) + ": ");
-                message+="#" + (i+1) + ": ";
-                res[i].printResult();
-                message+=res[i].getResult();
-                
-                for (int k = 0; ; ++k) {
-                    Map<String, Object> qvars =  res[i].getQVarsState(k);
-                    if (qvars == null)
-                        break;
-                    for (String name : qvars.keySet())
-                    	roomsToHighlight.add( qvars.get(name).toString());
-                }
-            }
-            System.out.println();
-            message+="\n";
+            
+        	Object [] parsingRes =  checkLayout(structure, vocabulary, fname);
+        	resultMessage.append((String)parsingRes[0]);
+        	roomsToHighlight.addAll((ArrayList<String>)parsingRes[1]);
+            
+           
         }
-       messageDisplayer.displayMessageAndHighlight(message,roomsToHighlight);
-        
+       messageDisplayer.displayMessageAndHighlight(resultMessage.toString(),roomsToHighlight);
     }
     
     public ObjectHE getGraph(){

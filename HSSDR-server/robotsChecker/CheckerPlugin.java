@@ -1,4 +1,4 @@
-package graphCheckerPlugin;
+package robotsChecker;
 
 import java.lang.reflect.Method;
 import java.util.LinkedList;

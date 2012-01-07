@@ -1,4 +1,4 @@
-package graphCheckerPlugin;
+package robotsChecker;
 
 import java.util.Iterator;
 import java.util.LinkedList;

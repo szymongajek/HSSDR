@@ -1,4 +1,4 @@
-package graphCheckerPlugin;
+package robotsChecker;
 
 import java.util.HashSet;
 import hyperGraphs.*;
