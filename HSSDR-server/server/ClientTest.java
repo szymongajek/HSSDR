@@ -1,43 +1,75 @@
 package server;
- 
+
+import java.io.BufferedReader;
 import java.io.IOException;
-import java.io.ObjectInputStream;
-import java.io.ObjectOutputStream;
-import java.lang.ClassNotFoundException;
+import java.io.InputStreamReader;
+import java.io.PrintWriter;
 import java.net.InetAddress;
 import java.net.Socket;
 import java.net.UnknownHostException;
 
 public class ClientTest {
-    public static void main(String[] args) {
-        try {
-            //
-            // Create a connection to the server socket on the server application
-            //
-            InetAddress host = InetAddress.getLocalHost();
-            Socket socket = new Socket(host.getHostName(), 7777);
+	
+	public static void main(String[] args) {
 
-            //
-            // Send a message to the client application
-            //
-            ObjectOutputStream oos = new ObjectOutputStream(socket.getOutputStream());
-            oos.writeObject("Hello There...");
+		InetAddress host;
+		try {
+			host = InetAddress.getLocalHost();
+		} catch (UnknownHostException e1) {
+			e1.printStackTrace();
+			return;
+		}
+		Socket socket;
+		try {
+			socket = new Socket(host.getHostName(), 7777);
+		} catch (UnknownHostException e1) {
+			e1.printStackTrace();
+			return;
+		} catch (IOException e1) {
+			e1.printStackTrace();
+			return;
+		}
+		PrintWriter out = null;
+		BufferedReader in = null;
+		String fromServer, fromUser;
 
-            //
-            // Read and display the response message sent by server application
-            //
-            ObjectInputStream ois = new ObjectInputStream(socket.getInputStream());
-            String message = (String) ois.readObject();
-            System.out.println("Message: " + message);
+		BufferedReader userIn = new BufferedReader(new InputStreamReader(
+				System.in));
 
-            ois.close();
-            oos.close();
-        } catch (UnknownHostException e) {
-            e.printStackTrace();
-        } catch (IOException e) {
-            e.printStackTrace();
-        } catch (ClassNotFoundException e) {
-            e.printStackTrace();
-        }
-    }
+		try {
+			out = new PrintWriter(socket.getOutputStream(), true);
+			in = new BufferedReader(new InputStreamReader(socket
+					.getInputStream()));
+			while ((fromServer = in.readLine()) != null) {
+				System.out.println("Server: " + fromServer);
+				if (fromServer.equals("Bye."))
+					break;
+				fromUser = userIn.readLine();
+				if (fromUser != null) {
+					System.out.println("Client: " + fromUser);
+					out.println(fromUser);
+				}
+			}
+		} catch (IOException e) {
+			e.printStackTrace();
+		} finally {
+			out.close();
+			try {
+				in.close();
+			} catch (IOException e) {
+				e.printStackTrace();
+			}
+			try {
+				userIn.close();
+			} catch (IOException e) {
+				e.printStackTrace();
+			}
+			try {
+				socket.close();
+			} catch (IOException e) {
+				e.printStackTrace();
+			}
+		}
+
+	}
 }

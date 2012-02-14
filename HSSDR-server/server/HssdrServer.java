@@ -1,9 +1,13 @@
 package server;
 
 
+import java.io.BufferedReader;
+import java.io.DataInputStream;
 import java.io.IOException;
+import java.io.InputStreamReader;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
+import java.io.PrintWriter;
 import java.lang.ClassNotFoundException;
 import java.lang.Runnable;
 import java.lang.Thread;
@@ -40,7 +44,9 @@ public class HssdrServer {
             try {
             	System.out.println("Waiting for client message...");
                 Socket socket = server.accept();
-                new ConnectionHandler(socket);
+                System.out.println("Incoming connection");
+//                new ConnectionHandler(socket);
+                new SketchupConnectionHandler(socket);
             } catch (IOException e) {
                 e.printStackTrace();
             }
@@ -48,68 +54,54 @@ public class HssdrServer {
     }
 }
 
-class ConnectionHandler implements Runnable {
+
+class SketchupConnectionHandler implements Runnable {
     private Socket socket;
 
-    public ConnectionHandler(Socket socket) {
+    public SketchupConnectionHandler(Socket socket) {
         this.socket = socket;
 
         Thread t = new Thread(this);
         t.start();
     }
 
-    public void run() {
-        try
-        {
-            //
-            // Read a message sent by client application
-            //
-            ObjectInputStream ois = new ObjectInputStream(socket.getInputStream());
-            String message = (String) ois.readObject();
-            System.out.println("Message Received: " + message);
-            
-            //
-            // Send a response information to the client application
-            //
-            ObjectOutputStream oos = new ObjectOutputStream(socket.getOutputStream());
-            oos.writeObject("Hi. send me data.");
+	public void run() {
+		PrintWriter out=null;
+		BufferedReader in=null;
+		try {
+			out = new PrintWriter(socket.getOutputStream(), true);
+			  in = new BufferedReader(new InputStreamReader(
+					socket.getInputStream()));
+			String inputLine, outputLine;
 
-            
-            if ("SKETCHUP_DATA".equals(message)){
-            	
-            	////TODO read all data into rooms list 
-            	
-            	//TODO create structure and voc from rooms list
-            	 
-//            	Controller.checkLayout(structure, vocabulary, fname);
-            	
-            	  
-//            	Object [] parsingRes =  checkLayout(structure, vocabulary, fname);
-//            	
-//            	String  resultMessage = (String)parsingRes[0] ;
-//            	ArrayList<String> roomsToHighlight =(ArrayList<String>)parsingRes[1];
-            	
-            	//TODOsend response roomsToHighlight
-            	//TODOsend response resultMessage
-            	
-            }else if  ("REVIT_DATA".equals(message)){
-            	
-            }
+			// initiate conversation with client
+			outputLine = "hello1";
+			out.println(outputLine);
 
-//            graph = xmlhandler.processxml
-//            Controller controller = new Controller();
-//            res =controller.chechgraph
-//            oos.writeObject(res);
-            
-           
-            ois.close();
-            oos.close();
-            socket.close();
-
-        } catch (IOException e) {
-            e.printStackTrace();
-        } catch (ClassNotFoundException e) {
-            e.printStackTrace();
-        }
-    }
+			while ((inputLine = in.readLine()) != null) {
+				System.out.println("server got: "+inputLine);
+				outputLine = "ok";
+				out.println(outputLine);
+				if (inputLine.equals("EXIT")){
+					System.out.println("got exit signal, exiting...");
+					break;
+				}
+			}
+		} catch (IOException e) {
+			e.printStackTrace();
+		} finally{
+			out.close();
+			try {
+				in.close();
+			} catch (IOException e) {
+				e.printStackTrace();
+			}
+			try {
+				socket.close();
+			} catch (IOException e) {
+				e.printStackTrace();
+			}
+		}
+		
+	}
 }
