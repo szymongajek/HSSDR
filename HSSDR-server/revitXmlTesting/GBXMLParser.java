@@ -8,14 +8,15 @@ import org.w3c.dom.Element;
 import org.w3c.dom.NodeList;
 
 import rectangularBoard.Path;
+import util.AbstractDOMParser;
 
-public class GBXMLParser extends DOMParser{
+public class GBXMLParser extends AbstractDOMParser{
 
 	
 	List<Space> spaces = new ArrayList<Space>();
 	
 	
-	void parseDocument(){
+	public void parseDocument(){
 
 		//get the root elememt
 		//Element docEle = dom. getDocumentElement();

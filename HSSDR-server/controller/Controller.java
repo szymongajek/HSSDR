@@ -10,6 +10,7 @@ import hyperGraphs.ObjectHE;
 import hyperGraphs.HGSensor;
 
 import java.util.ArrayList;
+import java.util.List;
 import java.util.Map;
 
 import rectangularBoard.Path;
@@ -165,14 +166,14 @@ public class Controller
 		
 		System.out.println(structure.toString());
 		
-		ArrayList<String> testFiles = testChooser.getTestFilesList(); 
+		List<String> testFiles = testChooser.getTestFilesList(); 
 		
          
         ArrayList<String> roomsToHighlight = new ArrayList<String>();
         StringBuffer resultMessage = new StringBuffer();
         
         for (String fname : testFiles) {
-        	fname=TestChooser.TEST_DIR+"/"+fname;
+        	fname=testChooser.getTestFilesDirectory()+"/"+fname;
             
         	Object [] parsingRes =  checkLayout(structure, vocabulary, fname);
         	resultMessage.append((String)parsingRes[0]);

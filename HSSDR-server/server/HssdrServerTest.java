@@ -17,11 +17,11 @@ import java.util.ArrayList;
 
 import controller.Controller;
 
-public class HssdrServer {
+public class HssdrServerTest {
     private ServerSocket server;
     private int port = 7777;
-	
-    public HssdrServer() {
+
+    public HssdrServerTest() {
         try {
             server = new ServerSocket(port); 
         } catch (IOException e) {
@@ -29,8 +29,12 @@ public class HssdrServer {
         }
     }
 
+    public static void main(String[] args) {
+    	HssdrServerTest example = new HssdrServerTest();
+        example.handleConnection();
+    }
 
-    public void handleConnection( MessageHandler handler) {
+    public void handleConnection() {
 
         //
         // The server do a loop here to accept all connection initiated by the
@@ -42,7 +46,7 @@ public class HssdrServer {
                 Socket socket = server.accept();
                 System.out.println("Incoming connection");
 //                new ConnectionHandler(socket);
-                new SketchupConnectionHandler(socket, handler);
+                new SketchupConnectionHandlerTest(socket);
             } catch (IOException e) {
                 e.printStackTrace();
             }
@@ -51,14 +55,11 @@ public class HssdrServer {
 }
 
 
-class SketchupConnectionHandler implements Runnable {
+class SketchupConnectionHandlerTest implements Runnable {
     private Socket socket;
-    MessageHandler handler;
 
-
-    public SketchupConnectionHandler(Socket socket, MessageHandler handler) {
+    public SketchupConnectionHandlerTest(Socket socket) {
         this.socket = socket;
-    	this.handler=handler;
 
         Thread t = new Thread(this);
         t.start();
@@ -73,20 +74,19 @@ class SketchupConnectionHandler implements Runnable {
 					socket.getInputStream()));
 			String inputLine, outputLine;
 
-			String message="";
+			// initiate conversation with client
+			outputLine = "hello1";
+			out.println(outputLine);
 
 			while ((inputLine = in.readLine()) != null) {
 				System.out.println("server got: "+inputLine);
-				if (inputLine.equals("END_OF_MESSAGE")){
+//				outputLine = "ok";
+//				out.println(outputLine);
+				if (inputLine.equals("EXIT")){
 					System.out.println("got exit signal, exiting...");
 					break;
 				}
-				message+=inputLine;
 			}
-			outputLine = handler.handle(message);
-			
-			out.println(outputLine);
-			
 		} catch (IOException e) {
 			e.printStackTrace();
 		} finally{

@@ -15,8 +15,8 @@ public class Start {
 	 */
 	public static void main(String[] args) {
 //		String test_file="test_files_revit/test_revit.3";
-		String test_file="test_files_revit/evac_route.7";
-		String input_file="e:\\revit xml\\adv sample proj.xml";
+		String test_file="test_files/evac_route.7eng";
+		String input_file="Q:\\HSSDR\\HSSDR revit plugin\\revit xml\\adv sample proj.xml";
 		
 		
 		//wczytaj dane z pliku

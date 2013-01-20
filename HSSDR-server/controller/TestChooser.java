@@ -1,10 +1,11 @@
 package controller;
 
-import java.util.ArrayList;
+import java.util.List;
 
 public interface TestChooser {
-	String TEST_DIR="test_files";
 	
-	public ArrayList<String> getTestFilesList();
+	public List<String> getTestFilesList();
+	
+	public  String getTestFilesDirectory();
 
 }
