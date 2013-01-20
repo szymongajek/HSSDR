@@ -10,9 +10,10 @@ import org.w3c.dom.NodeList;
  
 
 import rectangularBoard.Path;
+import util.AbstractDOMParser;
 
 
-public class RevitPluginParser extends DOMParser{
+public class RevitPluginParser extends AbstractDOMParser{
 
 	 
 	List<Room> rooms = new ArrayList<Room>();
@@ -23,7 +24,7 @@ public class RevitPluginParser extends DOMParser{
 	 * parse one rooms and its points
 	 */
 	@Override
-	Path parseDocumentWithMainOutline() {
+	public Path parseDocumentWithMainOutline() {
 		NodeList nl = dom.getElementsByTagName("room");
 		if(nl != null && nl.getLength() > 0) {
 			 
@@ -41,7 +42,7 @@ public class RevitPluginParser extends DOMParser{
 	}
 	
 	@Override
-	void parseDocument(){
+	public void parseDocument(){
 		//get the root elememt
 		//Element docEle = dom. getDocumentElement();
 		

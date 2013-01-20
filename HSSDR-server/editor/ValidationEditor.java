@@ -2,6 +2,7 @@ package editor;
  
 import java.io.*;
 import java.util.ArrayList;
+import java.util.List;
 
 import javax.swing.DefaultListModel;
 import javax.swing.JLabel;
@@ -16,6 +17,8 @@ public class ValidationEditor extends JPanel implements TestChooser   {
 	/**
 	 * 
 	 */
+	private String TEST_DIR="test_files";
+	
 	private static final long serialVersionUID = 3832800528108005941L;
 	static final String TEST_ON="on";
 	static final String TEST_OFF="off";
@@ -29,8 +32,8 @@ public class ValidationEditor extends JPanel implements TestChooser   {
 		
 		File dir = new File(TEST_DIR);
 
-		String[] children = dir.list();
-		if (children == null) {
+		
+		if (dir.list() == null) {
 		    System.out.println("directory missing: "+TEST_DIR);
 		    boolean success = dir.mkdir();
 		    if (success) {
@@ -38,30 +41,16 @@ public class ValidationEditor extends JPanel implements TestChooser   {
 		    }else {
 		    	throw new RuntimeException("Directory"+TEST_DIR +"cannot be created.");
 		    }
-		    children = dir.list();
 		}
-
+		
 //		 It is also possible to filter the list of returned files.
 //		 This example does not return any files that start with `.'.
 		FilenameFilter filter = new FilenameFilter() {
 		    public boolean accept(File dir, String name) {
-		        return !name.endsWith(".txt");
+		        return !name.startsWith(".");
 		    }
 		};
-//		children = dir.list(filter);
-
-
-//		 The list of files can also be retrieved as File objects
-		File[] files = dir.listFiles();
-
-//		 This filter only returns directories
-		FileFilter fileFilter = new FileFilter() {
-		    public boolean accept(File file) {
-		        return file.isDirectory();
-		    }
-		};
-		files = dir.listFiles(fileFilter);
-		
+		String [] children = dir.list(filter);
 		
 		filesList.setListData(children);
 		
@@ -124,7 +113,7 @@ public class ValidationEditor extends JPanel implements TestChooser   {
 		
 	}
 	
-	public ArrayList<String>   getTestFilesList() {
+	public List<String>   getTestFilesList() {
 		DefaultListModel chooseModel = (DefaultListModel)(fileChooseingList.getModel());
 		 
 		ArrayList<String> ret = new ArrayList<String>();
@@ -136,6 +125,11 @@ public class ValidationEditor extends JPanel implements TestChooser   {
 		}
 		
 		return ret;
+	}
+
+	@Override
+	public String getTestFilesDirectory() {
+		return TEST_DIR;
 	}
 
 	
