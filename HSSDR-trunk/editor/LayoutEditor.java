@@ -7,6 +7,8 @@ import java.awt.Font;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
 import java.awt.Point;
+import java.awt.RenderingHints;
+import java.awt.geom.AffineTransform;
 import java.awt.geom.Arc2D;
 import java.util.ArrayList;
 
@@ -16,6 +18,16 @@ import rectangularBoard.Path;
 import sensors.Sensor;
  
 
+enum Mode {
+	EMPTY, //		 0 - draw niezaczety ksztalt
+	DRAWING_OUTLINE,// 1 - draw zaczety ksztalt
+	OUTLINE_FINISHED,// 2 - po  narysowaniu rootShape , niezaznaczony developedPath
+	AREA_SELECTED,// 25 - po  narysowaniu rootShape , zaznaczony developedPath
+	DIVIDING_AREA,//	3 - po  narysowaniu rootShape, w trakcie rysowania dzialacej krawedzi editedPath
+	ZOOM,// 10 - zoom
+	ADD_DOORS,// 20  - dodawanie drzwi
+	SENSOR_ADDING; //dodanie pkt 1 czujnika i oczekiwanie na wybranie pkt 2 
+}
 public class LayoutEditor extends JPanel {
 	
 	/**
@@ -66,7 +78,7 @@ public class LayoutEditor extends JPanel {
 	
 	//w trakcie dodawania czujnika
 	private Sensor addingSensor = null;
-	
+
 	//parametry do linii 
 	final static float dash1[] = { 5.0f, 5.0f};
 	final static BasicStroke dashed_stroke = new BasicStroke(2.0f,BasicStroke.CAP_ROUND,BasicStroke.JOIN_ROUND,10.0f, dash1, 2.5f);
@@ -74,6 +86,12 @@ public class LayoutEditor extends JPanel {
 	final static BasicStroke rootPath_stroke = new BasicStroke(4.0f,BasicStroke.CAP_ROUND,BasicStroke.JOIN_ROUND);
 	final static BasicStroke grid_stroke = new BasicStroke(1.0f,BasicStroke.CAP_ROUND,BasicStroke.JOIN_ROUND);
 	    
+	public Mode prevDravingMode= Mode.EMPTY;
+	public Mode mode=Mode.EMPTY;
+	
+	
+	private boolean tranformApplied;
+
 	public LayoutEditor(){
 		  
 		 sizeX=this.getWidth();
@@ -96,8 +114,9 @@ public class LayoutEditor extends JPanel {
 		
 		repaint();
 	}
-	protected void paintComponent(Graphics g ){
-		 
+	
+	public void paintMe(Graphics g ){
+		
 		Graphics2D g2D = (Graphics2D)g;
 		if (initialized){
 //			System.out.println("scale"+this.getWidth()+  "   "+(int)(sizeX*zoomedTo) );
@@ -106,8 +125,6 @@ public class LayoutEditor extends JPanel {
 			g2D.fillRect(0, 0, this.getWidth() , this.getHeight() );
 			g2D.scale(zoomedTo, zoomedTo);
 			
- 
-
 //	 		interior highlited Path
 			colorPathInterior(highlitedPath,new Color(151,204,204), g2D);
  
@@ -132,12 +149,16 @@ public class LayoutEditor extends JPanel {
  			
 //			 siatka
 			g2D.setColor(new Color(120,150,223));
+			g2D.setStroke(grid_stroke);
 			for (int i = gridSize; i <sizeX; i=i+gridSize) {
 				g2D.drawLine (i, 0, i, sizeY);
 			}
 			for (int i = gridSize; i <sizeY; i=i+gridSize) {
 				g2D.drawLine(0, i, sizeX, i);
 			}
+			
+//			pomieszczenia typu empty - bez siatki
+			paintEmptySpaces(g2D, rootPath);
 
 //			path
 	 		paintPathTree(g2D, rootPath,  Color.BLACK, false);
@@ -199,10 +220,32 @@ public class LayoutEditor extends JPanel {
 	 			 g2D.drawLine(calcXY(addingSensor.sx), calcXY(addingSensor.sy), calcXY(addingSensor.dx), calcXY(addingSensor.dy));
 	 		}
 	 	
+	 		
 		}else {
 			g2D.setColor(Color.gray);
 			g2D.fillRect(2, 2, this.getWidth()-2, this.getHeight()-2);
 		}
+	
+	}
+	
+	public void paint(Graphics g) {
+		Graphics2D g2D = (Graphics2D) g;
+		g2D.setColor(Color.white);
+		g2D.fillRect(0, 0, this.getWidth(), this.getHeight());
+
+		if (tranformApplied) {
+			g2D.translate(180.0, 20.3);
+			g2D.scale(.7, .3);
+			g2D.shear(-0.5, 0);
+
+			g2D.setRenderingHint(RenderingHints.KEY_ANTIALIASING,
+					RenderingHints.VALUE_ANTIALIAS_ON);
+			g2D.setRenderingHint(RenderingHints.KEY_TEXT_ANTIALIASING,
+					RenderingHints.VALUE_TEXT_ANTIALIAS_ON);
+		}
+
+		paintMe(g);
+
 	}
 	
  
@@ -337,6 +380,20 @@ public class LayoutEditor extends JPanel {
 		g2D.setColor(c);
 		g2D.fill(arc);
 	}
+
+	private void paintEmptySpaces(Graphics2D g2D, Path toDraw  ) {
+		ArrayList <Path> nested = toDraw.getNestedPaths();
+		
+		if (nested.size()>0){//			paint children - rysujemy tylko te ktore nie maja dzieci
+			for (int i = 0; i < nested.size(); i++) {
+				paintEmptySpaces(g2D, nested.get(i) );
+			}
+		}else { 
+			if (toDraw.getRoomType()==Path.ROOM_TYPE_EMPTY_SPACE){
+				colorPathInterior(toDraw,Color.white, g2D);
+			}
+		} 
+	}
 	
 	private void paintPathTree(Graphics2D g2D, Path toDraw,  Color color, boolean isRootPath ) {
 		ArrayList <Path> nested = toDraw.getNestedPaths();
@@ -383,11 +440,15 @@ public class LayoutEditor extends JPanel {
  				Font font = new Font("Arial", Font.BOLD, 16);
  				g2D.setFont(font);
  				
- 				g2D.drawString(label,labx ,laby  );
+ 				drawString(g2D,label,labx ,laby  );
  			}
  		}//(toDraw.size()>1)
 	}
 		
+	private void drawString(Graphics2D g2D, String text, int x, int y) {
+        for (String line : text.split("\\\\n"))
+        	g2D.drawString(line, x, y += g2D.getFontMetrics().getHeight());
+    }
 	
 	public Sensor addSensor(int sensor1x, int sensor1y, int x, int y) {
 		 return this.developedPath.addSensor(calcIJ(sensor1x), calcIJ(sensor1y), calcIJ(x), calcIJ(y));
@@ -482,6 +543,10 @@ public class LayoutEditor extends JPanel {
 		markedGrigX =0;
 		markedGrigY=0;
 	 
+		
+		prevDravingMode=Mode.EMPTY;
+		mode=Mode.EMPTY;
+		
 		repaint();
 	}
 	
@@ -973,6 +1038,10 @@ public class LayoutEditor extends JPanel {
 		this.showLabels = showLabels;
 	}
 
+	public void applyTransform() {
+		 tranformApplied= !tranformApplied;
+		
+	}
+
 	
 }
-

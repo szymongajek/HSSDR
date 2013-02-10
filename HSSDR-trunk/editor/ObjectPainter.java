@@ -3,6 +3,7 @@ package editor;
 import hyperGraphs.*;
 
 import java.awt.Color;
+import java.awt.Font;
 import java.awt.Graphics2D;
 import java.awt.geom.Point2D;
 import java.util.ArrayList;
@@ -72,14 +73,15 @@ public class ObjectPainter   {
 		return selected!=null;
 		 
 	}
-	public static void dragObject(int x, int y, ObjectHE edge){
+	public static void dragObject(int x, int y, ObjectHE edge, boolean isRightClick){
 		int xcoord=x/HyperGraphEditor.calcXY(1);
 		int ycoord=y/HyperGraphEditor.calcXY(1);
 		 
 		if (selected instanceof ObjectHE){
 			ObjectHE selected = (ObjectHE)ObjectPainter.selected;
 			
-			if (whatRegionInObjectHE(selected,x, y )==0){
+//			if (whatRegionInObjectHE(selected,x, y )==0){
+			if(!isRightClick){
 				//resize objHE
 				int rectPX = HyperGraphEditor.calcXY(  selected.getMiddleX());
 				int rectPY = HyperGraphEditor.calcXY(  selected.getMiddleY());
@@ -242,7 +244,31 @@ public class ObjectPainter   {
 		
 	}
 	
-	private static int whatRegionInObjectHE(ObjectHE edge, int x, int y) {
+	private static int whatRegionInObjectHE1(ObjectHE edge, int x, int y) {
+		int center_padding = 10;
+		int on_edge=0;
+		int in_center=1;
+		
+//		int rectSX =  HyperGraphEditor.calcXY( edge.getSizeX()) ;
+//		int rectSY =  HyperGraphEditor.calcXY( edge.getSizeY());
+//		int rectPX =  HyperGraphEditor.calcXY(  edge.getMiddleX());
+		int rectPY = HyperGraphEditor.calcXY(  edge.getMiddleY());
+	 
+//		
+//		int Xmin=rectPX - rectSX/2;
+//		int Ymin=rectPY - rectSY/2;
+//		int Xmax=rectPX + rectSX/2;
+//		int Ymax=rectPY + rectSY/2;
+		
+		 if (   (y<rectPY)){
+			 
+			 return on_edge;
+		 }else 
+			 return in_center;
+		  
+		
+	}
+	private static int whatRegionInObjectHE (ObjectHE edge, int x, int y) {
 		int center_padding = 10;
 		int on_edge=0;
 		int in_center=1;
@@ -290,6 +316,10 @@ public class ObjectPainter   {
 		
 		for (int i = 0; i < edge.getChildElements().size(); i++) {
 			HyperEdge  e =  edge.getChildElements().get(i);
+			// nie rysujemy obszarow empty
+			if (HLH.ROOM_TYPES.Empty.toString().equals(e.getAttribute(HLH.ROOM_TYPE_LABEL))){
+				continue;
+			}
 			paintHyperEdge(g2D, e,drawObjects,drawRelations);
 		}
 	}
@@ -297,6 +327,7 @@ public class ObjectPainter   {
 	 
 		Node source  = rel.getSource();
 		Node target = rel.getTarget();
+		
 		int sourceX =  source.getMiddleX();
 		int sourceY =  source.getMiddleY(); 
 		
@@ -312,6 +343,18 @@ public class ObjectPainter   {
 			rel.setMiddleX(((sourceX + targetX)/2)+1+1);//+20 zeby sie nie zlewaly w pionie, ja nody sa w jedej lini
 			rel.setMiddleY( (sourceY + targetY)/2   + 2);
 		} 
+		
+		
+		
+		ObjectHE firstObj = source.getObjectEdge();
+		ObjectHE secObj = target.getObjectEdge();
+		// nie rysujemy relacji do obszarow empty
+		if ((HLH.ROOM_TYPES.Empty.toString().equals(firstObj
+				.getAttribute(HLH.ROOM_TYPE_LABEL)))
+				|| (HLH.ROOM_TYPES.Empty.toString().equals(secObj
+						.getAttribute(HLH.ROOM_TYPE_LABEL)))) {
+			return;
+		}
 		
 		int elSX = HyperGraphEditor.metersToPixels * rel.getSizeX() ;
 		int elSY = HyperGraphEditor.metersToPixels * rel.getSizeY();
@@ -363,8 +406,28 @@ public class ObjectPainter   {
 			g2D.setColor(Color.black);
 		
 		g2D.drawRect(rX0, rY0, rectSX , rectSY);
-		 
+		
+		String label = edge.getAttribute(HLH.USER_LABEL);
+
+		if (!"".equals(label)) {
+
+			int labx = rX0 + 2, laby = rY0- 4;
+
+			Font prev = g2D.getFont();
+			Font font = new Font("Arial", Font.BOLD, 16);
+			g2D.setFont(font);
+
+			drawString(g2D, label, labx, laby);
+			g2D.setFont(prev);
+		}
+
 	}
+
+	private static  void drawString(Graphics2D g2D, String text, int x, int y) {
+		for (String line : text.split("\\\\n"))
+			g2D.drawString(line, x, y += g2D.getFontMetrics().getHeight());
+	} 
+
 	
 	public static  void drawNodes(Graphics2D g2D, ArrayList<Node> nodes, int edgMiddleX,int edgMiddleY){
 		
