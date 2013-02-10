@@ -35,6 +35,8 @@ public class Path {
 	private String userLabel="";
 	private int roomType=0;
 	
+	public static final int ROOM_TYPE_EMPTY_SPACE=9;
+	
 	private int gridMeteres=1;
 	
 	//wymiary planszy na ktorej rysowany jest Path

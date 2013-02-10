@@ -43,13 +43,14 @@ public class HLH
 	/**
 	 * gdy ustawione przerywana linia oznacza widocznosc, o dostepnosci decyduja drzwi
 	 */
-	private static boolean dashedLineMeansVisible=false;
+	private static boolean dashedLineMeansVisible=true;
 	
 	//	dla hiperkrawedzi obiektowych typ pomieszczenia reprezentwanego przez ta krawedz
 	public enum ROOM_TYPES{
-		Space,Kitchen,Corridor,Staircase,Bathroom,Living_Room,Garage,Bedroom, Office
+		Space,Kitchen,Corridor,Staircase,Bathroom,Living_Room,Garage,Bedroom, Office, Empty
 		
 	}
+	
 	
 	
 	//najwyzej polozona w hierarchii hiperkrawejdz 

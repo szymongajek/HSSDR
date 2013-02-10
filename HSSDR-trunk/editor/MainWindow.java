@@ -29,6 +29,7 @@ import java.awt.event.MouseEvent;
 import java.awt.event.MouseMotionAdapter;
 import java.io.File;
 import java.util.ArrayList;
+import java.util.Iterator;
 
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
@@ -70,10 +71,9 @@ public class MainWindow extends JFrame implements MessageDisplayer   {
 
 	private Controller controller;
 	
-	Mode prevDravingMode= Mode.EMPTY;
+	private static final int  SENSOR_RANGE=6;
 	
-	
-	int sensorRange=6;
+	private static final int FLOORS_COUNT=3;
 	
 	public static final int DEFAULT_SIZE_X=900;
 	public static final int DEFAULT_SIZE_Y=420;
@@ -86,19 +86,6 @@ public class MainWindow extends JFrame implements MessageDisplayer   {
 	public float gridToMeters=DEFAULT_GRID_METERS;
 	
 	boolean showLineLen =true;
-	
-	enum Mode {
-		EMPTY, //		 0 - draw niezaczety ksztalt
-		DRAWING_OUTLINE,// 1 - draw zaczety ksztalt
-		OUTLINE_FINISHED,// 2 - po  narysowaniu rootShape , niezaznaczony developedPath
-		AREA_SELECTED,// 25 - po  narysowaniu rootShape , zaznaczony developedPath
-		DIVIDING_AREA,//	3 - po  narysowaniu rootShape, w trakcie rysowania dzialacej krawedzi editedPath
-		ZOOM,// 10 - zoom
-		ADD_DOORS,// 20  - dodawanie drzwi
-		SENSOR_ADDING; //dodanie pkt 1 czujnika i oczekiwanie na wybranie pkt 2 
-	}
-	
-	Mode mode=Mode.EMPTY;
 	
 	int sensor1x, sensor1y;
 	 
@@ -126,8 +113,11 @@ public class MainWindow extends JFrame implements MessageDisplayer   {
 	
 	public void initLayout(int sizeX, int sizeY, float gridToMeters, int gridSize ){
 		 
-		layoutEditor.initLayout(sizeX,				
+		for (LayoutEditor editor : layoutEditorsList) {
+			editor.initLayout(sizeX,				
 					sizeY,gridSize, gridToMeters);
+		}
+		
 		tabbedPane1.validate();
 		hyperGraphEditor.initLayout(sizeX,sizeY+150);
 	}
@@ -144,11 +134,11 @@ public class MainWindow extends JFrame implements MessageDisplayer   {
 	public void clearAll(){
 		controller.clearGraph();
 		
-		layoutEditor.clear();
-		
-		prevDravingMode=Mode.EMPTY;
+		for (LayoutEditor editor : layoutEditorsList) {
+			editor.clear();
+		}
 		showLineLen =true;
-		mode=Mode.EMPTY;
+		
 		drawing_mode=Path.LINE_SOLID;
 		
 		SolidMode.setVisible(false);
@@ -162,30 +152,37 @@ public class MainWindow extends JFrame implements MessageDisplayer   {
 		}
 	}
  
+	
+	  private void applyAffineTransofrm() {
+			currentLayoutEditor.applyTransform();
+			repaint();
+			
+		}
+
 
 	private void layoutEditorMouseClicked(MouseEvent e) {
 
-		layoutEditor.clearHihglightedRooms();
+		currentLayoutEditor.clearHihglightedRooms();
 		
-		switch (mode) {
+		switch (currentLayoutEditor.mode) {
 		case EMPTY:
-			mode=Mode.DRAWING_OUTLINE;
-			 layoutEditor.beginRootPath(e.getX(), e.getY());
+			currentLayoutEditor.mode=Mode.DRAWING_OUTLINE;
+			 currentLayoutEditor.beginRootPath(e.getX(), e.getY());
 			break;
 		case DRAWING_OUTLINE:
 			if (e.getButton()==MouseEvent.BUTTON1){
-				mode = Mode.EMPTY;
-				layoutEditor.clear();
+				currentLayoutEditor.mode = Mode.EMPTY;
+				currentLayoutEditor.clear();
 				controller.clearGraph();
-				layoutEditor.hideLineLen();
+				currentLayoutEditor.hideLineLen();
 				break;	
 			}else if (e.getButton()==MouseEvent.BUTTON3){
-				Point ret = layoutEditor.removeLastLineFromRoot(); 
+				Point ret = currentLayoutEditor.removeLastLineFromRoot(); 
 				if (ret!=null){
 					Robot robot;
 					try {
 						robot = new Robot();  
-						robot.mouseMove(ret.x+layoutEditor.getLocationOnScreen().x ,ret.y+layoutEditor.getLocationOnScreen().y );
+						robot.mouseMove(ret.x+currentLayoutEditor.getLocationOnScreen().x ,ret.y+currentLayoutEditor.getLocationOnScreen().y );
 					} catch (AWTException e1) {
 						e1.printStackTrace();
 					}
@@ -193,16 +190,16 @@ public class MainWindow extends JFrame implements MessageDisplayer   {
 				break;
 			}
 		case OUTLINE_FINISHED:
-			if (layoutEditor.selectDevelopedPath(e.getX(), e.getY())){ // zaznaczamy
-				mode=Mode.AREA_SELECTED;
+			if (currentLayoutEditor.selectDevelopedPath(e.getX(), e.getY())){ // zaznaczamy
+				currentLayoutEditor.mode=Mode.AREA_SELECTED;
 				roomTypes.setVisible(true);
 				synchronized(eventInitiatedBySoftware) {
 					  eventInitiatedBySoftware=true;
-					  roomTypes.setSelectedIndex(layoutEditor.getDevelopedPath().getRoomType());
+					  roomTypes.setSelectedIndex(currentLayoutEditor.getDevelopedPath().getRoomType());
 					}
 				
-				RoomLabel.setText(layoutEditor.getDevelopedPath().getUserLabel());
-				areaValueLabel.setText(String.valueOf(layoutEditor.getDevelopedPath().getAreaValue()));
+				RoomLabel.setText(currentLayoutEditor.getDevelopedPath().getUserLabel());
+				areaValueLabel.setText(String.valueOf(currentLayoutEditor.getDevelopedPath().getAreaValue()));
 			}else { // nic nie zaznaczone
 				RoomLabel.setText("---");
 				areaValueLabel.setText("");
@@ -210,17 +207,17 @@ public class MainWindow extends JFrame implements MessageDisplayer   {
 			break;
 		case DIVIDING_AREA:
 			if (e.getButton()==MouseEvent.BUTTON1){
-				mode = Mode.AREA_SELECTED;
-				layoutEditor.clearEditedPath();
-				layoutEditor.hideLineLen();
+				currentLayoutEditor.mode = Mode.AREA_SELECTED;
+				currentLayoutEditor.clearEditedPath();
+				currentLayoutEditor.hideLineLen();
 				break;	
 			}else if (e.getButton()==MouseEvent.BUTTON3){
-				Point ret = layoutEditor.removeLastLineFromEdited(); 
+				Point ret = currentLayoutEditor.removeLastLineFromEdited(); 
 				if (ret!=null){
 					Robot robot;
 					try {
 						robot = new Robot();  
-						robot.mouseMove(ret.x+layoutEditor.getLocationOnScreen().x ,ret.y+layoutEditor.getLocationOnScreen().y );
+						robot.mouseMove(ret.x+currentLayoutEditor.getLocationOnScreen().x ,ret.y+currentLayoutEditor.getLocationOnScreen().y );
 					} catch (AWTException e1) {
 						e1.printStackTrace();
 					}
@@ -229,23 +226,23 @@ public class MainWindow extends JFrame implements MessageDisplayer   {
 			}
 		case AREA_SELECTED:
 			if (e.getButton()==MouseEvent.BUTTON1){
-				if (layoutEditor.startNewPath(e.getX(), e.getY(),drawing_mode)){
-					mode = Mode.DIVIDING_AREA;
+				if (currentLayoutEditor.startNewPath(e.getX(), e.getY(),drawing_mode)){
+					currentLayoutEditor.mode = Mode.DIVIDING_AREA;
 				}else {
-					if (! layoutEditor.selectDevelopedPath(e.getX(), e.getY())){ //odznaczamy path
-						mode=Mode.OUTLINE_FINISHED;
+					if (! currentLayoutEditor.selectDevelopedPath(e.getX(), e.getY())){ //odznaczamy path
+						currentLayoutEditor.mode=Mode.OUTLINE_FINISHED;
 						roomTypes.setVisible(false);
 						
 						RoomLabel.setText("---");
 						areaValueLabel.setText("");
 					}else {
-						RoomLabel.setText(layoutEditor.getDevelopedPath().getUserLabel());
+						RoomLabel.setText(currentLayoutEditor.getDevelopedPath().getUserLabel());
 						synchronized(eventInitiatedBySoftware) {
 							  eventInitiatedBySoftware=true;
-							  roomTypes.setSelectedIndex(layoutEditor.getDevelopedPath().getRoomType());
+							  roomTypes.setSelectedIndex(currentLayoutEditor.getDevelopedPath().getRoomType());
 							}
 						
-						areaValueLabel.setText(String.valueOf(layoutEditor.getDevelopedPath().getAreaValue()));
+						areaValueLabel.setText(String.valueOf(currentLayoutEditor.getDevelopedPath().getAreaValue()));
 					}
 				}
 				
@@ -254,36 +251,36 @@ public class MainWindow extends JFrame implements MessageDisplayer   {
 				sensor1x=e.getX();
 				sensor1y=e.getY();
 				
-				mode=Mode.SENSOR_ADDING;
+				currentLayoutEditor.mode=Mode.SENSOR_ADDING;
 				
-				layoutEditor.setAddingSensor( sensor1x,sensor1y,sensor1x,sensor1y );
+				currentLayoutEditor.setAddingSensor( sensor1x,sensor1y,sensor1x,sensor1y );
 			}
 			break;
 		case SENSOR_ADDING:
 			if (e.getButton()==MouseEvent.BUTTON3){
-				Sensor sensor =layoutEditor.addSensor(sensor1x, sensor1y,e.getX(),e.getY());
-				controller.addSensor(sensor, layoutEditor.getDevelopedPath());
+				Sensor sensor =currentLayoutEditor.addSensor(sensor1x, sensor1y,e.getX(),e.getY());
+				controller.addSensor(sensor, currentLayoutEditor.getDevelopedPath());
 			}
-			mode=Mode.AREA_SELECTED;
-			layoutEditor.setAddingSensor(null);
+			currentLayoutEditor.mode=Mode.AREA_SELECTED;
+			currentLayoutEditor.setAddingSensor(null);
 			break;
 		case ZOOM:
 			if(e.getButton() == MouseEvent.BUTTON1) 
 	        { 
-	            layoutEditor.zoomIn();                  
+	            currentLayoutEditor.zoomIn();                  
 	        } 
 	        else if(e.getButton() == MouseEvent.BUTTON3) 
 	        { 
-	        	layoutEditor.zoomOut(); 
+	        	currentLayoutEditor.zoomOut(); 
 	        } 
 
 	        tabbedPane1.validate();
-	        layoutEditor.validate();//????
+	        currentLayoutEditor.validate();//????
 	        scrollPane1.validate();//????
-	        zoomLabel.setText( layoutEditor.getZoomedPerc() + "%");
+	        zoomLabel.setText( currentLayoutEditor.getZoomedPerc() + "%");
 			break;
 		case ADD_DOORS:
-			Object [] newDoorsObjects=layoutEditor.putDoors(e.getX(), e.getY());
+			Object [] newDoorsObjects=currentLayoutEditor.putDoors(e.getX(), e.getY());
 			
 			if (newDoorsObjects!= null){
 				Doors d = (Doors) newDoorsObjects[4];
@@ -299,17 +296,17 @@ public class MainWindow extends JFrame implements MessageDisplayer   {
 	private void layoutEditorMouseMoved(MouseEvent e) {
 		int len;
 		
-		switch (mode) {
+		switch (currentLayoutEditor.mode) {
 		case EMPTY:
-			layoutEditor.markGrid(e.getX(), e.getY()  );
+			currentLayoutEditor.markGrid(e.getX(), e.getY()  );
 			break;
 		case DRAWING_OUTLINE:
-			len = layoutEditor.continueRootPath(e.getX(), e.getY());
+			len = currentLayoutEditor.continueRootPath(e.getX(), e.getY());
 			if ( len == -1){ // zapetlona  lamana
-				layoutEditor.hideLineLen();
+				currentLayoutEditor.hideLineLen();
 				
-				mode =Mode.OUTLINE_FINISHED;
-				controller.startGraph(layoutEditor.getRootPath(), gridToMeters, sensorRange);
+				currentLayoutEditor.mode =Mode.OUTLINE_FINISHED;
+				controller.startGraph(currentLayoutEditor.getRootPath(), gridToMeters, SENSOR_RANGE);
    		
 				SolidMode.setVisible(true);
 				DashedMode.setVisible(true);
@@ -318,60 +315,99 @@ public class MainWindow extends JFrame implements MessageDisplayer   {
 			}else { // wyswietl metraz
 				 
 				if (showLineLen)
-					layoutEditor.setShowLineLen(len, e.getX()-30, e.getY()-15 );
+					currentLayoutEditor.setShowLineLen(len, e.getX()-30, e.getY()-15 );
 			}
 			break;
 		case OUTLINE_FINISHED:
-			layoutEditor.markGrid(e.getX(), e.getY()  );
-			layoutEditor.highlightPath(e.getX(), e.getY());
+			currentLayoutEditor.markGrid(e.getX(), e.getY()  );
+			currentLayoutEditor.highlightPath(e.getX(), e.getY());
 			break;
 		case AREA_SELECTED:
-			layoutEditor.markGrid(e.getX(), e.getY()  );
-			layoutEditor.highlightPath(e.getX(), e.getY());
+			currentLayoutEditor.markGrid(e.getX(), e.getY()  );
+			currentLayoutEditor.highlightPath(e.getX(), e.getY());
 			break;
 		case DIVIDING_AREA:
-			len = layoutEditor.continueNewPath(e.getX(), e.getY(),drawing_mode);
+			len = currentLayoutEditor.continueNewPath(e.getX(), e.getY(),drawing_mode);
 			if (len==-1){
-				layoutEditor.hideLineLen();
-				layoutEditor.developNestedPaths();
+				currentLayoutEditor.hideLineLen();
+				currentLayoutEditor.developNestedPaths();
 				
-				controller.developArea(layoutEditor.getDevelopedPath(),layoutEditor.getDevelopedPath().getNestedPaths(),0);
-				mode =Mode.OUTLINE_FINISHED;
-				layoutEditor.clearDevelopedPath();
-				layoutEditor.clearEditedPath();
+				controller.developArea(currentLayoutEditor.getDevelopedPath(),currentLayoutEditor.getDevelopedPath().getNestedPaths(),0);
+				currentLayoutEditor.mode =Mode.OUTLINE_FINISHED;
+				currentLayoutEditor.clearDevelopedPath();
+				currentLayoutEditor.clearEditedPath();
 
 			} else { // wyswietl metraz
 				 
 				if (showLineLen)
-					layoutEditor.setShowLineLen(len, e.getX()-30, e.getY()-15 );
+					currentLayoutEditor.setShowLineLen(len, e.getX()-30, e.getY()-15 );
 			}
 			break;
 		case ADD_DOORS:
-			layoutEditor.markDoors(e.getX(), e.getY()  );
+			currentLayoutEditor.markDoors(e.getX(), e.getY()  );
 			break;
 		case SENSOR_ADDING:
-			layoutEditor.setAddingSensor( sensor1x,sensor1y,e.getX(), e.getY() );
+			currentLayoutEditor.setAddingSensor( sensor1x,sensor1y,e.getX(), e.getY() );
 			break;
 		default:
-			layoutEditor.markGrid(e.getX(), e.getY()  );
+			currentLayoutEditor.markGrid(e.getX(), e.getY()  );
 			break;
 		}
 		 repaint();
 	}
 
+	int arr1x, arr1y  ;
+	boolean aarrStarted = false;
+	private void floorsEditorMouseClicked(MouseEvent e) {
+		if (!aarrStarted ){
+			arr1x=e.getX();
+			arr1y=e.getY();
+			aarrStarted=true;
+			
+		}else{
+			aarrStarted=false;
+			floorsEditor.removeTempArrow();
+			floorsEditor.addArrow(arr1x, arr1y, e.getX(), e.getY(),isThick);
+		}
+	
+	}
+	
+	private void floorsEditorMouseMoved(MouseEvent e) {
+		 
+		if (aarrStarted){
+			floorsEditor.setTemporaryArrow(arr1x, arr1y, e.getX(),  e.getY());
+		}
+		
+		switch (currentLayoutEditor.mode) {
+		case OUTLINE_FINISHED:
+			currentLayoutEditor.markGrid(e.getX(), e.getY()  );
+			currentLayoutEditor.highlightPath(e.getX(), e.getY());
+			break;
+		case AREA_SELECTED:
+			currentLayoutEditor.markGrid(e.getX(), e.getY()  );
+			currentLayoutEditor.highlightPath(e.getX(), e.getY());
+			break;
+		 
+		default:
+			currentLayoutEditor.markGrid(e.getX(), e.getY()  );
+			break;
+		}
+		 repaint();
+	}
+	
 	private void zoomModeActionPerformed(ActionEvent e) {
 		
-		if (mode ==Mode.ZOOM){
+		if (currentLayoutEditor.mode ==Mode.ZOOM){
 			// zoomwanie off
 			zoomMode.setText("start zooming");
 			
-			mode=prevDravingMode;
+			currentLayoutEditor.mode=currentLayoutEditor.prevDravingMode;
 			
 		}else {
 //			 zoomwanie on
 			zoomMode.setText("end zooming");
-			prevDravingMode=mode; 
-			mode=Mode.ZOOM;
+			currentLayoutEditor.prevDravingMode=currentLayoutEditor.mode; 
+			currentLayoutEditor.mode=Mode.ZOOM;
 		}
 	}
 	
@@ -389,13 +425,16 @@ public class MainWindow extends JFrame implements MessageDisplayer   {
 //		drawMode.setVisible(false);
 		
 	}
-
+	boolean isThick=false;
 	private void clearButtonActionPerformed(ActionEvent e) {
 		
-		clearAll();
+//		clearAll();
+//		applyAffineTransofrm();
+		isThick=!isThick;
+		
 	}
 	 
-    private void initButtonProps(JButton button){
+	private void initButtonProps(JButton button){
     	button.setPreferredSize(new Dimension(150,50));
     }
 
@@ -427,7 +466,7 @@ public class MainWindow extends JFrame implements MessageDisplayer   {
 	}
 
 	private void hyperGraphEditorMouseDragged(MouseEvent e) {
-		 hyperGraphEditor.dragObject(e.getX(), e.getY());
+		 hyperGraphEditor.dragObject(e.getX(), e.getY(), !e.isControlDown());//e.getButton()==MouseEvent.BUTTON1);
 	}
  
 	private void hyperGraphEditorMouseClicked(MouseEvent e) {
@@ -446,12 +485,12 @@ public class MainWindow extends JFrame implements MessageDisplayer   {
 
 
 	private void addDoorsbuttonActionPerformed(ActionEvent e) {
-		if (mode!=Mode.ADD_DOORS){
-			prevDravingMode=mode;
-			mode=Mode.ADD_DOORS;
+		if (currentLayoutEditor.mode!=Mode.ADD_DOORS){
+			currentLayoutEditor.prevDravingMode=currentLayoutEditor.mode;
+			currentLayoutEditor.mode=Mode.ADD_DOORS;
 			setCursor(Cursor.HAND_CURSOR);
 		}else {
-			mode = prevDravingMode;
+			currentLayoutEditor.mode = currentLayoutEditor.prevDravingMode;
 			setCursor(Cursor.DEFAULT_CURSOR);
 		}
 		repaint();
@@ -461,7 +500,7 @@ public class MainWindow extends JFrame implements MessageDisplayer   {
 		if (divisionTree!= null){
 			divisionTree.delete();
 			divisionTree=null;
-			layoutEditor.setDivisionPath(null);
+			currentLayoutEditor.setDivisionPath(null);
 		}else {
 			divisionTree = new DivisionTree(this);
 			divisionTree.createTree(controller.getGraph());
@@ -471,28 +510,47 @@ public class MainWindow extends JFrame implements MessageDisplayer   {
 	
 	}
 	void markDivisionPath(String label){
-		layoutEditor.setDivisionPath(layoutEditor.findPathByLabel(label));
+		currentLayoutEditor.setDivisionPath(currentLayoutEditor.findPathByLabel(label));
 		repaint();
 	}
 	public void deleteDivision(String label) {
 		controller.deleteDivision(label);
-		layoutEditor.deletgeSubPathsFrom(label);
-		layoutEditor.resetEditedPath();
+		currentLayoutEditor.deletgeSubPathsFrom(label);
+		currentLayoutEditor.resetEditedPath();
 		
 		divisionTree.delete();
 		divisionTree=null;
-		layoutEditor.setDivisionPath(null);
+		currentLayoutEditor.setDivisionPath(null);
 		
 		divisionTree = new DivisionTree(this);
 		divisionTree.createTree(controller.getGraph());
 		repaint();
 	}
 	
-	 
+	protected void floorsComboFocusLost(FocusEvent e) {
+		// TODO Auto-generated method stub
+		
+	}
+
+
+	protected void floorsComboMouseClicked(MouseEvent e) {
+		// TODO Auto-generated method stub
+		
+	}
+
+
+	protected void floorsComboActionPerformed(ActionEvent e) {
+		currentLayoutEditor=layoutEditorsList.get( floorsCombo.getSelectedIndex());
+		scrollPane1.setViewportView(currentLayoutEditor);
+		repaint();
+		
+	}
+
+
 
 	private void RoomLabelFocusLost(FocusEvent e) {
 
-		Path selected = layoutEditor.getDevelopedPath();
+		Path selected = currentLayoutEditor.getDevelopedPath();
 		if (selected == null) return;
 		
 		selected.setUserLabel(RoomLabel.getText());
@@ -507,7 +565,7 @@ public class MainWindow extends JFrame implements MessageDisplayer   {
 			    return; // don't want to process this event.
 			  }
 			  
-			 Path selected = layoutEditor.getDevelopedPath();
+			 Path selected = currentLayoutEditor.getDevelopedPath();
 			 if (selected == null) return;
 			selected.setRoomType( roomTypes.getSelectedIndex() );
 			controller.setRoomType(selected.toString(),  HLH.ROOM_TYPES.values()[ roomTypes.getSelectedIndex()].toString() ) ;
@@ -574,7 +632,48 @@ public class MainWindow extends JFrame implements MessageDisplayer   {
 		ad.setVisible(true);
 	}
 
+	
+	private void initLayoutEditorsListeners(){
+		for (LayoutEditor editor : layoutEditorsList) {
+			editor.setBackground(Color.white);
+			editor.addMouseListener(new MouseAdapter() {
+				@Override
+				public void mouseClicked(MouseEvent e) {
+					layoutEditorMouseClicked(e);
+				}
+			});
+			editor.addMouseMotionListener(new MouseMotionAdapter() {
+				@Override
+				public void mouseMoved(MouseEvent e) {
+					layoutEditorMouseMoved(e);
+				}
+			});
+		}
+		
+	}
+	
+	private void initFloorEditorListener(){
+		   floorsEditor.addMouseListener(new MouseAdapter() {
+				@Override
+				public void mouseClicked(MouseEvent e) {
+					floorsEditorMouseClicked(e);
+				}
+			});
+		   floorsEditor.addMouseMotionListener(new MouseMotionAdapter() {
+				@Override
+				public void mouseMoved(MouseEvent e) {
+					floorsEditorMouseMoved(e); 
+				}
+			});
+		
+	}
 	private void initComponents() {
+		layoutEditorsList=new ArrayList<LayoutEditor>();
+		for (int i = 0; i < FLOORS_COUNT; i++) {
+			layoutEditorsList.add(new LayoutEditor());
+		}
+		currentLayoutEditor = layoutEditorsList.get(0);
+		
 		// JFormDesigner - Component initialization - DO NOT MODIFY  //GEN-BEGIN:initComponents
 		// Generated using JFormDesigner Evaluation license - sz gajek
 		menuBar1 = new JMenuBar();
@@ -604,7 +703,7 @@ public class MainWindow extends JFrame implements MessageDisplayer   {
 		tabbedPane1 = new JTabbedPane();
 		panel1 = new JPanel();
 		scrollPane1 = new JScrollPane();
-		layoutEditor = new LayoutEditor();
+		
 		panel6 = new JPanel();
 		SolidMode = new JButton();
 		DashedMode = new JButton();
@@ -751,19 +850,12 @@ public class MainWindow extends JFrame implements MessageDisplayer   {
 
 		//======== panel5 ========
 		{
-
-			// JFormDesigner evaluation mark
-			panel5.setBorder(new javax.swing.border.CompoundBorder(
-				new javax.swing.border.TitledBorder(new javax.swing.border.EmptyBorder(0, 0, 0, 0),
-					"", javax.swing.border.TitledBorder.CENTER,
-					javax.swing.border.TitledBorder.BOTTOM, new java.awt.Font("Dialog", java.awt.Font.BOLD, 12),
-					java.awt.Color.red), panel5.getBorder())); panel5.addPropertyChangeListener(new java.beans.PropertyChangeListener(){public void propertyChange(java.beans.PropertyChangeEvent e){if("border".equals(e.getPropertyName()))throw new RuntimeException();}});
-
+ 
 			panel5.setLayout(new GridBagLayout());
 			((GridBagLayout)panel5.getLayout()).columnWidths = new int[] {8, 85, 0, 0};
-			((GridBagLayout)panel5.getLayout()).rowHeights = new int[] {29, 23, 23, 23, 23, 32, 0, 0, 0};
+			((GridBagLayout)panel5.getLayout()).rowHeights = new int[] {29, 23, 23, 23, 23, 32,23, 32,33, 32,33, 0};
 			((GridBagLayout)panel5.getLayout()).columnWeights = new double[] {0.0, 0.0, 0.0, 1.0E-4};
-			((GridBagLayout)panel5.getLayout()).rowWeights = new double[] {0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 1.0E-4};
+			((GridBagLayout)panel5.getLayout()).rowWeights = new double[] {0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 1.0E-4};
 
 			//---- zoomMode ----
 			zoomMode.setText("Start Zooming");
@@ -834,6 +926,38 @@ public class MainWindow extends JFrame implements MessageDisplayer   {
 			panel5.add(areaValueLabel, new GridBagConstraints(1, 7, 1, 1, 0.0, 0.0,
 				GridBagConstraints.CENTER, GridBagConstraints.BOTH,
 				new Insets(0, 0, 0, 3), 0, 0));
+			
+			//---- label8 ----;
+			labelFloors = new JLabel();
+			labelFloors.setText("Floor");
+			panel5.add(labelFloors, new GridBagConstraints(1, 8, 1, 1, 0.0, 0.0,
+				GridBagConstraints.CENTER, GridBagConstraints.BOTH,
+				new Insets(0, 0, 3, 3), 0, 0));
+			
+			//---- roomTypes ----
+			floorsCombo= new JComboBox();
+			initFloorsCombo();
+			floorsCombo.addActionListener(new ActionListener() {
+				@Override
+				public void actionPerformed(ActionEvent e) {
+					floorsComboActionPerformed(e);
+				}
+			});
+			floorsCombo.addMouseListener(new MouseAdapter() {
+				@Override
+				public void mouseClicked(MouseEvent e) {
+					floorsComboMouseClicked(e);
+				}
+			});
+			floorsCombo.addFocusListener(new FocusAdapter() {
+				@Override
+				public void focusLost(FocusEvent e) {
+					floorsComboFocusLost(e);
+				}
+			});
+			panel5.add(floorsCombo, new GridBagConstraints(1, 9, 1, 1, 0.0, 0.0,
+				GridBagConstraints.CENTER, GridBagConstraints.BOTH,
+				new Insets(0, 0, 0, 3), 0, 0));
 		}
 		contentPane.add(panel5, cc.xywh(1, 3, 1, 1, CellConstraints.FILL, CellConstraints.DEFAULT));
 
@@ -852,20 +976,8 @@ public class MainWindow extends JFrame implements MessageDisplayer   {
 				{
 
 					//---- layoutEditor ----
-					layoutEditor.setBackground(Color.white);
-					layoutEditor.addMouseListener(new MouseAdapter() {
-						@Override
-						public void mouseClicked(MouseEvent e) {
-							layoutEditorMouseClicked(e);
-						}
-					});
-					layoutEditor.addMouseMotionListener(new MouseMotionAdapter() {
-						@Override
-						public void mouseMoved(MouseEvent e) {
-							layoutEditorMouseMoved(e);
-						}
-					});
-					scrollPane1.setViewportView(layoutEditor);
+					initLayoutEditorsListeners();
+					scrollPane1.setViewportView(currentLayoutEditor);
 				}
 				panel1.add(scrollPane1, cc.xywh(1, 1, 1, 1, CellConstraints.CENTER, CellConstraints.CENTER));
 
@@ -972,6 +1084,29 @@ public class MainWindow extends JFrame implements MessageDisplayer   {
 			tabbedPane1.addTab("Layout Editor", panel1);
 
 
+			JPanel panelFloors = new JPanel();
+			JScrollPane scrollPane_floors = new JScrollPane();
+			//======== panelFloors ========
+			{
+				panelFloors.setLayout(new FormLayout(
+					"492dlu",
+					"top:361dlu"));
+
+				//======== scrollPane2 ========
+				{
+
+					floorsEditor = new FloorsEditor(layoutEditorsList);
+					floorsEditor.initLayout(sizeX, sizeY+150);
+					
+					initFloorEditorListener();
+					
+					scrollPane_floors.setViewportView(floorsEditor);
+				}
+				panelFloors.add(scrollPane_floors, cc.xywh(1, 1, 1, 1, CellConstraints.CENTER, CellConstraints.CENTER));
+			}
+			tabbedPane1.addTab("Floors View", panelFloors);
+			
+			
 			//======== panel2 ========
 			{
 				panel2.setLayout(new FormLayout(
@@ -1117,6 +1252,14 @@ public class MainWindow extends JFrame implements MessageDisplayer   {
 			}
 		
 	}
+	
+	private void initFloorsCombo(){
+		
+			  eventInitiatedBySoftware=true;
+			  floorsCombo.setModel(new javax.swing.DefaultComboBoxModel( new String []{"1","2","3"}));
+			  floorsCombo.setSelectedIndex(0);
+		
+	}
 		
 	private void importOutline(File file ) {
 		
@@ -1128,12 +1271,12 @@ public class MainWindow extends JFrame implements MessageDisplayer   {
 		parser.sym_reflection_y=true;
 		Path outline =parser.parseFileWithMainOutline(file);
 		
-		layoutEditor.hideLineLen();
+		currentLayoutEditor.hideLineLen();
 		
-		layoutEditor.setRootPath(outline);
+		currentLayoutEditor.setRootPath(outline);
 		
-		mode =Mode.OUTLINE_FINISHED;
-		controller.startGraph(layoutEditor.getRootPath(), gridToMeters, sensorRange);
+		currentLayoutEditor.mode =Mode.OUTLINE_FINISHED;
+		controller.startGraph(currentLayoutEditor.getRootPath(), gridToMeters, SENSOR_RANGE);
 	
 		SolidMode.setVisible(true);
 		DashedMode.setVisible(true);
@@ -1171,7 +1314,14 @@ public class MainWindow extends JFrame implements MessageDisplayer   {
 	private JTabbedPane tabbedPane1;
 	private JPanel panel1;
 	private JScrollPane scrollPane1;
-	private LayoutEditor layoutEditor;
+	
+	private ArrayList<LayoutEditor> layoutEditorsList;
+	private  LayoutEditor currentLayoutEditor;
+	private JComboBox floorsCombo;
+	private JLabel  labelFloors;
+	
+	FloorsEditor floorsEditor;
+	
 	private JPanel panel6;
 	private JButton SolidMode;
 	private JButton DashedMode;
@@ -1224,7 +1374,7 @@ public class MainWindow extends JFrame implements MessageDisplayer   {
 
 	public void displayMessageAndHighlight(String message, ArrayList<String> roomsToHighlight) {
 		validationMessage.setText(message);
-		layoutEditor.hihglightRooms(roomsToHighlight);
+		currentLayoutEditor.hihglightRooms(roomsToHighlight);
 		repaint();
 	}
  

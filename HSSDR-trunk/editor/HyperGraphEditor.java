@@ -164,9 +164,9 @@ public class HyperGraphEditor extends JPanel implements HyperGraphBrowser {
 		return ObjectPainter.getAreaKind(x, y,graphRoot.getRootEdge());
 	}
 
-	public void dragObject(int x, int y) {
+	public void dragObject(int x, int y, boolean isRightClick) {
 		if (ObjectPainter.isSelected()){
-			ObjectPainter.dragObject(x, y, graphRoot.getRootEdge());
+			ObjectPainter.dragObject(x, y, graphRoot.getRootEdge(),isRightClick);
 			repaint();
 		}
 	}
