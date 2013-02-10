@@ -1,0 +1,3 @@
+failure_msg "a kitchen should not be adjacent to a bedroom."
+forall x,y in Rooms : type(x) = "Bedroom" and type(y) = "Kitchen"
+  => not accessible(x,y);
