@@ -5,6 +5,7 @@
 
 package controller;
 
+import util.Logger;
 import editor.MainWindow;
 
 // Referenced classes of package controller:
@@ -23,6 +24,6 @@ public class Start
         MainWindow mw = new MainWindow(controller);
         controller.init(mw, mw.getHyperGraphEditor(), mw.getValidationEditor());
         mw.setVisible(true);
-        System.out.println("-------START-----------");
+        Logger.LOGGER.debug("-------START-----------");
     }
 }
