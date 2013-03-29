@@ -22,7 +22,8 @@ public class Start
     {
         Controller controller = new Controller();
         MainWindow mw = new MainWindow(controller);
-        controller.init(mw, mw.getHyperGraphEditor(), mw.getValidationEditor());
+        controller.initController(mw, mw.getHyperGraphEditor(), mw.getValidationEditor());
+        mw.initGraph();
         mw.setVisible(true);
         Logger.LOGGER.debug("-------START-----------");
     }

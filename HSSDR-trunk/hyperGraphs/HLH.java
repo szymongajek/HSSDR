@@ -61,14 +61,14 @@ public class HLH
     
     float gridToMeters;
 
-    public HLH()
+    public HLH(float gridToMeters, int sensorRange, int floorCount)
     {
         objectHEMap = new Hashtable<String,ObjectHE>();
         doorsMap = new Hashtable<String,DoorsAttributes>();
         sensors = new ArrayList<HGSensor>();
     }
-
-    public void init(ObjectHE rootEdge, float gridToMeters, int sensorRange)
+    
+    public void createRootEdge(ObjectHE rootEdge, float gridToMeters, int sensorRange, int floorNr)
     {
         rootEdge.setLevel(0);
         this.rootEdge = rootEdge;
