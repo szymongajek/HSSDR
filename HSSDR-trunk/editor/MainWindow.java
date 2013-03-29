@@ -69,16 +69,16 @@ public class MainWindow extends JFrame implements MessageDisplayer   {
  
 	private static final long serialVersionUID = -319515686608844806L;
 
-	private Controller controller;
+	public static final int  DEFAULT_SENSOR_RANGE=6;
 	
-	private static final int  SENSOR_RANGE=6;
-	
-	private static final int FLOORS_COUNT=3;
+	public static final int DELAULT_FLOORS_COUNT=3;
 	
 	public static final int DEFAULT_SIZE_X=900;
 	public static final int DEFAULT_SIZE_Y=420;
 	public static final int DEFAULT_GRID_SIZE=20;
 	public static final float DEFAULT_GRID_METERS=1;
+	
+	private Controller controller;
 	
 	public int sizeX=DEFAULT_SIZE_X;
 	public int sizeY=DEFAULT_SIZE_Y;
@@ -93,8 +93,18 @@ public class MainWindow extends JFrame implements MessageDisplayer   {
 	
 	Boolean eventInitiatedBySoftware=false;
 	
+	private int floorCount=DELAULT_FLOORS_COUNT;
+	private int currentFloor=0;
+	
+	private int sensorRange = DEFAULT_SENSOR_RANGE;
+
 	public MainWindow(Controller controller) {
 		this.controller=controller;
+		initAll();
+
+	}
+	
+	public void initAll(){
 		initComponents();
 		initButtonProps(zoomMode);
 		initButtonProps(clearButton2);
@@ -150,6 +160,10 @@ public class MainWindow extends JFrame implements MessageDisplayer   {
 			divisionTree.delete();
 			divisionTree=null;
 		}
+	}
+	
+	public void initGraph(){
+		controller.initGraph(gridToMeters, sensorRange, floorCount);
 	}
  
 	
@@ -306,7 +320,7 @@ public class MainWindow extends JFrame implements MessageDisplayer   {
 				currentLayoutEditor.hideLineLen();
 				
 				currentLayoutEditor.mode =Mode.OUTLINE_FINISHED;
-				controller.startGraph(currentLayoutEditor.getRootPath(), gridToMeters, SENSOR_RANGE);
+				controller.startOutline(currentLayoutEditor.getRootPath(), gridToMeters, DEFAULT_SENSOR_RANGE, currentFloor);
    		
 				SolidMode.setVisible(true);
 				DashedMode.setVisible(true);
@@ -540,10 +554,11 @@ public class MainWindow extends JFrame implements MessageDisplayer   {
 
 
 	protected void floorsComboActionPerformed(ActionEvent e) {
-		currentLayoutEditor=layoutEditorsList.get( floorsCombo.getSelectedIndex());
+		currentFloor = floorsCombo.getSelectedIndex();
+		currentLayoutEditor=layoutEditorsList.get(currentFloor );
 		scrollPane1.setViewportView(currentLayoutEditor);
 		repaint();
-		
+		controller.setHGBrowserCurrentFloor(currentFloor);
 	}
 
 
@@ -611,6 +626,7 @@ public class MainWindow extends JFrame implements MessageDisplayer   {
 
 	private void clear_menuItemActionPerformed(ActionEvent e) {
 		clearAll();
+		initGraph();
 	}
 
 	private void open_menuItemActionPerformed(ActionEvent e) {
@@ -633,7 +649,7 @@ public class MainWindow extends JFrame implements MessageDisplayer   {
 	}
 
 	
-	private void initLayoutEditorsListeners(){
+	public  void initLayoutEditorsListeners(){
 		for (LayoutEditor editor : layoutEditorsList) {
 			editor.setBackground(Color.white);
 			editor.addMouseListener(new MouseAdapter() {
@@ -667,12 +683,27 @@ public class MainWindow extends JFrame implements MessageDisplayer   {
 			});
 		
 	}
-	private void initComponents() {
+	
+	public void initLayoutEditorsList(int pFloorCount){
+		this.floorCount = pFloorCount;
+		this.currentFloor=0;
 		layoutEditorsList=new ArrayList<LayoutEditor>();
-		for (int i = 0; i < FLOORS_COUNT; i++) {
+		for (int i = 0; i < floorCount ; i++) {
 			layoutEditorsList.add(new LayoutEditor());
 		}
 		currentLayoutEditor = layoutEditorsList.get(0);
+		
+		initLayoutEditorsListeners();
+	}
+	public void initFloorsEditor(){
+		floorsEditor.reset(layoutEditorsList);
+		floorsEditor.initLayout(sizeX, sizeY+150);
+	}
+
+	
+	private void initComponents() {
+		
+		initLayoutEditorsList(DELAULT_FLOORS_COUNT);
 		
 		// JFormDesigner - Component initialization - DO NOT MODIFY  //GEN-BEGIN:initComponents
 		// Generated using JFormDesigner Evaluation license - sz gajek
@@ -976,8 +1007,7 @@ public class MainWindow extends JFrame implements MessageDisplayer   {
 				{
 
 					//---- layoutEditor ----
-					initLayoutEditorsListeners();
-					scrollPane1.setViewportView(currentLayoutEditor);
+				 	scrollPane1.setViewportView(currentLayoutEditor);
 				}
 				panel1.add(scrollPane1, cc.xywh(1, 1, 1, 1, CellConstraints.CENTER, CellConstraints.CENTER));
 
@@ -1253,12 +1283,16 @@ public class MainWindow extends JFrame implements MessageDisplayer   {
 		
 	}
 	
-	private void initFloorsCombo(){
-		
-			  eventInitiatedBySoftware=true;
-			  floorsCombo.setModel(new javax.swing.DefaultComboBoxModel( new String []{"1","2","3"}));
-			  floorsCombo.setSelectedIndex(0);
-		
+	void initFloorsCombo() {
+
+		String[] model = new String[floorCount];
+		for (int i = 0; i < floorCount; i++) {
+			model[i] =  String.valueOf(i);
+		}
+		eventInitiatedBySoftware = true;
+		floorsCombo.setModel(new javax.swing.DefaultComboBoxModel(model));
+		floorsCombo.setSelectedIndex(0);
+
 	}
 		
 	private void importOutline(File file ) {
@@ -1276,7 +1310,7 @@ public class MainWindow extends JFrame implements MessageDisplayer   {
 		currentLayoutEditor.setRootPath(outline);
 		
 		currentLayoutEditor.mode =Mode.OUTLINE_FINISHED;
-		controller.startGraph(currentLayoutEditor.getRootPath(), gridToMeters, SENSOR_RANGE);
+		controller.startOutline(currentLayoutEditor.getRootPath(), gridToMeters, DEFAULT_SENSOR_RANGE);
 	
 		SolidMode.setVisible(true);
 		DashedMode.setVisible(true);
@@ -1378,4 +1412,18 @@ public class MainWindow extends JFrame implements MessageDisplayer   {
 		repaint();
 	}
  
+	
+	public int getFloorCount() {
+		return floorCount;
+	}
+
+
+
+	public int getSensorRange() {
+		return sensorRange;
+	}
+
+	public void setSensorRange(int sensorRange) {
+		this.sensorRange = sensorRange;
+	}
 }

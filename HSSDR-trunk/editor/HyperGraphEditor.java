@@ -33,6 +33,7 @@ public class HyperGraphEditor extends JPanel implements HyperGraphBrowser {
 	int pos_mod_x=0;
 	int pos_mod_y=0;
  
+	private int currentFloor = 0;
 	
 	public HyperGraphEditor(){
 		  
@@ -186,8 +187,10 @@ public class HyperGraphEditor extends JPanel implements HyperGraphBrowser {
 		
 	}
 
-	
-	 
+	@Override
+	public void setCurrentFloor(int floorNr) {
+		currentFloor=floorNr;
+	}
 	 
 }
 

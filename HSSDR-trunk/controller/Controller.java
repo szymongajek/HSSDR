@@ -25,22 +25,40 @@ public class Controller
   
     public Controller()
     {
-        graph = new HLH();
     }
 
-    public void init(MessageDisplayer messageDisplayer, HyperGraphBrowser HGBrowser,TestChooser testChooser)
+    public void initController(MessageDisplayer messageDisplayer, HyperGraphBrowser HGBrowser,TestChooser testChooser)
     {
         this.messageDisplayer = messageDisplayer;
         this.HGBrowser = HGBrowser;
+        HGBrowser.setGraph(graph);
         this.testChooser=testChooser;
     }
-
-    public void startGraph(Path rootPath, float gridToMeters, int sensorRange)
+    
+    public void clearGraph()
     {
-    	
-        graph.init(rootPath.createObjectHE(null,0),gridToMeters,sensorRange );
+        graph = null;
+        HGBrowser.clear();
+    }
+    
+    public void initGraph(float gridToMeters, int sensorRange, int floorCount )
+    {
+    	graph = new HLH(gridToMeters, sensorRange, floorCount) ;
         HGBrowser.setGraph(graph);
+    }
+    public void setHGBrowserCurrentFloor(int floorNr){
+    	HGBrowser.setCurrentFloor(floorNr);
+    }
+
+    public void startOutline(Path rootPath, float gridToMeters, int sensorRange, int floorNr)
+    {
+        graph.createRootEdge(rootPath.createObjectHE(null,0),gridToMeters,sensorRange, floorNr );
         checkLayout();
+    }
+    
+    public void startOutline(Path rootPath, float gridToMeters, int sensorRange )
+    {
+    	startOutline(  rootPath,   gridToMeters,   sensorRange, 0);
     }
 
     public void developArea(Path developedPath, ArrayList newObjects, int level)
@@ -87,12 +105,6 @@ public class Controller
     {
     	 graph.setRoomType( roomString,  user_label);
     	 checkLayout();
-    }
-    
-    public void clearGraph()
-    {
-        graph = new HLH();
-        HGBrowser.clear();
     }
     
     public void deleteDivision(String label) {

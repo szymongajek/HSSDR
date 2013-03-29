@@ -52,6 +52,11 @@ public class FloorsEditor extends JPanel {
 		this.layoutEditorsList = layoutEditorsList;
 	}
 	
+	public void reset(ArrayList<LayoutEditor> layoutEditorsList){
+		this.layoutEditorsList = layoutEditorsList;
+		arrows = new ArrayList<Arrow>();
+	}
+	
 	@Override
 	public void paint(Graphics g) {
 		Graphics2D g2D = (Graphics2D) g;
