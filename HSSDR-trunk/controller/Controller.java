@@ -64,8 +64,8 @@ public class Controller
     public void developArea(Path developedPath, ArrayList newObjects, int level)
     {
         ObjectHE developedEdge;
-        if(graph.getRootEdge().getAttribute(HLH.LABEL).equals(developedPath.toString()))
-            developedEdge = graph.getRootEdge();
+        if(graph.getRootEdgeGroundFloor().getAttribute(HLH.LABEL).equals(developedPath.toString()))
+            developedEdge = graph.getRootEdgeGroundFloor();
         else
             developedEdge = graph.findObjectHEWithLabel(developedPath.toString());
         if(newObjects.size() != 2)
@@ -197,7 +197,7 @@ public class Controller
     }
     
     public ObjectHE getGraph(){
-    	return graph.getRootEdge();
+    	return graph.getRootEdgeGroundFloor();
     }
 
 	

@@ -51,37 +51,47 @@ public class HLH
 		
 	}
 	
-	
-	
 	//najwyzej polozona w hierarchii hiperkrawejdz 
-    private ObjectHE rootEdge;
+    private ObjectHE rootEdgeGroundFloor;
+    private ObjectHE[] rootEdges;
     private Hashtable<String,ObjectHE> objectHEMap;
     private Hashtable<String,DoorsAttributes> doorsMap;
     private ArrayList<HGSensor> sensors;
     
     float gridToMeters;
+    
+    int floorCount=0;
 
     public HLH(float gridToMeters, int sensorRange, int floorCount)
     {
         objectHEMap = new Hashtable<String,ObjectHE>();
         doorsMap = new Hashtable<String,DoorsAttributes>();
         sensors = new ArrayList<HGSensor>();
+        this.floorCount=floorCount;
+        rootEdges = new ObjectHE[floorCount];
     }
     
     public void createRootEdge(ObjectHE rootEdge, float gridToMeters, int sensorRange, int floorNr)
     {
         rootEdge.setLevel(0);
-        this.rootEdge = rootEdge;
+        if (floorNr==0) this.rootEdgeGroundFloor = rootEdge;
+        rootEdges[floorNr]= rootEdge;
         rootEdge.setParentEdge(null);
         objectHEMap.put(rootEdge.getAttribute(HLH.LABEL), rootEdge);
         this.gridToMeters=gridToMeters;
         HGSensor.range=sensorRange;
     }
 
-    public ObjectHE getRootEdge()
+    public ObjectHE getRootEdgeGroundFloor()
     {
-        return rootEdge;
+        return rootEdgeGroundFloor;
     }
+    
+    public ObjectHE getRootEdge(int floorNr)
+    {
+        return rootEdges[floorNr];
+    }
+    
     class DoorToDoor extends AbstractFunction
     {
         public DoorToDoor()

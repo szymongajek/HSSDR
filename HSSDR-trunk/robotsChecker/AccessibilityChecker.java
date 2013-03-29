@@ -65,7 +65,7 @@ public class AccessibilityChecker
 
 	GraphMessage[] check(HLH graph)
 	{
-		AccessibilityChecker.findRooms(graph.getRootEdge(),rooms);
+		AccessibilityChecker.findRooms(graph.getRootEdgeGroundFloor(),rooms);
 		// check for existence of rooms with doors leading outside
 		for (ObjectHE r : rooms)
 			if (hasOutsideDoor(r))

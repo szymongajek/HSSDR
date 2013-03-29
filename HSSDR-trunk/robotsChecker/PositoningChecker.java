@@ -152,7 +152,7 @@ public class PositoningChecker
 	public static GraphMessage[] checkStructure(HLH graph)
 	{
 		LinkedList<Wall> ls = new LinkedList<Wall>();
-		extractWalls(graph.getRootEdge(), ls);
+		extractWalls(graph.getRootEdgeGroundFloor(), ls);
 		if (isSymmetrical(ls)) {
 			GraphMessage m = new GraphMessage();
 			m.setMessage("layout jest symetryczny\nroboty mog¹ straciæ orientacjê");

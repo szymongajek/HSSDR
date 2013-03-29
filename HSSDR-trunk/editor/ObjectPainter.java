@@ -482,10 +482,10 @@ public class ObjectPainter   {
 		}
 		
 	}
-	public static  void paintGraph(HLH graph, Graphics2D g2D){
-		paintObjectHE(g2D, graph.getRootEdge());
-		paintChildElements(g2D, graph.getRootEdge(), true, false);
-		paintChildElements(g2D, graph.getRootEdge(), false, true);
+	public static  void paintGraph(ObjectHE rootEdge, Graphics2D g2D){
+		paintObjectHE(g2D, rootEdge);
+		paintChildElements(g2D, rootEdge, true, false);
+		paintChildElements(g2D, rootEdge, false, true);
 	}
 	 
 	
