@@ -10,7 +10,7 @@ public class MovingRobotChecker
 	 
 
 	private GraphMessage[] check(HLH graph) {
-		AccessibilityChecker.findRooms(graph.getRootEdge(),rooms);
+		AccessibilityChecker.findRooms(graph.getRootEdgeGroundFloor(),rooms);
 		String err="";
 		
 		//sprawdzanie rozmiarow pokoi

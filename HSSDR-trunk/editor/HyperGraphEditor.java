@@ -78,9 +78,9 @@ public class HyperGraphEditor extends JPanel implements HyperGraphBrowser {
 			g2D.setColor(Color.red);
 			g2D.scale(zoomedTo, zoomedTo);
 
-			if (graphRoot!=null){
+			if (graphRoot.getRootEdge(currentFloor)!=null){
 				
-				ObjectPainter.paintGraph(graphRoot, g2D);
+				ObjectPainter.paintGraph(graphRoot.getRootEdge(currentFloor), g2D);
 	 
 			}
 	}
@@ -162,23 +162,23 @@ public class HyperGraphEditor extends JPanel implements HyperGraphBrowser {
 	}
 	
 	public int getAreaKind(int x, int y) {
-		return ObjectPainter.getAreaKind(x, y,graphRoot.getRootEdge());
+		return ObjectPainter.getAreaKind(x, y,graphRoot.getRootEdgeGroundFloor());
 	}
 
 	public void dragObject(int x, int y, boolean isRightClick) {
 		if (ObjectPainter.isSelected()){
-			ObjectPainter.dragObject(x, y, graphRoot.getRootEdge(),isRightClick);
+			ObjectPainter.dragObject(x, y, graphRoot.getRootEdgeGroundFloor(),isRightClick);
 			repaint();
 		}
 	}
 	
 	public void selectObject(int x, int y) {
-		 ObjectPainter.selectObject(x, y,graphRoot.getRootEdge());
+		 ObjectPainter.selectObject(x, y,graphRoot.getRootEdgeGroundFloor());
 		 repaint();
 	}
 
 	public void releaseObject(int x, int y) {
-		 ObjectPainter.releaseObject(x, y,graphRoot.getRootEdge());
+		 ObjectPainter.releaseObject(x, y,graphRoot.getRootEdgeGroundFloor());
 		 repaint();
 	}
 	
