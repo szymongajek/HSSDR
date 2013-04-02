@@ -106,7 +106,6 @@ public class MainWindow extends JFrame implements MessageDisplayer   {
 	
 	public void initAll(){
 		initComponents();
-		initButtonProps(zoomMode);
 		initButtonProps(clearButton2);
 		initButtonProps(SolidMode);
 		initButtonProps(DashedMode);
@@ -278,21 +277,6 @@ public class MainWindow extends JFrame implements MessageDisplayer   {
 			currentLayoutEditor.mode=Mode.AREA_SELECTED;
 			currentLayoutEditor.setAddingSensor(null);
 			break;
-		case ZOOM:
-			if(e.getButton() == MouseEvent.BUTTON1) 
-	        { 
-	            currentLayoutEditor.zoomIn();                  
-	        } 
-	        else if(e.getButton() == MouseEvent.BUTTON3) 
-	        { 
-	        	currentLayoutEditor.zoomOut(); 
-	        } 
-
-	        tabbedPane1.validate();
-	        currentLayoutEditor.validate();//????
-	        scrollPane1.validate();//????
-	        zoomLabel.setText( currentLayoutEditor.getZoomedPerc() + "%");
-			break;
 		case ADD_DOORS:
 			Object [] newDoorsObjects=currentLayoutEditor.putDoors(e.getX(), e.getY());
 			
@@ -409,22 +393,6 @@ public class MainWindow extends JFrame implements MessageDisplayer   {
 		 repaint();
 	}
 	
-	private void zoomModeActionPerformed(ActionEvent e) {
-		
-		if (currentLayoutEditor.mode ==Mode.ZOOM){
-			// zoomwanie off
-			zoomMode.setText("start zooming");
-			
-			currentLayoutEditor.mode=currentLayoutEditor.prevDravingMode;
-			
-		}else {
-//			 zoomwanie on
-			zoomMode.setText("end zooming");
-			currentLayoutEditor.prevDravingMode=currentLayoutEditor.mode; 
-			currentLayoutEditor.mode=Mode.ZOOM;
-		}
-	}
-	
 	public void setDashedLineMeansVis(boolean meansVis){
 		HLH.setDashedLineMeansVisible(meansVis);
 	}
@@ -446,6 +414,26 @@ public class MainWindow extends JFrame implements MessageDisplayer   {
 //		applyAffineTransofrm();
 		isThick=!isThick;
 		
+	}
+	
+	private void zoomInButtonActionPerformed(ActionEvent e) {
+		currentLayoutEditor.zoomIn();
+		
+		tabbedPane1.validate();
+		currentLayoutEditor.validate();// ????
+		scrollPane1.validate();// ????
+		zoomLabel.setText(currentLayoutEditor.getZoomedPerc() + "%");
+
+	}
+
+	private void zoomOutButtonActionPerformed(ActionEvent e) {
+		currentLayoutEditor.zoomOut();
+
+		tabbedPane1.validate();
+		currentLayoutEditor.validate();// ????
+		scrollPane1.validate();// ????
+		zoomLabel.setText(currentLayoutEditor.getZoomedPerc() + "%");
+
 	}
 	 
 	private void initButtonProps(JButton button){
@@ -722,7 +710,10 @@ public class MainWindow extends JFrame implements MessageDisplayer   {
 		helpHyper_menuItem = new JMenuItem();
 		helpTests_menuItem = new JMenuItem();
 		panel5 = new JPanel();
-		zoomMode = new JButton();
+		panel5 = new JPanel();
+		panel4 = new JPanel();
+		zoomInButton = new JButton();
+		zoomOutButton = new JButton();
 		zoomLabel = new JLabel();
 		label5 = new JLabel();
 		RoomLabel = new JTextField();
@@ -888,17 +879,42 @@ public class MainWindow extends JFrame implements MessageDisplayer   {
 			((GridBagLayout)panel5.getLayout()).columnWeights = new double[] {0.0, 0.0, 0.0, 1.0E-4};
 			((GridBagLayout)panel5.getLayout()).rowWeights = new double[] {0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 1.0E-4};
 
-			//---- zoomMode ----
-			zoomMode.setText("Start Zooming");
-			zoomMode.addActionListener(new ActionListener() {
-				@Override
-				public void actionPerformed(ActionEvent e) {
-					zoomModeActionPerformed(e);
-				}
-			});
-			panel5.add(zoomMode, new GridBagConstraints(1, 0, 2, 1, 0.0, 0.0,
-				GridBagConstraints.CENTER, GridBagConstraints.BOTH,
-				new Insets(0, 0, 3, 0), 0, 0));
+//			panel5.add(zoomMode, new GridBagConstraints(1, 0, 2, 1, 0.0, 0.0,
+//				GridBagConstraints.CENTER, GridBagConstraints.BOTH,
+//				new Insets(0, 0, 3, 0), 0, 0));
+//			panel5.add(zoomLabel, new GridBagConstraints(1, 1, 1, 1, 0.0, 0.0,
+//				GridBagConstraints.CENTER, GridBagConstraints.BOTH,
+//				new Insets(0, 0, 3, 3), 0, 0));
+			
+			//======== panel4 ========
+			{
+				panel4.setLayout(new FormLayout(
+					"2*(default)",
+					"default"));
+
+				//---- zoomInButton ----
+				zoomInButton.setText("+");
+				zoomInButton.addActionListener(new ActionListener() {
+					@Override
+					public void actionPerformed(ActionEvent e) {
+						zoomInButtonActionPerformed(e);
+					}
+				});
+				panel4.add(zoomInButton, cc.xy(1, 1));
+
+				//---- zoomOutButton ----
+				zoomOutButton.setText("-");
+				zoomOutButton.addActionListener(new ActionListener() {
+					@Override
+					public void actionPerformed(ActionEvent e) {
+						zoomOutButtonActionPerformed(e);
+					}
+				});
+				panel4.add(zoomOutButton, cc.xy(2, 1));
+			}
+			panel5.add(panel4, new GridBagConstraints(1, 0, 1, 1, 0.0, 0.0,
+				GridBagConstraints.CENTER, GridBagConstraints.HORIZONTAL,
+				new Insets(0, 0, 3, 3), 0, 0));
 			panel5.add(zoomLabel, new GridBagConstraints(1, 1, 1, 1, 0.0, 0.0,
 				GridBagConstraints.CENTER, GridBagConstraints.BOTH,
 				new Insets(0, 0, 3, 3), 0, 0));
@@ -1337,7 +1353,9 @@ public class MainWindow extends JFrame implements MessageDisplayer   {
 	private JMenuItem helpHyper_menuItem;
 	private JMenuItem helpTests_menuItem;
 	private JPanel panel5;
-	private JButton zoomMode;
+	private JPanel panel4;
+	private JButton zoomInButton;
+	private JButton zoomOutButton;
 	private JLabel zoomLabel;
 	private JLabel label5;
 	private JTextField RoomLabel;
