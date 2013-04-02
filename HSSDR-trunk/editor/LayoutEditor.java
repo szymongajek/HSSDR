@@ -24,7 +24,6 @@ enum Mode {
 	OUTLINE_FINISHED,// 2 - po  narysowaniu rootShape , niezaznaczony developedPath
 	AREA_SELECTED,// 25 - po  narysowaniu rootShape , zaznaczony developedPath
 	DIVIDING_AREA,//	3 - po  narysowaniu rootShape, w trakcie rysowania dzialacej krawedzi editedPath
-	ZOOM,// 10 - zoom
 	ADD_DOORS,// 20  - dodawanie drzwi
 	SENSOR_ADDING; //dodanie pkt 1 czujnika i oczekiwanie na wybranie pkt 2 
 }
