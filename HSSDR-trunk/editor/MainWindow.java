@@ -49,18 +49,25 @@ import javax.swing.JTextField;
 import javax.swing.SwingConstants;
 import javax.swing.UIManager;
 import javax.swing.WindowConstants;
+import javax.swing.event.ChangeEvent;
+import javax.swing.event.ChangeListener;
 import javax.swing.event.ListSelectionEvent;
 import javax.swing.event.ListSelectionListener;
 
 import rectangularBoard.Path;
 import revitXmlTesting.RevitPluginParser;
 import sensors.Sensor;
+import util.Logger;
 
 import com.jgoodies.forms.layout.CellConstraints;
 import com.jgoodies.forms.layout.FormLayout;
 
 import controller.Controller;
 import controller.MessageDisplayer;
+
+enum TABS{
+	LAYOUT_EDITOR,HYPER_GRPAH_EDITOR, FLOORS, VALIDATION
+}
 
 /**
  * @author szymon gajek
@@ -97,6 +104,11 @@ public class MainWindow extends JFrame implements MessageDisplayer   {
 	private int currentFloor=0;
 	
 	private int sensorRange = DEFAULT_SENSOR_RANGE;
+	
+	private ArrayList<LayoutEditor> layoutEditorsList;
+	private  LayoutEditor currentLayoutEditor;
+	
+	private TABS currentTab = TABS.LAYOUT_EDITOR;
 
 	public MainWindow(Controller controller) {
 		this.controller=controller;
@@ -417,20 +429,46 @@ public class MainWindow extends JFrame implements MessageDisplayer   {
 	}
 	
 	private void zoomInButtonActionPerformed(ActionEvent e) {
-		currentLayoutEditor.zoomIn();
 		
+		switch (currentTab){
+		case  LAYOUT_EDITOR:
+			currentLayoutEditor.zoomIn();
+			currentLayoutEditor.validate();// ????
+			break;
+		case FLOORS:
+			break;
+		case HYPER_GRPAH_EDITOR:
+			hyperGraphEditor.zoomIn();
+			hyperGraphEditor.validate();// ????
+			break;
+		case VALIDATION:
+			break;
+		}
+
 		tabbedPane1.validate();
-		currentLayoutEditor.validate();// ????
 		scrollPane1.validate();// ????
 		zoomLabel.setText(currentLayoutEditor.getZoomedPerc() + "%");
-
 	}
 
 	private void zoomOutButtonActionPerformed(ActionEvent e) {
-		currentLayoutEditor.zoomOut();
+		
+		switch (currentTab){
+		case  LAYOUT_EDITOR:
+			currentLayoutEditor.zoomOut();
+			currentLayoutEditor.validate();// ????
+			break;
+		case FLOORS:
+			
+			break;
+		case HYPER_GRPAH_EDITOR:
+			hyperGraphEditor.zoomOut();
+			hyperGraphEditor.validate();// ????
+			break;
+		case VALIDATION:
+			break;
+		}
 
 		tabbedPane1.validate();
-		currentLayoutEditor.validate();// ????
 		scrollPane1.validate();// ????
 		zoomLabel.setText(currentLayoutEditor.getZoomedPerc() + "%");
 
@@ -636,6 +674,23 @@ public class MainWindow extends JFrame implements MessageDisplayer   {
 		ad.setVisible(true);
 	}
 
+	private void tabbedPaneTabChanged(ChangeEvent e) {
+		switch (tabbedPane1.getSelectedIndex()){
+		case 0:
+			currentTab=TABS.LAYOUT_EDITOR;
+			break;
+		case 1:
+			currentTab=TABS.FLOORS;
+			break;
+		case 2:
+			currentTab=TABS.HYPER_GRPAH_EDITOR;
+			break;
+		case 3:
+			currentTab=TABS.VALIDATION;
+			break;
+		}
+		
+	}
 	
 	public  void initLayoutEditorsListeners(){
 		for (LayoutEditor editor : layoutEditorsList) {
@@ -1284,6 +1339,17 @@ public class MainWindow extends JFrame implements MessageDisplayer   {
 
 		}
 		contentPane.add(tabbedPane1, cc.xywh(2, 3, 2, 1, CellConstraints.FILL, CellConstraints.FILL));
+		
+		tabbedPane1.addChangeListener(new ChangeListener() {
+			
+			@Override
+			public void stateChanged(ChangeEvent e) {
+				tabbedPaneTabChanged(e);
+				
+			}
+
+		});
+		
 		pack();
 		setLocationRelativeTo(getOwner());
 		// JFormDesigner - End of component initialization  //GEN-END:initComponents
@@ -1367,8 +1433,7 @@ public class MainWindow extends JFrame implements MessageDisplayer   {
 	private JPanel panel1;
 	private JScrollPane scrollPane1;
 	
-	private ArrayList<LayoutEditor> layoutEditorsList;
-	private  LayoutEditor currentLayoutEditor;
+	
 	private JComboBox floorsCombo;
 	private JLabel  labelFloors;
 	
