@@ -106,7 +106,7 @@ public class MainWindow extends JFrame implements MessageDisplayer   {
 	private int sensorRange = DEFAULT_SENSOR_RANGE;
 	
 	private ArrayList<LayoutEditor> layoutEditorsList;
-	private  LayoutEditor currentLayoutEditor;
+	LayoutEditor currentLayoutEditor;
 	
 	private TABS currentTab = TABS.LAYOUT_EDITOR;
 
@@ -366,44 +366,6 @@ public class MainWindow extends JFrame implements MessageDisplayer   {
 		 repaint();
 	}
 
-	int arr1x, arr1y  ;
-	boolean aarrStarted = false;
-	private void floorsEditorMouseClicked(MouseEvent e) {
-		if (!aarrStarted ){
-			arr1x=e.getX();
-			arr1y=e.getY();
-			aarrStarted=true;
-			
-		}else{
-			aarrStarted=false;
-			floorsEditor.removeTempArrow();
-			floorsEditor.addArrow(arr1x, arr1y, e.getX(), e.getY(),isThick);
-		}
-	
-	}
-	
-	private void floorsEditorMouseMoved(MouseEvent e) {
-		 
-		if (aarrStarted){
-			floorsEditor.setTemporaryArrow(arr1x, arr1y, e.getX(),  e.getY());
-		}
-		
-		switch (currentLayoutEditor.mode) {
-		case OUTLINE_FINISHED:
-			currentLayoutEditor.markGrid(e.getX(), e.getY()  );
-			currentLayoutEditor.highlightPath(e.getX(), e.getY());
-			break;
-		case AREA_SELECTED:
-			currentLayoutEditor.markGrid(e.getX(), e.getY()  );
-			currentLayoutEditor.highlightPath(e.getX(), e.getY());
-			break;
-		 
-		default:
-			currentLayoutEditor.markGrid(e.getX(), e.getY()  );
-			break;
-		}
-		 repaint();
-	}
 	
 	public void setDashedLineMeansVis(boolean meansVis){
 		HLH.setDashedLineMeansVisible(meansVis);
@@ -419,13 +381,11 @@ public class MainWindow extends JFrame implements MessageDisplayer   {
 //		drawMode.setVisible(false);
 		
 	}
-	boolean isThick=false;
+	
 	private void clearButtonActionPerformed(ActionEvent e) {
 		
-//		clearAll();
+		clearAll();
 //		applyAffineTransofrm();
-		isThick=!isThick;
-		
 	}
 	
 	private void zoomInButtonActionPerformed(ActionEvent e) {
@@ -715,13 +675,13 @@ public class MainWindow extends JFrame implements MessageDisplayer   {
 		   floorsEditor.addMouseListener(new MouseAdapter() {
 				@Override
 				public void mouseClicked(MouseEvent e) {
-					floorsEditorMouseClicked(e);
+					floorsEditor.floorsEditorMouseClicked(e);
 				}
 			});
 		   floorsEditor.addMouseMotionListener(new MouseMotionAdapter() {
 				@Override
 				public void mouseMoved(MouseEvent e) {
-					floorsEditorMouseMoved(e); 
+					floorsEditor.floorsEditorMouseMoved(e); 
 				}
 			});
 		
@@ -1197,7 +1157,7 @@ public class MainWindow extends JFrame implements MessageDisplayer   {
 				//======== scrollPane2 ========
 				{
 
-					floorsEditor = new FloorsEditor(layoutEditorsList);
+					floorsEditor = new FloorsEditor(layoutEditorsList, this);
 					floorsEditor.initLayout(sizeX, sizeY+150);
 					
 					initFloorEditorListener();
