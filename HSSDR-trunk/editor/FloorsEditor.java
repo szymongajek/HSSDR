@@ -15,11 +15,19 @@ import javax.swing.JPanel;
 
 public class FloorsEditor extends JPanel {
 
+	private static final int Y_LAYOUT_GAP = 50;
+	
+	private static final int Y_LAYOUT_SIZE= MainWindow.DEFAULT_SIZE_Y;
+
+	private static final int X_BASE_TRANSLATION = 150;
+
+	private static final int Y_BASE_TRANSLATION = 10;
+
 	private int sizeX = 1000, sizeY = 500; // pocztakowy rozmiar planszy (bez
 	// zoomowania)
 
-	private final double X_SCALE = .7;
-	private final double Y_SCALE = .3;
+	private final double X_SCALE = .5;
+	private final double Y_SCALE = .5;
 
 	private ArrayList<LayoutEditor> layoutEditorsList;
 
@@ -28,6 +36,9 @@ public class FloorsEditor extends JPanel {
 	private Arrow tempArrow;
 
 	private ArrayList<Arrow> arrows = new ArrayList<Arrow>();
+	int arr1x, arr1y;
+	boolean aarrStarted = false;
+	boolean isThick = false;
 
 	public FloorsEditor(ArrayList<LayoutEditor> layoutEditorsList,
 			MainWindow window) {
@@ -66,12 +77,11 @@ public class FloorsEditor extends JPanel {
 
 		int layoutscount = layoutEditorsList.size();
 
-		int xcorrection = 320;
-		int ycorrection = MainWindow.DEFAULT_SIZE_Y + 150;
+		int ycorrection = Y_LAYOUT_SIZE + Y_LAYOUT_GAP;
 
 		AffineTransform saved = g2D.getTransform();
 
-		g2D.translate(150, 20.3);
+		g2D.translate(X_BASE_TRANSLATION, Y_BASE_TRANSLATION);
 		g2D.scale(X_SCALE, Y_SCALE);
 		// g2D.shear(-0.5, 0);
 
@@ -143,12 +153,6 @@ public class FloorsEditor extends JPanel {
 		tempArrow = null;
 	}
 
-	int HOR_SIZE = 3;
-	int VER_SIZE = 3;
-
-	int arr1x, arr1y;
-	boolean aarrStarted = false;
-	boolean isThick = false;
 
 	void floorsEditorMouseClicked(MouseEvent e) {
 		if (!aarrStarted) {
@@ -165,25 +169,42 @@ public class FloorsEditor extends JPanel {
 	}
 
 	void floorsEditorMouseMoved(MouseEvent e) {
-
+		
 		if (aarrStarted) {
 			this.setTemporaryArrow(arr1x, arr1y, e.getX(), e.getY());
 		}
 
-		switch (window.currentLayoutEditor.mode) {
+		LayoutEditor editor = window.currentLayoutEditor;
+
+		double savedZoom = editor.getZoomedTo();
+		editor.setZoomedTo(this.Y_SCALE);
+
+		// przeksztalcenie wspolrzednych lokalnych na te w drabinie pieter
+		int xtrans = e.getX();
+		int ytrans = e.getY();
+		// poczatkowe przesuniecie
+		xtrans = xtrans - X_BASE_TRANSLATION;
+		ytrans = ytrans - Y_BASE_TRANSLATION;
+		// nte pietro
+		ytrans = ytrans -  ( window.currentFloor)*(Y_LAYOUT_SIZE +Y_LAYOUT_GAP);
+		System.out.println(window.currentFloor+":"+ytrans);
+		
+		switch (editor.mode) {
 		case OUTLINE_FINISHED:
-			window.currentLayoutEditor.markGrid(e.getX(), e.getY());
-			window.currentLayoutEditor.highlightPath(e.getX(), e.getY());
+			editor.markGrid(xtrans, ytrans);
+			editor.highlightPath(xtrans, ytrans);
 			break;
 		case AREA_SELECTED:
-			window.currentLayoutEditor.markGrid(e.getX(), e.getY());
-			window.currentLayoutEditor.highlightPath(e.getX(), e.getY());
+			editor.markGrid(xtrans, ytrans);
+			editor.highlightPath(xtrans, ytrans);
 			break;
 
 		default:
-			window.currentLayoutEditor.markGrid(e.getX(), e.getY());
+			editor.markGrid(xtrans, ytrans);
 			break;
 		}
+		
+		editor.setZoomedTo(savedZoom);
 		repaint();
 	}
 

@@ -37,6 +37,7 @@ public class LayoutEditor extends JPanel {
 	private int sizeX=500, sizeY=500; // pocztakowy rozmiar planszy (bez zoomowania)
 	 
 	private double zoomedTo; // skala powiekszenia
+
 	private double zoomSpeed=10.0/100.0; // szybkoœæ  powiekszenia
 	private int gridSize=20; // co ile px siatka
 	private float gridMeteres=0;
@@ -1042,5 +1043,11 @@ public class LayoutEditor extends JPanel {
 		
 	}
 
-	
+	public double getZoomedTo() {
+		return zoomedTo;
+	}
+
+	public void setZoomedTo(double zoomedTo) {
+		this.zoomedTo = zoomedTo;
+	}
 }
