@@ -748,6 +748,9 @@ public class MainWindow extends JFrame implements MessageDisplayer   {
 		
 		initLayoutEditorsList(DELAULT_FLOORS_COUNT);
 		
+	 	 panelFloors=new JPanel()  ;
+		 scrollPane_floors = new JScrollPane();
+		
 		// JFormDesigner - Component initialization - DO NOT MODIFY  //GEN-BEGIN:initComponents
 		// Generated using JFormDesigner Evaluation license - sz gajek
 		menuBar1 = new JMenuBar();
@@ -1185,8 +1188,6 @@ public class MainWindow extends JFrame implements MessageDisplayer   {
 			tabbedPane1.addTab("Layout Editor", panel1);
 
 
-			JPanel panelFloors = new JPanel();
-			JScrollPane scrollPane_floors = new JScrollPane();
 			//======== panelFloors ========
 			{
 				panelFloors.setLayout(new FormLayout(
@@ -1434,11 +1435,6 @@ public class MainWindow extends JFrame implements MessageDisplayer   {
 	private JScrollPane scrollPane1;
 	
 	
-	private JComboBox floorsCombo;
-	private JLabel  labelFloors;
-	
-	FloorsEditor floorsEditor;
-	
 	private JPanel panel6;
 	private JButton SolidMode;
 	private JButton DashedMode;
@@ -1471,7 +1467,13 @@ public class MainWindow extends JFrame implements MessageDisplayer   {
 	// dodane recznie
 	 
 	private DivisionTree divisionTree;
- 
+	
+ 	private JPanel panelFloors  ;
+	private JScrollPane scrollPane_floors ;
+	private JComboBox floorsCombo;
+	private JLabel  labelFloors;
+	
+	FloorsEditor floorsEditor;
 	 
 	
 	public HyperGraphEditor getHyperGraphEditor(){

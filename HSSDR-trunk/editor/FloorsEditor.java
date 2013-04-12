@@ -17,6 +17,7 @@ import java.awt.geom.Arc2D;
 import java.util.ArrayList;
 
 import javax.swing.JPanel;
+import javax.swing.JScrollPane;
 
 import rectangularBoard.Path;
 import sensors.Sensor;
@@ -40,6 +41,8 @@ public class FloorsEditor extends JPanel {
 	 
 	private int sizeX=1000, sizeY=500; // pocztakowy rozmiar planszy (bez zoomowania)
 	 
+	private final double X_SCALE=.7;
+	private final double Y_SCALE=.3;
 	
 	private ArrayList<LayoutEditor> layoutEditorsList;
 	
@@ -84,20 +87,18 @@ public class FloorsEditor extends JPanel {
 
 		int layoutscount = layoutEditorsList.size();
 
-		int perLayoutPixels = sizeY / layoutscount;
-
 		int xcorrection = 320;
-		int ycorrection = perLayoutPixels * 10 / 3;
+		int ycorrection = MainWindow.DEFAULT_SIZE_Y +150;
 
 		AffineTransform saved = g2D.getTransform();
 		
-		g2D.translate(200, 20.3);
-		g2D.scale(.7, .3);
-		g2D.shear(-0.5, 0);
+		g2D.translate(150, 20.3);
+		g2D.scale(X_SCALE, Y_SCALE);
+		//g2D.shear(-0.5, 0);
 
 		for (int i = 0; i < layoutscount; i++) {
-			layoutEditorsList.get(i).paintMe(g);
-			g.translate(xcorrection, ycorrection);
+			layoutEditorsList.get(i).paintMe(g2D);
+			g2D.translate(0, ycorrection);
 		}
 		
 		g2D.setTransform(saved);
@@ -134,10 +135,10 @@ public class FloorsEditor extends JPanel {
 		
 	}
 
-	public void initLayout(int sizeX,int sizeY ){
+	public void initLayout(int sizeX,int sizeYxxx ){
 		
 		this.sizeX=sizeX;
-		this.sizeY=sizeY;
+		this.sizeY=(int) ((MainWindow.DEFAULT_SIZE_Y +150)*layoutEditorsList.size() * Y_SCALE);
  
 		this.setPreferredSize(new Dimension(sizeX,sizeY));
 		this.setSize(sizeX, sizeY);
