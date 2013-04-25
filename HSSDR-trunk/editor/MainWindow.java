@@ -178,13 +178,6 @@ public class MainWindow extends JFrame implements MessageDisplayer   {
 	}
  
 	
-	  private void applyAffineTransofrm() {
-			currentLayoutEditor.applyTransform();
-			repaint();
-			
-		}
-
-
 	private void layoutEditorMouseClicked(MouseEvent e) {
 
 		currentLayoutEditor.clearHihglightedRooms();
@@ -700,7 +693,7 @@ public class MainWindow extends JFrame implements MessageDisplayer   {
 	}
 	public void initFloorsEditor(){
 		floorsEditor.reset(layoutEditorsList);
-		floorsEditor.initLayout(sizeX, sizeY+150);
+		floorsEditor.initLayout(sizeX );
 	}
 
 	
@@ -1158,7 +1151,7 @@ public class MainWindow extends JFrame implements MessageDisplayer   {
 				{
 
 					floorsEditor = new FloorsEditor(layoutEditorsList, this);
-					floorsEditor.initLayout(sizeX, sizeY+150);
+					floorsEditor.initLayout(sizeX );
 					
 					initFloorEditorListener();
 					

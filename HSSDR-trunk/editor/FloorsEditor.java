@@ -26,8 +26,7 @@ public class FloorsEditor extends JPanel {
 	private int sizeX = 1000, sizeY = 500; // pocztakowy rozmiar planszy (bez
 	// zoomowania)
 
-	private final double X_SCALE = .5;
-	private final double Y_SCALE = .5;
+	private final double  FLOOR_ZOOM_SCALE = .4;
 
 	private ArrayList<LayoutEditor> layoutEditorsList;
 
@@ -79,10 +78,10 @@ public class FloorsEditor extends JPanel {
 
 		int ycorrection = Y_LAYOUT_SIZE + Y_LAYOUT_GAP;
 
-		AffineTransform saved = g2D.getTransform();
+//		AffineTransform saved = g2D.getTransform();
 
 		g2D.translate(X_BASE_TRANSLATION, Y_BASE_TRANSLATION);
-		g2D.scale(X_SCALE, Y_SCALE);
+		g2D.scale(FLOOR_ZOOM_SCALE, FLOOR_ZOOM_SCALE);
 		// g2D.shear(-0.5, 0);
 
 		for (int i = 0; i < layoutscount; i++) {
@@ -90,7 +89,7 @@ public class FloorsEditor extends JPanel {
 			g2D.translate(0, ycorrection);
 		}
 
-		g2D.setTransform(saved);
+//		g2D.setTransform(saved);
 
 		drawTempArrow(g2D);
 		drawArrows(g2D);
@@ -124,11 +123,11 @@ public class FloorsEditor extends JPanel {
 
 	}
 
-	public void initLayout(int sizeX, int sizeYxxx) {
+	public void initLayout(int sizeX ) {
 
 		this.sizeX = sizeX;
-		this.sizeY = (int) ((MainWindow.DEFAULT_SIZE_Y + 150)
-				* layoutEditorsList.size() * Y_SCALE);
+		this.sizeY = (int) ((MainWindow.DEFAULT_SIZE_Y + Y_LAYOUT_GAP)
+				* layoutEditorsList.size() * FLOOR_ZOOM_SCALE);
 
 		this.setPreferredSize(new Dimension(sizeX, sizeY));
 		this.setSize(sizeX, sizeY);
@@ -168,7 +167,7 @@ public class FloorsEditor extends JPanel {
 
 	}
 
-	void floorsEditorMouseMoved(MouseEvent e) {
+	synchronized void floorsEditorMouseMoved(MouseEvent e) {
 		
 		if (aarrStarted) {
 			this.setTemporaryArrow(arr1x, arr1y, e.getX(), e.getY());
@@ -177,7 +176,7 @@ public class FloorsEditor extends JPanel {
 		LayoutEditor editor = window.currentLayoutEditor;
 
 		double savedZoom = editor.getZoomedTo();
-		editor.setZoomedTo(this.Y_SCALE);
+		editor.setZoomedTo(this.FLOOR_ZOOM_SCALE);
 
 		// przeksztalcenie wspolrzednych lokalnych na te w drabinie pieter
 		int xtrans = e.getX();
@@ -186,8 +185,7 @@ public class FloorsEditor extends JPanel {
 		xtrans = xtrans - X_BASE_TRANSLATION;
 		ytrans = ytrans - Y_BASE_TRANSLATION;
 		// nte pietro
-		ytrans = ytrans -  ( window.currentFloor)*(Y_LAYOUT_SIZE +Y_LAYOUT_GAP);
-		System.out.println(window.currentFloor+":"+ytrans);
+		ytrans = ytrans -  ((int)(( window.currentFloor)*(Y_LAYOUT_SIZE +Y_LAYOUT_GAP)*this.FLOOR_ZOOM_SCALE));
 		
 		switch (editor.mode) {
 		case OUTLINE_FINISHED:
