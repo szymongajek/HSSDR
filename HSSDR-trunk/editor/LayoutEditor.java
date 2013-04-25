@@ -90,8 +90,6 @@ public class LayoutEditor extends JPanel {
 	public Mode mode=Mode.EMPTY;
 	
 	
-	private boolean tranformApplied;
-
 	public LayoutEditor(){
 		  
 		 sizeX=this.getWidth();
@@ -119,6 +117,7 @@ public class LayoutEditor extends JPanel {
 		
 		Graphics2D g2D = (Graphics2D)g;
 		if (initialized){
+			AffineTransform saved = g2D.getTransform();
 //			System.out.println("scale"+this.getWidth()+  "   "+(int)(sizeX*zoomedTo) );
 			
 			g2D.setColor(Color.white);
@@ -220,7 +219,7 @@ public class LayoutEditor extends JPanel {
 	 			 g2D.drawLine(calcXY(addingSensor.sx), calcXY(addingSensor.sy), calcXY(addingSensor.dx), calcXY(addingSensor.dy));
 	 		}
 	 	
-	 		
+	 		g2D.setTransform(saved);
 		}else {
 			g2D.setColor(Color.gray);
 			g2D.fillRect(2, 2, this.getWidth()-2, this.getHeight()-2);
@@ -233,16 +232,16 @@ public class LayoutEditor extends JPanel {
 		g2D.setColor(Color.white);
 		g2D.fillRect(0, 0, this.getWidth(), this.getHeight());
 
-		if (tranformApplied) {
-			g2D.translate(180.0, 20.3);
-			g2D.scale(.7, .3);
-			g2D.shear(-0.5, 0);
-
-			g2D.setRenderingHint(RenderingHints.KEY_ANTIALIASING,
-					RenderingHints.VALUE_ANTIALIAS_ON);
-			g2D.setRenderingHint(RenderingHints.KEY_TEXT_ANTIALIASING,
-					RenderingHints.VALUE_TEXT_ANTIALIAS_ON);
-		}
+//		if (tranformApplied) {
+//			g2D.translate(180.0, 20.3);
+//			g2D.scale(.7, .3);
+//			g2D.shear(-0.5, 0);
+//
+//			g2D.setRenderingHint(RenderingHints.KEY_ANTIALIASING,
+//					RenderingHints.VALUE_ANTIALIAS_ON);
+//			g2D.setRenderingHint(RenderingHints.KEY_TEXT_ANTIALIASING,
+//					RenderingHints.VALUE_TEXT_ANTIALIAS_ON);
+//		}
 
 		paintMe(g);
 
@@ -492,7 +491,7 @@ public class LayoutEditor extends JPanel {
 		 
 		i=calcIJ(x);
 		j=calcIJ(y);
-		if (i<rootPath.getMaxX() && j<rootPath.getMaxY()){
+		if (i>=0 && i<rootPath.getMaxX() && j>=0 && j<rootPath.getMaxY()){
 			highlitedPath=findDevelopedPath(i, j);
 			repaint();
 		}
@@ -698,9 +697,13 @@ public class LayoutEditor extends JPanel {
 				return true;
 		return false;
 	}
-	public boolean isInAllowedArea(int x, int y){
-		// TODO wprowadzic sensowne max wsp do rysowania z uwzgl zooma
-		return (( calcIJ(x)>0)&& ( calcIJ(y)>0) &&( calcIJ(x)+1<(sizeX/gridSize)) &&	 (calcIJ(y)+1<(sizeY/gridSize)) );
+	public boolean isInAllowedAreaPx(int x, int y){
+		int i=calcIJ(x);
+		int j=calcIJ(y);
+		return isInAllowedAreaGrid(i, j);
+	}
+	public boolean isInAllowedAreaGrid(int i, int j){
+		return (( i>0)&& ( j>0) &&( i+1<(sizeX/gridSize)) &&	 (j+1<(sizeY/gridSize)) );
 	}
 	 
 	public void markGrid(int x, int y){
@@ -708,15 +711,17 @@ public class LayoutEditor extends JPanel {
 		 
 		i=calcIJ(x);
 		j=calcIJ(y);
-//		System.out.println(i+"___"+j);
 		
-		markedGrigX = i;
-		markedGrigY = j;
-		repaint();
+		if(isInAllowedAreaGrid(i, j)){
+			markedGrigX = i;
+			markedGrigY = j;
+			repaint();
+		}
+		
 	}
 	public Path [] markDoors(int x, int y) {
 		
-		if (!isInAllowedArea(x, y))
+		if (!isInAllowedAreaPx(x, y))
 			return new Path [2];
 		
 		int [] ret = selectEdge(x, y);
@@ -1036,11 +1041,6 @@ public class LayoutEditor extends JPanel {
 
 	public void setShowLabels(boolean showLabels) {
 		this.showLabels = showLabels;
-	}
-
-	public void applyTransform() {
-		 tranformApplied= !tranformApplied;
-		
 	}
 
 	public double getZoomedTo() {
