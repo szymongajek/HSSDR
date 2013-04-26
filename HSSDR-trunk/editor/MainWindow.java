@@ -215,12 +215,9 @@ public class MainWindow extends JFrame implements MessageDisplayer   {
 					  eventInitiatedBySoftware=true;
 					  roomTypes.setSelectedIndex(currentLayoutEditor.getDevelopedPath().getRoomType());
 					}
-				
-				RoomLabel.setText(currentLayoutEditor.getDevelopedPath().getUserLabel());
-				areaValueLabel.setText(String.valueOf(currentLayoutEditor.getDevelopedPath().getAreaValue()));
+				this.setSelectedAreaInfo(currentLayoutEditor.getDevelopedPath());
 			}else { // nic nie zaznaczone
-				RoomLabel.setText("---");
-				areaValueLabel.setText("");
+				this.setSelectedAreaInfo(null);
 			}
 			break;
 		case DIVIDING_AREA:
@@ -251,16 +248,13 @@ public class MainWindow extends JFrame implements MessageDisplayer   {
 						currentLayoutEditor.mode=Mode.OUTLINE_FINISHED;
 						roomTypes.setVisible(false);
 						
-						RoomLabel.setText("---");
-						areaValueLabel.setText("");
+						this.setSelectedAreaInfo(null);
 					}else {
-						RoomLabel.setText(currentLayoutEditor.getDevelopedPath().getUserLabel());
 						synchronized(eventInitiatedBySoftware) {
 							  eventInitiatedBySoftware=true;
 							  roomTypes.setSelectedIndex(currentLayoutEditor.getDevelopedPath().getRoomType());
 							}
-						
-						areaValueLabel.setText(String.valueOf(currentLayoutEditor.getDevelopedPath().getAreaValue()));
+						this.setSelectedAreaInfo(currentLayoutEditor.getDevelopedPath());
 					}
 				}
 				
@@ -359,6 +353,15 @@ public class MainWindow extends JFrame implements MessageDisplayer   {
 		 repaint();
 	}
 
+	public void setSelectedAreaInfo(Path selected){
+		if (selected==null){
+			RoomLabel.setText("---");
+			areaValueLabel.setText("");
+		}else{
+			RoomLabel.setText(selected.getUserLabel());
+			areaValueLabel.setText(String.valueOf(selected.getAreaValue()));
+		}
+	}
 	
 	public void setDashedLineMeansVis(boolean meansVis){
 		HLH.setDashedLineMeansVisible(meansVis);
@@ -634,6 +637,7 @@ public class MainWindow extends JFrame implements MessageDisplayer   {
 			break;
 		case 1:
 			currentTab=TABS.FLOORS;
+			clearDevelopedPathSelection();
 			break;
 		case 2:
 			currentTab=TABS.HYPER_GRPAH_EDITOR;
@@ -1459,6 +1463,12 @@ public class MainWindow extends JFrame implements MessageDisplayer   {
 		return this.layoutEditorsList.get(nr);
 	}
 
+	public void clearDevelopedPathSelection(){
+		for (LayoutEditor floor : layoutEditorsList) {
+			floor.clearDevelopedPath();
+		}
+	}
+	
 	public int getSensorRange() {
 		return sensorRange;
 	}

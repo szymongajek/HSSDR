@@ -13,6 +13,8 @@ import java.util.ArrayList;
 
 import javax.swing.JPanel;
 
+import rectangularBoard.Path;
+
 import util.Logger;
 
 public class FloorsEditor extends JPanel {
@@ -38,8 +40,8 @@ public class FloorsEditor extends JPanel {
 
 	private ArrayList<Arrow> arrows = new ArrayList<Arrow>();
 	int arr1x, arr1y;
+	Path arrowBeg;
 	boolean aarrStarted = false;
-	boolean isThick = false;
 
 	public FloorsEditor(ArrayList<LayoutEditor> layoutEditorsList,
 			MainWindow window) {
@@ -137,8 +139,8 @@ public class FloorsEditor extends JPanel {
 		repaint();
 	}
 
-	public void addArrow(int arr1x, int arr1y, int a2x, int a2y, boolean isthick) {
-		arrows.add(new Arrow(new Point(arr1x, arr1y), new Point(a2x, a2y),
+	public void addArrow(int arr1x, int arr1y, int a2x, int a2y, Path start, Path end, boolean isthick) {
+		arrows.add(new Arrow(new Point(arr1x, arr1y), new Point(a2x, a2y), start, end,
 				isthick));
 
 	}
@@ -156,17 +158,68 @@ public class FloorsEditor extends JPanel {
 
 
 	void floorsEditorMouseClicked(MouseEvent e) {
-		if (!aarrStarted) {
-			arr1x = e.getX();
-			arr1y = e.getY();
-			aarrStarted = true;
-
-		} else {
-			aarrStarted = false;
-			this.removeTempArrow();
-			this.addArrow(arr1x, arr1y, e.getX(), e.getY(), isThick);
+		boolean isThick;
+		if (e.getButton()==MouseEvent.BUTTON1){
+			isThick =true;
+		}else{
+			isThick =false;
 		}
+		
+		int floorAreaSize = (int)((Y_LAYOUT_SIZE +Y_LAYOUT_GAP)*this.FLOOR_ZOOM_SCALE);
+		int base = e.getY()-Y_BASE_TRANSLATION;
+		int floorUnderMouse = base / floorAreaSize;  
+		LayoutEditor editorUnderMouse = window.getFloor(floorUnderMouse);
+		
+		double savedZoom = editorUnderMouse.getZoomedTo();
+		editorUnderMouse.setZoomedTo(this.FLOOR_ZOOM_SCALE);
 
+		// przeksztalcenie wspolrzednych lokalnych na te w drabinie pieter
+		int xtrans = e.getX();
+		int ytrans = e.getY();
+		// poczatkowe przesuniecie
+		xtrans = xtrans - X_BASE_TRANSLATION;
+		ytrans = ytrans - Y_BASE_TRANSLATION;
+		// nte pietro
+		ytrans = ytrans -  ((int)(( floorUnderMouse)*floorAreaSize));
+		
+		switch (editorUnderMouse.mode) {
+		case OUTLINE_FINISHED:
+			if (editorUnderMouse.selectDevelopedPath(xtrans, ytrans)){ // zaznaczamy
+//				editorUnderMouse.mode=Mode.AREA_SELECTED;
+				window.setSelectedAreaInfo(editorUnderMouse.getDevelopedPath());
+				if (!aarrStarted) {
+					arr1x = e.getX();
+					arr1y = e.getY();
+					aarrStarted = true;
+					arrowBeg=editorUnderMouse.getDevelopedPath();
+					this.setTemporaryArrow(arr1x, arr1y, e.getX(), e.getY());
+				} else {
+					aarrStarted = false;
+					this.removeTempArrow();
+					this.addArrow(arr1x, arr1y, e.getX(), e.getY(),arrowBeg, editorUnderMouse.getDevelopedPath(), isThick);
+					window.clearDevelopedPathSelection();
+				}
+			}else { // nic nie zaznaczone
+				window.setSelectedAreaInfo(null);
+				window.clearDevelopedPathSelection();
+				aarrStarted = false;
+				this.removeTempArrow();
+			}
+			break;
+//		case AREA_SELECTED:
+//			if (! editorUnderMouse.selectDevelopedPath(xtrans, ytrans)){ //odznaczamy path
+//				editorUnderMouse.mode=Mode.OUTLINE_FINISHED;
+//				window.setSelectedAreaInfo(null);
+//			}else {
+//				window.setSelectedAreaInfo(editorUnderMouse.getDevelopedPath());
+//			}
+//			break;
+		default:
+			break;
+		}
+		
+		editorUnderMouse.setZoomedTo(savedZoom);
+		repaint();
 	}
 
 	synchronized void floorsEditorMouseMoved(MouseEvent e) {
