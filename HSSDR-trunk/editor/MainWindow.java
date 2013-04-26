@@ -1455,7 +1455,9 @@ public class MainWindow extends JFrame implements MessageDisplayer   {
 		return floorCount;
 	}
 
-
+	public LayoutEditor getFloor(int nr) {
+		return this.layoutEditorsList.get(nr);
+	}
 
 	public int getSensorRange() {
 		return sensorRange;

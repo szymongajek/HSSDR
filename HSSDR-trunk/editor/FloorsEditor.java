@@ -13,6 +13,8 @@ import java.util.ArrayList;
 
 import javax.swing.JPanel;
 
+import util.Logger;
+
 public class FloorsEditor extends JPanel {
 
 	private static final int Y_LAYOUT_GAP = 50;
@@ -173,10 +175,13 @@ public class FloorsEditor extends JPanel {
 			this.setTemporaryArrow(arr1x, arr1y, e.getX(), e.getY());
 		}
 
-		LayoutEditor editor = window.currentLayoutEditor;
-
-		double savedZoom = editor.getZoomedTo();
-		editor.setZoomedTo(this.FLOOR_ZOOM_SCALE);
+		int floorAreaSize = (int)((Y_LAYOUT_SIZE +Y_LAYOUT_GAP)*this.FLOOR_ZOOM_SCALE);
+		int base = e.getY()-Y_BASE_TRANSLATION;
+		int floorUnderMouse = base / floorAreaSize;  
+		LayoutEditor editorUnderMouse = window.getFloor(floorUnderMouse);
+		
+		double savedZoom = editorUnderMouse.getZoomedTo();
+		editorUnderMouse.setZoomedTo(this.FLOOR_ZOOM_SCALE);
 
 		// przeksztalcenie wspolrzednych lokalnych na te w drabinie pieter
 		int xtrans = e.getX();
@@ -185,24 +190,24 @@ public class FloorsEditor extends JPanel {
 		xtrans = xtrans - X_BASE_TRANSLATION;
 		ytrans = ytrans - Y_BASE_TRANSLATION;
 		// nte pietro
-		ytrans = ytrans -  ((int)(( window.currentFloor)*(Y_LAYOUT_SIZE +Y_LAYOUT_GAP)*this.FLOOR_ZOOM_SCALE));
+		ytrans = ytrans -  ((int)(( floorUnderMouse)*floorAreaSize));
 		
-		switch (editor.mode) {
+		switch (editorUnderMouse.mode) {
 		case OUTLINE_FINISHED:
-			editor.markGrid(xtrans, ytrans);
-			editor.highlightPath(xtrans, ytrans);
+			editorUnderMouse.markGrid(xtrans, ytrans);
+			editorUnderMouse.highlightPath(xtrans, ytrans);
 			break;
 		case AREA_SELECTED:
-			editor.markGrid(xtrans, ytrans);
-			editor.highlightPath(xtrans, ytrans);
+			editorUnderMouse.markGrid(xtrans, ytrans);
+			editorUnderMouse.highlightPath(xtrans, ytrans);
 			break;
 
 		default:
-			editor.markGrid(xtrans, ytrans);
+			editorUnderMouse.markGrid(xtrans, ytrans);
 			break;
 		}
 		
-		editor.setZoomedTo(savedZoom);
+		editorUnderMouse.setZoomedTo(savedZoom);
 		repaint();
 	}
 
