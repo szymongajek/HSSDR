@@ -80,7 +80,7 @@ public class FloorsEditor extends JPanel {
 
 		int ycorrection = Y_LAYOUT_SIZE + Y_LAYOUT_GAP;
 
-//		AffineTransform saved = g2D.getTransform();
+		AffineTransform saved = g2D.getTransform();
 
 		g2D.translate(X_BASE_TRANSLATION, Y_BASE_TRANSLATION);
 		g2D.scale(FLOOR_ZOOM_SCALE, FLOOR_ZOOM_SCALE);
@@ -91,7 +91,7 @@ public class FloorsEditor extends JPanel {
 			g2D.translate(0, ycorrection);
 		}
 
-//		g2D.setTransform(saved);
+		g2D.setTransform(saved);
 
 		drawTempArrow(g2D);
 		drawArrows(g2D);
