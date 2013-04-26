@@ -5,9 +5,12 @@ import java.awt.Polygon;
 import java.awt.Shape;
 import java.awt.geom.AffineTransform;
 
+import rectangularBoard.Path;
+
 public class Arrow {
 	Point start, end;
 
+	Path startArea, endArea;
 	boolean thick;
 
 	public Arrow(Point tempArrStart, Point tempArrEnd, boolean thick) {
@@ -16,6 +19,15 @@ public class Arrow {
 		this.end = tempArrEnd;
 		this.thick = thick;
 	}
+	public Arrow(Point tempArrStart, Point tempArrEnd, 	Path startArea,Path endArea, boolean thick) {
+		super();
+		this.start = tempArrStart;
+		this.end = tempArrEnd;
+		this.thick = thick;
+		this.startArea=startArea;
+		this.endArea=endArea;
+	}
+
 
 	public static Shape createArrowBase(Point fromPt, Point toPt) {
 
