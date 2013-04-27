@@ -58,7 +58,7 @@ public class LayoutEditor extends JPanel {
 	private boolean possibleDoorsToShow=false;
 	
 	
-	private Path rootPath = new Path(sizeX/gridSize, sizeY/gridSize );
+	private Path rootPath  ;
 	 
 	//path ktory reprezenetuje hioer krawedz ktora dzielimy
 	private  Path developedPath= null; 
@@ -71,7 +71,7 @@ public class LayoutEditor extends JPanel {
 	private  ArrayList<Path> alertedPaths= new ArrayList<Path>(); 
  
 	//na biezaco rysowany podzial
-	private Path editedPath = new Path(sizeX/gridSize, sizeY/gridSize );
+	private Path editedPath  ;
 	
 	// obszar podswietlony dla celów usuwania zaznaczany w drzewku divisionTree
 	private Path divisionPath=null;
@@ -89,13 +89,17 @@ public class LayoutEditor extends JPanel {
 	public Mode prevDravingMode= Mode.EMPTY;
 	public Mode mode=Mode.EMPTY;
 	
+	private int floorNr;
 	
-	public LayoutEditor(){
+	public LayoutEditor(int floorNr){
 		  
 		 sizeX=this.getWidth();
 		 sizeY=this.getHeight();
 		 zoomedTo=1;
+		this.floorNr=floorNr;
 		
+		rootPath = new Path(sizeX/gridSize, sizeY/gridSize, floorNr );
+		editedPath = new Path(sizeX/gridSize, sizeY/gridSize, floorNr );
 	}
 
 	public void initLayout(int sizeX,int sizeY, int gridSize, float meteres){
@@ -484,7 +488,7 @@ public class LayoutEditor extends JPanel {
 	}
 	public void clearEditedPath( ) {
 		
-		editedPath =new Path(sizeX/gridSize, sizeY/gridSize );
+		editedPath =new Path(sizeX/gridSize, sizeY/gridSize, floorNr );
 	}
 	public void highlightPath(int x, int y) {
 		int i,j=0;
@@ -532,9 +536,9 @@ public class LayoutEditor extends JPanel {
 		
 		 zoomedTo=1;
 
-		rootPath = new Path(sizeX/gridSize, sizeY/gridSize );
+		rootPath = new Path(sizeX/gridSize, sizeY/gridSize, floorNr );
 	 
-		editedPath = new Path(sizeX/gridSize, sizeY/gridSize );
+		editedPath = new Path(sizeX/gridSize, sizeY/gridSize, floorNr );
 		
 		developedPath=null;
 		highlitedPath=null;
@@ -564,7 +568,7 @@ public class LayoutEditor extends JPanel {
 	 
 	
 	public void beginRootPath(int x, int y){
-		rootPath = new Path(sizeX/gridSize, sizeY/gridSize );
+		rootPath = new Path(sizeX/gridSize, sizeY/gridSize,floorNr );
 		 
  
 		int i,j=0;
@@ -586,7 +590,7 @@ public class LayoutEditor extends JPanel {
 		j=calcIJ(y);
 		 
 		if (isInDevelopedPath(i, j)  ){
-			editedPath =  new Path(sizeX/gridSize, sizeY/gridSize );
+			editedPath =  new Path(sizeX/gridSize, sizeY/gridSize, floorNr );
 			editedPath.add(i,j,kind);
 			 
 			return true;
@@ -1009,7 +1013,7 @@ public class LayoutEditor extends JPanel {
 	}
 	
 	public void resetEditedPath(){
-		editedPath=new Path(sizeX/gridSize, sizeY/gridSize );;
+		editedPath=new Path(sizeX/gridSize, sizeY/gridSize, floorNr );;
 	}
 
 	public void hihglightRooms(ArrayList<String> roomsToHighlight) {

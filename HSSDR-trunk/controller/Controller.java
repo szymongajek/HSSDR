@@ -31,7 +31,6 @@ public class Controller
     {
         this.messageDisplayer = messageDisplayer;
         this.HGBrowser = HGBrowser;
-        HGBrowser.setGraph(graph);
         this.testChooser=testChooser;
     }
     
@@ -45,6 +44,7 @@ public class Controller
     {
     	graph = new HLH(gridToMeters, sensorRange, floorCount) ;
         HGBrowser.setGraph(graph);
+        setHGBrowserCurrentFloor(0);
     }
     public void setHGBrowserCurrentFloor(int floorNr){
     	HGBrowser.setCurrentFloor(floorNr);
@@ -64,10 +64,7 @@ public class Controller
     public void developArea(Path developedPath, ArrayList newObjects, int level)
     {
         ObjectHE developedEdge;
-        if(graph.getRootEdgeGroundFloor().getAttribute(HLH.LABEL).equals(developedPath.toString()))
-            developedEdge = graph.getRootEdgeGroundFloor();
-        else
-            developedEdge = graph.findObjectHEWithLabel(developedPath.toString());
+        developedEdge = graph.findObjectHEWithLabel(developedPath.toString());
         if(newObjects.size() != 2)
         {
             throw new RuntimeException(" TODO podzial na wiecej niz dwa ");
@@ -196,8 +193,8 @@ public class Controller
        messageDisplayer.displayMessageAndHighlight(resultMessage.toString(),roomsToHighlight);
     }
     
-    public ObjectHE getGraph(){
-    	return graph.getRootEdgeGroundFloor();
+    public HLH getGraph(){
+    	return graph;
     }
 
 	

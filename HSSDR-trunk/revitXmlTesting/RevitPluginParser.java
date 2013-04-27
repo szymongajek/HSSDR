@@ -151,7 +151,7 @@ public class RevitPluginParser extends AbstractDOMParser{
 		
 		NodeList nl = ele.getElementsByTagName("polygon_point");
 		
-		Path path = new Path(MAX_COORD, MAX_COORD);
+		Path path = new Path(MAX_COORD, MAX_COORD,0);
 		if (nl.getLength()==0) return null;
 		
 		for(int i=0; i<nl.getLength(); i++){

@@ -499,7 +499,7 @@ public class MainWindow extends JFrame implements MessageDisplayer   {
 			currentLayoutEditor.setDivisionPath(null);
 		}else {
 			divisionTree = new DivisionTree(this);
-			divisionTree.createTree(controller.getGraph());
+			divisionTree.createTree(controller.getGraph().getFloorRootEdge(currentFloor));
 			 
 		}
 		repaint();
@@ -519,7 +519,7 @@ public class MainWindow extends JFrame implements MessageDisplayer   {
 		currentLayoutEditor.setDivisionPath(null);
 		
 		divisionTree = new DivisionTree(this);
-		divisionTree.createTree(controller.getGraph());
+		divisionTree.createTree(controller.getGraph().getFloorRootEdge(currentFloor));
 		repaint();
 	}
 	
@@ -714,7 +714,7 @@ public class MainWindow extends JFrame implements MessageDisplayer   {
 		this.currentFloor=0;
 		layoutEditorsList=new ArrayList<LayoutEditor>();
 		for (int i = 0; i < floorCount ; i++) {
-			layoutEditorsList.add(new LayoutEditor());
+			layoutEditorsList.add(new LayoutEditor(i));
 		}
 		currentLayoutEditor = layoutEditorsList.get(0);
 		
@@ -729,7 +729,6 @@ public class MainWindow extends JFrame implements MessageDisplayer   {
 	private void initComponents() {
 		
 		initLayoutEditorsList(DELAULT_FLOORS_COUNT);
-		
 	 	 panelFloors=new JPanel()  ;
 		 scrollPane_floors = new JScrollPane();
 		

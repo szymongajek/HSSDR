@@ -1,6 +1,7 @@
 
 package hyperGraphs;
 
+import java.util.Arrays;
 import java.util.Collection;
 import java.util.Hashtable;
 import java.util.ArrayList;
@@ -53,6 +54,7 @@ public class HLH
 	
 	//najwyzej polozona w hierarchii hiperkrawejdz 
     private ObjectHE rootEdgeGroundFloor;
+    private ObjectHE rootEdgeGraph;
     private ObjectHE[] rootEdges;
     private Hashtable<String,ObjectHE> objectHEMap;
     private Hashtable<String,DoorsAttributes> doorsMap;
@@ -69,6 +71,18 @@ public class HLH
         sensors = new ArrayList<HGSensor>();
         this.floorCount=floorCount;
         rootEdges = new ObjectHE[floorCount];
+        rootEdgeGraph = new ObjectHE();
+        
+        rootEdgeGraph.setSizeX( 500 );
+        rootEdgeGraph.setSizeY(  500 );
+		rootEdgeGraph.setMiddleX( 300 );
+		rootEdgeGraph.setMiddleY( 300 );
+		
+		rootEdgeGraph.setAttribute(HLH.LABEL, toString());
+		rootEdgeGraph.setAttribute(HLH.USER_LABEL,"whole building");
+		rootEdgeGraph.setAttribute(HLH.AREA, "0");
+		rootEdgeGraph.setLevel(-1);
+        
     }
     
     public void createRootEdge(ObjectHE rootEdge, float gridToMeters, int sensorRange, int floorNr)
@@ -76,18 +90,25 @@ public class HLH
         rootEdge.setLevel(0);
         if (floorNr==0) this.rootEdgeGroundFloor = rootEdge;
         rootEdges[floorNr]= rootEdge;
-        rootEdge.setParentEdge(null);
+        rootEdgeGraph.addChildElement(rootEdge);
+        rootEdge.setParentEdge(rootEdgeGraph);
         objectHEMap.put(rootEdge.getAttribute(HLH.LABEL), rootEdge);
         this.gridToMeters=gridToMeters;
         HGSensor.range=sensorRange;
     }
 
+    @Deprecated
     public ObjectHE getRootEdgeGroundFloor()
     {
         return rootEdgeGroundFloor;
     }
     
-    public ObjectHE getRootEdge(int floorNr)
+    public ObjectHE getGraphRootEdge( )
+    {
+        return  rootEdgeGraph;
+    }
+    
+    public ObjectHE getFloorRootEdge(int floorNr)
     {
         return rootEdges[floorNr];
     }

@@ -2,7 +2,7 @@ package robotsChecker;
 
 import java.util.HashSet;
 import hyperGraphs.*;
-
+@Deprecated
 public class MovingRobotChecker
 {
 	  
