@@ -78,11 +78,16 @@ public class HyperGraphEditor extends JPanel implements HyperGraphBrowser {
 			g2D.setColor(Color.red);
 			g2D.scale(zoomedTo, zoomedTo);
 
-			if (graphRoot.getRootEdge(currentFloor)!=null){
+			if (currentFloor == -1){
+				// rysujemy pelny graf
+				ObjectPainter.paintGraph(graphRoot.getRootEdgeGroundFloor(), g2D);
 				
+			}else if (graphRoot.getRootEdge(currentFloor)!=null){
+				// rysujemy graf pietra
 				ObjectPainter.paintGraph(graphRoot.getRootEdge(currentFloor), g2D);
 	 
 			}
+			
 	}
 
     public void updateSize(  ) 
@@ -190,6 +195,7 @@ public class HyperGraphEditor extends JPanel implements HyperGraphBrowser {
 	@Override
 	public void setCurrentFloor(int floorNr) {
 		currentFloor=floorNr;
+		repaint();
 	}
 	 
 }
