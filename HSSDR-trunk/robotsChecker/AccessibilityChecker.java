@@ -4,7 +4,7 @@ import java.util.HashSet;
 import java.util.ArrayList;
 
 import hyperGraphs.*;
-
+@Deprecated
 public class AccessibilityChecker
 {
 	HashSet<ObjectHE> rooms = new HashSet<ObjectHE>();

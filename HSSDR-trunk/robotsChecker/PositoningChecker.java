@@ -11,7 +11,7 @@ import hyperGraphs.HLH;
 import hyperGraphs.HyperEdge;
 import hyperGraphs.Node;
 import hyperGraphs.ObjectHE;
-
+@Deprecated
 public class PositoningChecker
 {
 	private static Logger logger = Logger.getLogger(

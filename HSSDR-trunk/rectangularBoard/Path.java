@@ -34,6 +34,7 @@ public class Path {
 	 
 	private String userLabel="";
 	private int roomType=0;
+	private int floorNr;
 	
 	public static final int ROOM_TYPE_EMPTY_SPACE=9;
 	
@@ -46,13 +47,15 @@ public class Path {
 	private int interiorCount;
 	
 	
-	public Path(int maxX, int maxY) {
+	public Path(int maxX, int maxY, int floorNr) {
 		 pathX = new ArrayList<Integer>();
 		 pathY = new ArrayList<Integer>();
 		 lineKind = new ArrayList<Integer>();
 		 
 		 this.maxX = maxX;
 		 this.maxY = maxY;
+		 
+		 this.floorNr=floorNr;
 		 
 		 nestedPaths = new ArrayList<Path>();
 	}
@@ -61,7 +64,7 @@ public class Path {
 	 * @param source
 	 */
 	public Path(Path source){
-		this(source.maxX,source.maxY);
+		this(source.maxX,source.maxY, source.floorNr);
 		
 		// first point 
 		this.simpleAdd(source.getX(0), source.getY(0), source.getLineKind(0));
@@ -532,7 +535,7 @@ public class Path {
 			if (n.getAttribute(HLH.DIRECTION).equals(dir)){
 				int [] tab = LayoutUtils.getWallCoord(n);
 				
-				Path test= new Path( this.maxX, this.maxY);
+				Path test= new Path( this.maxX, this.maxY, this.floorNr);
 				test.simpleAdd(tab[0],tab[1],Path.LINE_SOLID);
 				test.simpleAdd(tab[2],tab[3], Path.LINE_SOLID);
 				test.simpleAdd(tab[0],tab[1], Path.LINE_SOLID);
@@ -1174,7 +1177,7 @@ public class Path {
 	}
 	
 	public String toString(){
-		String ret="";
+		String ret="fl:"+floorNr+".";
 		ret+=getX(0)+","+getY(0);
 		
 		for (int i = 1; i < this.size(); i++) {

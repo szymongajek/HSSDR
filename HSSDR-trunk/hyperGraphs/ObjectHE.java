@@ -212,14 +212,18 @@ public class ObjectHE extends HyperEdge
    public  void setChildElements(ArrayList <HyperEdge> childElements)
     {
         this.childElements = childElements;
-        for(Iterator iter = childElements.iterator(); iter.hasNext();)
+        for(HyperEdge he :  childElements) 
         {
-            HyperEdge he = (HyperEdge)iter.next();
             if(he instanceof ObjectHE)
                 ((ObjectHE)he).setLevel(getLevel() + 1);
         }
 
     }
+   public  void addChildElement(   HyperEdge egde)
+   {
+       this.childElements.add(egde);
+
+   }
 
     public int getLevel()
     {
