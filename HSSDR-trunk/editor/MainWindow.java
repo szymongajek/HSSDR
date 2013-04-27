@@ -537,12 +537,21 @@ public class MainWindow extends JFrame implements MessageDisplayer   {
 
 	protected void floorsComboActionPerformed(ActionEvent e) {
 		currentFloor = floorsCombo.getSelectedIndex();
-		currentLayoutEditor=layoutEditorsList.get(currentFloor );
-		scrollPane1.setViewportView(currentLayoutEditor);
-		repaint();
-		controller.setHGBrowserCurrentFloor(currentFloor);
+		
+		if(currentFloor<floorCount){//czy wybrano pietro, a nie opcje wszystkie prietra w hg ed
+			changeFloor(currentFloor);
+		}else{
+			controller.setHGBrowserCurrentFloor(-1);
+		}
+		
 	}
 
+	private void changeFloor(int newFloor){
+		currentLayoutEditor=layoutEditorsList.get(newFloor );
+		scrollPane1.setViewportView(currentLayoutEditor);
+		repaint();
+		controller.setHGBrowserCurrentFloor(newFloor);
+	}
 
 
 	private void RoomLabelFocusLost(FocusEvent e) {
@@ -634,16 +643,32 @@ public class MainWindow extends JFrame implements MessageDisplayer   {
 		switch (tabbedPane1.getSelectedIndex()){
 		case 0:
 			currentTab=TABS.LAYOUT_EDITOR;
+			int prevSelected =floorsCombo.getSelectedIndex();
+			setFloorsComboContents(false);
+			if(prevSelected==floorCount){
+				floorsCombo.setSelectedIndex(0);
+				changeFloor(0);
+			}else{
+				floorsCombo.setSelectedIndex(prevSelected);
+				changeFloor(prevSelected);
+			}
+			floorsCombo.setEnabled(true);
 			break;
 		case 1:
 			currentTab=TABS.FLOORS;
 			clearDevelopedPathSelection();
+			floorsCombo.setEnabled(false);
 			break;
 		case 2:
 			currentTab=TABS.HYPER_GRPAH_EDITOR;
+			int prevSelected2 =floorsCombo.getSelectedIndex();
+			setFloorsComboContents(true);
+			floorsCombo.setSelectedIndex(prevSelected2);
+			floorsCombo.setEnabled(true);
 			break;
 		case 3:
 			currentTab=TABS.VALIDATION;
+			floorsCombo.setEnabled(false);
 			break;
 		}
 		
@@ -1324,15 +1349,25 @@ public class MainWindow extends JFrame implements MessageDisplayer   {
 	}
 	
 	void initFloorsCombo() {
-
-		String[] model = new String[floorCount];
-		for (int i = 0; i < floorCount; i++) {
-			model[i] =  String.valueOf(i);
-		}
-		eventInitiatedBySoftware = true;
-		floorsCombo.setModel(new javax.swing.DefaultComboBoxModel(model));
+		
+		setFloorsComboContents(false);
 		floorsCombo.setSelectedIndex(0);
 
+	}
+	
+	void setFloorsComboContents(boolean addWholeGraph){
+		String[] model;
+		if (!addWholeGraph){
+			model= new String[floorCount];
+		}else{
+			model= new String[floorCount+1];
+			model[floorCount]="all";
+		}
+		
+		for ( int i=0 ; i < floorCount; i++) {
+			model[i] =  String.valueOf(i);
+		}
+		floorsCombo.setModel(new javax.swing.DefaultComboBoxModel(model));
 	}
 		
 	private void importOutline(File file ) {
