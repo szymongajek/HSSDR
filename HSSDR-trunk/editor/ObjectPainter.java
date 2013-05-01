@@ -103,16 +103,15 @@ public class ObjectPainter   {
 				int transX = (selected.getSizeX()-old_sizex)/2 ;
 				int transY = (selected.getSizeY()-old_sizey)/2 ;
 				
-				for (int i = 0; i < selected.getNodes().size(); i++) {// move nodes
-					  Node n = selected.getNodes().get(i);
-					  if (n.getAttribute("DIR").equals("E")){
-						  selected.getNodes().get(i).translateBy(transX, 0);
-					  }else if (n.getAttribute("DIR").equals("S")){
-						  selected.getNodes().get(i).translateBy(0, transY);
-					  }else if (n.getAttribute("DIR").equals("W")){
-						  selected.getNodes().get(i).translateBy(-transX, 0);
-					  }else if (n.getAttribute("DIR").equals("N")){
-						  selected.getNodes().get(i).translateBy(0, -transY);
+				for (Node node :  selected.getAllNodes() ) {// move nodes
+					  if (node.getDirection().equals("E")){
+						  node.translateBy(transX, 0);
+					  }else if (node.getDirection().equals("S")){
+						  node.translateBy(0, transY);
+					  }else if (node.getDirection().equals("W")){
+						  node.translateBy(-transX, 0);
+					  }else if (node.getDirection().equals("N")){
+						  node.translateBy(0, -transY);
 					  }
 					   
 				}
@@ -123,8 +122,8 @@ public class ObjectPainter   {
 				int transX = xcoord - selected.getMiddleX();
 				int transY = ycoord - selected.getMiddleY();
 				
-				for (int i = 0; i < selected.getNodes().size(); i++) {// move nodes
-					  selected.getNodes().get(i).translateBy(transX, transY); 
+				for (Node node :  selected.getAllNodes() ) {// move nodes
+					node.translateBy(transX, transY); 
 	  		
 				} 
 				selected.moveTo(xcoord, ycoord);// move objectHE
@@ -154,9 +153,9 @@ public class ObjectPainter   {
 		return null;
 	}	
 	private static Node isPointInNodesOfHE(int x, int y, ObjectHE objectHE) {
-		for (int i = 0; i < objectHE.getNodes().size(); i++) {
-			if (isPointInNode(x, y, objectHE.getNodes().get(i)))
-					return objectHE.getNodes().get(i);
+		for (Node node : objectHE.getAllNodes() ) {
+			if (isPointInNode(x, y,node))
+					return node;
 					
 		} 
 		return null;
@@ -392,7 +391,7 @@ public class ObjectPainter   {
 		else 
 			g2D.setColor(Color.black);
 	
-		drawNodes(g2D, edge.getNodes(),rectPX,rectPY);
+		drawNodes(g2D, edge.getAllNodes(),rectPX,rectPY);
 		
 		int rX0=rectPX - rectSX/2;
 		int rY0=rectPY - rectSY/2;
@@ -438,7 +437,7 @@ public class ObjectPainter   {
 			g2D.fillOval(posX-4, posY-4, 8, 8);
 			
 			//etykiety i linie laczace
-			String dir=	nodes.get(i).getAttribute(HLH.DIRECTION);
+			String dir=	nodes.get(i).getDirection();
 			if (dir.equals("N")){
 				g2D.drawLine(posX, posY, posX, edgMiddleY);
 				g2D.drawString(nodes.get(i).getAttribute(HLH.LABEL), posX , posY-6 );
@@ -450,6 +449,12 @@ public class ObjectPainter   {
 				g2D.drawString(nodes.get(i).getAttribute(HLH.LABEL), posX+16 , posY+10 );
 			}else if (dir.equals("W")){
 				g2D.drawLine(posX, posY, edgMiddleX, posY);
+				g2D.drawString(nodes.get(i).getAttribute(HLH.LABEL), posX-16 , posY+14 );
+			} else if (dir.equals("F")){
+				g2D.drawLine(edgMiddleX, edgMiddleY, posX, posY);
+				g2D.drawString(nodes.get(i).getAttribute(HLH.LABEL), posX-16 , posY+14 );
+			} else if (dir.equals("C")){
+				g2D.drawLine(edgMiddleX, edgMiddleY, posX, posY);
 				g2D.drawString(nodes.get(i).getAttribute(HLH.LABEL), posX-16 , posY+14 );
 			}
 			

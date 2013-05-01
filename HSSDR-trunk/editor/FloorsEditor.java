@@ -1,5 +1,7 @@
 package editor;
 
+import hyperGraphs.HLH;
+
 import java.awt.BasicStroke;
 import java.awt.Color;
 import java.awt.Dimension;
@@ -196,7 +198,25 @@ public class FloorsEditor extends JPanel {
 				} else {
 					aarrStarted = false;
 					this.removeTempArrow();
-					this.addArrow(arr1x, arr1y, e.getX(), e.getY(),arrowBeg, editorUnderMouse.getDevelopedPath(), isThick);
+					Path arrowEnd = editorUnderMouse.getDevelopedPath();
+					this.addArrow(arr1x, arr1y, e.getX(), e.getY(),arrowBeg, arrowEnd, isThick);
+					
+					// tworzenie relacji miedzy pietrami
+					String relKind;
+					if (isThick){
+						relKind=HLH.KIND_ACC;
+					}else{
+						relKind=HLH.KIND_VIS;
+					}
+					
+					if(arrowBeg.getFloorNr()>arrowEnd.getFloorNr()){
+						window.controller.createMultiFloorRealtion(arrowBeg, arrowEnd, relKind);
+					}else{
+						window.controller.createMultiFloorRealtion(arrowEnd, arrowBeg , relKind);
+					}
+					
+					
+					
 					window.clearDevelopedPathSelection();
 				}
 			}else { // nic nie zaznaczone

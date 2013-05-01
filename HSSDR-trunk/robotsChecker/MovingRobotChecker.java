@@ -15,7 +15,7 @@ public class MovingRobotChecker
 		
 		//sprawdzanie rozmiarow pokoi
 		for (ObjectHE r : rooms)
-			if (r.getNodes().size()==4){
+			if (r.getWallNodes().size()==4){
 //				 prostokatne
 				 int rectX = r.getWallLen(0);
 				 int rectY = r.getWallLen(1);
@@ -26,7 +26,7 @@ public class MovingRobotChecker
 					m.setMessage(err);
 					return new GraphMessage[] { m };
 				}
-			}else if (r.getNodes().size()==6){
+			}else if (r.getWallNodes().size()==6){
 //				 ksztalt L
 				/*
 				 *  ______
@@ -77,7 +77,7 @@ public class MovingRobotChecker
 					m.setMessage(err);
 					return new GraphMessage[] { m };
 				}
-			} else if (r.getNodes().size()==8){
+			} else if (r.getWallNodes().size()==8){
 //				 ksztalt T lub U lub Z
 				//TODO inne ksztalty pokoji
 			} 
@@ -87,12 +87,12 @@ public class MovingRobotChecker
 				int doors_size;
 				int dist_to_wall;
 				
-				for (Node n : r.getNodes()) {
+				for (Node n : r.getWallNodes()) {
 								
 					if (n.hasDoors()){
 						doors_size=LayoutUtils.calcDoorsSize(n, 0);
 						
-						String dir =n.getAttribute(HLH.DIRECTION);
+						String dir =n.getDirection();
 						String dir_to_search=LayoutUtils.oppositeDirection(dir);
 						
 						double [] doors_mid=  LayoutUtils.calcDoorsMiddlePoint(n, 0);

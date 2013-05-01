@@ -15,6 +15,7 @@ import java.util.Map;
 
 import rectangularBoard.Path;
 import sensors.Sensor;
+import util.Logger;
 
 public class Controller
 {
@@ -197,8 +198,15 @@ public class Controller
     	return graph;
     }
 
-	
+    public void createMultiFloorRealtion(Path upperArea, Path lowerdArea, String relationKind) {
+    	Logger.LOGGER.debug(" adding relation for: "+upperArea+" -> "+lowerdArea+" of type:"+ relationKind);
+    	
+    	ObjectHE upperEdge = graph.findObjectHEWithLabel(upperArea.toString());
+    	ObjectHE lowerEdge = graph.findObjectHEWithLabel(lowerdArea.toString());
+    	
+		graph.addMultiFloorRealtion(upperEdge, lowerEdge, relationKind);
+		checkLayout();
+	}
 
-	
 
 }
