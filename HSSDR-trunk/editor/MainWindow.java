@@ -100,8 +100,8 @@ public class MainWindow extends JFrame implements MessageDisplayer   {
 	
 	Boolean eventInitiatedBySoftware=false;
 	
-	private int floorCount=DELAULT_FLOORS_COUNT;
-	public  int currentFloor=0;
+	int floorCount=DELAULT_FLOORS_COUNT;
+	int currentFloor=0;
 	
 	private int sensorRange = DEFAULT_SENSOR_RANGE;
 	
