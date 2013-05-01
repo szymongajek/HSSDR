@@ -13,6 +13,10 @@ public class HyperEdge  extends MovableComponent
     {
         attributes = new Properties();
     }
+    /**
+     * konstruktor kopuijacy
+     * @param he
+     */
     public HyperEdge(HyperEdge he)
     {
         attributes = new Properties(he.attributes);

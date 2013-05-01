@@ -126,8 +126,8 @@ public class LayoutUtils {
 	//w danej krawedzi szuka sciany o kierunku okr w dir, ktora jest na tej saqmej lini co pkt coord, zwraca odleglosc do pierwszej znalezionej
 	public static int getDistNearestWallOfDirContCoord(ObjectHE hEdge,String dir, double[] coord) {
 		
-		for (Node n: hEdge.getNodes())
-			if (n.getAttribute(HLH.DIRECTION).equals(dir)){
+		for (Node n: hEdge.getWallNodes())
+			if (n.getDirection().equals(dir)){
 				double cx=coord[0];
 				double cy=coord[1];
 				int[] wall = getWallCoord(n);

@@ -381,14 +381,12 @@ public class Path {
 		int ct= this.findMostLeftUpperLineNr(); 
 		cyclicMoveWalls(ct);
 		
-		
-		
 		for (int wallNr = 0; wallNr <= size()-2; wallNr++) {
 			Node n = new Node();
 			int len = getLineLen(wallNr)* gridMeteres;
 			String dir=getLineDir(wallNr);
 			n.setAttribute(HLH.LEN, String.valueOf(len));
-			n.setAttribute(HLH.DIRECTION,dir);
+			n.setDirection(dir);
 			if (getLineKind(wallNr+1)== Path.LINE_SOLID){
 				n.setAttribute(HLH.KIND,HLH.KIND_ADJ);
 			}else if (getLineKind(wallNr+1)==Path.LINE_DASHED ){
@@ -480,6 +478,26 @@ public class Path {
 			n.setMiddleY( py );
 		}
 		
+		// dodanie wez³ów pod³oga i sufit
+		Node floor = new Node();
+		floor.setDirection(HLH.DIRECTION_FLOOR);
+		floor.setAttribute(HLH.WALL_NR,String.valueOf(-1));
+		floor.setAttribute(HLH.LABEL,"FLOOR");
+		floor.setObjectEdge(he);
+		floor.setMiddleX( avg_x - sizeX/2 -ObjectPainter.NODE_DIST_FROM_HE_IN_SQUARES/2);
+		floor.setMiddleY( avg_y + sizeY/2 +ObjectPainter.NODE_DIST_FROM_HE_IN_SQUARES/2);
+		he.addNode(floor);
+		
+		// dodanie wez³ów pod³oga i sufit
+		Node ceil = new Node();
+		ceil.setDirection(HLH.DIRECTION_CEILING);
+		ceil.setAttribute(HLH.WALL_NR,String.valueOf(-1));
+		ceil.setAttribute(HLH.LABEL,"CEIL");
+		ceil.setObjectEdge(he);
+		ceil.setMiddleX( avg_x + sizeX/2 +ObjectPainter.NODE_DIST_FROM_HE_IN_SQUARES/2);
+		ceil.setMiddleY( avg_y - sizeY/2 -ObjectPainter.NODE_DIST_FROM_HE_IN_SQUARES/2);
+		he.addNode(ceil);
+		
 		return he;
 	}
 	void cyclicMoveWalls(int translate){
@@ -528,11 +546,11 @@ public class Path {
 	 
 	private Node findEmbMappingNode(ObjectHE parentEdge, String dir, int wallNr){
   	
-		ArrayList <Node> nodes  = parentEdge.getNodes();
+		ArrayList <Node> nodes  = parentEdge.getWallNodes();
 		
 		for (int i = 0; i < nodes.size(); i++) {
 			Node n = nodes.get(i);
-			if (n.getAttribute(HLH.DIRECTION).equals(dir)){
+			if (n.getDirection().equals(dir)){
 				int [] tab = LayoutUtils.getWallCoord(n);
 				
 				Path test= new Path( this.maxX, this.maxY, this.floorNr);
@@ -1177,7 +1195,7 @@ public class Path {
 	}
 	
 	public String toString(){
-		String ret="fl:"+floorNr+".";
+		String ret="(fl:"+floorNr+") ";
 		ret+=getX(0)+","+getY(0);
 		
 		for (int i = 1; i < this.size(); i++) {
@@ -1189,5 +1207,7 @@ public class Path {
 	public boolean isFinished(){
 		return interior!=null;
 	}
-	
+	public int getFloorNr() {
+		return floorNr;
+	}
 }

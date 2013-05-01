@@ -7,7 +7,9 @@ public class Node extends MovableComponent
 {
 	// atrubuty
 	 private Properties attributes;
-	 //relacje do ktorych podlaczony jest wierzcholek
+	 // atrybut kierunek
+	 private String direction;
+	//relacje do ktorych podlaczony jest wierzcholek
 	 private ArrayList <RelationHE> relations=new ArrayList<RelationHE>();
 	 // hiper kr do ktorej podloczony jest node
 	 private ObjectHE objectEdge;
@@ -35,10 +37,18 @@ public class Node extends MovableComponent
 	    }
 	    
 	    public boolean isVertical(){
-	    	if (this.getAttribute("DIR").equals("E") || this.getAttribute("DIR").equals("W"))
+	    	if (this.getDirection().equals("E") || this.getDirection().equals("W"))
 	    		return true;
 	    	else
 	    		return false;
+	    			
+	    }
+	    
+	    public boolean isWall(){
+	    	if (this.getDirection().equals(HLH.DIRECTION_FLOOR) || this.getDirection().equals(HLH.DIRECTION_CEILING))
+	    		return false;
+	    	else
+	    		return true;
 	    			
 	    }
 	    
@@ -143,4 +153,11 @@ public class Node extends MovableComponent
 				
 			 
 		}
+		
+		 public String getDirection() {
+				return direction;
+			}
+			public void setDirection(String direction) {
+				this.direction = direction;
+			}
 }

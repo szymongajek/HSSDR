@@ -170,7 +170,7 @@ public class ObjectHE extends HyperEdge
     	
     	for (HyperEdge child:childElements ){
     		if (child instanceof ObjectHE ){
-    			nodesToCheck.addAll(((ObjectHE)child).getNodes());
+    			nodesToCheck.addAll(((ObjectHE)child).getWallNodes());
     		}
     	}
     	
@@ -194,15 +194,15 @@ public class ObjectHE extends HyperEdge
         nodes.add(n);
     }
 
-    public ArrayList <Node> getNodesWithAttr(String property, String value)
-    {
-        ArrayList <Node> ret = new ArrayList<Node>();
-        for(int i = 0; i < nodes.size(); i++)
-            if(((Node)nodes.get(i)).getAttribute(property).equals(value))
-                ret.add((Node)nodes.get(i));
-
-        return ret;
-    }
+//    public ArrayList <Node> getNodesWithAttr(String property, String value)
+//    {
+//        ArrayList <Node> ret = new ArrayList<Node>();
+//        for(int i = 0; i < nodes.size(); i++)
+//            if(((Node)nodes.get(i)).getAttribute(property).equals(value))
+//                ret.add((Node)nodes.get(i));
+//
+//        return ret;
+//    }
 
     public ArrayList <HyperEdge> getChildElements()
     {
@@ -235,16 +235,47 @@ public class ObjectHE extends HyperEdge
         this.level = level;
     }
 
-    public ArrayList<Node> getNodes()
+    public ArrayList<Node> getAllNodes()
     {
         return nodes;
+    }
+    
+    public ArrayList<Node> getWallNodes()
+    {
+    	ArrayList<Node> walls= new ArrayList<Node>();
+    	for(Node node: nodes){
+    		if (node.isWall()){
+    			walls.add(node);
+    		}
+    	}
+        return walls;
+    }
+    
+    public Node getCeilingNode()
+    {
+    	for(Node node: nodes){
+    		if (HLH.DIRECTION_CEILING.equals(node.getDirection())){
+    			return node;
+    		}
+    	}
+        return null;
+    }
+    
+    public Node getFloorNode()
+    {
+    	for(Node node: nodes){
+    		if (HLH.DIRECTION_FLOOR.equals(node.getDirection())){
+    			return node;
+    		}
+    	}
+        return null;
     }
     
     /*
      * zwraca kierunek i-tej sciany z hiperkrawedzi - N S W E
      */
     public String  getWallDir(int number){
-    	return nodes.get(number).getAttribute(HLH.DIRECTION);
+    	return nodes.get(number).getDirection();
     }
     /*
      * zwraca dlugosc i-tej sciany z hiperkrawedzi
@@ -332,7 +363,7 @@ public class ObjectHE extends HyperEdge
 	}
 	public String connectedWith(ObjectHE other){
 		
-		for(Node n : getNodes()){
+		for(Node n : getAllNodes()){
 			for (RelationHE rel: n.getRelations()){
 				ObjectHE tested =rel.getConnectionNodeOtherThan(n).getObjectEdge(); 
 				if (tested== other)
@@ -343,7 +374,7 @@ public class ObjectHE extends HyperEdge
 	}
 
 	public boolean hasDoors(DoorsAttributes doors) {
-		for(Node n : getNodes()){
+		for(Node n : getWallNodes()){
 			if (n.hasDoors(doors))
 				return true;
 		}
@@ -362,8 +393,8 @@ public class ObjectHE extends HyperEdge
 		// usuna Nody podpiete do tego obiektu
 		// jesli Nody sa w jakies relacji rzuca wyjatek
 		
-		for (int i = 0; i < this.getNodes().size(); i++) {
-			Node n = this.getNodes().get(i);
+		for (int i = 0; i < this.getAllNodes().size(); i++) {
+			Node n = this.getAllNodes().get(i);
 			
 			if (n.getRelations().size()!=0)
 				throw new RuntimeException("proba usuniecia wezla z relacjami!");
@@ -375,7 +406,7 @@ public class ObjectHE extends HyperEdge
 	}
 	
 	public boolean hasDoors(){
-		for (Node n : getNodes()) {
+		for (Node n : getWallNodes()) {
 			if (n.hasDoors())
 				return true;
 		

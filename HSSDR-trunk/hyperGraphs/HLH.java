@@ -25,6 +25,10 @@ public class HLH
 	public static final String LEN="LEN";
 	//	 orienatajca sciany w wezlach: N S W E
 	public static final String DIRECTION="DIR";
+//	  
+	public static final String DIRECTION_FLOOR="F";
+//	  
+	public static final String DIRECTION_CEILING="C";
 	//	 dla wezlow wspolrzedne koncow sciany: dostepne przez LayoutUtils.getWallCoord(node)
 	public static final String COORD="COORD";
 //	 dla wezlow numer kolejnej sciany jaka reprezentuje wezel
@@ -315,8 +319,8 @@ public class HLH
         objectHEMap.put(first.getAttribute(HLH.LABEL), first);
         objectHEMap.put(second.getAttribute(HLH.LABEL), second);
         
-        ArrayList<Node> nodes1 = first.getNodes();
-        ArrayList<Node> nodes2 = second.getNodes();
+        ArrayList<Node> nodes1 = first.getWallNodes();
+        ArrayList<Node> nodes2 = second.getWallNodes();
         
         for(int i = 0; i < nodes1.size(); i++)
         {
@@ -507,5 +511,14 @@ public class HLH
 
 	public static void setDashedLineMeansVisible(boolean dashedLineMeansVisible) {
 		HLH.dashedLineMeansVisible = dashedLineMeansVisible;
+	}
+	
+	public void addMultiFloorRealtion(ObjectHE upper, ObjectHE lower, String relKind ){
+		
+		Node source = upper.getFloorNode();
+		Node target = lower.getCeilingNode();
+		
+		RelationHE newRalation = new RelationHE(rootEdgeGraph, source, target, relKind);
+		
 	}
 }

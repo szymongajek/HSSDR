@@ -26,7 +26,7 @@ public class AccessibilityChecker
 
 	boolean hasOutsideDoor(ObjectHE room)
 	{
-		for (Node n : room.getNodes()) {
+		for (Node n : room.getWallNodes()) {
 			// check if n represents an outside wall (no adj/acc relations)
 			// with a door (door position attributes present)
 			if (n.getRelations().isEmpty() && n.hasDoors())
@@ -39,7 +39,7 @@ public class AccessibilityChecker
 	{
 		Node n2;
 		boolean fromSrcToTgt;
-		for (Node n : room.getNodes()) {
+		for (Node n : room.getWallNodes()) {
 			for (RelationHE r : n.getRelations()) {
 				if (r.getAttribute(HLH.KIND) != HLH.KIND_ACC)
 					continue;

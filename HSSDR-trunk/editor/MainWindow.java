@@ -85,7 +85,7 @@ public class MainWindow extends JFrame implements MessageDisplayer   {
 	public static final int DEFAULT_GRID_SIZE=20;
 	public static final float DEFAULT_GRID_METERS=1;
 	
-	private Controller controller;
+	Controller controller;
 	
 	public int sizeX=DEFAULT_SIZE_X;
 	public int sizeY=DEFAULT_SIZE_Y;

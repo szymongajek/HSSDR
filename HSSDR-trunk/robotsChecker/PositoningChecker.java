@@ -135,7 +135,7 @@ public class PositoningChecker
 			}
 		} else {
 			// PrzejdŸ przez podpiête wêz³y reprezentuj¹ce œciany
-			ArrayList<Node> nodes = hyperedge.getNodes();
+			ArrayList<Node> nodes = hyperedge.getWallNodes();
 			Iterator<Node> i = nodes.iterator();
 			while (i.hasNext()) {
 				String coord = i.next().getAttribute(HLH.COORD);

@@ -3,6 +3,20 @@ forms:
 - checkbox showLabels
 -help
 -usunac validationMessage.setText("text");
+====
+- help jako jeden html
 
-general:
--
+
+zrobione w toku prac na wielopietrowym hg
+ 
+
+-wyswietlanie ca³ego grafu w edytorze hipergrafu, 
+-tryb jednego piêtra dla starych mechanizmów sprawdzania
+- dodanie wierzcho³ków pod³ogi i sufitu dal ka¿dego wirzcho³ka-pomieszczenia
+- rysowanie pod³ogi i sufitu - na ukos
+-uwzglednienie nowych wierzcho³ków w logice podzia³u
+- dodawanie relacji dla dwoch pomieszczen z roznych pieter
+- wykrywanie krawedzi gornej i dolnej przy dodawaniu relacji wielopietrowych
+- rysowanie pieter w odwrotnej kolejnosci
+
+todo:
