@@ -24,6 +24,10 @@ public class FloorsEditor extends JPanel {
 	private static final int Y_LAYOUT_GAP = 50;
 	
 	private static final int Y_LAYOUT_SIZE= MainWindow.DEFAULT_SIZE_Y;
+	
+	private static final double  FLOOR_ZOOM_SCALE = .4;
+	
+	private static final int FLOOR_AREA_SIZE = (int)((Y_LAYOUT_SIZE +Y_LAYOUT_GAP)*FLOOR_ZOOM_SCALE);
 
 	private static final int X_BASE_TRANSLATION = 150;
 
@@ -31,8 +35,6 @@ public class FloorsEditor extends JPanel {
 
 	private int sizeX = 1000, sizeY = 500; // pocztakowy rozmiar planszy (bez
 	// zoomowania)
-
-	private final double  FLOOR_ZOOM_SCALE = .4;
 
 	private ArrayList<LayoutEditor> layoutEditorsList;
 
@@ -90,7 +92,7 @@ public class FloorsEditor extends JPanel {
 		g2D.scale(FLOOR_ZOOM_SCALE, FLOOR_ZOOM_SCALE);
 		// g2D.shear(-0.5, 0);
 
-		for (int i = 0; i < layoutscount; i++) {
+		for (int i = layoutscount-1; i >=0; i--) {
 			layoutEditorsList.get(i).paintMe(g2D);
 			g2D.translate(0, ycorrection);
 		}
@@ -158,6 +160,26 @@ public class FloorsEditor extends JPanel {
 		tempArrow = null;
 	}
 
+	private int calculateFloorUnderMouse(MouseEvent e){
+		int base = e.getY()-Y_BASE_TRANSLATION;
+		return  window.floorCount - 1- base / FLOOR_AREA_SIZE;  
+	}
+	
+	private int calcxFloorTranslation(MouseEvent e){
+		// przeksztalcenie wspolrzednych lokalnych na te w drabinie pieter
+		int xtrans = e.getX();
+		// poczatkowe przesuniecie
+		return  xtrans - X_BASE_TRANSLATION;
+	}
+	
+	private int calcyFloorTranslation(MouseEvent e, int floorUnderMouse){
+		// przeksztalcenie wspolrzednych lokalnych na te w drabinie pieter
+		int ytrans = e.getY();
+		// poczatkowe przesuniecie
+		ytrans = ytrans - Y_BASE_TRANSLATION;
+		// nte pietro
+		return ytrans -  ((int)(( window.floorCount - 1 -floorUnderMouse)*FLOOR_AREA_SIZE));
+	}
 
 	void floorsEditorMouseClicked(MouseEvent e) {
 		boolean isThick;
@@ -167,22 +189,14 @@ public class FloorsEditor extends JPanel {
 			isThick =false;
 		}
 		
-		int floorAreaSize = (int)((Y_LAYOUT_SIZE +Y_LAYOUT_GAP)*this.FLOOR_ZOOM_SCALE);
-		int base = e.getY()-Y_BASE_TRANSLATION;
-		int floorUnderMouse = base / floorAreaSize;  
+		int floorUnderMouse = calculateFloorUnderMouse(e);
 		LayoutEditor editorUnderMouse = window.getFloor(floorUnderMouse);
 		
 		double savedZoom = editorUnderMouse.getZoomedTo();
-		editorUnderMouse.setZoomedTo(this.FLOOR_ZOOM_SCALE);
+		editorUnderMouse.setZoomedTo(FLOOR_ZOOM_SCALE);
 
-		// przeksztalcenie wspolrzednych lokalnych na te w drabinie pieter
-		int xtrans = e.getX();
-		int ytrans = e.getY();
-		// poczatkowe przesuniecie
-		xtrans = xtrans - X_BASE_TRANSLATION;
-		ytrans = ytrans - Y_BASE_TRANSLATION;
-		// nte pietro
-		ytrans = ytrans -  ((int)(( floorUnderMouse)*floorAreaSize));
+		int xtrans = calcxFloorTranslation(e);
+		int ytrans = calcyFloorTranslation(e, floorUnderMouse);
 		
 		switch (editorUnderMouse.mode) {
 		case OUTLINE_FINISHED:
@@ -248,22 +262,15 @@ public class FloorsEditor extends JPanel {
 			this.setTemporaryArrow(arr1x, arr1y, e.getX(), e.getY());
 		}
 
-		int floorAreaSize = (int)((Y_LAYOUT_SIZE +Y_LAYOUT_GAP)*this.FLOOR_ZOOM_SCALE);
-		int base = e.getY()-Y_BASE_TRANSLATION;
-		int floorUnderMouse = base / floorAreaSize;  
-		LayoutEditor editorUnderMouse = window.getFloor(floorUnderMouse);
+		int floorUnderMouse = calculateFloorUnderMouse(e);  
 		
-		double savedZoom = editorUnderMouse.getZoomedTo();
-		editorUnderMouse.setZoomedTo(this.FLOOR_ZOOM_SCALE);
+		LayoutEditor editorUnderMouse = window.getFloor(floorUnderMouse);
 
-		// przeksztalcenie wspolrzednych lokalnych na te w drabinie pieter
-		int xtrans = e.getX();
-		int ytrans = e.getY();
-		// poczatkowe przesuniecie
-		xtrans = xtrans - X_BASE_TRANSLATION;
-		ytrans = ytrans - Y_BASE_TRANSLATION;
-		// nte pietro
-		ytrans = ytrans -  ((int)(( floorUnderMouse)*floorAreaSize));
+		double savedZoom = editorUnderMouse.getZoomedTo();
+		editorUnderMouse.setZoomedTo(FLOOR_ZOOM_SCALE);
+
+		int xtrans = calcxFloorTranslation(e);
+		int ytrans = calcyFloorTranslation(e, floorUnderMouse);
 		
 		switch (editorUnderMouse.mode) {
 		case OUTLINE_FINISHED:
