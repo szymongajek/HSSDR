@@ -1,0 +1,3 @@
+success_msg "Kitchen area ok"
+failure_msg "Kitchen area is lower than 30 square metres"
+exists x in Rooms :  type(x)="Kitchen"   and area(x) >= 30;
