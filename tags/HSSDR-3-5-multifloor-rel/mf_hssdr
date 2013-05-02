@@ -1,6 +1,0 @@
-Manifest-Version: 1.0
-Main-Class: controller.Start
-Class-Path: forms.jar antlr-runtime-3.2.jar
-
-
-

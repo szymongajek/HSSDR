@@ -1,9 +1,0 @@
-success_msg "Czy istnieją kot i kotka?"
-exists a, b : Kocury(a) and Kotki(b);
-
-success_msg "Czy istnieją kot i kotka w tym samym wieku?"
-failure_msg "Nie ma kota i kotki w tym samym wieku."
-exists a in Kocury, b in Kotki : age(a) = age(b);
-
-success_msg "A różniące się o nie więcej niż 2 lata?"
-exists a in Kocury, b in Kotki : abs(age(a) - age(b)) <= 2;
