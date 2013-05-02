@@ -1,0 +1,24 @@
+# Important area
+SecuredArea(r) <=> Rooms(r) and
+    (type(r) = "Office" or type(r) = "Living_Room" or type(r) = "Garage");
+	 
+# Passage can be crossed without entering a sensor's range
+UnwatchedPassage(d1, d2) <=> Doors(d1) and Doors(d2) and d1!=d2 and
+    (exists r in Rooms: doorsInRoom(d1,r) and doorsInRoom(d2,r) and
+        not isPassageWatched(d1,d2));
+
+UnwatchedPassageInduction(d1, d2, n) <=>
+    (n = 1 and UnwatchedPassage(d1, d2)) or
+    (n <> 1 and UnwatchedPassageInduction(d1, d2, n-1)) or
+    (n <> 1 and exists d in Doors:
+        UnwatchedPassageInduction(d1, d, n-1) and
+        UnwatchedPassage(d, d2));
+
+UnwatchedPassagePlus(d1, d2) <=> UnwatchedPassageInduction(d1, d2, 99);
+
+# UnwatchedPassagePlus(d1, d2) <=> exists d in Doors:
+#     UnwatchedPassage(d1, d) and UnwatchedPassage(d, d2);
+
+success_msg "system nieszczelny"
+failure_msg "system szczelny"
+exists d1, d2 in ExternalDoors: d1 <> d2 and UnwatchedPassagePlus(d1,d2);
