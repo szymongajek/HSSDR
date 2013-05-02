@@ -9,7 +9,15 @@ forms:
 
 zrobione w toku prac na wielopietrowym hg
  
-
+- zasieg sensorow w oknie ustawien
+- przyciski do powiekszania jako +/-
+- wybor ilosci pieter w oknie ustawien
+- zmiana widoku pieter na plaskie
+- zaznaczanie obszarow w widoku pieter
+- wykrywanie pietra pod myszka
+- zaznaczanie obszarow strzalkami w widoku pieter
+- blokowanie wyboru pietra na niektorych zakladkach
+- tryb all w widoku hipergrafu + blokowanie
 -wyswietlanie ca³ego grafu w edytorze hipergrafu, 
 -tryb jednego piêtra dla starych mechanizmów sprawdzania
 - dodanie wierzcho³ków pod³ogi i sufitu dal ka¿dego wirzcho³ka-pomieszczenia
