@@ -1,0 +1,22 @@
+	# Important area
+SecuredArea(r) <=> Rooms(r) and (type(r) = "Office" or type(r) = "Living_Room" or type(r) = "Garage");
+	 
+# Passege can crossed without entering a sensor's range
+UnwatchedPassage(d1, d2) <=> d1!=d2 and  Doors(d1) and  Doors(d2) and
+ 	(exists r in Rooms: doorsInRoom(d1,r) and doorsInRoom(d2,r) and not isPassageWatched(d1,d2) );
+
+UnwatchedPassageInduction(d1, d2, n) <=>
+ (n = 1 and UnwatchedPassage(d1, d2)) or
+ (n <> 1 and UnwatchedPassageInduction(d1, d2, n-1)) or
+ (n <> 1 and exists d in Doors:
+   UnwatchedPassageInduction(d1, d, n-1) and
+   UnwatchedPassage(d, d2));
+
+UnwatchedPassagePlus(d1, d2) <=> UnwatchedPassageInduction(d1, d2, 99);
+
+# nie istnieje UnwatchedPassagePlus pomiedzy dzwiami zew i drzwiami do SecuredArea
+
+success_msg "plan secured"
+failure_msg "plan usecured"
+#  exists r in Rooms: exists d1, d2 in Doors:   SecuredArea(r) and doorsInRoom(d2,r) and  UnwatchedPassagePlus(d1,d2);
+forall r in Rooms: forall d1, d2 in Doors:  not (ExternalDoors(d1) and SecuredArea(r) and doorsInRoom(d2,r) and  UnwatchedPassagePlus(d1,d2) and not surveilledDoors(d2));

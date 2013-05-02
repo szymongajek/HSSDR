@@ -1,0 +1,41 @@
+	# zbiór drzwi łączących ze sobą różne strefy budynku
+ZoneDoors(d) <=> exists r in Rooms: doorsInRoom(d, r) and  type(r) = "Staircase";
+	# zbiór drzwi zapewniajacych bezpieczenstwo po drugiej stronie
+FireSafetyDoors(d) <=>  ExternalDoors(d) or ZoneDoors(d) ;
+   
+	# pokoje stanowiace odrebne strefy pozarowe - bezpieczne
+ZoneRooms(r) <=> Rooms(r) and (type(r) = "Staircase");   
+	# pomieszczenia, z których może być zbudowana evacuation route
+EvacRoute(r) <=> Rooms(r) and (type(r) = "Corridor" or type(r) = "Hall");
+	# pomieszczenia do codziennego uzytku stanowiace access path
+AccessPath(r) <=> Rooms(r) and !ZoneRooms(r) and !EvacRoute(r);
+  
+aux1(d, x) <=>  Doors(d) and  ( exists d2 in Doors : d2!=d and FireSafetyDoors(d2) and
+( exists p in Rooms:  doorsInRoom(d2,p) and doorsInRoom(d,p) and EvacRoute(p) and  x>=doorsDist(d, d2)  ));
+aux2(d, x) <=> Doors(d) and  (exists d2 in Doors : d2!=d   and 
+( exists p in Rooms:  doorsInRoom(d2,p) and doorsInRoom(d,p) and EvacRoute(p) and aux1(d2,x - doorsDist(d, d2)) ));
+aux3(d, x) <=> Doors(d) and  (exists d2 in Doors : d2!=d  and 
+( exists p in Rooms:  doorsInRoom(d2,p) and doorsInRoom(d,p) and EvacRoute(p) and aux2(d2,x - doorsDist(d, d2)) ));
+aux4(d, x) <=> Doors(d) and  (exists d2 in Doors : d2!=d  and 
+( exists p in Rooms:  doorsInRoom(d2,p) and doorsInRoom(d,p) and EvacRoute(p) and aux3(d2,x - doorsDist(d, d2)) ));
+
+ValidEvacRouteDoors(d) <=>FireSafetyDoors(d) or  aux1(d, 30) or aux2(d, 30) or aux3(d, 30) or aux4(d, 30);
+
+# zbiór pokoi, w których znajdują się drzwi prowadzące na drogę ewakuacyjną
+steps0(r) <=>     AccessPath(r)  and ( exists d in ValidEvacRouteDoors: doorsInRoom(d, r) );
+# zbiór tych, gdzie trzeba przejść przez co najwyżej n pośrednich pokoi
+steps1(r) <=> steps0(r) or ( AccessPath(r)  and (exists r2 in steps0: accessible(r, r2) ));
+steps2(r) <=> steps1(r) or ( AccessPath(r)  and (exists r2 in steps1: accessible(r, r2) ));
+ 
+# pokoje wchodzace w sklad prawidlowej evac route 
+ValidEvacRouteRooms(r) <=> EvacRoute(r) and ( exists d in ValidEvacRouteDoors: doorsInRoom(d, r) );
+
+# zbiór pokoi mających prawidłową access path prowadzącą do prawidłowej
+# evacuation route prowadzącej do ZoneDoors albo na zewnątrz
+# plus pokoje stanowiace strefy pozarowe 
+# plus pokoje wchodzace w sklad prawidlowej evac route 
+ValidRooms(r) <=> steps2(r) or ValidEvacRouteRooms(r)  or  ZoneRooms(r);
+
+
+failure_msg "some rooms do not fulfill fire safety constraints"
+forall r in Rooms: ValidRooms(r)
