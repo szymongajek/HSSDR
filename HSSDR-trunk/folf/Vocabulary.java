@@ -60,7 +60,7 @@ public class Vocabulary
     {
         Pair p = symbols.get(name);
         if (p == null)
-            throw new IllegalArgumentException("unknown");
+            throw new IllegalArgumentException("unknown arity:"+name);
         return p.arity;
     }
 
