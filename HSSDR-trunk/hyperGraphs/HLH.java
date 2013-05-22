@@ -7,6 +7,8 @@ import java.util.Hashtable;
 import java.util.ArrayList;
 import java.util.List;
 
+import util.Logger;
+
 import folf.*;
 
 public class HLH
@@ -29,6 +31,8 @@ public class HLH
 	public static final String DIRECTION_FLOOR="F";
 //	  
 	public static final String DIRECTION_CEILING="C";
+	
+	public static final String DIRECTION_VERTICAL="V";
 	//	 dla wezlow wspolrzedne koncow sciany: dostepne przez LayoutUtils.getWallCoord(node)
 	public static final String COORD="COORD";
 //	 dla wezlow numer kolejnej sciany jaka reprezentuje wezel
@@ -519,6 +523,51 @@ public class HLH
 		Node target = lower.getCeilingNode();
 		
 		RelationHE newRalation = new RelationHE(rootEdgeGraph, source, target, relKind);
+		
+	}
+	
+	public void addMultiFloorMultiRealtion(ObjectHE upper, ObjectHE lower, String relKind ){
+		
+		if(!relKind.equals(HLH.KIND_ACC)){
+    		throw new RuntimeException("not implemented");
+    	}
+		
+		Node source = upper.getVerticalNode();
+		Node target = lower.getVerticalNode();
+		
+		boolean sourceHasAccRel = false;
+		boolean targetHasAccRel = false;
+		
+		HyperRelation foundExistingInSource=null;
+		HyperRelation foundExistingInTarget=null;
+		
+		for (RelationHE rel: source.getRelations()){// tutaj by trzeba szukac tylko takich typow jak dodawana
+			if (HLH.KIND_ACC.equals(rel.getAttribute(HLH.KIND))){
+				sourceHasAccRel=true;
+				foundExistingInSource=(HyperRelation)rel;
+			}
+		}
+		for (RelationHE rel: target.getRelations()){
+			if (HLH.KIND_ACC.equals(rel.getAttribute(HLH.KIND))){
+				targetHasAccRel=true;
+				foundExistingInTarget=(HyperRelation)rel;
+			}
+		}
+		
+		if (!sourceHasAccRel && !targetHasAccRel){// dodawanie pierwszej relacji
+			HyperRelation newRalation = new HyperRelation(rootEdgeGraph, source, target, HLH.KIND_ACC);
+			return;
+		}else if (sourceHasAccRel && targetHasAccRel){
+			Logger.LOGGER.warn("unsuppored operation, joining two existing realtion he into one");
+			return;
+		} 
+		
+		if (sourceHasAccRel){
+			foundExistingInSource.addNodeToRelation(target);
+		}else{
+			foundExistingInTarget.addNodeToRelation(source);
+		}
+		
 		
 	}
 }

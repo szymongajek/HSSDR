@@ -305,6 +305,9 @@ public class ObjectPainter   {
 			if (drawObjects)
 				paintObjectHE(g2D, (ObjectHE)edge);
 			paintChildElements(g2D, (ObjectHE)edge, drawObjects, drawRelations );
+		}else if (edge instanceof HyperRelation){
+			if (drawRelations)
+				paintHyperRelationHE(g2D, (HyperRelation)edge);
 		}else if (edge instanceof RelationHE){
 			if (drawRelations)
 				paintRelationHE(g2D, (RelationHE)edge);
@@ -367,6 +370,67 @@ public class ObjectPainter   {
 		
 		g2d.drawLine(sourceX, sourceY, elPX, elPY);
 		g2d.drawLine(targetX, targetY,  elPX,  elPY);
+		g2d.setColor(Color.white);
+		g2d.fillOval(elPX-elSX/2, elPY-elSY/2, elSX, elSY);
+		g2d.setColor(Color.black);
+		g2d.drawOval(elPX-elSX/2, elPY-elSY/2, elSX, elSY);
+		
+		String kind =rel.getAttribute(HLH.KIND);
+ 
+		g2d.drawString(kind, elPX-5 , elPY );
+	}
+	
+	public static void paintHyperRelationHE(Graphics2D g2d, HyperRelation rel) {
+		 
+		Node source  = rel.getFirstNode();
+		Node target = rel.getSecondNode();
+		
+		int sourceX =  source.getMiddleX();
+		int sourceY =  source.getMiddleY(); 
+		
+		int targetX =  target.getMiddleX();
+		int targetY = target.getMiddleY();
+ 
+		// jezeli nie jest ustaione jeszce to obliczmy polozenie elipsy i ustawiamy param w MobableComp tego elementu
+		if (rel.getMiddleX()==0 && rel.getMiddleY() == 0){
+		 
+			rel.setSizeX(2);
+			rel.setSizeY(1);
+
+			rel.setMiddleX(((sourceX + targetX)/2)+1+1);//+20 zeby sie nie zlewaly w pionie, ja nody sa w jedej lini
+			rel.setMiddleY( (sourceY + targetY)/2   + 2);
+		} 
+		
+		
+		
+		ObjectHE firstObj = source.getObjectEdge();
+		ObjectHE secObj = target.getObjectEdge();
+		// nie rysujemy relacji do obszarow empty
+		if ((HLH.ROOM_TYPES.Empty.toString().equals(firstObj
+				.getAttribute(HLH.ROOM_TYPE_LABEL)))
+				|| (HLH.ROOM_TYPES.Empty.toString().equals(secObj
+						.getAttribute(HLH.ROOM_TYPE_LABEL)))) {
+			return;
+		}
+		
+		int elSX = HyperGraphEditor.metersToPixels * rel.getSizeX() ;
+		int elSY = HyperGraphEditor.metersToPixels * rel.getSizeY();
+		int elPX = HyperGraphEditor.metersToPixels * rel.getMiddleX();
+		int elPY = HyperGraphEditor.metersToPixels * rel.getMiddleY();
+		
+		sourceX *=  HyperGraphEditor.metersToPixels ;
+		sourceY *=  HyperGraphEditor.metersToPixels ; 
+		targetX *=  HyperGraphEditor.metersToPixels ;
+		targetY *= HyperGraphEditor.metersToPixels ;
+		
+		
+		for (Node node: rel.getIncidentNodes()){
+			int nx =  node.getMiddleX()* HyperGraphEditor.metersToPixels;
+			int ny =  node.getMiddleY()* HyperGraphEditor.metersToPixels;
+			
+			g2d.drawLine(nx, ny, elPX, elPY);
+		}
+		
 		g2d.setColor(Color.white);
 		g2d.fillOval(elPX-elSX/2, elPY-elSY/2, elSX, elSY);
 		g2d.setColor(Color.black);
@@ -453,7 +517,7 @@ public class ObjectPainter   {
 			} else if (dir.equals("F")){
 				g2D.drawLine(edgMiddleX, edgMiddleY, posX, posY);
 				g2D.drawString(nodes.get(i).getAttribute(HLH.LABEL), posX-16 , posY+14 );
-			} else if (dir.equals("C")){
+			} else if (dir.equals("C")||dir.equals("V")){
 				g2D.drawLine(edgMiddleX, edgMiddleY, posX, posY);
 				g2D.drawString(nodes.get(i).getAttribute(HLH.LABEL), posX-16 , posY+14 );
 			}

@@ -60,12 +60,15 @@ public class RelationHE extends HyperEdge {
 		removeConnections();
 	}
 
-	public Node getConnectionNodeOtherThan(Node n) {
-		if (n == target)
-			return source;
-		if (n == source)
-			return target;
-		throw new IllegalArgumentException();
+	public boolean isLinkingNodes(Node node1, Node node2) {
+		if (node1 == target && node2 == source) {
+			return true;
+		} else if (node1 == source && node2 == target) {
+			return true;
+		} else {
+			return false;
+		}
+
 	}
 
 }

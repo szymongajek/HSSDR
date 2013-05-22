@@ -53,7 +53,7 @@ public class Controller
 
     public void startOutline(Path rootPath, float gridToMeters, int sensorRange, int floorNr)
     {
-        graph.createRootEdge(rootPath.createObjectHE(null,0),gridToMeters,sensorRange, floorNr );
+        graph.createRootEdge(rootPath.createObjectHE(null,0, floorNr),gridToMeters,sensorRange, floorNr );
         checkLayout();
     }
     
@@ -71,8 +71,8 @@ public class Controller
             throw new RuntimeException(" TODO podzial na wiecej niz dwa ");
         } else
         {
-            ObjectHE firstHE = ((Path)newObjects.get(0)).createObjectHE(developedEdge,level + 1);
-            ObjectHE secondHE = ((Path)newObjects.get(1)).createObjectHE(developedEdge,level + 1);
+            ObjectHE firstHE = ((Path)newObjects.get(0)).createObjectHE(developedEdge,level + 1, developedEdge.getFloor());
+            ObjectHE secondHE = ((Path)newObjects.get(1)).createObjectHE(developedEdge,level + 1, developedEdge.getFloor());
             graph.developEgde(developedEdge, firstHE, secondHE);
             checkLayout();
             return;
@@ -204,7 +204,7 @@ public class Controller
     	ObjectHE upperEdge = graph.findObjectHEWithLabel(upperArea.toString());
     	ObjectHE lowerEdge = graph.findObjectHEWithLabel(lowerdArea.toString());
     	
-		graph.addMultiFloorRealtion(upperEdge, lowerEdge, relationKind);
+		graph.addMultiFloorMultiRealtion(upperEdge, lowerEdge, relationKind);
 		checkLayout();
 	}
 
