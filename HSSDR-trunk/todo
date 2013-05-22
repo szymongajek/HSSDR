@@ -32,6 +32,10 @@ wieloargumentowa dostepnosc
 - zlaczenie wierzcholkow podlogi i sufitu w jeden
 -dodawanie do istniejacej relacji w przypadku dostepnesci miedzy pietrami
 -rysowanie wieloarg relacji
+- uwzglenienie wiloarg w logice wyszukiwania polaczen w grafie
+
+- bug podczas sprawdzania
+
 
 todo:
 problem drog pionowych w ksztalcie y. rowziazania:

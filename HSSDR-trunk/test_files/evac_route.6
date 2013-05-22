@@ -1,24 +1,24 @@
 # czy dwie pary drzwi prowadzą do tego samego pokoju
-doorsInTheSameRoom(d1, d2)  <=>  exists r in Room:
+doorsInTheSameRoom(d1, d2)  <=>  exists r in Rooms:
    doorsInRoom(d1, r) and doorsInRoom(d2, r);
 
 # zbiór drzwi prowadzących na zewnątrz
-ExternalDoor(d) <=> Door(d) and ( forall x, y in Room:  
+ExternalDoor(d) <=> Door(d) and ( forall x, y in Rooms:  
  doorsInRoom(d, x) and doorsInRoom(d, y) => x = y );
 # zbiór drzwi ewakuacyjnych
- EvacuationDoors(d) <=> exists p in Room:
+ EvacuationDoors(d) <=> exists p in Rooms:
   doorsInRoom(d, p) and ( type(p) = "Staircase" or type(p) = "Corridor" );
   # zbiór pomieszczen o typie będącym drogą ewakuacyjną
  EvacuationRoute(p) <=>  Room(p) and ( type(p) = "Staircase" or type(p) = "Corridor");
  
 aux1(d, x) <=> EvacuationDoors(d) and 
-(   exists d2 in Door: d2!=d and ExternalDoor(d2) and doorsInTheSameRoom(d, d2) and x >= doorsDist(d, d2) );
+(   exists d2 in Doors: d2!=d and ExternalDoor(d2) and doorsInTheSameRoom(d, d2) and x >= doorsDist(d, d2) );
 aux2(d, x) <=>EvacuationDoors(d) and 
-(   exists d2 in Door: aux1(d2,x) and d2!=d and doorsInTheSameRoom(d, d2) and x >= doorsDist(d, d2) );
+(   exists d2 in Doors: aux1(d2,x) and d2!=d and doorsInTheSameRoom(d, d2) and x >= doorsDist(d, d2) );
 aux3(d, x) <=>EvacuationDoors(d) and 
-(   exists d2 in Door: aux2(d2,x) and d2!=d and doorsInTheSameRoom(d, d2) and x >= doorsDist(d, d2) );
+(   exists d2 in Doors: aux2(d2,x) and d2!=d and doorsInTheSameRoom(d, d2) and x >= doorsDist(d, d2) );
 aux4(d, x) <=>EvacuationDoors(d) and 
-(   exists d2 in Door: aux3(d2,x) and d2!=d and doorsInTheSameRoom(d, d2) and x >= doorsDist(d, d2) );
+(   exists d2 in Doors: aux3(d2,x) and d2!=d and doorsInTheSameRoom(d, d2) and x >= doorsDist(d, d2) );
 
 ValidEvacRouteDoors(d) <=>ExternalDoor(d) or  aux1(d, 30) or aux2(d, 30) or aux3(d, 30) or aux4(d, 30);
 
@@ -37,4 +37,4 @@ ValidRooms(r) <=> steps2(r);
 success_msg "wszystkie pokoje ok"
 failure_msg "pokój nie spełnia warunków"
 
-forall r in Room: ValidRooms(r)
+forall r in Rooms: ValidRooms(r)
