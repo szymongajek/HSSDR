@@ -60,6 +60,7 @@ public class ObjectHE extends HyperEdge
     	  ArrayList<Node> newNodes = new ArrayList<Node>(); 
     	  for (ArrayList<Node> vect: nodesGroups.values()){
     		  Node n = new Node();
+    		  n.setFloor(this.getFloor());
     		  n.setObjectEdge(this);
     		  n.setAttributesFrom(vect.get(0));
     		  copyDoorsFromGroupTo(vect,n);
@@ -271,6 +272,16 @@ public class ObjectHE extends HyperEdge
         return null;
     }
     
+    public Node getVerticalNode()
+    {
+    	for(Node node: nodes){
+    		if (HLH.DIRECTION_VERTICAL.equals(node.getDirection())){
+    			return node;
+    		}
+    	}
+        return null;
+    }
+    
     /*
      * zwraca kierunek i-tej sciany z hiperkrawedzi - N S W E
      */
@@ -363,12 +374,11 @@ public class ObjectHE extends HyperEdge
 	}
 	public String connectedWith(ObjectHE other){
 		
-		for(Node n : getAllNodes()){
-			for (RelationHE rel: n.getRelations()){
-				ObjectHE tested =rel.getConnectionNodeOtherThan(n).getObjectEdge(); 
-				if (tested== other)
-						return rel.getAttribute(HLH.KIND); 
-			}
+		for(Node node1 : getAllNodes())
+			for(Node node2 : other.getAllNodes())
+				for (RelationHE rel: node1.getRelations()){
+					if (rel.isLinkingNodes(node1, node2))
+							return rel.getAttribute(HLH.KIND); 
 		}
 		return null;
 	}

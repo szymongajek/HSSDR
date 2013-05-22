@@ -8,8 +8,10 @@ public class HyperEdge  extends MovableComponent
     private ObjectHE parentEdge;
 //    atrybuty
     private Properties attributes;
+    
+    private int floor;
   
-    public HyperEdge()
+	public HyperEdge()
     {
         attributes = new Properties();
     }
@@ -42,6 +44,11 @@ public class HyperEdge  extends MovableComponent
     {
         this.parentEdge = parentEdge;
     }
-    
+    public int getFloor() {
+		return floor;
+	}
+	public void setFloor(int floor) {
+		this.floor = floor;
+	}
 
 }

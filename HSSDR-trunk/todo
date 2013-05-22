@@ -27,4 +27,13 @@ zrobione w toku prac na wielopietrowym hg
 - wykrywanie krawedzi gornej i dolnej przy dodawaniu relacji wielopietrowych
 - rysowanie pieter w odwrotnej kolejnosci
 
+wieloargumentowa dostepnosc
+
+- zlaczenie wierzcholkow podlogi i sufitu w jeden
+-dodawanie do istniejacej relacji w przypadku dostepnesci miedzy pietrami
+-rysowanie wieloarg relacji
+
 todo:
+problem drog pionowych w ksztalcie y. rowziazania:
+1. wykrywanie jakie pietra sa w reacjach podczas dodawania nowej - trudne przypadki nie do rozw
+2. interfejsc - wybor reacji zwyklej, lub rysowanie ciagu kom. - lepszy

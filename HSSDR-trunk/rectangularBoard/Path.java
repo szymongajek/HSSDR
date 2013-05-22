@@ -321,7 +321,7 @@ public class Path {
 		return;
 	}
 	
-	public ObjectHE createObjectHE(ObjectHE parentEdge, int level) {
+	public ObjectHE createObjectHE(ObjectHE parentEdge, int level, int floorNr) {
 		
 		ObjectHE he= new ObjectHE();
 		
@@ -365,6 +365,7 @@ public class Path {
 		he.setAttribute(HLH.ROOM_TYPE_LABEL, HLH.ROOM_TYPES.values()[ getRoomType()].toString());
 		he.setAttribute(HLH.AREA, String.valueOf(getAreaValue()));
 		he.setInterior( getInterior());
+		he.setFloor(floorNr);
 	 	
 		int Ncurrx=avg_x - sizeX/2;
 		int Ncurry=avg_y - sizeY/2;
@@ -383,6 +384,7 @@ public class Path {
 		
 		for (int wallNr = 0; wallNr <= size()-2; wallNr++) {
 			Node n = new Node();
+			n.setFloor(floorNr);
 			int len = getLineLen(wallNr)* gridMeteres;
 			String dir=getLineDir(wallNr);
 			n.setAttribute(HLH.LEN, String.valueOf(len));
@@ -479,24 +481,33 @@ public class Path {
 		}
 		
 		// dodanie wez³ów pod³oga i sufit
-		Node floor = new Node();
-		floor.setDirection(HLH.DIRECTION_FLOOR);
-		floor.setAttribute(HLH.WALL_NR,String.valueOf(-1));
-		floor.setAttribute(HLH.LABEL,"FLOOR");
-		floor.setObjectEdge(he);
-		floor.setMiddleX( avg_x - sizeX/2 -ObjectPainter.NODE_DIST_FROM_HE_IN_SQUARES/2);
-		floor.setMiddleY( avg_y + sizeY/2 +ObjectPainter.NODE_DIST_FROM_HE_IN_SQUARES/2);
-		he.addNode(floor);
+//		Node floor = new Node();
+//		floor.setDirection(HLH.DIRECTION_FLOOR);
+//		floor.setAttribute(HLH.WALL_NR,String.valueOf(-1));
+//		floor.setAttribute(HLH.LABEL,"FLOOR");
+//		floor.setObjectEdge(he);
+//		floor.setMiddleX( avg_x - sizeX/2 -ObjectPainter.NODE_DIST_FROM_HE_IN_SQUARES/2);
+//		floor.setMiddleY( avg_y + sizeY/2 +ObjectPainter.NODE_DIST_FROM_HE_IN_SQUARES/2);
+//		he.addNode(floor);
 		
-		// dodanie wez³ów pod³oga i sufit
-		Node ceil = new Node();
-		ceil.setDirection(HLH.DIRECTION_CEILING);
-		ceil.setAttribute(HLH.WALL_NR,String.valueOf(-1));
-		ceil.setAttribute(HLH.LABEL,"CEIL");
-		ceil.setObjectEdge(he);
-		ceil.setMiddleX( avg_x + sizeX/2 +ObjectPainter.NODE_DIST_FROM_HE_IN_SQUARES/2);
-		ceil.setMiddleY( avg_y - sizeY/2 -ObjectPainter.NODE_DIST_FROM_HE_IN_SQUARES/2);
-		he.addNode(ceil);
+//		Node ceil = new Node();
+//		ceil.setDirection(HLH.DIRECTION_CEILING);
+//		ceil.setAttribute(HLH.WALL_NR,String.valueOf(-1));
+//		ceil.setAttribute(HLH.LABEL,"CEIL");
+//		ceil.setObjectEdge(he);
+//		ceil.setMiddleX( avg_x + sizeX/2 +ObjectPainter.NODE_DIST_FROM_HE_IN_SQUARES/2);
+//		ceil.setMiddleY( avg_y - sizeY/2 -ObjectPainter.NODE_DIST_FROM_HE_IN_SQUARES/2);
+//		he.addNode(ceil);
+		
+		// wezel poloaczenia pionowe
+		Node vert = new Node();
+		vert.setDirection(HLH.DIRECTION_VERTICAL);
+		vert.setAttribute(HLH.WALL_NR,String.valueOf(-1));
+		vert.setAttribute(HLH.LABEL,"VERT");
+		vert.setObjectEdge(he);
+		vert.setMiddleX( avg_x + sizeX/2 +ObjectPainter.NODE_DIST_FROM_HE_IN_SQUARES/2);
+		vert.setMiddleY( avg_y - sizeY/2 -ObjectPainter.NODE_DIST_FROM_HE_IN_SQUARES/2);
+		he.addNode(vert);
 		
 		return he;
 	}
