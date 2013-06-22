@@ -199,6 +199,7 @@ public class FloorsEditor extends JPanel {
 		int ytrans = calcyFloorTranslation(e, floorUnderMouse);
 		
 		switch (editorUnderMouse.mode) {
+		case AREA_SELECTED:
 		case OUTLINE_FINISHED:
 			if (editorUnderMouse.selectDevelopedPath(xtrans, ytrans)){ // zaznaczamy
 //				editorUnderMouse.mode=Mode.AREA_SELECTED;
@@ -240,14 +241,6 @@ public class FloorsEditor extends JPanel {
 				this.removeTempArrow();
 			}
 			break;
-//		case AREA_SELECTED:
-//			if (! editorUnderMouse.selectDevelopedPath(xtrans, ytrans)){ //odznaczamy path
-//				editorUnderMouse.mode=Mode.OUTLINE_FINISHED;
-//				window.setSelectedAreaInfo(null);
-//			}else {
-//				window.setSelectedAreaInfo(editorUnderMouse.getDevelopedPath());
-//			}
-//			break;
 		default:
 			break;
 		}

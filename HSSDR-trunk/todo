@@ -33,8 +33,12 @@ wieloargumentowa dostepnosc
 -dodawanie do istniejacej relacji w przypadku dostepnesci miedzy pietrami
 -rysowanie wieloarg relacji
 - uwzglenienie wiloarg w logice wyszukiwania polaczen w grafie
+- bug podczas sprawdzania -poprawki plaiki testowe
 
-- bug podczas sprawdzania
+
+po urlopie:
+- blad zmiana ilosci pieter
+-obrys parteru widoczny wszêdzie
 
 
 todo:

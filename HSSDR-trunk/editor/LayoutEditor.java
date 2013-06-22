@@ -60,7 +60,7 @@ public class LayoutEditor extends JPanel {
 	
 	private Path rootPath  ;
 	 
-	//path ktory reprezenetuje hioer krawedz ktora dzielimy
+	//path ktory reprezenetuje hier krawedz ktora dzielimy
 	private  Path developedPath= null; 
 	
 	 
@@ -75,6 +75,9 @@ public class LayoutEditor extends JPanel {
 	
 	// obszar podswietlony dla celów usuwania zaznaczany w drzewku divisionTree
 	private Path divisionPath=null;
+	
+	// obrys parteru - nie nalezy do pietra, rysowany na wyzszych pietrach jako pomoc
+	private Path groundFloorOutline=null;
 	
 	//w trakcie dodawania czujnika
 	private Sensor addingSensor = null;
@@ -163,6 +166,11 @@ public class LayoutEditor extends JPanel {
 //			pomieszczenia typu empty - bez siatki
 			paintEmptySpaces(g2D, rootPath);
 
+			// obrys parteru
+			if (groundFloorOutline!=null){
+				paintPath(g2D, groundFloorOutline,  Color.lightGray, true);
+			}
+			
 //			path
 	 		paintPathTree(g2D, rootPath,  Color.BLACK, false);
 	 		
@@ -1053,5 +1061,9 @@ public class LayoutEditor extends JPanel {
 
 	public void setZoomedTo(double zoomedTo) {
 		this.zoomedTo = zoomedTo;
+	}
+	
+	public void setGroundFloorOutline(Path groundFloorOutline) {
+		this.groundFloorOutline = groundFloorOutline;
 	}
 }
