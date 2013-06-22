@@ -309,6 +309,14 @@ public class MainWindow extends JFrame implements MessageDisplayer   {
 				DashedMode.setVisible(true);
 				addDoorsbutton.setVisible(true);
 				undoButton.setVisible(true);
+				
+				if (currentFloor==0){//jezeli parter
+					for(LayoutEditor editor: layoutEditorsList){
+						if (editor!=currentLayoutEditor){
+							editor.setGroundFloorOutline(new Path(currentLayoutEditor.getRootPath()) );
+						}
+					}
+				}
 			}else { // wyswietl metraz
 				 
 				if (showLineLen)
@@ -653,6 +661,14 @@ public class MainWindow extends JFrame implements MessageDisplayer   {
 				changeFloor(prevSelected);
 			}
 			floorsCombo.setEnabled(true);
+			
+			//usunac zaznaczenia w edytorach
+			for (LayoutEditor editor : layoutEditorsList) {
+				if (editor.mode != Mode.EMPTY ){
+					editor.mode=Mode.OUTLINE_FINISHED;
+				}
+			}
+			
 			break;
 		case 1:
 			currentTab=TABS.FLOORS;

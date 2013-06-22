@@ -123,9 +123,10 @@ public class SettingsDialog extends JDialog {
 		
 		mainWindow.initLayoutEditorsList(  floorCount);
 		mainWindow.initFloorsEditor();
-		mainWindow.initFloorsCombo();
 		
 		mainWindow.initGraph();
+		
+		mainWindow.initFloorsCombo();
 		
 		if (dashedModeVIS_radio.isSelected()){
 			mainWindow.setDashedLineMeansVis(true);
