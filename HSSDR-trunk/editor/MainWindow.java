@@ -24,6 +24,8 @@ import java.awt.event.ComponentAdapter;
 import java.awt.event.ComponentEvent;
 import java.awt.event.FocusAdapter;
 import java.awt.event.FocusEvent;
+import java.awt.event.ItemEvent;
+import java.awt.event.ItemListener;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseMotionAdapter;
@@ -31,6 +33,7 @@ import java.io.File;
 import java.util.ArrayList;
 import java.util.Iterator;
 
+import javax.swing.ButtonGroup;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JComboBox;
@@ -42,6 +45,7 @@ import javax.swing.JMenu;
 import javax.swing.JMenuBar;
 import javax.swing.JMenuItem;
 import javax.swing.JPanel;
+import javax.swing.JRadioButton;
 import javax.swing.JScrollPane;
 import javax.swing.JTabbedPane;
 import javax.swing.JTextArea;
@@ -668,12 +672,16 @@ public class MainWindow extends JFrame implements MessageDisplayer   {
 					editor.mode=Mode.OUTLINE_FINISHED;
 				}
 			}
-			
+			hideShowFirstTabButtons(true);
+			hideShowMultifloorRelButtons(false);
 			break;
 		case 1:
 			currentTab=TABS.FLOORS;
 			clearDevelopedPathSelection();
 			floorsCombo.setEnabled(false);
+			
+			hideShowFirstTabButtons(false);
+			hideShowMultifloorRelButtons(true);
 			break;
 		case 2:
 			currentTab=TABS.HYPER_GRPAH_EDITOR;
@@ -681,13 +689,37 @@ public class MainWindow extends JFrame implements MessageDisplayer   {
 			setFloorsComboContents(true);
 			floorsCombo.setSelectedIndex(prevSelected2);
 			floorsCombo.setEnabled(true);
+			
+			hideShowFirstTabButtons(false);
+			hideShowMultifloorRelButtons(false);
 			break;
 		case 3:
 			currentTab=TABS.VALIDATION;
 			floorsCombo.setEnabled(false);
+			
+			hideShowFirstTabButtons(false);
+			hideShowMultifloorRelButtons(false);
 			break;
 		}
 		
+	}
+	
+	private void hideShowMultifloorRelButtons(boolean visible){
+		
+		labelMultiFloorRelType.setVisible(visible);
+		 mfRelTypeMutliFloorPass.setVisible(visible);
+		  mfRelTypeAcc.setVisible(visible);
+		  mfRelTypeVis .setVisible(visible);
+	}
+	
+	private void hideShowFirstTabButtons(boolean visible){
+		
+		label5.setVisible(visible);
+		RoomLabel.setVisible(visible);
+		label9 .setVisible(visible);
+		roomTypes .setVisible(visible);
+		label8 .setVisible(visible);
+		areaValueLabel.setVisible(visible);
 	}
 	
 	public  void initLayoutEditorsListeners(){
@@ -930,9 +962,9 @@ public class MainWindow extends JFrame implements MessageDisplayer   {
  
 			panel5.setLayout(new GridBagLayout());
 			((GridBagLayout)panel5.getLayout()).columnWidths = new int[] {8, 85, 0, 0};
-			((GridBagLayout)panel5.getLayout()).rowHeights = new int[] {29, 23, 23, 23, 23, 32,23, 32,33, 32,33, 0};
+			((GridBagLayout)panel5.getLayout()).rowHeights = new int[] {29, 23, 23, 23, 23, 32,23, 32,33, 32,33, 33,33,33,33,0};
 			((GridBagLayout)panel5.getLayout()).columnWeights = new double[] {0.0, 0.0, 0.0, 1.0E-4};
-			((GridBagLayout)panel5.getLayout()).rowWeights = new double[] {0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 1.0E-4};
+			((GridBagLayout)panel5.getLayout()).rowWeights = new double[] {0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 1.0E-4};
 
 //			panel5.add(zoomMode, new GridBagConstraints(1, 0, 2, 1, 0.0, 0.0,
 //				GridBagConstraints.CENTER, GridBagConstraints.BOTH,
@@ -1061,8 +1093,69 @@ public class MainWindow extends JFrame implements MessageDisplayer   {
 				GridBagConstraints.CENTER, GridBagConstraints.BOTH,
 				new Insets(0, 0, 0, 3), 0, 0));
 		}
+		
+		// tutaj
+		//---- label8 ----;
+		
+	
+		  labelMultiFloorRelType  = new JLabel();
+		  
+		labelMultiFloorRelType.setText("<html>Multi floor<br />relation type</html>");
+		panel5.add(labelMultiFloorRelType, new GridBagConstraints(1, 10, 1, 1, 0.0, 0.0,
+			GridBagConstraints.CENTER, GridBagConstraints.BOTH,
+			new Insets(0, 0, 3, 3), 0, 0));
+		
+		
+		 mfRelTypeMutliFloorPass = new JRadioButton();
+		mfRelTypeMutliFloorPass.setText("<html>Multi floor<br />connection</html>");
+		mfRelTypeMutliFloorPass.setSelected(true);
+		mfRelTypeMutliFloorPass.addItemListener(new ItemListener() {
+			@Override
+			public void itemStateChanged(ItemEvent e) {
+//				dashedModeACC_radioItemStateChanged(e);
+			}
+		});
+		
+		
+		  mfRelTypeAcc = new JRadioButton();
+		  mfRelTypeAcc.setText("Accessibility");
+		  mfRelTypeAcc.addItemListener(new ItemListener() {
+				@Override
+				public void itemStateChanged(ItemEvent e) {
+//					dashedModeACC_radioItemStateChanged(e);
+				}
+			});
+		  
+		 
+		  mfRelTypeVis = new JRadioButton();
+		  mfRelTypeVis.setText("Visibility");
+		  mfRelTypeVis.addItemListener(new ItemListener() {
+				@Override
+				public void itemStateChanged(ItemEvent e) {
+//					dashedModeACC_radioItemStateChanged(e);
+				}
+			});
+		  
+		  panel5.add(mfRelTypeMutliFloorPass, new GridBagConstraints(1, 11, 1, 1, 0.0, 0.0,
+					GridBagConstraints.CENTER, GridBagConstraints.BOTH,
+					new Insets(0, 0, 3, 3), 0, 0));
+		  panel5.add(mfRelTypeAcc, new GridBagConstraints(1, 12, 1, 1, 0.0, 0.0,
+					GridBagConstraints.CENTER, GridBagConstraints.BOTH,
+					new Insets(0, 0, 3, 3), 0, 0));
+		  panel5.add(mfRelTypeVis, new GridBagConstraints(1, 13, 1, 1, 0.0, 0.0,
+					GridBagConstraints.CENTER, GridBagConstraints.BOTH,
+					new Insets(0, 0, 3, 3), 0, 0));
+		  
+		
+		ButtonGroup dashedMeaning_BG = new ButtonGroup();
+		dashedMeaning_BG.add(mfRelTypeMutliFloorPass);
+		dashedMeaning_BG.add(mfRelTypeAcc);
+		dashedMeaning_BG.add(mfRelTypeVis);
+		
+		hideShowMultifloorRelButtons(false);
+		
 		contentPane.add(panel5, cc.xywh(1, 3, 1, 1, CellConstraints.FILL, CellConstraints.DEFAULT));
-
+		
 		//======== tabbedPane1 ========
 		{
 			tabbedPane1.setFont(new Font("Tahoma", Font.BOLD, 14));
@@ -1481,8 +1574,12 @@ public class MainWindow extends JFrame implements MessageDisplayer   {
 	private JLabel  labelFloors;
 	
 	FloorsEditor floorsEditor;
-	 
 	
+	JLabel labelMultiFloorRelType   ;
+	  JRadioButton mfRelTypeMutliFloorPass;
+	  JRadioButton mfRelTypeAcc;
+	  JRadioButton mfRelTypeVis;
+	 
 	public HyperGraphEditor getHyperGraphEditor(){
 		return hyperGraphEditor;
 	}
