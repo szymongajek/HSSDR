@@ -198,15 +198,40 @@ public class Controller
     	return graph;
     }
 
+   
+    public void addMultiFloorRealtion(ArrayList<Path > elements, String relKind ){
+    	Logger.LOGGER.debug(" adding multi floor relation of type: "+ relKind+" for:");
+    	
+    	
+    	ObjectHE[] edges= new ObjectHE[elements.size()]; 
+    	
+    	for (int i = 0; i < elements.size(); i++) {
+    		Logger.LOGGER.debug(" edge "+i+": "+ elements.get(i));
+    		edges[i] = graph.findObjectHEWithLabel(elements.get(i).toString());
+		}
+    	
+    	graph.addMultiFloorRealtion(edges, relKind);
+	}
+    
+    public void addTwoFloorRealtion(Path upperArea, Path lowerdArea, String relationKind) {
+    	Logger.LOGGER.debug(" adding relation for: "+upperArea+" -> "+lowerdArea+" of type:"+ relationKind);
+    	
+    	ObjectHE upperEdge = graph.findObjectHEWithLabel(upperArea.toString());
+    	ObjectHE lowerEdge = graph.findObjectHEWithLabel(lowerdArea.toString());
+    	
+		graph.addTwoFloorRealtion(upperEdge, lowerEdge, relationKind);
+		checkLayout();
+	}
+
+    @Deprecated
     public void createMultiFloorRealtion(Path upperArea, Path lowerdArea, String relationKind) {
     	Logger.LOGGER.debug(" adding relation for: "+upperArea+" -> "+lowerdArea+" of type:"+ relationKind);
     	
     	ObjectHE upperEdge = graph.findObjectHEWithLabel(upperArea.toString());
     	ObjectHE lowerEdge = graph.findObjectHEWithLabel(lowerdArea.toString());
     	
-		graph.addMultiFloorMultiRealtion(upperEdge, lowerEdge, relationKind);
+		graph.addMultiFloorRealtion(upperEdge, lowerEdge, relationKind);
 		checkLayout();
 	}
-
 
 }

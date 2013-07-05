@@ -251,7 +251,7 @@ public class ObjectHE extends HyperEdge
     	}
         return walls;
     }
-    
+	@Deprecated
     public Node getCeilingNode()
     {
     	for(Node node: nodes){
@@ -261,7 +261,7 @@ public class ObjectHE extends HyperEdge
     	}
         return null;
     }
-    
+	@Deprecated
     public Node getFloorNode()
     {
     	for(Node node: nodes){
