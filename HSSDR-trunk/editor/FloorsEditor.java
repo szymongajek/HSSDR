@@ -46,6 +46,8 @@ public class FloorsEditor extends JPanel {
 	int arr1x, arr1y;
 	Path arrowBeg;
 	boolean aarrStarted = false;
+	
+	ArrayList<Path>  multiFloorRelSequence = new  ArrayList<Path>();
 
 	public FloorsEditor(ArrayList<LayoutEditor> layoutEditorsList,
 			MainWindow window) {
@@ -182,12 +184,6 @@ public class FloorsEditor extends JPanel {
 	}
 
 	void floorsEditorMouseClicked(MouseEvent e) {
-		boolean isThick;
-		if (e.getButton()==MouseEvent.BUTTON1){
-			isThick =true;
-		}else{
-			isThick =false;
-		}
 		
 		int floorUnderMouse = calculateFloorUnderMouse(e);
 		LayoutEditor editorUnderMouse = window.getFloor(floorUnderMouse);
@@ -201,45 +197,73 @@ public class FloorsEditor extends JPanel {
 		switch (editorUnderMouse.mode) {
 		case AREA_SELECTED:
 		case OUTLINE_FINISHED:
-			if (editorUnderMouse.selectDevelopedPath(xtrans, ytrans)){ // zaznaczamy
-//				editorUnderMouse.mode=Mode.AREA_SELECTED;
-				window.setSelectedAreaInfo(editorUnderMouse.getDevelopedPath());
-				if (!aarrStarted) {
-					arr1x = e.getX();
-					arr1y = e.getY();
-					aarrStarted = true;
-					arrowBeg=editorUnderMouse.getDevelopedPath();
-					this.setTemporaryArrow(arr1x, arr1y, e.getX(), e.getY());
-				} else {
+			Path underclick = editorUnderMouse.findPath(xtrans, ytrans);
+			
+			if (window.isRelTypeMultiFloorSelected()){
+				if (underclick!=null){  // jezeli kliknieto w obszar - start lub kontunuacja tworzenia ciagu
+					
+					if (!aarrStarted) {
+						// jezli pierwsze kilkniecie w ciagu - poczatek pierwszej strzalki
+						arr1x = e.getX();
+						arr1y = e.getY();
+						aarrStarted = true;
+						arrowBeg=underclick;
+						this.setTemporaryArrow(arr1x, arr1y, e.getX(), e.getY());
+						multiFloorRelSequence.add(underclick);
+					} else {
+						//jezeli kolejne klikniecie - zakonczenie strzalki i rozpoczecie nowej
+						this.removeTempArrow();
+						this.addArrow(arr1x, arr1y, e.getX(), e.getY(),arrowBeg, underclick, window.isRelTypAccSelected());
+						multiFloorRelSequence.add(underclick);
+						
+						arr1x = e.getX();
+						arr1y = e.getY();
+						arrowBeg=underclick;
+						this.setTemporaryArrow(arr1x, arr1y, e.getX(), e.getY());
+						
+					}
+				}else { // zakonczenie tworzenia ciagu, jezeli jest co najmniej jedna strzalka dodanie relacji
 					aarrStarted = false;
 					this.removeTempArrow();
-					Path arrowEnd = editorUnderMouse.getDevelopedPath();
-					this.addArrow(arr1x, arr1y, e.getX(), e.getY(),arrowBeg, arrowEnd, isThick);
 					
-					// tworzenie relacji miedzy pietrami
-					String relKind;
-					if (isThick){
-						relKind=HLH.KIND_ACC;
-					}else{
-						relKind=HLH.KIND_VIS;
-					}
+					window.controller.addMultiFloorRealtion(multiFloorRelSequence, HLH.KIND_ACC);
 					
-					if(arrowBeg.getFloorNr()>arrowEnd.getFloorNr()){
-						window.controller.createMultiFloorRealtion(arrowBeg, arrowEnd, relKind);
-					}else{
-						window.controller.createMultiFloorRealtion(arrowEnd, arrowBeg , relKind);
-					}
-					
-					
-					
-					window.clearDevelopedPathSelection();
+					multiFloorRelSequence = new ArrayList<Path>();
 				}
-			}else { // nic nie zaznaczone
-				window.setSelectedAreaInfo(null);
-				window.clearDevelopedPathSelection();
-				aarrStarted = false;
-				this.removeTempArrow();
+				
+			}else{ // pojedyncze relacje miedzy pietrowe
+				if (underclick!=null){  
+					if (!aarrStarted) {
+						arr1x = e.getX();
+						arr1y = e.getY();
+						aarrStarted = true;
+						arrowBeg=underclick;
+						this.setTemporaryArrow(arr1x, arr1y, e.getX(), e.getY());
+					} else {
+						aarrStarted = false;
+						this.removeTempArrow();
+						this.addArrow(arr1x, arr1y, e.getX(), e.getY(),arrowBeg, underclick, window.isRelTypAccSelected());
+						
+						// tworzenie relacji miedzy pietrami
+						String relKind;
+						if (window.isRelTypAccSelected()){
+							relKind=HLH.KIND_ACC;
+						}else{
+							relKind=HLH.KIND_VIS;
+						}
+						
+						if(arrowBeg.getFloorNr()>underclick.getFloorNr()){
+							window.controller.addTwoFloorRealtion(arrowBeg, underclick, relKind);
+						}else{
+							window.controller.addTwoFloorRealtion(underclick, arrowBeg , relKind);
+						}
+					}
+				}else { // pusto
+					aarrStarted = false;
+					this.removeTempArrow();
+				}
 			}
+			
 			break;
 		default:
 			break;

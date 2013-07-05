@@ -1623,4 +1623,14 @@ public class MainWindow extends JFrame implements MessageDisplayer   {
 	public void setSensorRange(int sensorRange) {
 		this.sensorRange = sensorRange;
 	}
+	
+	public boolean isRelTypeMultiFloorSelected(){
+		return mfRelTypeMutliFloorPass.isSelected();
+	}
+	public boolean isRelTypAccSelected(){
+		return mfRelTypeAcc.isSelected();
+	}
+	public boolean isRelTypeVisibilitySelected(){
+		return mfRelTypeVis.isSelected();
+	}
 }

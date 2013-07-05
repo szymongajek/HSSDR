@@ -21,6 +21,21 @@ public class HyperRelation extends RelationHE {
 		parent.addChildElement(this);
 	}
 
+	public HyperRelation(ObjectHE parent, Node[] elements,
+			String relKind) {
+		
+		this.setParentEdge(parent);
+		this.setAttribute(HLH.KIND, relKind);
+
+		for (Node node : elements) {
+			incidents.add(node);
+			node.addRelation(this);
+		}
+		
+		parent.addChildElement(this);
+		
+	}
+
 	public void addNodeToRelation(Node newNode) {
 		incidents.add(newNode);
 

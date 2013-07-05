@@ -498,6 +498,26 @@ public class LayoutEditor extends JPanel {
 		
 		editedPath =new Path(sizeX/gridSize, sizeY/gridSize, floorNr );
 	}
+	
+	/**
+	 * zwraca najni¿sza w hierarchii œcie¿kê albo null jesli pusto
+	 * @param x
+	 * @param y
+	 * @return
+	 */
+	public Path findPath(int x, int y) {
+		int i,j=0;
+		 
+		i=calcIJ(x);
+		j=calcIJ(y);
+		if (i>=0 && i<rootPath.getMaxX() && j>=0 && j<rootPath.getMaxY()){
+			return  findDevelopedPath(i, j);
+		}
+		
+		return null;
+		
+	}
+	
 	public void highlightPath(int x, int y) {
 		int i,j=0;
 		 
@@ -513,7 +533,7 @@ public class LayoutEditor extends JPanel {
 	/*
 	 * funkcja na podstawie aktualnej pozycji kursora znajduje path ktore zawiera zaznaczony kwadrat i  jest najnizej w hierarchii 
 	 */
-	public Path findDevelopedPath(int i, int j) {
+	private Path findDevelopedPath(int i, int j) {
 		
 		Path lowestContaining=null;
 		

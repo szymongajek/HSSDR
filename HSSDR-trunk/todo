@@ -39,9 +39,16 @@ wieloargumentowa dostepnosc
 po urlopie:
 - blad zmiana ilosci pieter
 -obrys parteru widoczny wszêdzie
-
-
+	problem drog pionowych w ksztalcie y. rowziazania:
+ -  wybor reacji zwyklej, lub rysowanie ciagu kom:
+ -- ui wybor z 3 relacji w widoku pieter:dostepnosc, wielopietrowa dost, widocznosc. 
+  -- podpiecie akcji do ui wyboru relacji
+ -- rel wielopietrowe tworzenie jednym ciagiem   
 todo:
-problem drog pionowych w ksztalcie y. rowziazania:
-1. wykrywanie jakie pietra sa w reacjach podczas dodawania nowej - trudne przypadki nie do rozw
-2. interfejsc - wybor reacji zwyklej, lub rysowanie ciagu kom. - lepszy
+
+
+  
+  - logika podzialu+ wiele pieter - wykrywanie miejsca konca strzalki i rozbijanie relacji jak przy podziale plaskim
+  
+  - html w dziale help
+  - dodac inne info i opisy do help

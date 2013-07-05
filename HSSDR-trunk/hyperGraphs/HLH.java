@@ -30,8 +30,9 @@ public class HLH
 //	  
 	public static final String DIRECTION_FLOOR="F";
 //	  
+	@Deprecated
 	public static final String DIRECTION_CEILING="C";
-	
+	@Deprecated
 	public static final String DIRECTION_VERTICAL="V";
 	//	 dla wezlow wspolrzedne koncow sciany: dostepne przez LayoutUtils.getWallCoord(node)
 	public static final String COORD="COORD";
@@ -517,16 +518,28 @@ public class HLH
 		HLH.dashedLineMeansVisible = dashedLineMeansVisible;
 	}
 	
-	public void addMultiFloorRealtion(ObjectHE upper, ObjectHE lower, String relKind ){
+	public RelationHE addTwoFloorRealtion(ObjectHE upper, ObjectHE lower, String relKind ){
 		
-		Node source = upper.getFloorNode();
-		Node target = lower.getCeilingNode();
+		Node source = upper.getVerticalNode();
+		Node target = lower.getVerticalNode();
 		
-		RelationHE newRalation = new RelationHE(rootEdgeGraph, source, target, relKind);
+		return new RelationHE(rootEdgeGraph, source, target, relKind);
 		
 	}
 	
-	public void addMultiFloorMultiRealtion(ObjectHE upper, ObjectHE lower, String relKind ){
+	public RelationHE addMultiFloorRealtion(ObjectHE[] elements, String relKind ){
+		
+		Node[] nodes = new Node[elements.length];
+		
+		for (int i = 0; i < elements.length; i++) {
+			nodes[i]=elements[i].getVerticalNode();
+		}
+		
+		return new HyperRelation(rootEdgeGraph, nodes, relKind);
+	}
+	
+	@Deprecated
+	public void addMultiFloorRealtion(ObjectHE upper, ObjectHE lower, String relKind ){
 		
 		if(!relKind.equals(HLH.KIND_ACC)){
     		throw new RuntimeException("not implemented");
