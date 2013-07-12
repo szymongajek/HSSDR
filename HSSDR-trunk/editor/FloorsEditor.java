@@ -200,7 +200,9 @@ public class FloorsEditor extends JPanel {
 			Path underclick = editorUnderMouse.findPath(xtrans, ytrans);
 			
 			if (window.isRelTypeMultiFloorSelected()){
-				if (underclick!=null){  // jezeli kliknieto w obszar - start lub kontunuacja tworzenia ciagu
+				if (underclick!=null && underclick == arrowBeg){  // jezeli kliknieto dwa razy w ten sam obszar
+					// nic nie rob
+				}else if (underclick!=null ){  // jezeli kliknieto w obszar - start lub kontunuacja tworzenia ciagu
 					
 					if (!aarrStarted) {
 						// jezli pierwsze kilkniecie w ciagu - poczatek pierwszej strzalki
@@ -232,7 +234,9 @@ public class FloorsEditor extends JPanel {
 				}
 				
 			}else{ // pojedyncze relacje miedzy pietrowe
-				if (underclick!=null){  
+				if (underclick!=null && underclick == arrowBeg){  // jezeli kliknieto dwa razy w ten sam obszar
+					// nic nie rob
+				}else if (underclick!=null){  
 					if (!aarrStarted) {
 						arr1x = e.getX();
 						arr1y = e.getY();
