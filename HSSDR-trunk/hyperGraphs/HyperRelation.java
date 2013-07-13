@@ -1,5 +1,6 @@
 package hyperGraphs;
 
+import java.awt.Point;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -7,6 +8,9 @@ public class HyperRelation extends RelationHE {
 	
 	// Incidence  matrics -  Macierz  incydencji
 	private ArrayList<Node> incidents = new ArrayList<Node>(); 
+	
+	// dla kolejnych wezlow w realcji punkt zaczenienia relacji w obszarze
+	private ArrayList<Point> hyperRelHookPointSequence = new ArrayList<Point>();
 	
 
 	public HyperRelation(ObjectHE parent, Node source, Node target,
@@ -82,4 +86,34 @@ public class HyperRelation extends RelationHE {
 		return (incidents.contains(node1) && incidents.contains(node2));
 
 	}
+	
+	@Override
+	public void reconnectNodes(Node oldNode, Node newNode) {
+		for (int i = 0; i < incidents.size(); i++) {
+			if (incidents.get(i)== oldNode){
+				incidents.set(i, newNode);
+			}
+		}
+		
+		oldNode.removeConnection(this);
+		
+	}
+	
+	@Override
+	public Point getInterFloorRelationHookPointforNode(Node node){
+		
+		for (int i = 0; i < incidents.size(); i++) {
+			if (incidents.get(i)== node){
+				return hyperRelHookPointSequence.get(i);
+			}
+		}
+		
+		throw new RuntimeException("checking node not connected to relation");
+	}
+
+	public void setHyperRelHookPointSequence(ArrayList<Point> multiFloorRelHookPointSequence) {
+		this.hyperRelHookPointSequence=multiFloorRelHookPointSequence;
+	}
+	
+	
 }

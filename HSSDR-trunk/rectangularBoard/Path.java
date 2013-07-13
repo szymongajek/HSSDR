@@ -5,8 +5,10 @@ import hyperGraphs.LayoutUtils;
 import hyperGraphs.Node;
 import hyperGraphs.ObjectHE;
 import hyperGraphs.DoorsAttributes;
+import hyperGraphs.RelationHE;
 
  
+import java.awt.Point;
 import java.awt.geom.Line2D;
 import java.util.Stack;
 import java.util.ArrayList;
@@ -508,6 +510,28 @@ public class Path {
 		vert.setMiddleX( avg_x + sizeX/2 +ObjectPainter.NODE_DIST_FROM_HE_IN_SQUARES/2);
 		vert.setMiddleY( avg_y - sizeY/2 -ObjectPainter.NODE_DIST_FROM_HE_IN_SQUARES/2);
 		he.addNode(vert);
+		
+		if (parentEdge!=null){// nie jest root edge 
+			// przeniesienie reacji polaczen pionowych do nowo tworzonej relacji
+			// znajdz polaczenia pionowe rodzica
+			ArrayList<RelationHE> relationsToReconnect = new ArrayList<RelationHE>() ;
+			
+			for (RelationHE relationHE : parentEdge.getVerticalNode().getRelations()) {
+				// jezeli koniec strzalki reprezentujacej relacje pionowa w parent
+				// nalezy do obszaru nowej krawedzi - przepnij relacje miedzypietrowa
+				Point hookPoint = relationHE.getInterFloorRelationHookPointforNode(parentEdge.getVerticalNode());
+				if(this.hasPointInInterior((int)hookPoint.getX(), (int)hookPoint.getY())) {
+					relationsToReconnect.add(relationHE);
+				}
+				
+			}
+			
+			
+			for (RelationHE relationHE : relationsToReconnect) {
+				relationHE.reconnectNodes(parentEdge.getVerticalNode(), vert);
+			}
+		}
+		
 		
 		return he;
 	}

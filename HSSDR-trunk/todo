@@ -44,11 +44,12 @@ po urlopie:
  -- ui wybor z 3 relacji w widoku pieter:dostepnosc, wielopietrowa dost, widocznosc. 
   -- podpiecie akcji do ui wyboru relacji
  -- rel wielopietrowe tworzenie jednym ciagiem   
+- logika podzialu+ wiele pieter - wykrywanie miejsca konca strzalki i rozbijanie relacji jak przy podziale plaskim
+
 todo:
 
 
   
-  - logika podzialu+ wiele pieter - wykrywanie miejsca konca strzalki i rozbijanie relacji jak przy podziale plaskim
   
   - html w dziale help
   - dodac inne info i opisy do help
