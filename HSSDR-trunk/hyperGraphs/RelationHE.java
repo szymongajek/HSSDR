@@ -1,11 +1,17 @@
 package hyperGraphs;
 
+import java.awt.Point;
+
 public class RelationHE extends HyperEdge {
 	// wierzcholek source
 	private Node source;
 	// wierzcholek source
 	private Node target;
 
+	//dla relacji miedzypietrowych
+	Point twoFloorRelStartPoint;
+	Point twoFloorRelEndPoint;
+	
 	public RelationHE() {
 	}
 
@@ -69,6 +75,35 @@ public class RelationHE extends HyperEdge {
 			return false;
 		}
 
+	}
+
+	public void reconnectNodes(Node oldNode, Node newNode) {
+		if (oldNode == target ) {
+			target = newNode;
+		}else if ( oldNode == source ){
+			source = newNode;
+		}else{
+			throw new RuntimeException("removing node not connected to relation");
+		}
+		
+		oldNode.removeConnection(this);
+		
+	}
+
+	public void setTwoFloorRelHookPoints(Point twoFloorRelStartPoint, Point twoFloorRelEndPoint) {
+		this.twoFloorRelStartPoint = twoFloorRelStartPoint;
+		this.twoFloorRelEndPoint = twoFloorRelEndPoint;
+	}
+
+
+	public Point getInterFloorRelationHookPointforNode(Node node){
+		if (node == target ) {
+			return twoFloorRelEndPoint;
+		}else if ( node == source ){
+			return twoFloorRelStartPoint;
+		}else{
+			throw new RuntimeException("checking node not connected to relation");
+		}
 	}
 
 }

@@ -1,6 +1,7 @@
 
 package hyperGraphs;
 
+import java.awt.Point;
 import java.util.Arrays;
 import java.util.Collection;
 import java.util.Hashtable;
@@ -27,12 +28,12 @@ public class HLH
 	public static final String LEN="LEN";
 	//	 orienatajca sciany w wezlach: N S W E
 	public static final String DIRECTION="DIR";
-//	  
+	@Deprecated
 	public static final String DIRECTION_FLOOR="F";
 //	  
 	@Deprecated
 	public static final String DIRECTION_CEILING="C";
-	@Deprecated
+	
 	public static final String DIRECTION_VERTICAL="V";
 	//	 dla wezlow wspolrzedne koncow sciany: dostepne przez LayoutUtils.getWallCoord(node)
 	public static final String COORD="COORD";
@@ -307,8 +308,9 @@ public class HLH
         return new Object []{structure,vocabulary};
         }
     /*
-     * rozbudowuje w grafie krawedz develeoped dodajac pod nia dwie nowe w 
-     * tym grafi krawedzie : first, second
+     *dodaja go grafu dwie nowe krawedzie: first i secod
+     * tworzy i dodaje do grafu relacje dla wspolnych scian first i second
+     * czysci wierzcholki i relacje developed
      */
     //TODO przy visibility przy dzieleniu he ktora ma juz jakies relacje i sa one zmieniane, vis jest updatowaana zamiast dost.
     public void  developEgde(ObjectHE developed, ObjectHE first, ObjectHE second){
@@ -518,16 +520,19 @@ public class HLH
 		HLH.dashedLineMeansVisible = dashedLineMeansVisible;
 	}
 	
-	public RelationHE addTwoFloorRealtion(ObjectHE upper, ObjectHE lower, String relKind ){
+	public RelationHE addTwoFloorRealtion(ObjectHE upper, ObjectHE lower, String relKind, Point startPoint, Point endPoint ){
 		
 		Node source = upper.getVerticalNode();
 		Node target = lower.getVerticalNode();
 		
-		return new RelationHE(rootEdgeGraph, source, target, relKind);
+		 RelationHE newRel = new RelationHE(rootEdgeGraph, source, target, relKind);
+		 
+		 newRel.setTwoFloorRelHookPoints(startPoint, endPoint);
 		
+		 return newRel;
 	}
 	
-	public RelationHE addMultiFloorRealtion(ObjectHE[] elements, String relKind ){
+	public RelationHE addMultiFloorRealtion(ObjectHE[] elements, ArrayList<Point> multiFloorRelHookPointSequence, String relKind ){
 		
 		Node[] nodes = new Node[elements.length];
 		
@@ -535,52 +540,10 @@ public class HLH
 			nodes[i]=elements[i].getVerticalNode();
 		}
 		
-		return new HyperRelation(rootEdgeGraph, nodes, relKind);
+		HyperRelation newRel =  new HyperRelation(rootEdgeGraph, nodes, relKind);
+		newRel.setHyperRelHookPointSequence(multiFloorRelHookPointSequence);
+		
+		return newRel;
 	}
 	
-	@Deprecated
-	public void addMultiFloorRealtion(ObjectHE upper, ObjectHE lower, String relKind ){
-		
-		if(!relKind.equals(HLH.KIND_ACC)){
-    		throw new RuntimeException("not implemented");
-    	}
-		
-		Node source = upper.getVerticalNode();
-		Node target = lower.getVerticalNode();
-		
-		boolean sourceHasAccRel = false;
-		boolean targetHasAccRel = false;
-		
-		HyperRelation foundExistingInSource=null;
-		HyperRelation foundExistingInTarget=null;
-		
-		for (RelationHE rel: source.getRelations()){// tutaj by trzeba szukac tylko takich typow jak dodawana
-			if (HLH.KIND_ACC.equals(rel.getAttribute(HLH.KIND))){
-				sourceHasAccRel=true;
-				foundExistingInSource=(HyperRelation)rel;
-			}
-		}
-		for (RelationHE rel: target.getRelations()){
-			if (HLH.KIND_ACC.equals(rel.getAttribute(HLH.KIND))){
-				targetHasAccRel=true;
-				foundExistingInTarget=(HyperRelation)rel;
-			}
-		}
-		
-		if (!sourceHasAccRel && !targetHasAccRel){// dodawanie pierwszej relacji
-			HyperRelation newRalation = new HyperRelation(rootEdgeGraph, source, target, HLH.KIND_ACC);
-			return;
-		}else if (sourceHasAccRel && targetHasAccRel){
-			Logger.LOGGER.warn("unsuppored operation, joining two existing realtion he into one");
-			return;
-		} 
-		
-		if (sourceHasAccRel){
-			foundExistingInSource.addNodeToRelation(target);
-		}else{
-			foundExistingInTarget.addNodeToRelation(source);
-		}
-		
-		
-	}
 }

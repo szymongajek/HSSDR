@@ -43,11 +43,16 @@ public class FloorsEditor extends JPanel {
 	private Arrow tempArrow;
 
 	private ArrayList<Arrow> arrows = new ArrayList<Arrow>();
+	
+	// wpolrzedne poczatku strzalki
 	int arr1x, arr1y;
+	Point hookStart;
+	
 	Path arrowBeg;
 	boolean aarrStarted = false;
 	
 	ArrayList<Path>  multiFloorRelSequence = new  ArrayList<Path>();
+	private ArrayList<Point> multiFloorRelHookPointSequence = new ArrayList<Point>();
 
 	public FloorsEditor(ArrayList<LayoutEditor> layoutEditorsList,
 			MainWindow window) {
@@ -145,8 +150,8 @@ public class FloorsEditor extends JPanel {
 		repaint();
 	}
 
-	public void addArrow(int arr1x, int arr1y, int a2x, int a2y, Path start, Path end, boolean isthick) {
-		arrows.add(new Arrow(new Point(arr1x, arr1y), new Point(a2x, a2y), start, end,
+	public void addArrow(Point starePoint, Point endPoint, Path start, Path end, boolean isthick) {
+		arrows.add(new Arrow(starePoint, endPoint, start, end,
 				isthick));
 
 	}
@@ -210,13 +215,16 @@ public class FloorsEditor extends JPanel {
 						arr1y = e.getY();
 						aarrStarted = true;
 						arrowBeg=underclick;
-						this.setTemporaryArrow(arr1x, arr1y, e.getX(), e.getY());
+						this.setTemporaryArrow(arr1x, arr1y, arr1x, arr1y);
 						multiFloorRelSequence.add(underclick);
+						Point startPoint = editorUnderMouse.calclulateGrid(xtrans, ytrans);
+						multiFloorRelHookPointSequence.add(startPoint);
 					} else {
 						//jezeli kolejne klikniecie - zakonczenie strzalki i rozpoczecie nowej
 						this.removeTempArrow();
-						this.addArrow(arr1x, arr1y, e.getX(), e.getY(),arrowBeg, underclick, window.isRelTypAccSelected());
+						this.addArrow(new Point(arr1x, arr1y),new Point(e.getX(), e.getY()) ,arrowBeg, underclick, window.isRelTypAccSelected());
 						multiFloorRelSequence.add(underclick);
+						multiFloorRelHookPointSequence.add(editorUnderMouse.calclulateGrid(xtrans, ytrans));
 						
 						arr1x = e.getX();
 						arr1y = e.getY();
@@ -228,9 +236,10 @@ public class FloorsEditor extends JPanel {
 					aarrStarted = false;
 					this.removeTempArrow();
 					
-					window.controller.addMultiFloorRealtion(multiFloorRelSequence, HLH.KIND_ACC);
+					window.controller.addMultiFloorRealtion(multiFloorRelSequence,multiFloorRelHookPointSequence, HLH.KIND_ACC);
 					
 					multiFloorRelSequence = new ArrayList<Path>();
+					multiFloorRelHookPointSequence = new ArrayList<Point>();
 				}
 				
 			}else{ // pojedyncze relacje miedzy pietrowe
@@ -240,13 +249,17 @@ public class FloorsEditor extends JPanel {
 					if (!aarrStarted) {
 						arr1x = e.getX();
 						arr1y = e.getY();
+						hookStart = editorUnderMouse.calclulateGrid(xtrans, ytrans);
 						aarrStarted = true;
 						arrowBeg=underclick;
 						this.setTemporaryArrow(arr1x, arr1y, e.getX(), e.getY());
 					} else {
 						aarrStarted = false;
 						this.removeTempArrow();
-						this.addArrow(arr1x, arr1y, e.getX(), e.getY(),arrowBeg, underclick, window.isRelTypAccSelected());
+						Point startPoint = new Point(arr1x, arr1y);
+						Point endPoint = new Point(e.getX(), e.getY());
+						
+						this.addArrow(startPoint,endPoint ,arrowBeg, underclick, !window.isRelTypAccSelected());
 						
 						// tworzenie relacji miedzy pietrami
 						String relKind;
@@ -255,11 +268,11 @@ public class FloorsEditor extends JPanel {
 						}else{
 							relKind=HLH.KIND_VIS;
 						}
-						
+						Point hookEnd = editorUnderMouse.calclulateGrid(xtrans, ytrans);
 						if(arrowBeg.getFloorNr()>underclick.getFloorNr()){
-							window.controller.addTwoFloorRealtion(arrowBeg, underclick, relKind);
+							window.controller.addTwoFloorRealtion(arrowBeg, underclick, relKind, hookStart, hookEnd);
 						}else{
-							window.controller.addTwoFloorRealtion(underclick, arrowBeg , relKind);
+							window.controller.addTwoFloorRealtion(underclick, arrowBeg , relKind, hookEnd, hookStart);
 						}
 					}
 				}else { // pusto

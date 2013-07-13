@@ -9,6 +9,7 @@ import hyperGraphs.HLH;
 import hyperGraphs.ObjectHE;
 import hyperGraphs.HGSensor;
 
+import java.awt.Point;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
@@ -199,7 +200,7 @@ public class Controller
     }
 
    
-    public void addMultiFloorRealtion(ArrayList<Path > elements, String relKind ){
+    public void addMultiFloorRealtion(ArrayList<Path > elements, ArrayList<Point> multiFloorRelHookPointSequence, String relKind ){
     	Logger.LOGGER.debug(" adding multi floor relation of type: "+ relKind+" for:");
     	
     	
@@ -210,28 +211,20 @@ public class Controller
     		edges[i] = graph.findObjectHEWithLabel(elements.get(i).toString());
 		}
     	
-    	graph.addMultiFloorRealtion(edges, relKind);
+    	graph.addMultiFloorRealtion(edges, multiFloorRelHookPointSequence, relKind);
 	}
     
-    public void addTwoFloorRealtion(Path upperArea, Path lowerdArea, String relationKind) {
-    	Logger.LOGGER.debug(" adding relation for: "+upperArea+" -> "+lowerdArea+" of type:"+ relationKind);
-    	
-    	ObjectHE upperEdge = graph.findObjectHEWithLabel(upperArea.toString());
-    	ObjectHE lowerEdge = graph.findObjectHEWithLabel(lowerdArea.toString());
-    	
-		graph.addTwoFloorRealtion(upperEdge, lowerEdge, relationKind);
+	public void addTwoFloorRealtion(Path upperArea, Path lowerdArea,
+			String relationKind, Point startPoint, Point endPoint) {
+		Logger.LOGGER.debug(" adding relation for: " + upperArea + " -> "
+				+ lowerdArea + " of type:" + relationKind);
+
+		ObjectHE upperEdge = graph.findObjectHEWithLabel(upperArea.toString());
+		ObjectHE lowerEdge = graph.findObjectHEWithLabel(lowerdArea.toString());
+
+		graph.addTwoFloorRealtion(upperEdge, lowerEdge, relationKind, startPoint, endPoint);
 		checkLayout();
 	}
 
-    @Deprecated
-    public void createMultiFloorRealtion(Path upperArea, Path lowerdArea, String relationKind) {
-    	Logger.LOGGER.debug(" adding relation for: "+upperArea+" -> "+lowerdArea+" of type:"+ relationKind);
-    	
-    	ObjectHE upperEdge = graph.findObjectHEWithLabel(upperArea.toString());
-    	ObjectHE lowerEdge = graph.findObjectHEWithLabel(lowerdArea.toString());
-    	
-		graph.addMultiFloorRealtion(upperEdge, lowerEdge, relationKind);
-		checkLayout();
-	}
 
 }

@@ -518,6 +518,10 @@ public class LayoutEditor extends JPanel {
 		
 	}
 	
+	public Point calclulateGrid(int x, int y) {
+		return new Point(calcIJ(x), calcIJ(y));
+	}
+	
 	public void highlightPath(int x, int y) {
 		int i,j=0;
 		 
