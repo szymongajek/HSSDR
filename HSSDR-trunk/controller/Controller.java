@@ -135,28 +135,30 @@ public class Controller
 			ret[0] = resultMessage.toString();
 			ret[1] = roomsToHighlight;
 			return ret;
-		}
-		Result[] res = su.getCompleteResults(structure, 99);
-		for (int i = 0; i < res.length; ++i) {
-			System.out.print("#" + (i + 1) + ": ");
-			resultMessage.append( "#" + (i + 1) + ": ");
-			res[i].printResult();
-			resultMessage.append(res[i].getResult());
+		} else {
+			Result[] res = su.getCompleteResults(structure, 99);
+			for (int i = 0; i < res.length; ++i) {
+				System.out.print("#" + (i + 1) + ": ");
+				resultMessage.append( "#" + (i + 1) + ": ");
+				res[i].printResult();
+				resultMessage.append(res[i].getResult());
 
-			for (int k = 0;; ++k) {
-				Map<String, Object> qvars = res[i].getQVarsState(k);
-				if (qvars == null)
-					break;
-				for (String name : qvars.keySet())
-					roomsToHighlight.add(qvars.get(name).toString());
+				for (int k = 0;; ++k) {
+					Map<String, Object> qvars = res[i].getQVarsState(k);
+					if (qvars == null)
+						break;
+					for (String name : qvars.keySet())
+						roomsToHighlight.add(qvars.get(name).toString());
+				}
 			}
-		}
-		System.out.println();
-		resultMessage.append("\n");
+			System.out.println();
+			resultMessage.append("\n");
 
-		ret[0] = resultMessage.toString();
-		ret[1] = roomsToHighlight;
-		return ret;
+			ret[0] = resultMessage.toString();
+			ret[1] = roomsToHighlight;
+			return ret;
+		}
+		
 	}
 	
     private void checkLayout()
@@ -175,8 +177,6 @@ public class Controller
 		structure= (Structure)tab[0];
 		vocabulary =(Vocabulary)tab[1];
 		
-		System.out.println(structure.toString());
-		
 		List<String> testFiles = testChooser.getTestFilesList(); 
 		
          
@@ -192,6 +192,9 @@ public class Controller
             
            
         }
+        // wyswietlanie struktury po testach - w celu zobaczenia zawartosci Caching*
+        System.out.println(structure.toString());
+        
        messageDisplayer.displayMessageAndHighlight(resultMessage.toString(),roomsToHighlight);
     }
     

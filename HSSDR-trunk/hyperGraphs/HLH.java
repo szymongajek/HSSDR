@@ -58,7 +58,7 @@ public class HLH
 	
 	//	dla hiperkrawedzi obiektowych typ pomieszczenia reprezentwanego przez ta krawedz
 	public enum ROOM_TYPES{
-		Space,Kitchen,Corridor,Staircase,Bathroom,Living_Room,Garage,Bedroom, Office, Empty
+		Space,Kitchen,Corridor,Staircase,Bathroom,Living_Room,Garage,Bedroom, Office, Living_Area, Communication_Area, Technical_Area,Empty
 		
 	}
 	
@@ -168,6 +168,42 @@ public class HLH
             return SensorTests.isPassageWatched((DoorsAttributes)args.get(0),(DoorsAttributes)args.get(1),HLH.this  );
         }
     }
+    
+    class IsDirectChild extends AbstractRelation
+    {
+        public IsDirectChild()
+        {
+            super(2);
+        }  
+
+        public boolean value(List<Object> args)
+        {
+            if (args.size() != 2)
+                throw new IllegalArgumentException("bad arity");
+            HyperEdge area1 = (HyperEdge)args.get(0);
+            HyperEdge area2 = (HyperEdge)args.get(1);
+            
+            return area1.getParentEdge().equals(area2);
+        }
+    }
+    
+    class IsInDescendants extends AbstractRelation
+    {
+        public IsInDescendants()
+        {
+            super(2);
+        }  
+
+        public boolean value(List<Object> args)
+        {
+            if (args.size() != 2)
+                throw new IllegalArgumentException("bad arity");
+            HyperEdge area1 = (HyperEdge)args.get(0);
+            HyperEdge area2 = (HyperEdge)args.get(1);
+            
+            return area1.isInDescendantsOf(area2);
+        }
+    }
     public Object []  createStructureAndVocabulary (){
     	
     	Structure structure = new Structure();
@@ -176,22 +212,34 @@ public class HLH
     	vocabulary.allowStrings();
         
     	
-    // relacje adjacency accesibility
-    	SymmetricTabularRelation adjacency = new SymmetricTabularRelation();
-    	structure.addRelation("adjacent", adjacency);
-    	SymmetricTabularRelation accesibility = new SymmetricTabularRelation();
-    	structure.addRelation("accessible", accesibility);
+    //  pokoje oraz strefy
     	UnaryTabularRelation isRoom = new UnaryTabularRelation();
     	structure.addRelation("Rooms", isRoom);
+    	vocabulary.addRelation("Rooms", 1);
+    	
+    	UnaryTabularRelation isArea = new UnaryTabularRelation();
+    	structure.addRelation("Areas", isArea);
+    	vocabulary.addRelation("Areas", 1);
     	
     	for (ObjectHE he : getAllRooms()){
     		structure.addDomainObject(he);
     		isRoom.add(he);
         }
     	
+//    	wszystkie hiperkrawedzie obiektowe - obszary logiczne z dziecmi, oraz zwykle pokoje
+    	for (ObjectHE he: getAllObjectHE()){
+    		structure.addDomainObject(he);
+    		isArea.add(he);
+        }
+    	
+    	// relacje adjacency accesibility
+    	SymmetricTabularRelation adjacency = new SymmetricTabularRelation();
+    	structure.addRelation("adjacent", adjacency);
+    	SymmetricTabularRelation accesibility = new SymmetricTabularRelation();
+    	structure.addRelation("accessible", accesibility);
+    	
     	vocabulary.addRelation("adjacent", 2);
     	vocabulary.addRelation("accessible", 2);
-    	vocabulary.addRelation("Rooms", 1);
     	
     	for (ObjectHE he1 : getAllRooms())
     		for (ObjectHE he2 : getAllRooms()) 
@@ -204,13 +252,21 @@ public class HLH
         			}
         		}
     	
+//      sprawdzanie hierarchi dziedziczenia dla hiperkrawedzi - czy x jest bezposrednim dzieckiem y
+    	structure.addRelation("isDirectChild", new CachingRelation( new IsDirectChild()));
+      	vocabulary.addRelation("isDirectChild", 2);
+      	
+//      sprawdzanie hierarchi dziedziczenia dla hiperkrawedzi - czy x jest potomkiem y
+    	structure.addRelation("isInDescendants", new CachingRelation( new IsInDescendants()));
+      	vocabulary.addRelation("isInDescendants", 2);
+    	
    // funkcja type - typ pomieszczenia
 
     	vocabulary.addFunction("type", 1);
     	TabularFunction type = new TabularFunction(1);
         structure.addFunction("type", type);
     	
-        for (ObjectHE he : getAllRooms()){
+        for (ObjectHE he : getAllObjectHE()){
         	type.add(new ObjectHE[]{he},he.getAttribute(HLH.ROOM_TYPE_LABEL));
         }
 

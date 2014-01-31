@@ -50,5 +50,20 @@ public class HyperEdge  extends MovableComponent
 	public void setFloor(int floor) {
 		this.floor = floor;
 	}
+	
+	public boolean isInDescendantsOf(HyperEdge toCheck){
+		
+		ObjectHE ancestor = this.getParentEdge();
+		
+		while (ancestor!=null){
+			if(ancestor==toCheck){
+				return true;
+			}
+			ancestor=ancestor.getParentEdge();
+		}
+		
+		
+		return false;
+	}
 
 }
