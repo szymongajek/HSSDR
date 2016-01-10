@@ -849,7 +849,7 @@ public class MainWindow extends JFrame implements MessageDisplayer   {
 		setTitle("HSSDR");
 		Container contentPane = getContentPane();
 		contentPane.setLayout(new FormLayout(
-			"left:57dlu, $lcgap, 493dlu, $lcgap, right:12dlu:grow",
+			"left:67dlu, $lcgap, 493dlu, $lcgap, right:12dlu:grow",
 			"top:4dlu, $lgap, fill:[380dlu,default]"));
 
 		//======== menuBar1 ========
@@ -961,7 +961,7 @@ public class MainWindow extends JFrame implements MessageDisplayer   {
 		{
  
 			panel5.setLayout(new GridBagLayout());
-			((GridBagLayout)panel5.getLayout()).columnWidths = new int[] {8, 85, 0, 0};
+			((GridBagLayout)panel5.getLayout()).columnWidths = new int[] {8, 120, 0, 0};
 			((GridBagLayout)panel5.getLayout()).rowHeights = new int[] {29, 23, 23, 23, 23, 32,23, 32,33, 32,33, 33,33,33,33,0};
 			((GridBagLayout)panel5.getLayout()).columnWeights = new double[] {0.0, 0.0, 0.0, 1.0E-4};
 			((GridBagLayout)panel5.getLayout()).rowWeights = new double[] {0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 1.0E-4};

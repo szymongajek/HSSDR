@@ -1,0 +1,7 @@
+
+failure_msg "Brak toalety w sekcji prywatnej"
+   exists a in Areas: exists r in Rooms : type(a) = "Private" and type(r)="Toilet" and isInDescendants(r,a);
+   
+
+failure_msg "Brak toalety w sekcji publicznej"
+   exists a in Areas: exists r in Rooms : type(a) = "Public" and type(r)="Toilet" and isInDescendants(r,a);

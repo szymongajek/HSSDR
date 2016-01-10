@@ -6,8 +6,47 @@ forms:
 ====
 - help jako jeden html
 
+ 
+todo:
+- w ui zabronic usuwania he, która nie jest na dole hier. proc tego nie obsluguje.
+-save load
+- dostosowanie wart atr dlugosc pow do ustawien metrow per kratka
+-dodac parametr w settings  szerowosc drzwi
+-clear - nie czysci widoku pieter
+- bug : po undo stworzenie w tym samym miejscu linia przerywana
+  
+   java.lang.NullPointerException
+	at hyperGraphs.Node.isWall(Node.java:47)
+	at hyperGraphs.ObjectHE.getWallNodes(ObjectHE.java:248)
+	at rectangularBoard.Path.findEmbMappingNode(Path.java:584)
+	at rectangularBoard.Path.createObjectHE(Path.java:408)
+	at controller.Controller.developArea(Controller.java:75)
+	at editor.MainWindow.layoutEditorMouseMoved(MainWindow.java:344)
 
-zrobione w toku prac na wielopietrowym hg
+
+-bug delete division n razy
+
+" java.lang.NullPointerException
+	at hyperGraphs.Node.isWall(Node.java:47)
+	at hyperGraphs.ObjectHE.getWallNodes(ObjectHE.java:248)
+	at hyperGraphs.ObjectHE.findExternalNodes(ObjectHE.java:174)
+	at hyperGraphs.ObjectHE.contentSuppression(ObjectHE.java:47)
+	at hyperGraphs.HLH.contentSuppression(HLH.java:493)
+	at controller.Controller.deleteDivision(Controller.java:110)
+	at editor.MainWindow.deleteDivision(MainWindow.java:525)
+	at editor.DivisionTree.deleteDivisionActionPerformed(DivisionTree.java:47)
+	
+	
+  - html w dziale help
+  - dodac inne info i opisy do help
+  
+  - zmienic te kretynskie listy w wyborze testow na cos sensownego
+  - bug zapis etykiety - trzeba kliknac na typ
+  
+  
+  ----------------------zrobione:---------------------------------
+  
+  zrobione w toku prac na wielopietrowym hg
  
 - zasieg sensorow w oknie ustawien
 - przyciski do powiekszania jako +/-
@@ -45,38 +84,3 @@ po urlopie:
   -- podpiecie akcji do ui wyboru relacji
  -- rel wielopietrowe tworzenie jednym ciagiem   
 - logika podzialu+ wiele pieter - wykrywanie miejsca konca strzalki i rozbijanie relacji jak przy podziale plaskim
-
-todo:
-- w ui zabronic usuwania he, która nie jest na dole hier. proc tego nie obsluguje.
--save load
-- dostosowanie wart atr dlugosc pow do ustawien metrow per kratka
--dodac parametr w settings  szerowosc drzwi
-- bug : po undo stworzenie w tym samym miejscu linia przerywana
-  
-   java.lang.NullPointerException
-	at hyperGraphs.Node.isWall(Node.java:47)
-	at hyperGraphs.ObjectHE.getWallNodes(ObjectHE.java:248)
-	at rectangularBoard.Path.findEmbMappingNode(Path.java:584)
-	at rectangularBoard.Path.createObjectHE(Path.java:408)
-	at controller.Controller.developArea(Controller.java:75)
-	at editor.MainWindow.layoutEditorMouseMoved(MainWindow.java:344)
-
-
--bug delete division n razy
-
-" java.lang.NullPointerException
-	at hyperGraphs.Node.isWall(Node.java:47)
-	at hyperGraphs.ObjectHE.getWallNodes(ObjectHE.java:248)
-	at hyperGraphs.ObjectHE.findExternalNodes(ObjectHE.java:174)
-	at hyperGraphs.ObjectHE.contentSuppression(ObjectHE.java:47)
-	at hyperGraphs.HLH.contentSuppression(HLH.java:493)
-	at controller.Controller.deleteDivision(Controller.java:110)
-	at editor.MainWindow.deleteDivision(MainWindow.java:525)
-	at editor.DivisionTree.deleteDivisionActionPerformed(DivisionTree.java:47)
-	
-	
-  - html w dziale help
-  - dodac inne info i opisy do help
-  
-  - zmienic te kretynskie listy w wyborze testow na cos sensownego
-  - bug zapis etykiety - trzeba kliknac na typ

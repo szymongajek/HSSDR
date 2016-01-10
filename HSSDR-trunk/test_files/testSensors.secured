@@ -1,5 +1,5 @@
 	# Important area
-SecuredArea(r) <=> Rooms(r) and (type(r) = "Office" or type(r) = "Living_Room" or type(r) = "Garage");
+SecuredArea(r) <=> Rooms(r) and (type(r) = "Office" or type(r) = "Living_Room" or type(r) = "Garage" or type(r) = "Server_Room");
 	 
 # Passege can crossed without entering a sensor's range
 UnwatchedPassage(d1, d2) <=> d1!=d2 and  Doors(d1) and  Doors(d2) and
