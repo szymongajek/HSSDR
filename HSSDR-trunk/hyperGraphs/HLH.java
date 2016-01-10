@@ -58,7 +58,7 @@ public class HLH
 	
 	//	dla hiperkrawedzi obiektowych typ pomieszczenia reprezentwanego przez ta krawedz
 	public enum ROOM_TYPES{
-		Space,Kitchen,Corridor,Staircase,Bathroom,Living_Room,Garage,Bedroom, Office, Living_Area, Communication_Area, Technical_Area,Empty
+		Space,Kitchen,Corridor,Staircase,Bathroom, Toilet,Living_Room,Garage,Bedroom, Office, Living, Communication, Technical,Server_Room,Storage, Private,Public,Empty
 		
 	}
 	
