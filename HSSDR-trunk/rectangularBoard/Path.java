@@ -14,7 +14,7 @@ import java.util.Stack;
 import java.util.ArrayList;
 
 import editor.Doors;
-import editor.ObjectPainter;
+import editor.HyperGraphPainter;
 import sensors.Sensor;
 public class Path {
 	
@@ -458,21 +458,21 @@ public class Path {
 			
 			if (dir.equals("N")){
 				px= (Ncurrx +  len/2 );
-				py=Ncurry -ObjectPainter.NODE_DIST_FROM_HE_IN_SQUARES;
+				py=Ncurry -HyperGraphPainter.NODE_DIST_FROM_HE_IN_SQUARES;
 				
 				Ncurrx+= len;
 			}else if (dir.equals("S")){
 				px=(Scurrx - len/2);
-				py=Scurry +ObjectPainter.NODE_DIST_FROM_HE_IN_SQUARES;
+				py=Scurry +HyperGraphPainter.NODE_DIST_FROM_HE_IN_SQUARES;
 				
 				Scurrx-= len;
 			}else if (dir.equals("E")){
-				px=Ecurrx +ObjectPainter.NODE_DIST_FROM_HE_IN_SQUARES;
+				px=Ecurrx +HyperGraphPainter.NODE_DIST_FROM_HE_IN_SQUARES;
 				py=(Ecurry + len/2);
 				
 				Ecurry+= len;
 			}else if (dir.equals("W")){
-				px=Wcurrx -ObjectPainter.NODE_DIST_FROM_HE_IN_SQUARES;
+				px=Wcurrx -HyperGraphPainter.NODE_DIST_FROM_HE_IN_SQUARES;
 				py=(Wcurry - len/2);
 				
 				Wcurry-= len;
@@ -507,8 +507,8 @@ public class Path {
 		vert.setAttribute(HLH.WALL_NR,String.valueOf(-1));
 		vert.setAttribute(HLH.LABEL,"VERT");
 		vert.setObjectEdge(he);
-		vert.setMiddleX( avg_x + sizeX/2 +ObjectPainter.NODE_DIST_FROM_HE_IN_SQUARES/2);
-		vert.setMiddleY( avg_y - sizeY/2 -ObjectPainter.NODE_DIST_FROM_HE_IN_SQUARES/2);
+		vert.setMiddleX( avg_x + sizeX/2 +HyperGraphPainter.NODE_DIST_FROM_HE_IN_SQUARES/2);
+		vert.setMiddleY( avg_y - sizeY/2 -HyperGraphPainter.NODE_DIST_FROM_HE_IN_SQUARES/2);
 		he.addNode(vert);
 		
 		if (parentEdge!=null){// nie jest root edge 

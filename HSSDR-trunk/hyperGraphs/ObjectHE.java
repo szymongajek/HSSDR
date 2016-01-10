@@ -220,6 +220,13 @@ public class ObjectHE extends HyperEdge
         }
 
     }
+   
+   public boolean   hasChildElements()
+   {
+       return childElements.size()>0;
+   }
+
+   
    public  void addChildElement(   HyperEdge egde)
    {
        this.childElements.add(egde);

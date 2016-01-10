@@ -36,6 +36,7 @@ import java.util.Iterator;
 import javax.swing.ButtonGroup;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
+import javax.swing.JCheckBoxMenuItem;
 import javax.swing.JComboBox;
 import javax.swing.JFileChooser;
 import javax.swing.JFrame;
@@ -481,9 +482,9 @@ public class MainWindow extends JFrame implements MessageDisplayer   {
 
 	}
 	private void hyperGraphEditorMouseMoved(MouseEvent e) {
-		 if (hyperGraphEditor.getAreaKind(e.getX(), e.getY()) ==ObjectPainter.AREA_EMPTY ){
+		 if (hyperGraphEditor.getAreaKind(e.getX(), e.getY()) ==HyperGraphPainter.AREA_EMPTY ){
 			 setCursor(Cursor.DEFAULT_CURSOR);
-		 }else if (hyperGraphEditor.getAreaKind(e.getX(), e.getY()) ==ObjectPainter.AREA_OBJECTHE_RESIZE ) {
+		 }else if (hyperGraphEditor.getAreaKind(e.getX(), e.getY()) ==HyperGraphPainter.AREA_OBJECTHE_RESIZE ) {
 			 setCursor(Cursor.SE_RESIZE_CURSOR);
 		 }else   {
 			 setCursor(Cursor.HAND_CURSOR);
@@ -640,6 +641,11 @@ public class MainWindow extends JFrame implements MessageDisplayer   {
 		SettingsDialog sd = new SettingsDialog(this);
 		sd.setVisible(true);
 	}
+	private void settings_hideNonLeafHEActionPerformed (ActionEvent e) {
+		
+		HyperGraphEditor.HIDE_NON_LEAF_HE_WHILE_PAINTING = hideNonLeafHE.isSelected();
+		hyperGraphEditor.repaint();
+	}
 
 	private void helpTests_menuItemActionPerformed(ActionEvent e) {
 		TestsHelp th = new TestsHelp(this);
@@ -790,6 +796,7 @@ public class MainWindow extends JFrame implements MessageDisplayer   {
 		clear_menuItem = new JMenuItem();
 		exit_menuItem = new JMenuItem();
 		menu2 = new JMenu();
+		hideNonLeafHE = new JCheckBoxMenuItem();
 		settings_menuItem = new JMenuItem();
 		menu3 = new JMenu();
 		about_menuItem = new JMenuItem();
@@ -921,6 +928,23 @@ public class MainWindow extends JFrame implements MessageDisplayer   {
 			}
 			menuBar1.add(menu2);
 
+			
+			//======== hideNonLeafHE ========
+			{
+				menu2.addSeparator();
+
+				hideNonLeafHE.setText("Hide Non Leaf Hyperedges(Hypergraph View)");
+				hideNonLeafHE.setSelected(true);
+				HyperGraphEditor.HIDE_NON_LEAF_HE_WHILE_PAINTING=hideNonLeafHE.isSelected();
+				hideNonLeafHE.addActionListener(new ActionListener() {
+					@Override
+					public void actionPerformed(ActionEvent e) {
+						settings_hideNonLeafHEActionPerformed(e);
+					}
+				});
+				menu2.add(hideNonLeafHE);
+			}
+			
 			//======== menu3 ========
 			{
 				menu3.setText("Help");
@@ -1513,6 +1537,7 @@ public class MainWindow extends JFrame implements MessageDisplayer   {
 	private JMenuItem clear_menuItem;
 	private JMenuItem exit_menuItem;
 	private JMenu menu2;
+	private JCheckBoxMenuItem hideNonLeafHE;
 	private JMenuItem settings_menuItem;
 	private JMenu menu3;
 	private JMenuItem about_menuItem;
