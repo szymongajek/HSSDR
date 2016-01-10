@@ -26,6 +26,8 @@ public class HyperGraphEditor extends JPanel implements HyperGraphBrowser {
 
 	// TODO: ustawic to!!!!
 	public static int metersToPixels = 20; // ile px narysowac dla metra
+	
+	public static boolean HIDE_NON_LEAF_HE_WHILE_PAINTING; 
 
 	HLH graphRoot = null;
 
@@ -91,7 +93,7 @@ public class HyperGraphEditor extends JPanel implements HyperGraphBrowser {
 		//	 
 		// }
 		if (baseGraphEdgeForCurrentFloor!=null) {
-			ObjectPainter.paintGraph(baseGraphEdgeForCurrentFloor, g2D);
+			HyperGraphPainter.paintGraph(baseGraphEdgeForCurrentFloor, g2D);
 
 		}
 		
@@ -171,24 +173,24 @@ public class HyperGraphEditor extends JPanel implements HyperGraphBrowser {
 	}
 
 	public int getAreaKind(int x, int y) {
-		return ObjectPainter.getAreaKind(x, y, baseGraphEdgeForCurrentFloor);
+		return HyperGraphPainter.getAreaKind(x, y, baseGraphEdgeForCurrentFloor);
 	}
 
 	public void dragObject(int x, int y, boolean isRightClick) {
-		if (ObjectPainter.isSelected()) {
-			ObjectPainter.dragObject(x, y, baseGraphEdgeForCurrentFloor,
+		if (HyperGraphPainter.isSelected()) {
+			HyperGraphPainter.dragObject(x, y, baseGraphEdgeForCurrentFloor,
 					isRightClick);
 			repaint();
 		}
 	}
 
 	public void selectObject(int x, int y) {
-		ObjectPainter.selectObject(x, y, baseGraphEdgeForCurrentFloor);
+		HyperGraphPainter.selectObject(x, y, baseGraphEdgeForCurrentFloor);
 		repaint();
 	}
 
 	public void releaseObject(int x, int y) {
-		ObjectPainter.releaseObject(x, y, baseGraphEdgeForCurrentFloor);
+		HyperGraphPainter.releaseObject(x, y, baseGraphEdgeForCurrentFloor);
 		repaint();
 	}
 

@@ -8,7 +8,7 @@ import java.awt.Graphics2D;
 import java.awt.geom.Point2D;
 import java.util.ArrayList;
 
-public class ObjectPainter   {
+public class HyperGraphPainter   {
 	public static final int AREA_EMPTY=0;
 	public static final int AREA_OBJECTHE_CENTER=1;
 	public static final int AREA_RELATIONHE=2;
@@ -78,7 +78,7 @@ public class ObjectPainter   {
 		int ycoord=y/HyperGraphEditor.calcXY(1);
 		 
 		if (selected instanceof ObjectHE){
-			ObjectHE selected = (ObjectHE)ObjectPainter.selected;
+			ObjectHE selected = (ObjectHE)HyperGraphPainter.selected;
 			
 //			if (whatRegionInObjectHE(selected,x, y )==0){
 			if(!isRightClick){
@@ -304,6 +304,7 @@ public class ObjectPainter   {
 		if (edge instanceof ObjectHE){
 			if (drawObjects)
 				paintObjectHE(g2D, (ObjectHE)edge);
+			
 			paintChildElements(g2D, (ObjectHE)edge, drawObjects, drawRelations );
 		}else if (edge instanceof HyperRelation){
 			if (drawRelations)
@@ -444,6 +445,10 @@ public class ObjectPainter   {
 	
 	
 	public static  void paintObjectHE(Graphics2D g2D, ObjectHE edge ){
+		
+		// nie rysuj elementow posiadajacych dziecie jesli opcja hide non leaf jest wlaczona
+		if (  HyperGraphEditor.HIDE_NON_LEAF_HE_WHILE_PAINTING &&  ((ObjectHE)edge).hasChildElements() )
+			return;
 		
 		int rectSX = HyperGraphEditor.metersToPixels * edge.getSizeX() ;
 		int rectSY = HyperGraphEditor.metersToPixels * edge.getSizeY();
