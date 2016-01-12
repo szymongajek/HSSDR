@@ -49,9 +49,10 @@ import javax.swing.JPanel;
 import javax.swing.JRadioButton;
 import javax.swing.JScrollPane;
 import javax.swing.JTabbedPane;
+import javax.swing.JTable;
 import javax.swing.JTextArea;
 import javax.swing.JTextField;
-import javax.swing.SwingConstants;
+import javax.swing.ListSelectionModel;
 import javax.swing.UIManager;
 import javax.swing.WindowConstants;
 import javax.swing.event.ChangeEvent;
@@ -133,7 +134,8 @@ public class MainWindow extends JFrame implements MessageDisplayer   {
 		initLayout(sizeX, sizeY, gridToMeters, gridSize);
 		resetButtons();
 		
-		validationEditor.loadFileList(filesList, fileChooseingList);
+		validationEditor.loadFileList(testFilesSelectionTable);
+		Logger.LOGGER.debug("initAll");
 	}
 	
 	
@@ -596,19 +598,12 @@ public class MainWindow extends JFrame implements MessageDisplayer   {
 	private void roomTypesMouseClicked(MouseEvent e) {
 	}
 	private void panel3ComponentShown(ComponentEvent e) {
-		validationEditor.loadFileList(filesList, fileChooseingList);
+		 //validation editor shown
 	}
 
-	private void filesListValueChanged(ListSelectionEvent e) {
-		validationEditor.showFileContents(fileNameLabel,e, fileContent);
-	}
 
 	private void saveFileButtonActionPerformed(ActionEvent e) {
 		validationEditor.saveToFile(fileContent,fileNameLabel);
-	}
-
-	private void fileChooseingListValueChanged(ListSelectionEvent e) {
-		validationEditor.changeSelectedTests(e);
 	}
 
 	private void exit_menuItemActionPerformed(ActionEvent e) {
@@ -839,9 +834,8 @@ public class MainWindow extends JFrame implements MessageDisplayer   {
 		label7 = new JLabel();
 		label6 = new JLabel();
 		scrollPane5 = new JScrollPane();
-		fileChooseingList = new JList();
 		scrollPane3 = new JScrollPane();
-		filesList = new JList();
+		testFilesSelectionTable = new JTable();
 		scrollPane4 = new JScrollPane();
 		panel10 = new JPanel();
 		fileNameLabel = new JLabel();
@@ -1375,46 +1369,31 @@ public class MainWindow extends JFrame implements MessageDisplayer   {
 				//======== validationEditor ========
 				{
 					validationEditor.setLayout(new FormLayout(
-						"right:47dlu, $lcgap, 120dlu, $lcgap, center:17dlu, $ugap, 288dlu",
-						"default, $lgap, 227dlu, 2*($lgap, default)"));
-
-					//---- label7 ----
-					label7.setText("Enabled tests");
-					validationEditor.add(label7, cc.xy(1, 1));
+							"145dlu, $ugap, 288dlu:grow",
+							"default, $lgap, default, $pgap, default"));
 
 					//---- label6 ----
 					label6.setText("Choose file to edit");
-					validationEditor.add(label6, cc.xywh(3, 1, 1, 1, CellConstraints.CENTER, CellConstraints.DEFAULT));
-
-					//======== scrollPane5 ========
-					{
-
-						//---- fileChooseingList ----
-						fileChooseingList.setVisibleRowCount(20);
-						fileChooseingList.addListSelectionListener(new ListSelectionListener() {
-							@Override
-							public void valueChanged(ListSelectionEvent e) {
-								fileChooseingListValueChanged(e);
-							}
-						});
-						scrollPane5.setViewportView(fileChooseingList);
-					}
-					validationEditor.add(scrollPane5, cc.xy(1, 3));
+					validationEditor.add(label6, cc.xy(1, 1, CellConstraints.CENTER, CellConstraints.DEFAULT));
 
 					//======== scrollPane3 ========
 					{
+					//---- testFilesSelectionTable ----
+					testFilesSelectionTable.setToolTipText("Select enabled test files using checkboxes");
+					scrollPane3.setViewportView(testFilesSelectionTable);
+					testFilesSelectionTable.setSelectionMode( ListSelectionModel.SINGLE_SELECTION);
+					testFilesSelectionTable.getSelectionModel().addListSelectionListener(new   ListSelectionListener() {
+				        public void valueChanged(ListSelectionEvent event) {
+				            if (event.getValueIsAdjusting()) {
+				                return;
+				            }
+				            validationEditor.showFileContents(testFilesSelectionTable.getSelectionModel().getLeadSelectionIndex(),
+				            		fileNameLabel, fileContent);
+				        }
+				    });
+				}
+				validationEditor.add(scrollPane3, cc.xy(1, 3, CellConstraints.FILL, CellConstraints.FILL));
 
-						//---- filesList ----
-						filesList.setVisibleRowCount(20);
-						filesList.addListSelectionListener(new ListSelectionListener() {
-							@Override
-							public void valueChanged(ListSelectionEvent e) {
-								filesListValueChanged(e);
-							}
-						});
-						scrollPane3.setViewportView(filesList);
-					}
-					validationEditor.add(scrollPane3, cc.xy(3, 3));
 
 					//======== scrollPane4 ========
 					{
@@ -1422,21 +1401,21 @@ public class MainWindow extends JFrame implements MessageDisplayer   {
 						//======== panel10 ========
 						{
 							panel10.setLayout(new FormLayout(
-								"default:grow",
+								"315dlu:grow",
 								"default, $pgap, fill:default:grow"));
 
 							//---- fileNameLabel ----
 							fileNameLabel.setText("---");
-							panel10.add(fileNameLabel, cc.xywh(1, 1, 1, 1, CellConstraints.CENTER, CellConstraints.DEFAULT));
+							panel10.add(fileNameLabel, cc.xy(1, 1, CellConstraints.CENTER, CellConstraints.DEFAULT));
 
 							//---- fileContent ----
-							fileContent.setRows(20);
+							fileContent.setRows(28);
 							fileContent.setFont(new Font("Arial", Font.PLAIN, 13));
-							panel10.add(fileContent, cc.xy(1, 3));
+							panel10.add(fileContent, cc.xy(1, 3, CellConstraints.FILL, CellConstraints.FILL));
 						}
 						scrollPane4.setViewportView(panel10);
 					}
-					validationEditor.add(scrollPane4, cc.xy(7, 3));
+					validationEditor.add(scrollPane4, cc.xy(3, 3, CellConstraints.FILL, CellConstraints.FILL));
 
 					//---- saveFileButton ----
 					saveFileButton.setText("Save file");
@@ -1446,7 +1425,8 @@ public class MainWindow extends JFrame implements MessageDisplayer   {
 							saveFileButtonActionPerformed(e);
 						}
 					});
-					validationEditor.add(saveFileButton, cc.xywh(7, 5, 1, 1, CellConstraints.CENTER, CellConstraints.DEFAULT));
+					validationEditor.add(saveFileButton, cc.xy(3, 5, CellConstraints.CENTER, CellConstraints.DEFAULT));
+					
 				}
 				panel3.add(validationEditor, cc.xy(1, 1));
 			}
@@ -1556,7 +1536,7 @@ public class MainWindow extends JFrame implements MessageDisplayer   {
 	private JLabel label8;
 	private JLabel areaValueLabel;
 	private JTabbedPane tabbedPane1;
-	private JPanel panel1;
+	private JPanel panel1;//container for layout editor
 	private JScrollPane scrollPane1;
 	
 	
@@ -1571,17 +1551,16 @@ public class MainWindow extends JFrame implements MessageDisplayer   {
 	private JLabel label10;
 	private JScrollPane scrollPane6;
 	private JTextArea validationMessage;
-	private JPanel panel2;
+	private JPanel panel2;//container for hg editor
 	private JScrollPane scrollPane2;
 	private HyperGraphEditor hyperGraphEditor;
-	private JPanel panel3;
+	private JPanel panel3;//container for validation editor
 	private ValidationEditor validationEditor;
 	private JLabel label7;
 	private JLabel label6;
 	private JScrollPane scrollPane5;
-	private JList fileChooseingList;
 	private JScrollPane scrollPane3;
-	private JList filesList;
+	private JTable testFilesSelectionTable;
 	private JScrollPane scrollPane4;
 	private JPanel panel10;
 	private JLabel fileNameLabel;

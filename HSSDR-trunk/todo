@@ -1,19 +1,22 @@
-forms:
 
-- checkbox showLabels
--help
--usunac validationMessage.setText("text");
 ====
-- help jako jeden html
 
+	
+todo1:
+
+-save load - lub w todo2?
  
-todo:
-- w ui zabronic usuwania he, która nie jest na dole hier. proc tego nie obsluguje.
--save load
+
+todo2 niezale¿ne od pracy:
 - dostosowanie wart atr dlugosc pow do ustawien metrow per kratka
 -dodac parametr w settings  szerowosc drzwi
 -clear - nie czysci widoku pieter
-- bug : po undo stworzenie w tym samym miejscu linia przerywana
+- help jako jeden html
+  - html w dziale help
+  - dodac inne info i opisy do help
+  - bug zapis etykiety - trzeba kliknac na typ
+  - w ui zabronic usuwania he, która nie jest na dole hier. proc tego nie obsluguje.
+ - bug : po undo stworzenie w tym samym miejscu linia przerywana
   
    java.lang.NullPointerException
 	at hyperGraphs.Node.isWall(Node.java:47)
@@ -36,15 +39,14 @@ todo:
 	at editor.MainWindow.deleteDivision(MainWindow.java:525)
 	at editor.DivisionTree.deleteDivisionActionPerformed(DivisionTree.java:47)
 	
-	
-  - html w dziale help
-  - dodac inne info i opisy do help
-  
-  - zmienic te kretynskie listy w wyborze testow na cos sensownego
-  - bug zapis etykiety - trzeba kliknac na typ
   
   
   ----------------------zrobione:---------------------------------
+  
+  styczeñ s1
+  - opcja hide non leaf HE
+  - zmienic te kretynskie listy w wyborze testow na cos sensownego
+  
   
   zrobione w toku prac na wielopietrowym hg
  
@@ -84,3 +86,12 @@ po urlopie:
   -- podpiecie akcji do ui wyboru relacji
  -- rel wielopietrowe tworzenie jednym ciagiem   
 - logika podzialu+ wiele pieter - wykrywanie miejsca konca strzalki i rozbijanie relacji jak przy podziale plaskim
+
+
+
+
+forms:
+
+- checkbox showLabels
+-help
+-usunac validationMessage.setText("text");
