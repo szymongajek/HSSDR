@@ -7,6 +7,7 @@ package controller;
 
 import util.Logger;
 import editor.MainWindow;
+import editor.MainWindowJFD;
 
 // Referenced classes of package controller:
 //            Controller
@@ -17,7 +18,6 @@ public class Start
     public Start()
     {
     }
-
     public static void main(String args[])
     {
         Controller controller = new Controller();
@@ -27,4 +27,11 @@ public class Start
         mw.setVisible(true);
         Logger.LOGGER.debug("-------START-----------");
     }
+    
+//    public static void main(String args[])
+//    {
+//        MainWindowJFD mw = new MainWindowJFD();
+//        mw.setVisible(true);
+//        Logger.LOGGER.debug("-------START JFD-----------");
+//    }
 }

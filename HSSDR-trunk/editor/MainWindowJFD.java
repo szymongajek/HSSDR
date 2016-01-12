@@ -174,7 +174,7 @@ public class MainWindowJFD extends JFrame {
 		validationEditor = new ValidationEditor();
 		label6 = new JLabel();
 		scrollPane3 = new JScrollPane();
-		filesList = new JList();
+		testFilesSelectionTable = new JTable();
 		scrollPane4 = new JScrollPane();
 		panel10 = new JPanel();
 		fileNameLabel = new JLabel();
@@ -589,7 +589,7 @@ public class MainWindowJFD extends JFrame {
 				//======== validationEditor ========
 				{
 					validationEditor.setLayout(new FormLayout(
-						"120dlu, $lcgap, center:17dlu, $ugap, 288dlu",
+						"145dlu, $ugap, 288dlu:grow",
 						"default, $lgap, default, $pgap, default"));
 
 					//---- label6 ----
@@ -599,17 +599,11 @@ public class MainWindowJFD extends JFrame {
 					//======== scrollPane3 ========
 					{
 
-						//---- filesList ----
-						filesList.setVisibleRowCount(28);
-						filesList.addListSelectionListener(new ListSelectionListener() {
-							@Override
-							public void valueChanged(ListSelectionEvent e) {
-								filesListValueChanged(e);
-							}
-						});
-						scrollPane3.setViewportView(filesList);
+						//---- testFilesSelectionTable ----
+						testFilesSelectionTable.setToolTipText("Select enabled test files using checkboxes");
+						scrollPane3.setViewportView(testFilesSelectionTable);
 					}
-					validationEditor.add(scrollPane3, cc.xy(1, 3));
+					validationEditor.add(scrollPane3, cc.xy(1, 3, CellConstraints.FILL, CellConstraints.FILL));
 
 					//======== scrollPane4 ========
 					{
@@ -627,11 +621,11 @@ public class MainWindowJFD extends JFrame {
 							//---- fileContent ----
 							fileContent.setRows(28);
 							fileContent.setFont(new Font("Arial", Font.PLAIN, 13));
-							panel10.add(fileContent, cc.xy(1, 3));
+							panel10.add(fileContent, cc.xy(1, 3, CellConstraints.FILL, CellConstraints.FILL));
 						}
 						scrollPane4.setViewportView(panel10);
 					}
-					validationEditor.add(scrollPane4, cc.xy(5, 3));
+					validationEditor.add(scrollPane4, cc.xy(3, 3, CellConstraints.FILL, CellConstraints.FILL));
 
 					//---- saveFileButton ----
 					saveFileButton.setText("Save file");
@@ -641,7 +635,7 @@ public class MainWindowJFD extends JFrame {
 							saveFileButtonActionPerformed(e);
 						}
 					});
-					validationEditor.add(saveFileButton, cc.xy(5, 5, CellConstraints.CENTER, CellConstraints.DEFAULT));
+					validationEditor.add(saveFileButton, cc.xy(3, 5, CellConstraints.CENTER, CellConstraints.DEFAULT));
 				}
 				panel3.add(validationEditor, cc.xy(1, 1));
 			}
@@ -701,7 +695,7 @@ public class MainWindowJFD extends JFrame {
 	private ValidationEditor validationEditor;
 	private JLabel label6;
 	private JScrollPane scrollPane3;
-	private JList filesList;
+	private JTable testFilesSelectionTable;
 	private JScrollPane scrollPane4;
 	private JPanel panel10;
 	private JLabel fileNameLabel;
