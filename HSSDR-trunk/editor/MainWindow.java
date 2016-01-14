@@ -467,6 +467,11 @@ public class MainWindow extends JFrame implements MessageDisplayer   {
 		}
 		 
 	}
+	
+	private void checkLayouActionPerformed(ActionEvent e) {
+		validationMessage.setText("Layout validation in progress...");
+		 controller.checkLayout();
+	}
 
 	private void hyperGraphEditorMousePressed(MouseEvent e) {
 		hyperGraphEditor.selectObject(e.getX(), e.getY());
@@ -823,7 +828,8 @@ public class MainWindow extends JFrame implements MessageDisplayer   {
 		undoButton = new JButton();
 		clearButton2 = new JButton();
 		panel7 = new JPanel();
-		label10 = new JLabel();
+		leftValidationPanel = new JPanel();
+		checkLayoutButton = new JButton();
 		scrollPane6 = new JScrollPane();
 		validationMessage = new JTextArea();
 		panel2 = new JPanel();
@@ -979,10 +985,10 @@ public class MainWindow extends JFrame implements MessageDisplayer   {
 		{
  
 			panel5.setLayout(new GridBagLayout());
-			((GridBagLayout)panel5.getLayout()).columnWidths = new int[] {8, 120, 0, 0};
-			((GridBagLayout)panel5.getLayout()).rowHeights = new int[] {29, 23, 23, 23, 23, 32,23, 32,33, 32,33, 33,33,33,33,0};
+			((GridBagLayout)panel5.getLayout()).columnWidths = new int[] {8, 85, 0, 0};
+			((GridBagLayout)panel5.getLayout()).rowHeights = new int[] {29, 23, 23, 23, 23, 32, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0};
 			((GridBagLayout)panel5.getLayout()).columnWeights = new double[] {0.0, 0.0, 0.0, 1.0E-4};
-			((GridBagLayout)panel5.getLayout()).rowWeights = new double[] {0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 1.0E-4};
+			((GridBagLayout)panel5.getLayout()).rowWeights = new double[] {0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 1.0E-4};
 
 //			panel5.add(zoomMode, new GridBagConstraints(1, 0, 2, 1, 0.0, 0.0,
 //				GridBagConstraints.CENTER, GridBagConstraints.BOTH,
@@ -1271,13 +1277,31 @@ public class MainWindow extends JFrame implements MessageDisplayer   {
 				//======== panel7 ========
 				{
 					panel7.setLayout(new FormLayout(
-						"81dlu, $lcgap, 437dlu:grow",
-						"fill:54dlu"));
+							"100dlu, $lcgap, 376dlu:grow",
+							"fill:54dlu"));
 
-					//---- label10 ----
-					label10.setText("Validation output:");
-					label10.setFont(new Font("Tahoma", Font.BOLD, 13));
-					panel7.add(label10, cc.xywh(1, 1, 2, 1, CellConstraints.DEFAULT, CellConstraints.FILL));
+
+					//======== leftValidationPanel ========
+					{
+						leftValidationPanel.setLayout(new FormLayout(
+							"default:grow",
+							"36dlu:grow, $lgap"));
+
+						//---- checkLayoutButton ----
+						checkLayoutButton.setText("Check Layout");
+						checkLayoutButton.setSelectedIcon(null);
+						checkLayoutButton.setFont(new Font("Tahoma", Font.PLAIN, 18));
+						checkLayoutButton.setPreferredSize(new Dimension(145, 33));
+						checkLayoutButton.setRequestFocusEnabled(false);
+						checkLayoutButton.addActionListener(new ActionListener() {
+							@Override
+							public void actionPerformed(ActionEvent e) {
+								checkLayouActionPerformed(e);
+							}
+						});
+						leftValidationPanel.add(checkLayoutButton, cc.xy(1, 1, CellConstraints.CENTER, CellConstraints.CENTER));
+					}
+					panel7.add(leftValidationPanel, cc.xy(1, 1));
 
 					//======== scrollPane6 ========
 					{
@@ -1548,7 +1572,8 @@ public class MainWindow extends JFrame implements MessageDisplayer   {
 	private JButton undoButton;
 	private JButton clearButton2;
 	private JPanel panel7;
-	private JLabel label10;
+	private JPanel leftValidationPanel;
+	private JButton checkLayoutButton;
 	private JScrollPane scrollPane6;
 	private JTextArea validationMessage;
 	private JPanel panel2;//container for hg editor

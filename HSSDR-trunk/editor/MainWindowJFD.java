@@ -74,7 +74,7 @@ public class MainWindowJFD extends JFrame {
 		// TODO add your code here
 	}
 
-	private void SolidModeActionPerformed(ActionEvent e) {
+	private void checkLayouActionPerformed(ActionEvent e) {
 		// TODO add your code here
 	}
 
@@ -126,6 +126,10 @@ public class MainWindowJFD extends JFrame {
 		// TODO add your code here
 	}
 
+	private void SolidModeActionPerformed(ActionEvent e) {
+		// TODO add your code here
+	}
+
 	private void initComponents() {
 		// JFormDesigner - Component initialization - DO NOT MODIFY  //GEN-BEGIN:initComponents
 		// Generated using JFormDesigner Evaluation license - sz g
@@ -164,7 +168,8 @@ public class MainWindowJFD extends JFrame {
 		undoButton = new JButton();
 		clearButton2 = new JButton();
 		panel7 = new JPanel();
-		label10 = new JLabel();
+		leftValidationPanel = new JPanel();
+		checkLayoutButton = new JButton();
 		scrollPane6 = new JScrollPane();
 		validationMessage = new JTextArea();
 		panel2 = new JPanel();
@@ -309,9 +314,9 @@ public class MainWindowJFD extends JFrame {
 
 			panel5.setLayout(new GridBagLayout());
 			((GridBagLayout)panel5.getLayout()).columnWidths = new int[] {8, 85, 0, 0};
-			((GridBagLayout)panel5.getLayout()).rowHeights = new int[] {29, 23, 23, 23, 23, 32, 0, 0, 0};
+			((GridBagLayout)panel5.getLayout()).rowHeights = new int[] {29, 23, 23, 23, 23, 32, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0};
 			((GridBagLayout)panel5.getLayout()).columnWeights = new double[] {0.0, 0.0, 0.0, 1.0E-4};
-			((GridBagLayout)panel5.getLayout()).rowWeights = new double[] {0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 1.0E-4};
+			((GridBagLayout)panel5.getLayout()).rowWeights = new double[] {0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 1.0E-4};
 
 			//---- zoomMode ----
 			zoomMode.setText("Start Zooming");
@@ -381,7 +386,7 @@ public class MainWindowJFD extends JFrame {
 				new Insets(0, 0, 3, 3), 0, 0));
 			panel5.add(areaValueLabel, new GridBagConstraints(1, 7, 1, 1, 0.0, 0.0,
 				GridBagConstraints.CENTER, GridBagConstraints.BOTH,
-				new Insets(0, 0, 0, 3), 0, 0));
+				new Insets(0, 0, 3, 3), 0, 0));
 		}
 		contentPane.add(panel5, cc.xy(1, 3, CellConstraints.FILL, CellConstraints.DEFAULT));
 
@@ -512,13 +517,30 @@ public class MainWindowJFD extends JFrame {
 				//======== panel7 ========
 				{
 					panel7.setLayout(new FormLayout(
-						"81dlu, $lcgap, 437dlu:grow",
+						"100dlu, $lcgap, 376dlu:grow",
 						"fill:54dlu"));
 
-					//---- label10 ----
-					label10.setText("Validation output:");
-					label10.setFont(new Font("Tahoma", Font.BOLD, 13));
-					panel7.add(label10, cc.xywh(1, 1, 2, 1, CellConstraints.DEFAULT, CellConstraints.FILL));
+					//======== leftValidationPanel ========
+					{
+						leftValidationPanel.setLayout(new FormLayout(
+							"default:grow",
+							"36dlu:grow, $lgap"));
+
+						//---- checkLayoutButton ----
+						checkLayoutButton.setText("Check Layout");
+						checkLayoutButton.setSelectedIcon(null);
+						checkLayoutButton.setFont(new Font("Tahoma", Font.PLAIN, 18));
+						checkLayoutButton.setPreferredSize(new Dimension(145, 33));
+						checkLayoutButton.setRequestFocusEnabled(false);
+						checkLayoutButton.addActionListener(new ActionListener() {
+							@Override
+							public void actionPerformed(ActionEvent e) {
+								checkLayouActionPerformed(e);
+							}
+						});
+						leftValidationPanel.add(checkLayoutButton, cc.xy(1, 1, CellConstraints.CENTER, CellConstraints.CENTER));
+					}
+					panel7.add(leftValidationPanel, cc.xy(1, 1));
 
 					//======== scrollPane6 ========
 					{
@@ -685,7 +707,8 @@ public class MainWindowJFD extends JFrame {
 	private JButton undoButton;
 	private JButton clearButton2;
 	private JPanel panel7;
-	private JLabel label10;
+	private JPanel leftValidationPanel;
+	private JButton checkLayoutButton;
 	private JScrollPane scrollPane6;
 	private JTextArea validationMessage;
 	private JPanel panel2;

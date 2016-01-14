@@ -161,7 +161,7 @@ public class Controller
 		
 	}
 	
-    private void checkLayout()
+    public void checkLayout()
     {
     	// roboty
         //GraphMessage meesage[] = CheckerPlugin.checkStructure(graph);
