@@ -366,6 +366,7 @@ public class Path {
 		he.setAttribute(HLH.USER_LABEL, getUserLabel());
 		he.setAttribute(HLH.ROOM_TYPE_LABEL, HLH.ROOM_TYPES.values()[ getRoomType()].toString());
 		he.setAttribute(HLH.AREA, String.valueOf(getAreaValue()));
+		he.setAttribute(HLH.FLOOR_NR, String.valueOf( floorNr));
 		he.setInterior( getInterior());
 		he.setFloor(floorNr);
 	 	
