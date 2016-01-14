@@ -36,6 +36,12 @@ public class HLH
 	
 	public static final String DIRECTION_VERTICAL="V";
 	//	 dla wezlow wspolrzedne koncow sciany: dostepne przez LayoutUtils.getWallCoord(node)
+	
+	/**
+	 * Atybut relacji numer pietra
+	 */
+	public static final String FLOOR_NR = "FLOOR_NR";
+	
 	public static final String COORD="COORD";
 //	 dla wezlow numer kolejnej sciany jaka reprezentuje wezel
 	public static final String WALL_NR="WALL_NR";
@@ -51,6 +57,7 @@ public class HLH
 	public static final String KIND_ADJ="ADJ";
 //	 widocznosc
 	public static final String KIND_VIS="VIS";
+	
 	/**
 	 * gdy ustawione przerywana linia oznacza widocznosc, o dostepnosci decyduja drzwi
 	 */
@@ -62,9 +69,18 @@ public class HLH
 		
 	}
 	
-	//najwyzej polozona w hierarchii hiperkrawejdz 
+	/**
+	 * root edge parteru - na potrzeby starych modulow, przekazywany im tylko parter 
+	 */
+	@Deprecated
     private ObjectHE rootEdgeGroundFloor;
+  /**
+   * najwyzej polozona w hierarchii hiperkrawejdz
+   */
     private ObjectHE rootEdgeGraph;
+    /**
+     * tablica pieter na potrzeby edytora layoutu i hipergrafow
+     */
     private ObjectHE[] rootEdges;
     private Hashtable<String,ObjectHE> objectHEMap;
     private Hashtable<String,DoorsAttributes> doorsMap;
@@ -97,7 +113,7 @@ public class HLH
     
     public void createRootEdge(ObjectHE rootEdge, float gridToMeters, int sensorRange, int floorNr)
     {
-        rootEdge.setLevel(0);
+        rootEdge.setLevel(0);//poziom zaglebienia
         if (floorNr==0) this.rootEdgeGroundFloor = rootEdge;
         rootEdges[floorNr]= rootEdge;
         rootEdgeGraph.addChildElement(rootEdge);
@@ -205,6 +221,11 @@ public class HLH
         }
     }
     public Object []  createStructureAndVocabulary (){
+    	
+    	/**
+    	 * wszystkie wartosci liczbowe w FOLF musza byc type Double, patrz FOLF.Comparator.value
+    	 */
+    	
     	
     	Structure structure = new Structure();
     	Vocabulary vocabulary = new Vocabulary();
@@ -355,6 +376,15 @@ public class HLH
     	structure.addRelation("isPassageWatched", new CachingRelation( new IsPassageWatched()));
       	vocabulary.addRelation("isPassageWatched", 2);
     	
+      	
+    	// numer pietra dla pomieszczenia
+      	vocabulary.addFunction("floorNr", 1);
+    	TabularFunction floorNr = new TabularFunction(1);
+        structure.addFunction("floorNr", floorNr);
+    	
+        for (ObjectHE he : getAllRooms()){
+        	floorNr.add(new ObjectHE[]{he},Double.valueOf(he.getAttribute(HLH.FLOOR_NR)));
+        }
     	
         
     	if (!vocabulary.isCompatible(structure))
