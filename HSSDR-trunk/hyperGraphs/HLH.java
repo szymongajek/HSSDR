@@ -4,6 +4,7 @@ package hyperGraphs;
 import java.awt.Point;
 import java.util.Arrays;
 import java.util.Collection;
+import java.util.HashSet;
 import java.util.Hashtable;
 import java.util.ArrayList;
 import java.util.List;
@@ -65,7 +66,7 @@ public class HLH
 	
 	//	dla hiperkrawedzi obiektowych typ pomieszczenia reprezentwanego przez ta krawedz
 	public enum ROOM_TYPES{
-		Space,Kitchen,Corridor,Staircase,Bathroom, Toilet,Living_Room,Garage,Bedroom, Office, Living, Communication, Technical,Server_Room,Storage, Private,Public,Empty
+		Space,Kitchen,Corridor,Staircase,LiftConform,LiftNonConform,LiftCargo,Bathroom, ToiletMen,ToiletWomen, ToiledAccessible,Living_Room,Garage,Bedroom, Office, Living, Communication, Technical,Server_Room,Storage, Private,Public,Empty
 		
 	}
 	
@@ -238,14 +239,14 @@ public class HLH
     	structure.addRelation("Rooms", isRoom);
     	vocabulary.addRelation("Rooms", 1);
     	
-    	UnaryTabularRelation isArea = new UnaryTabularRelation();
-    	structure.addRelation("Areas", isArea);
-    	vocabulary.addRelation("Areas", 1);
-    	
     	for (ObjectHE he : getAllRooms()){
     		structure.addDomainObject(he);
     		isRoom.add(he);
         }
+    	
+    	UnaryTabularRelation isArea = new UnaryTabularRelation();
+    	structure.addRelation("Areas", isArea);
+    	vocabulary.addRelation("Areas", 1);
     	
 //    	wszystkie hiperkrawedzie obiektowe - obszary logiczne z dziecmi, oraz zwykle pokoje
     	for (ObjectHE he: getAllObjectHE()){
@@ -272,6 +273,11 @@ public class HLH
         					adjacency.add(he1,he2);
         			}
         		}
+    	// zapewnienie zwrotnosci relacji
+    	for (ObjectHE he : getAllRooms()){
+			accesibility.add(he, he);
+        }
+    	
     	
 //      sprawdzanie hierarchi dziedziczenia dla hiperkrawedzi - czy x jest bezposrednim dzieckiem y
     	structure.addRelation("isDirectChild", new CachingRelation( new IsDirectChild()));
@@ -376,16 +382,28 @@ public class HLH
     	structure.addRelation("isPassageWatched", new CachingRelation( new IsPassageWatched()));
       	vocabulary.addRelation("isPassageWatched", 2);
     	
-      	
     	// numer pietra dla pomieszczenia
       	vocabulary.addFunction("floorNr", 1);
     	TabularFunction floorNr = new TabularFunction(1);
         structure.addFunction("floorNr", floorNr);
+        
+   	 //  Pietra
+    	UnaryTabularRelation isFloor = new UnaryTabularRelation();
+    	structure.addRelation("Floors", isFloor);
+    	vocabulary.addRelation("Floors", 1);
+    	
+    	HashSet<Double> floorsSet = new HashSet<Double>();
     	
         for (ObjectHE he : getAllRooms()){
-        	floorNr.add(new ObjectHE[]{he},Double.valueOf(he.getAttribute(HLH.FLOOR_NR)));
+        	Double fNum = Double.valueOf(he.getAttribute(HLH.FLOOR_NR));
+        	floorNr.add(new ObjectHE[]{he},fNum);
+        	floorsSet.add(fNum);
         }
-    	
+        
+        for (Double floor : floorsSet){
+        	structure.addDomainObject(floor);
+    		isFloor.add(floor);
+        }
         
     	if (!vocabulary.isCompatible(structure))
     		throw new RuntimeException("!vocabulary.isCompatible(structure)");
