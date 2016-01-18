@@ -13,6 +13,7 @@ import java.awt.Point;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
+import java.util.NoSuchElementException;
 
 import rectangularBoard.Path;
 import sensors.Sensor;
@@ -120,44 +121,59 @@ public class Controller
 		ArrayList<String> roomsToHighlight = new ArrayList<String>();
 		Object[] ret = new Object[2];
 
-		System.out.println("Processing " + fname + "...");
+		Logger.LOGGER.debug("Processing " + fname + "...");
 		resultMessage.append("Result of: \"" + fname + "\":" + "\n");
-		Suite su = parser.suiteFromFile(fname, vocabulary);
-		if (su == null) {
-			System.out.println("syntax or file error!");
-			resultMessage.append("syntax or file error!  ");
-			String msg = parser.getErrorMessages();
-			if (msg != null) {
-				System.out.print(msg);
+		
+			
+		Result[] res={};
+		Exception folfException = null;
+		try {
+			Suite su = parser.suiteFromFile(fname, vocabulary);
+			if (su != null) {
+				res = su.getCompleteResults(structure, 99);
+			}else{
+				Logger.LOGGER.error("syntax or file error!");
+				resultMessage.append("syntax or file error!  ");
+				String msg = parser.getErrorMessages();
+				Logger.LOGGER.error(msg);
 				resultMessage.append( msg + "\n");
 			}
-			System.out.println();
-			ret[0] = resultMessage.toString();
-			ret[1] = roomsToHighlight;
-			return ret;
-		} else {
-			Result[] res = su.getCompleteResults(structure, 99);
-			for (int i = 0; i < res.length; ++i) {
-				System.out.print("#" + (i + 1) + ": ");
-				resultMessage.append( "#" + (i + 1) + ": ");
-				res[i].printResult();
-				resultMessage.append(res[i].getResult());
-
-				for (int k = 0;; ++k) {
-					Map<String, Object> qvars = res[i].getQVarsState(k);
-					if (qvars == null)
-						break;
-					for (String name : qvars.keySet())
-						roomsToHighlight.add(qvars.get(name).toString());
-				}
-			}
-			System.out.println();
-			resultMessage.append("\n");
-
-			ret[0] = resultMessage.toString();
-			ret[1] = roomsToHighlight;
-			return ret;
+			
+		}catch (UnsupportedOperationException e ) {
+			folfException=e;
+		}catch (IllegalArgumentException e ) {
+			folfException=e;
+		}catch (NoSuchElementException e ) {
+			folfException=e;
+		}catch (RuntimeException e ) {
+			folfException=e;
 		}
+		
+		if (folfException!=null){
+			Logger.LOGGER.error("FOLF exception",folfException);
+			resultMessage.append("Error during formula evaluation" + "\n");
+			resultMessage.append(folfException.getMessage()+ "\n");
+			resultMessage.append(folfException+ "\n");
+		}
+		
+		for (int i = 0; i < res.length; ++i) {
+			Logger.LOGGER.debug("#" + (i + 1) + ": ");
+			resultMessage.append( "#" + (i + 1) + ": ");
+			res[i].printResult();
+			resultMessage.append(res[i].getResult());
+
+			for (int k = 0;; ++k) {
+				Map<String, Object> qvars = res[i].getQVarsState(k);
+				if (qvars == null)
+					break;
+				for (String name : qvars.keySet())
+					roomsToHighlight.add(qvars.get(name).toString());
+			}
+		}
+		
+		ret[0] = resultMessage.toString();
+		ret[1] = roomsToHighlight;
+		return ret;
 		
 	}
 	
@@ -193,7 +209,7 @@ public class Controller
            
         }
         // wyswietlanie struktury po testach - w celu zobaczenia zawartosci Caching*
-        System.out.println(structure.toString());
+        Logger.LOGGER.debug(structure.toString());
         
        messageDisplayer.displayMessageAndHighlight(resultMessage.toString(),roomsToHighlight);
     }
