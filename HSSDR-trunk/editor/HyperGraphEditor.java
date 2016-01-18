@@ -18,8 +18,7 @@ public class HyperGraphEditor extends JPanel implements HyperGraphBrowser {
 	 */
 	private static final long serialVersionUID = -794725138699406016L;
 
-	private int sizeX = 1000, sizeY = 500; // pocztakowy rozmiar planszy (bez
-											// zoomowania)
+	private int sizeX , sizeY ; // pocztakowy rozmiar planszy  
 
 	public static double zoomedTo; // skala powiekszenia
 	public static double zoomSpeed = 10.0 / 100.0; // szybkoœæ powiekszenia

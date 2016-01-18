@@ -147,7 +147,7 @@ public class MainWindow extends JFrame implements MessageDisplayer   {
 		}
 		
 		tabbedPane1.validate();
-		hyperGraphEditor.initLayout(sizeX,sizeY+150);
+		hyperGraphEditor.initLayout(sizeX+500,sizeY+650);
 	}
 	
 	public void resetButtons(){
