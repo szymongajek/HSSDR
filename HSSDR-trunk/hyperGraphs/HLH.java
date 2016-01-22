@@ -28,7 +28,10 @@ public class HLH
 	//	dla wezlow dlugosc sciany repr przez wezel
 	public static final String LEN="LEN";
 	//	 orienatajca sciany w wezlach: N S W E
-	public static final String DIRECTION="DIR";
+	public static final String DIRECTION_N="N";
+	public static final String DIRECTION_S="S";
+	public static final String DIRECTION_W="W";
+	public static final String DIRECTION_E="E";
 	@Deprecated
 	public static final String DIRECTION_FLOOR="F";
 //	  
