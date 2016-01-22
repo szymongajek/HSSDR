@@ -75,8 +75,6 @@ public class Vocabulary
 
     public void addRelation(String name, int arity)
     {
-        if (arity < 1)
-            throw new IllegalArgumentException("bad arity");
         add(name, new Pair(RELATION, arity));
     }
 

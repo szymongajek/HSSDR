@@ -1,4 +1,4 @@
-// $ANTLR 3.2 Sep 23, 2009 12:02:23 Formula.g 2010-11-23 21:34:54
+// $ANTLR 3.2 Sep 23, 2009 12:02:23 Formula.g 2016-01-21 14:21:09
 
     package folf;
 
@@ -24,8 +24,8 @@ public class FormulaLexer extends Lexer {
     public static final int EOF=-1;
     public static final int LPAREN=4;
     public static final int T__30=30;
-    public static final int T__31=31;
     public static final int RPAREN=5;
+    public static final int T__31=31;
     public static final int T__32=32;
     public static final int T__33=33;
     public static final int ESC_SEQ=24;
@@ -294,7 +294,7 @@ public class FormulaLexer extends Lexer {
         try {
             int _type = FORALL;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // Formula.g:562:8: ( 'forall' | '\\\\forall' | '\\u2200' )
+            // Formula.g:518:8: ( 'forall' | '\\\\forall' | '\\u2200' )
             int alt1=3;
             switch ( input.LA(1) ) {
             case 'f':
@@ -321,7 +321,7 @@ public class FormulaLexer extends Lexer {
 
             switch (alt1) {
                 case 1 :
-                    // Formula.g:562:10: 'forall'
+                    // Formula.g:518:10: 'forall'
                     {
                     match("forall"); 
 
@@ -329,7 +329,7 @@ public class FormulaLexer extends Lexer {
                     }
                     break;
                 case 2 :
-                    // Formula.g:562:21: '\\\\forall'
+                    // Formula.g:518:21: '\\\\forall'
                     {
                     match("\\forall"); 
 
@@ -337,7 +337,7 @@ public class FormulaLexer extends Lexer {
                     }
                     break;
                 case 3 :
-                    // Formula.g:562:34: '\\u2200'
+                    // Formula.g:518:34: '\\u2200'
                     {
                     match('\u2200'); 
 
@@ -358,7 +358,7 @@ public class FormulaLexer extends Lexer {
         try {
             int _type = EXISTS;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // Formula.g:564:8: ( 'exists' | '\\\\exists' | '\\u2203' )
+            // Formula.g:520:8: ( 'exists' | '\\\\exists' | '\\u2203' )
             int alt2=3;
             switch ( input.LA(1) ) {
             case 'e':
@@ -385,7 +385,7 @@ public class FormulaLexer extends Lexer {
 
             switch (alt2) {
                 case 1 :
-                    // Formula.g:564:10: 'exists'
+                    // Formula.g:520:10: 'exists'
                     {
                     match("exists"); 
 
@@ -393,7 +393,7 @@ public class FormulaLexer extends Lexer {
                     }
                     break;
                 case 2 :
-                    // Formula.g:564:21: '\\\\exists'
+                    // Formula.g:520:21: '\\\\exists'
                     {
                     match("\\exists"); 
 
@@ -401,7 +401,7 @@ public class FormulaLexer extends Lexer {
                     }
                     break;
                 case 3 :
-                    // Formula.g:564:34: '\\u2203'
+                    // Formula.g:520:34: '\\u2203'
                     {
                     match('\u2203'); 
 
@@ -422,7 +422,7 @@ public class FormulaLexer extends Lexer {
         try {
             int _type = IN;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // Formula.g:566:4: ( 'in' | '\\\\in' | '\\u220A' )
+            // Formula.g:522:4: ( 'in' | '\\\\in' | '\\u220A' )
             int alt3=3;
             switch ( input.LA(1) ) {
             case 'i':
@@ -449,7 +449,7 @@ public class FormulaLexer extends Lexer {
 
             switch (alt3) {
                 case 1 :
-                    // Formula.g:566:6: 'in'
+                    // Formula.g:522:6: 'in'
                     {
                     match("in"); 
 
@@ -457,7 +457,7 @@ public class FormulaLexer extends Lexer {
                     }
                     break;
                 case 2 :
-                    // Formula.g:566:13: '\\\\in'
+                    // Formula.g:522:13: '\\\\in'
                     {
                     match("\\in"); 
 
@@ -465,7 +465,7 @@ public class FormulaLexer extends Lexer {
                     }
                     break;
                 case 3 :
-                    // Formula.g:566:22: '\\u220A'
+                    // Formula.g:522:22: '\\u220A'
                     {
                     match('\u220A'); 
 
@@ -486,7 +486,7 @@ public class FormulaLexer extends Lexer {
         try {
             int _type = EQUIVALENCE;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // Formula.g:568:13: ( '<=>' | '\\\\Leftrightarrow' | '\\u21D4' )
+            // Formula.g:524:13: ( '<=>' | '\\\\Leftrightarrow' | '\\u21D4' )
             int alt4=3;
             switch ( input.LA(1) ) {
             case '<':
@@ -513,7 +513,7 @@ public class FormulaLexer extends Lexer {
 
             switch (alt4) {
                 case 1 :
-                    // Formula.g:568:15: '<=>'
+                    // Formula.g:524:15: '<=>'
                     {
                     match("<=>"); 
 
@@ -521,7 +521,7 @@ public class FormulaLexer extends Lexer {
                     }
                     break;
                 case 2 :
-                    // Formula.g:568:23: '\\\\Leftrightarrow'
+                    // Formula.g:524:23: '\\\\Leftrightarrow'
                     {
                     match("\\Leftrightarrow"); 
 
@@ -529,7 +529,7 @@ public class FormulaLexer extends Lexer {
                     }
                     break;
                 case 3 :
-                    // Formula.g:568:44: '\\u21D4'
+                    // Formula.g:524:44: '\\u21D4'
                     {
                     match('\u21D4'); 
 
@@ -550,7 +550,7 @@ public class FormulaLexer extends Lexer {
         try {
             int _type = IMPLICATION;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // Formula.g:570:13: ( '=>' | '\\\\Rightarrow' | '\\u21D2' )
+            // Formula.g:526:13: ( '=>' | '\\\\Rightarrow' | '\\u21D2' )
             int alt5=3;
             switch ( input.LA(1) ) {
             case '=':
@@ -577,7 +577,7 @@ public class FormulaLexer extends Lexer {
 
             switch (alt5) {
                 case 1 :
-                    // Formula.g:570:15: '=>'
+                    // Formula.g:526:15: '=>'
                     {
                     match("=>"); 
 
@@ -585,7 +585,7 @@ public class FormulaLexer extends Lexer {
                     }
                     break;
                 case 2 :
-                    // Formula.g:570:22: '\\\\Rightarrow'
+                    // Formula.g:526:22: '\\\\Rightarrow'
                     {
                     match("\\Rightarrow"); 
 
@@ -593,7 +593,7 @@ public class FormulaLexer extends Lexer {
                     }
                     break;
                 case 3 :
-                    // Formula.g:570:39: '\\u21D2'
+                    // Formula.g:526:39: '\\u21D2'
                     {
                     match('\u21D2'); 
 
@@ -614,7 +614,7 @@ public class FormulaLexer extends Lexer {
         try {
             int _type = AND;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // Formula.g:572:5: ( 'and' | '\\\\wedge' | '\\u2227' )
+            // Formula.g:528:5: ( 'and' | '\\\\wedge' | '\\u2227' )
             int alt6=3;
             switch ( input.LA(1) ) {
             case 'a':
@@ -641,7 +641,7 @@ public class FormulaLexer extends Lexer {
 
             switch (alt6) {
                 case 1 :
-                    // Formula.g:572:7: 'and'
+                    // Formula.g:528:7: 'and'
                     {
                     match("and"); 
 
@@ -649,7 +649,7 @@ public class FormulaLexer extends Lexer {
                     }
                     break;
                 case 2 :
-                    // Formula.g:572:15: '\\\\wedge'
+                    // Formula.g:528:15: '\\\\wedge'
                     {
                     match("\\wedge"); 
 
@@ -657,7 +657,7 @@ public class FormulaLexer extends Lexer {
                     }
                     break;
                 case 3 :
-                    // Formula.g:572:27: '\\u2227'
+                    // Formula.g:528:27: '\\u2227'
                     {
                     match('\u2227'); 
 
@@ -678,7 +678,7 @@ public class FormulaLexer extends Lexer {
         try {
             int _type = OR;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // Formula.g:574:4: ( 'or' | '\\\\vee' | '\\u2228' )
+            // Formula.g:530:4: ( 'or' | '\\\\vee' | '\\u2228' )
             int alt7=3;
             switch ( input.LA(1) ) {
             case 'o':
@@ -705,7 +705,7 @@ public class FormulaLexer extends Lexer {
 
             switch (alt7) {
                 case 1 :
-                    // Formula.g:574:6: 'or'
+                    // Formula.g:530:6: 'or'
                     {
                     match("or"); 
 
@@ -713,7 +713,7 @@ public class FormulaLexer extends Lexer {
                     }
                     break;
                 case 2 :
-                    // Formula.g:574:13: '\\\\vee'
+                    // Formula.g:530:13: '\\\\vee'
                     {
                     match("\\vee"); 
 
@@ -721,7 +721,7 @@ public class FormulaLexer extends Lexer {
                     }
                     break;
                 case 3 :
-                    // Formula.g:574:23: '\\u2228'
+                    // Formula.g:530:23: '\\u2228'
                     {
                     match('\u2228'); 
 
@@ -742,7 +742,7 @@ public class FormulaLexer extends Lexer {
         try {
             int _type = NOT;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // Formula.g:576:5: ( 'not' | '!' | '\\\\neg' | '\\u00AC' )
+            // Formula.g:532:5: ( 'not' | '!' | '\\\\neg' | '\\u00AC' )
             int alt8=4;
             switch ( input.LA(1) ) {
             case 'n':
@@ -774,7 +774,7 @@ public class FormulaLexer extends Lexer {
 
             switch (alt8) {
                 case 1 :
-                    // Formula.g:576:7: 'not'
+                    // Formula.g:532:7: 'not'
                     {
                     match("not"); 
 
@@ -782,14 +782,14 @@ public class FormulaLexer extends Lexer {
                     }
                     break;
                 case 2 :
-                    // Formula.g:576:15: '!'
+                    // Formula.g:532:15: '!'
                     {
                     match('!'); 
 
                     }
                     break;
                 case 3 :
-                    // Formula.g:576:21: '\\\\neg'
+                    // Formula.g:532:21: '\\\\neg'
                     {
                     match("\\neg"); 
 
@@ -797,7 +797,7 @@ public class FormulaLexer extends Lexer {
                     }
                     break;
                 case 4 :
-                    // Formula.g:576:31: '\\u00AC'
+                    // Formula.g:532:31: '\\u00AC'
                     {
                     match('\u00AC'); 
 
@@ -818,8 +818,8 @@ public class FormulaLexer extends Lexer {
         try {
             int _type = EQ;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // Formula.g:578:4: ( '=' )
-            // Formula.g:578:6: '='
+            // Formula.g:534:4: ( '=' )
+            // Formula.g:534:6: '='
             {
             match('='); 
 
@@ -838,7 +838,7 @@ public class FormulaLexer extends Lexer {
         try {
             int _type = NE;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // Formula.g:580:4: ( '!=' | '<>' | '\\\\neq' | '\\u2260' )
+            // Formula.g:536:4: ( '!=' | '<>' | '\\\\neq' | '\\u2260' )
             int alt9=4;
             switch ( input.LA(1) ) {
             case '!':
@@ -870,7 +870,7 @@ public class FormulaLexer extends Lexer {
 
             switch (alt9) {
                 case 1 :
-                    // Formula.g:580:6: '!='
+                    // Formula.g:536:6: '!='
                     {
                     match("!="); 
 
@@ -878,7 +878,7 @@ public class FormulaLexer extends Lexer {
                     }
                     break;
                 case 2 :
-                    // Formula.g:580:13: '<>'
+                    // Formula.g:536:13: '<>'
                     {
                     match("<>"); 
 
@@ -886,7 +886,7 @@ public class FormulaLexer extends Lexer {
                     }
                     break;
                 case 3 :
-                    // Formula.g:580:20: '\\\\neq'
+                    // Formula.g:536:20: '\\\\neq'
                     {
                     match("\\neq"); 
 
@@ -894,7 +894,7 @@ public class FormulaLexer extends Lexer {
                     }
                     break;
                 case 4 :
-                    // Formula.g:580:30: '\\u2260'
+                    // Formula.g:536:30: '\\u2260'
                     {
                     match('\u2260'); 
 
@@ -915,8 +915,8 @@ public class FormulaLexer extends Lexer {
         try {
             int _type = LT;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // Formula.g:582:4: ( '<' )
-            // Formula.g:582:6: '<'
+            // Formula.g:538:4: ( '<' )
+            // Formula.g:538:6: '<'
             {
             match('<'); 
 
@@ -935,7 +935,7 @@ public class FormulaLexer extends Lexer {
         try {
             int _type = LE;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // Formula.g:584:4: ( '<=' | '\\\\leq' | '\\u2264' )
+            // Formula.g:540:4: ( '<=' | '\\\\leq' | '\\u2264' )
             int alt10=3;
             switch ( input.LA(1) ) {
             case '<':
@@ -962,7 +962,7 @@ public class FormulaLexer extends Lexer {
 
             switch (alt10) {
                 case 1 :
-                    // Formula.g:584:6: '<='
+                    // Formula.g:540:6: '<='
                     {
                     match("<="); 
 
@@ -970,7 +970,7 @@ public class FormulaLexer extends Lexer {
                     }
                     break;
                 case 2 :
-                    // Formula.g:584:13: '\\\\leq'
+                    // Formula.g:540:13: '\\\\leq'
                     {
                     match("\\leq"); 
 
@@ -978,7 +978,7 @@ public class FormulaLexer extends Lexer {
                     }
                     break;
                 case 3 :
-                    // Formula.g:584:23: '\\u2264'
+                    // Formula.g:540:23: '\\u2264'
                     {
                     match('\u2264'); 
 
@@ -999,8 +999,8 @@ public class FormulaLexer extends Lexer {
         try {
             int _type = GT;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // Formula.g:586:4: ( '>' )
-            // Formula.g:586:6: '>'
+            // Formula.g:542:4: ( '>' )
+            // Formula.g:542:6: '>'
             {
             match('>'); 
 
@@ -1019,7 +1019,7 @@ public class FormulaLexer extends Lexer {
         try {
             int _type = GE;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // Formula.g:588:4: ( '>=' | '\\\\geq' | '\\u2265' )
+            // Formula.g:544:4: ( '>=' | '\\\\geq' | '\\u2265' )
             int alt11=3;
             switch ( input.LA(1) ) {
             case '>':
@@ -1046,7 +1046,7 @@ public class FormulaLexer extends Lexer {
 
             switch (alt11) {
                 case 1 :
-                    // Formula.g:588:6: '>='
+                    // Formula.g:544:6: '>='
                     {
                     match(">="); 
 
@@ -1054,7 +1054,7 @@ public class FormulaLexer extends Lexer {
                     }
                     break;
                 case 2 :
-                    // Formula.g:588:13: '\\\\geq'
+                    // Formula.g:544:13: '\\\\geq'
                     {
                     match("\\geq"); 
 
@@ -1062,7 +1062,7 @@ public class FormulaLexer extends Lexer {
                     }
                     break;
                 case 3 :
-                    // Formula.g:588:23: '\\u2265'
+                    // Formula.g:544:23: '\\u2265'
                     {
                     match('\u2265'); 
 
@@ -1083,8 +1083,8 @@ public class FormulaLexer extends Lexer {
         try {
             int _type = ID;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // Formula.g:590:4: ( ( 'a' .. 'z' | 'A' .. 'Z' ) ( 'a' .. 'z' | 'A' .. 'Z' | '0' .. '9' | '_' )* )
-            // Formula.g:590:6: ( 'a' .. 'z' | 'A' .. 'Z' ) ( 'a' .. 'z' | 'A' .. 'Z' | '0' .. '9' | '_' )*
+            // Formula.g:546:4: ( ( 'a' .. 'z' | 'A' .. 'Z' ) ( 'a' .. 'z' | 'A' .. 'Z' | '0' .. '9' | '_' )* )
+            // Formula.g:546:6: ( 'a' .. 'z' | 'A' .. 'Z' ) ( 'a' .. 'z' | 'A' .. 'Z' | '0' .. '9' | '_' )*
             {
             if ( (input.LA(1)>='A' && input.LA(1)<='Z')||(input.LA(1)>='a' && input.LA(1)<='z') ) {
                 input.consume();
@@ -1095,7 +1095,7 @@ public class FormulaLexer extends Lexer {
                 recover(mse);
                 throw mse;}
 
-            // Formula.g:590:26: ( 'a' .. 'z' | 'A' .. 'Z' | '0' .. '9' | '_' )*
+            // Formula.g:546:26: ( 'a' .. 'z' | 'A' .. 'Z' | '0' .. '9' | '_' )*
             loop12:
             do {
                 int alt12=2;
@@ -1144,7 +1144,7 @@ public class FormulaLexer extends Lexer {
         try {
             int _type = NUMBER;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // Formula.g:592:8: ( ( '0' .. '9' )+ ( '.' ( '0' .. '9' )+ )? ( EXPONENT )? | '.' ( '0' .. '9' )+ ( EXPONENT )? )
+            // Formula.g:548:8: ( ( '0' .. '9' )+ ( '.' ( '0' .. '9' )+ )? ( EXPONENT )? | '.' ( '0' .. '9' )+ ( EXPONENT )? )
             int alt19=2;
             int LA19_0 = input.LA(1);
 
@@ -1162,9 +1162,9 @@ public class FormulaLexer extends Lexer {
             }
             switch (alt19) {
                 case 1 :
-                    // Formula.g:592:10: ( '0' .. '9' )+ ( '.' ( '0' .. '9' )+ )? ( EXPONENT )?
+                    // Formula.g:548:10: ( '0' .. '9' )+ ( '.' ( '0' .. '9' )+ )? ( EXPONENT )?
                     {
-                    // Formula.g:592:10: ( '0' .. '9' )+
+                    // Formula.g:548:10: ( '0' .. '9' )+
                     int cnt13=0;
                     loop13:
                     do {
@@ -1178,7 +1178,7 @@ public class FormulaLexer extends Lexer {
 
                         switch (alt13) {
                     	case 1 :
-                    	    // Formula.g:592:10: '0' .. '9'
+                    	    // Formula.g:548:10: '0' .. '9'
                     	    {
                     	    matchRange('0','9'); 
 
@@ -1194,7 +1194,7 @@ public class FormulaLexer extends Lexer {
                         cnt13++;
                     } while (true);
 
-                    // Formula.g:592:20: ( '.' ( '0' .. '9' )+ )?
+                    // Formula.g:548:20: ( '.' ( '0' .. '9' )+ )?
                     int alt15=2;
                     int LA15_0 = input.LA(1);
 
@@ -1203,10 +1203,10 @@ public class FormulaLexer extends Lexer {
                     }
                     switch (alt15) {
                         case 1 :
-                            // Formula.g:592:21: '.' ( '0' .. '9' )+
+                            // Formula.g:548:21: '.' ( '0' .. '9' )+
                             {
                             match('.'); 
-                            // Formula.g:592:25: ( '0' .. '9' )+
+                            // Formula.g:548:25: ( '0' .. '9' )+
                             int cnt14=0;
                             loop14:
                             do {
@@ -1220,7 +1220,7 @@ public class FormulaLexer extends Lexer {
 
                                 switch (alt14) {
                             	case 1 :
-                            	    // Formula.g:592:25: '0' .. '9'
+                            	    // Formula.g:548:25: '0' .. '9'
                             	    {
                             	    matchRange('0','9'); 
 
@@ -1242,7 +1242,7 @@ public class FormulaLexer extends Lexer {
 
                     }
 
-                    // Formula.g:592:37: ( EXPONENT )?
+                    // Formula.g:548:37: ( EXPONENT )?
                     int alt16=2;
                     int LA16_0 = input.LA(1);
 
@@ -1251,7 +1251,7 @@ public class FormulaLexer extends Lexer {
                     }
                     switch (alt16) {
                         case 1 :
-                            // Formula.g:592:37: EXPONENT
+                            // Formula.g:548:37: EXPONENT
                             {
                             mEXPONENT(); 
 
@@ -1264,10 +1264,10 @@ public class FormulaLexer extends Lexer {
                     }
                     break;
                 case 2 :
-                    // Formula.g:592:49: '.' ( '0' .. '9' )+ ( EXPONENT )?
+                    // Formula.g:548:49: '.' ( '0' .. '9' )+ ( EXPONENT )?
                     {
                     match('.'); 
-                    // Formula.g:592:53: ( '0' .. '9' )+
+                    // Formula.g:548:53: ( '0' .. '9' )+
                     int cnt17=0;
                     loop17:
                     do {
@@ -1281,7 +1281,7 @@ public class FormulaLexer extends Lexer {
 
                         switch (alt17) {
                     	case 1 :
-                    	    // Formula.g:592:53: '0' .. '9'
+                    	    // Formula.g:548:53: '0' .. '9'
                     	    {
                     	    matchRange('0','9'); 
 
@@ -1297,7 +1297,7 @@ public class FormulaLexer extends Lexer {
                         cnt17++;
                     } while (true);
 
-                    // Formula.g:592:63: ( EXPONENT )?
+                    // Formula.g:548:63: ( EXPONENT )?
                     int alt18=2;
                     int LA18_0 = input.LA(1);
 
@@ -1306,7 +1306,7 @@ public class FormulaLexer extends Lexer {
                     }
                     switch (alt18) {
                         case 1 :
-                            // Formula.g:592:63: EXPONENT
+                            // Formula.g:548:63: EXPONENT
                             {
                             mEXPONENT(); 
 
@@ -1331,8 +1331,8 @@ public class FormulaLexer extends Lexer {
     // $ANTLR start "EXPONENT"
     public final void mEXPONENT() throws RecognitionException {
         try {
-            // Formula.g:595:10: ( ( 'e' | 'E' ) ( '+' | '-' )? ( '0' .. '9' )+ )
-            // Formula.g:595:12: ( 'e' | 'E' ) ( '+' | '-' )? ( '0' .. '9' )+
+            // Formula.g:551:10: ( ( 'e' | 'E' ) ( '+' | '-' )? ( '0' .. '9' )+ )
+            // Formula.g:551:12: ( 'e' | 'E' ) ( '+' | '-' )? ( '0' .. '9' )+
             {
             if ( input.LA(1)=='E'||input.LA(1)=='e' ) {
                 input.consume();
@@ -1343,7 +1343,7 @@ public class FormulaLexer extends Lexer {
                 recover(mse);
                 throw mse;}
 
-            // Formula.g:595:22: ( '+' | '-' )?
+            // Formula.g:551:22: ( '+' | '-' )?
             int alt20=2;
             int LA20_0 = input.LA(1);
 
@@ -1369,7 +1369,7 @@ public class FormulaLexer extends Lexer {
 
             }
 
-            // Formula.g:595:33: ( '0' .. '9' )+
+            // Formula.g:551:33: ( '0' .. '9' )+
             int cnt21=0;
             loop21:
             do {
@@ -1383,7 +1383,7 @@ public class FormulaLexer extends Lexer {
 
                 switch (alt21) {
             	case 1 :
-            	    // Formula.g:595:34: '0' .. '9'
+            	    // Formula.g:551:34: '0' .. '9'
             	    {
             	    matchRange('0','9'); 
 
@@ -1413,11 +1413,11 @@ public class FormulaLexer extends Lexer {
         try {
             int _type = STRING;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // Formula.g:597:8: ( '\"' ( ESC_SEQ | ~ ( '\\\\' | '\"' ) )* '\"' )
-            // Formula.g:597:10: '\"' ( ESC_SEQ | ~ ( '\\\\' | '\"' ) )* '\"'
+            // Formula.g:553:8: ( '\"' ( ESC_SEQ | ~ ( '\\\\' | '\"' ) )* '\"' )
+            // Formula.g:553:10: '\"' ( ESC_SEQ | ~ ( '\\\\' | '\"' ) )* '\"'
             {
             match('\"'); 
-            // Formula.g:597:14: ( ESC_SEQ | ~ ( '\\\\' | '\"' ) )*
+            // Formula.g:553:14: ( ESC_SEQ | ~ ( '\\\\' | '\"' ) )*
             loop22:
             do {
                 int alt22=3;
@@ -1433,14 +1433,14 @@ public class FormulaLexer extends Lexer {
 
                 switch (alt22) {
             	case 1 :
-            	    // Formula.g:597:16: ESC_SEQ
+            	    // Formula.g:553:16: ESC_SEQ
             	    {
             	    mESC_SEQ(); 
 
             	    }
             	    break;
             	case 2 :
-            	    // Formula.g:597:26: ~ ( '\\\\' | '\"' )
+            	    // Formula.g:553:26: ~ ( '\\\\' | '\"' )
             	    {
             	    if ( (input.LA(1)>='\u0000' && input.LA(1)<='!')||(input.LA(1)>='#' && input.LA(1)<='[')||(input.LA(1)>=']' && input.LA(1)<='\uFFFF') ) {
             	        input.consume();
@@ -1475,7 +1475,7 @@ public class FormulaLexer extends Lexer {
     // $ANTLR start "ESC_SEQ"
     public final void mESC_SEQ() throws RecognitionException {
         try {
-            // Formula.g:600:9: ( '\\\\' ( 'b' | 't' | 'n' | 'f' | 'r' | '\\\"' | '\\'' | '\\\\' ) | OCTAL_ESC | UNICODE_ESC )
+            // Formula.g:556:9: ( '\\\\' ( 'b' | 't' | 'n' | 'f' | 'r' | '\\\"' | '\\'' | '\\\\' ) | OCTAL_ESC | UNICODE_ESC )
             int alt23=3;
             int LA23_0 = input.LA(1);
 
@@ -1526,7 +1526,7 @@ public class FormulaLexer extends Lexer {
             }
             switch (alt23) {
                 case 1 :
-                    // Formula.g:600:11: '\\\\' ( 'b' | 't' | 'n' | 'f' | 'r' | '\\\"' | '\\'' | '\\\\' )
+                    // Formula.g:556:11: '\\\\' ( 'b' | 't' | 'n' | 'f' | 'r' | '\\\"' | '\\'' | '\\\\' )
                     {
                     match('\\'); 
                     if ( input.LA(1)=='\"'||input.LA(1)=='\''||input.LA(1)=='\\'||input.LA(1)=='b'||input.LA(1)=='f'||input.LA(1)=='n'||input.LA(1)=='r'||input.LA(1)=='t' ) {
@@ -1542,14 +1542,14 @@ public class FormulaLexer extends Lexer {
                     }
                     break;
                 case 2 :
-                    // Formula.g:600:55: OCTAL_ESC
+                    // Formula.g:556:55: OCTAL_ESC
                     {
                     mOCTAL_ESC(); 
 
                     }
                     break;
                 case 3 :
-                    // Formula.g:600:67: UNICODE_ESC
+                    // Formula.g:556:67: UNICODE_ESC
                     {
                     mUNICODE_ESC(); 
 
@@ -1566,7 +1566,7 @@ public class FormulaLexer extends Lexer {
     // $ANTLR start "OCTAL_ESC"
     public final void mOCTAL_ESC() throws RecognitionException {
         try {
-            // Formula.g:603:11: ( '\\\\' '0' .. '3' '0' .. '7' '0' .. '7' | '\\\\' '0' .. '7' '0' .. '7' | '\\\\' '0' .. '7' )
+            // Formula.g:559:11: ( '\\\\' '0' .. '3' '0' .. '7' '0' .. '7' | '\\\\' '0' .. '7' '0' .. '7' | '\\\\' '0' .. '7' )
             int alt24=3;
             int LA24_0 = input.LA(1);
 
@@ -1612,7 +1612,7 @@ public class FormulaLexer extends Lexer {
             }
             switch (alt24) {
                 case 1 :
-                    // Formula.g:603:13: '\\\\' '0' .. '3' '0' .. '7' '0' .. '7'
+                    // Formula.g:559:13: '\\\\' '0' .. '3' '0' .. '7' '0' .. '7'
                     {
                     match('\\'); 
                     matchRange('0','3'); 
@@ -1622,7 +1622,7 @@ public class FormulaLexer extends Lexer {
                     }
                     break;
                 case 2 :
-                    // Formula.g:603:47: '\\\\' '0' .. '7' '0' .. '7'
+                    // Formula.g:559:47: '\\\\' '0' .. '7' '0' .. '7'
                     {
                     match('\\'); 
                     matchRange('0','7'); 
@@ -1631,7 +1631,7 @@ public class FormulaLexer extends Lexer {
                     }
                     break;
                 case 3 :
-                    // Formula.g:604:3: '\\\\' '0' .. '7'
+                    // Formula.g:560:3: '\\\\' '0' .. '7'
                     {
                     match('\\'); 
                     matchRange('0','7'); 
@@ -1649,8 +1649,8 @@ public class FormulaLexer extends Lexer {
     // $ANTLR start "UNICODE_ESC"
     public final void mUNICODE_ESC() throws RecognitionException {
         try {
-            // Formula.g:607:13: ( '\\\\' 'u' HEX_DIGIT HEX_DIGIT HEX_DIGIT HEX_DIGIT )
-            // Formula.g:607:15: '\\\\' 'u' HEX_DIGIT HEX_DIGIT HEX_DIGIT HEX_DIGIT
+            // Formula.g:563:13: ( '\\\\' 'u' HEX_DIGIT HEX_DIGIT HEX_DIGIT HEX_DIGIT )
+            // Formula.g:563:15: '\\\\' 'u' HEX_DIGIT HEX_DIGIT HEX_DIGIT HEX_DIGIT
             {
             match('\\'); 
             match('u'); 
@@ -1670,7 +1670,7 @@ public class FormulaLexer extends Lexer {
     // $ANTLR start "HEX_DIGIT"
     public final void mHEX_DIGIT() throws RecognitionException {
         try {
-            // Formula.g:610:11: ( '0' .. '9' | 'a' .. 'f' | 'A' .. 'F' )
+            // Formula.g:566:11: ( '0' .. '9' | 'a' .. 'f' | 'A' .. 'F' )
             // Formula.g:
             {
             if ( (input.LA(1)>='0' && input.LA(1)<='9')||(input.LA(1)>='A' && input.LA(1)<='F')||(input.LA(1)>='a' && input.LA(1)<='f') ) {
@@ -1696,11 +1696,11 @@ public class FormulaLexer extends Lexer {
         try {
             int _type = COMMENT;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // Formula.g:612:9: ( '#' ( . )* ( '\\r' | '\\n' ) )
-            // Formula.g:612:11: '#' ( . )* ( '\\r' | '\\n' )
+            // Formula.g:568:9: ( '#' ( . )* ( '\\r' | '\\n' ) )
+            // Formula.g:568:11: '#' ( . )* ( '\\r' | '\\n' )
             {
             match('#'); 
-            // Formula.g:612:15: ( . )*
+            // Formula.g:568:15: ( . )*
             loop25:
             do {
                 int alt25=2;
@@ -1716,7 +1716,7 @@ public class FormulaLexer extends Lexer {
 
                 switch (alt25) {
             	case 1 :
-            	    // Formula.g:612:15: .
+            	    // Formula.g:568:15: .
             	    {
             	    matchAny(); 
 
@@ -1754,8 +1754,8 @@ public class FormulaLexer extends Lexer {
         try {
             int _type = WHITESPACE;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // Formula.g:616:12: ( ( ' ' | '\\t' | '\\r' | '\\n' ) )
-            // Formula.g:616:14: ( ' ' | '\\t' | '\\r' | '\\n' )
+            // Formula.g:572:12: ( ( ' ' | '\\t' | '\\r' | '\\n' ) )
+            // Formula.g:572:14: ( ' ' | '\\t' | '\\r' | '\\n' )
             {
             if ( (input.LA(1)>='\t' && input.LA(1)<='\n')||input.LA(1)=='\r'||input.LA(1)==' ' ) {
                 input.consume();
