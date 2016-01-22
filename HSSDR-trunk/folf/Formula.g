@@ -194,7 +194,7 @@ definition2
 ;
 
 parameter_list :
-    parameter ( ',' parameter )*
+    ( parameter ( ',' parameter )* )?
 ;
 
 parameter :
@@ -410,8 +410,10 @@ relation_invocation returns [FOLF.Formula form] :
 
 term_list returns [List<FOLF.Term> list] :
     { $list = new ArrayList<FOLF.Term>(); }
-    t=general_term { $list.add($t.term); }
-    ( ',' t=general_term { $list.add($t.term); } )*
+    (
+        t=general_term { $list.add($t.term); }
+        ( ',' t=general_term { $list.add($t.term); } )*
+    )?
     { ((ArrayList<FOLF.Term>) $list).trimToSize(); }
 ;
 
