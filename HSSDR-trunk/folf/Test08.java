@@ -38,7 +38,7 @@ public class Test08
                 continue;
             }
             Result res = sen.getResult(rs);
-            System.out.println(res.getValue());
+            System.out.println(res.isTrue());
             System.out.println(sen.formula);
         }
     }

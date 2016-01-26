@@ -32,7 +32,7 @@ public class Test10
 
         Result[] res = ste.getResults(rs);
         for (Result r : res) {
-            boolean b = r.getValue();
+            boolean b = r.isTrue();
             String msg = r.getMessage();
             out.println(msg == null ? b : b + " : " + msg);
         }

@@ -4,6 +4,8 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
+import util.Logger;
+
 import folf.Parser;
 import folf.Result;
 import folf.Suite;
@@ -58,18 +60,32 @@ public class Start {
             }
             Result[] res = su.getCompleteResults(testData.getStructure(), 99);
             for (int i = 0; i < res.length; ++i) {
-                System.out.print("#" + (i+1) + ": ");
-                message+="#" + (i+1) + ": ";
-                message+=res[i].getResult();
-                
-                for (int k = 0; ; ++k) {
-                    Map<String, Object> qvars =  res[i].getQVarsState(k);
-                    if (qvars == null)
-                        break;
-                    for (String name : qvars.keySet())
-                    	roomsToHighlight.add( qvars.get(name).toString());
-                }
-            }
+    			String msg ="#" + (i + 1) + ": ";
+    			Logger.LOGGER.debug(msg);
+    			message+=msg;
+
+    			msg=res[i].isTrue()?"Success ":"Failure ";
+    			msg+=res[i].getMessageInfo();
+    			Logger.LOGGER.debug(msg);
+    			message+=msg+" \n";
+
+    			msg=res[i].getQVarsInfo();
+    			if (msg.length()>0){
+    				Logger.LOGGER.debug(msg);
+        			message+=msg+" \n";
+    			}
+
+    			if (!res[i].isTrue()){
+    				for (int k = 0;; ++k) {
+    					Map<String, Object> qvars = res[i].getQVarsState(k);
+    					if (qvars == null)
+    						break;
+    					for (String name : qvars.keySet())
+    						roomsToHighlight.add(qvars.get(name).toString());
+    				}
+    			}
+    			
+    		}
             message+="\n";
             System.out.println(message);
             System.out.println("Objects:"+roomsToHighlight);

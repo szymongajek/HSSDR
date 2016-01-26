@@ -67,7 +67,7 @@ public class Test07
 
     static void printResult(Result r)
     {
-        boolean b = r.getValue();
+        boolean b = r.isTrue();
         String msg = r.getMessage();
         System.out.println(msg == null ? b : b + " : " + msg);
         if (r.getQVarsState() != null) {
