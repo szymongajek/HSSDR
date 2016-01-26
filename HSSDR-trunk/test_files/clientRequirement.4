@@ -1,0 +1,13 @@
+
+failure_msg
+"Office space is missing"
+exists x in Rooms : type(x)="Office";
+
+failure_msg
+"Room area is lower than minimal"
+forall x in Rooms : area(x) >= 6;
+
+failure_msg
+"Two bedrooms are missing"
+exists x,y in Rooms : type(x)="Bedroom" and  type(y)="Bedroom"  and x!=y;
+
