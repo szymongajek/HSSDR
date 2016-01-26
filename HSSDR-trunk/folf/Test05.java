@@ -68,7 +68,7 @@ public class Test05
                 continue;
             }
             Result res = sen.getResult(rs);
-            System.out.print(res.getValue());
+            System.out.print(res.isTrue());
             Map<String, Object> qvars = res.getQVarsState();
             if (qvars != null)
                 for (String name : qvars.keySet())

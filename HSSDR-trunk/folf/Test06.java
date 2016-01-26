@@ -81,7 +81,7 @@ public class Test06
                 continue;
             }
             Result res = sen.getCompleteResult(rs, 99);
-            System.out.print(res.getValue());
+            System.out.print(res.isTrue());
             for (int i = 0; ; ++i) {
                 Map<String, Object> qvars = res.getQVarsState(i);
                 if (qvars == null)

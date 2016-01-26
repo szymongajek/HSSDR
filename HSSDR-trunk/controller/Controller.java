@@ -157,18 +157,31 @@ public class Controller
 		}
 		
 		for (int i = 0; i < res.length; ++i) {
-			Logger.LOGGER.debug("#" + (i + 1) + ": ");
-			resultMessage.append( "#" + (i + 1) + ": ");
-			res[i].printResult();
-			resultMessage.append(res[i].getResult());
+			String msg ="#" + (i + 1) + ": ";
+			Logger.LOGGER.debug(msg);
+			resultMessage.append(msg);
 
-			for (int k = 0;; ++k) {
-				Map<String, Object> qvars = res[i].getQVarsState(k);
-				if (qvars == null)
-					break;
-				for (String name : qvars.keySet())
-					roomsToHighlight.add(qvars.get(name).toString());
+			msg=res[i].isTrue()?"Success ":"Failure ";
+			msg+=res[i].getMessageInfo();
+			Logger.LOGGER.debug(msg);
+			resultMessage.append(msg+" \n");
+
+			msg=res[i].getQVarsInfo();
+			if (msg.length()>0){
+				Logger.LOGGER.debug(msg);
+				resultMessage.append(msg+" \n");
 			}
+			
+			if (!res[i].isTrue()){
+				for (int k = 0;; ++k) {
+					Map<String, Object> qvars = res[i].getQVarsState(k);
+					if (qvars == null)
+						break;
+					for (String name : qvars.keySet())
+						roomsToHighlight.add(qvars.get(name).toString());
+				}
+			}
+			
 		}
 		
 		ret[0] = resultMessage.toString();

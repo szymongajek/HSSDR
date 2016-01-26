@@ -24,7 +24,7 @@ public class Result
     }
 
     /** Wynik wartościowania formuły (prawda lub fałsz). */
-    public boolean getValue()
+    public boolean isTrue()
     {
         return value;
     }
@@ -72,12 +72,19 @@ public class Result
         return null;
     }
 
-    public String getResult()
+
+    public String getMessageInfo(){
+    	String ret="";
+        boolean b =  isTrue();
+        String msg = getMessage();
+        ret+=msg == null ? b : b + " : " + msg;
+        return ret;
+    }
+    
+    
+    public String getQVarsInfo()
     {
         String ret="";
-        boolean b =  getValue();
-        String msg = getMessage();
-        ret+=msg == null ? b : b + " : " + msg+" \n";
         if ( getQVarsState() != null) {
             for (int i = 0; ; ++i) {
                 Map<String, Object> qvars =  getQVarsState(i);
@@ -87,12 +94,12 @@ public class Result
                     ret+=name + "=" + qvars.get(name) + " ";
                ret+="; ";
             }
-            ret+=" \n";
         }
         return ret;
     }
     public void printResult()
     {
-       System.out.println(getResult());
+    	System.out.println(getMessageInfo());
+    	System.out.println(getQVarsInfo());
     }
 }
