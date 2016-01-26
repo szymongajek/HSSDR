@@ -172,7 +172,7 @@ public class Controller
 				resultMessage.append(msg+" \n");
 			}
 			
-			if (!res[i].isTrue()){
+			if (!res[i].isTrue()){ // kolorowanie tylko w przypadku failure
 				for (int k = 0;; ++k) {
 					Map<String, Object> qvars = res[i].getQVarsState(k);
 					if (qvars == null)
