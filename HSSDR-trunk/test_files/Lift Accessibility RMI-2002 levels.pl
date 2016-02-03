@@ -2,7 +2,7 @@
 isLift(x)  <=> type(x)="LiftConform" or type(x)="LiftNonConform" or type(x)="LiftCargo";
 
 #Budynek bez windy
-BudynekBezWindy()<=> not exists p in Rooms: isLift(p);
+BuildingWithoutLift()<=> not exists p in Rooms: isLift(p);
 	
 # Dozwolona winda
 AllowedForDisabled(p) <=> type(p)="LiftConform" or 
@@ -10,12 +10,12 @@ AllowedForDisabled(p) <=> type(p)="LiftConform" or
  
 failure_msg "brak dostepu do windy z poziomu parteru"
 success_msg "dostep do windy z poziomu parteru-ok"
-BudynekBezWindy()
+BuildingWithoutLift()
 or
 ( exists lift in Rooms :AllowedForDisabled(lift)  and floorNr(lift)=0);
 
 failure_msg "brak windy na wszystkich pietrach"
 success_msg "winda na wszystkich pietrach-ok"
-BudynekBezWindy()
+BuildingWithoutLift()
 or 
 ( forall n in Floors: exists lift in Rooms:AllowedForDisabled(lift) and floorNr(lift)=n);

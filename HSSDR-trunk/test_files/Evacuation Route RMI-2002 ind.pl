@@ -51,6 +51,6 @@ ValidEvacRouteRooms(r) <=> EvacRoute(r) and ( exists d in ValidEvacRouteDoors: d
 ValidRooms(r) <=> ZoneRooms(r) or ValidEvacRouteRooms(r) or steps2(r);
 
 success_msg "wszystkie pokoje ok"
-failure_msg "pokoje nie spe³niaja ograniczeñ przeciwpo¿arowych"
+failure_msg "pewne pokoje nie spe³niaja ograniczeñ przeciwpo¿arowych"
 forall r in Rooms: ValidRooms(r)
  

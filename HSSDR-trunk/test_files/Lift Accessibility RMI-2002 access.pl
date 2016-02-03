@@ -2,7 +2,7 @@
 isLift(x)  <=> type(x)="LiftConform" or type(x)="LiftNonConform" or type(x)="LiftCargo";
 
 #Budynek bez windy
-BudynekBezWindy()<=> not exists p in Rooms: isLift(p);	
+BuildingWithoutLift()<=> not exists p in Rooms: isLift(p);	
 
 # Dozwolona winda 
 AllowedForDisabled(p) <=> type(p)="LiftConform" or 
@@ -21,7 +21,7 @@ AccessiblePathFloor(p1, p2) <=> AccessiblePathFloorInduction(p1, p2, 99);
 
 failure_msg "brak dostepu do windy z kazdej czesci bunynku"
 success_msg "dostep do windy z kazdej czesci bunynku-ok"
-BudynekBezWindy() 
+BuildingWithoutLift() 
 or
 forall r in Rooms: exists lift in Rooms: 
          floorNr(r)=floorNr(lift) and AllowedForDisabled(lift) and AccessiblePathFloor(lift,r) 
