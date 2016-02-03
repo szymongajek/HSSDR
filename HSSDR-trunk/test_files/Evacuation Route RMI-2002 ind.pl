@@ -1,20 +1,20 @@
-	# zbiór drzwi prowadz¹cych do innych stref po¿arowych
+	# zbiÃ³r drzwi prowadzÄ…cych do innych stref poÅ¼arowych
 ZoneDoors(d) <=> exists r in Rooms: doorsInRoom(d, r) and  type(r) = "Staircase";
-	# zbiór drzwi zapewniaj¹cych  opuszczenie bie¿¹cej strefy
+	# zbiÃ³r drzwi zapewniajÄ…cych  opuszczenie bieÅ¼Ä…cej strefy
 FireSafetyDoors(d) <=>   ExternalDoors(d) or ZoneDoors(d)  ;
    
-	# pokoje stanowi¹ce odrêbne strefy po¿arowe
+	# pokoje stanowiÄ…ce odrÄ™bne strefy poÅ¼arowe
 ZoneRooms(r) <=> Rooms(r) and (type(r) = "Staircase");   
-	# pomieszczenia które mog¹ wchodzic w sk³ad drogi ewakuacyjnej
+	# pomieszczenia ktÃ³re mogÄ… wchodzic w skÅ‚ad drogi ewakuacyjnej
 EvacRoute(r) <=> Rooms(r) and (type(r) = "Corridor" or type(r) = "Hall");
 	# pomieszczenia ktore moga wchodzic w sklad przejscia ewakuacyjnego
 AccessPath(r) <=> Rooms(r) and !ZoneRooms(r) and !EvacRoute(r);
   
-	# okresla drzwi które s¹ oddalone o co najwy¿ej x od FireSafetyDoors, oddzielone od nich pokojem EvacRoute
+	# okresla drzwi ktÃ³re sÄ… oddalone o co najwyÅ¼ej x od FireSafetyDoors, oddzielone od nich pokojem EvacRoute
 validRouteFromAdj(d, x) <=>  Doors(d) and  ( exists d2 in Doors : d2!=d and FireSafetyDoors(d2) and
 ( exists p in Rooms:  doorsInRoom(d2,p) and doorsInRoom(d,p) and EvacRoute(p) and  x>=doorsDist(d, d2)  ));
   
-	# okresla drzwi które s¹ oddalone o co najwy¿ej x od FireSafetyDoors, oddzielone od nich co njawy¿ej n pokojami EvacRoute
+	# okresla drzwi ktÃ³re sÄ… oddalone o co najwyÅ¼ej x od FireSafetyDoors, oddzielone od nich co njawyÅ¼ej n pokojami EvacRoute
 validRouteFromInduction(d, x, n)<=>   
  (n = 1 and validRouteFromAdj(d, x) ) or
  (n <> 1 and Doors(d) and validRouteFromInduction(d, x, n-1)) or
@@ -28,29 +28,29 @@ validRouteFromInduction(d, x, n)<=>
  	validRouteFromInduction(d2, x - doorsDist(d, d2), n-1)
  ) ;
 
-	# okresla drzwi które s¹ oddalone o co najwy¿ej x od FireSafetyDoors, oddzielone od nich co dowoln¹ liczb¹ pokoi EvacRoute
+	# okresla drzwi ktÃ³re sÄ… oddalone o co najwyÅ¼ej x od FireSafetyDoors, oddzielone od nich co dowolnÄ… liczbÄ… pokoi EvacRoute
 validRouteFrom(d, x) <=> validRouteFromInduction(d, x, 99);
-	# drzwi wchodz¹ce w sk³ad prawid³owej drogi ewakuacyjnej
+	# drzwi wchodzÄ…ce w skÅ‚ad prawidÅ‚owej drogi ewakuacyjnej
 ValidEvacRouteDoors(d) <=>FireSafetyDoors(d) or  validRouteFrom(d, 30);
 
 
-	# zbiór pokoi u¿ytkowych posiadaj¹cych drzwi na drogê ewakuacyjn¹
+	# zbiÃ³r pokoi uÅ¼ytkowych posiadajÄ…cych drzwi na drogÄ™ ewakuacyjnÄ…
 steps0(r) <=>     AccessPath(r)  and ( exists d in ValidEvacRouteDoors: doorsInRoom(d, r) );
-	# zbiór pokoi u¿ytkowych s¹siaduj¹cych ze steps0
+	# zbiÃ³r pokoi uÅ¼ytkowych sÄ…siadujÄ…cych ze steps0
 steps1(r) <=> steps0(r) or ( AccessPath(r)  and (exists r2 in steps0: accessible(r, r2) ));
-	# zbiór pokoi u¿ytkowych s¹siaduj¹cych ze steps1
+	# zbiÃ³r pokoi uÅ¼ytkowych sÄ…siadujÄ…cych ze steps1
 steps2(r) <=> steps1(r) or ( AccessPath(r)  and (exists r2 in steps1: accessible(r, r2) ));
  
-	# pokoje wchodz¹ce w sk³ad prawid³owej drogi ewakuacyjnej
+	# pokoje wchodzÄ…ce w skÅ‚ad prawidÅ‚owej drogi ewakuacyjnej
 ValidEvacRouteRooms(r) <=> EvacRoute(r) and ( exists d in ValidEvacRouteDoors: doorsInRoom(d, r) );
 
-	# suma zbiorów pokoi: 
-	# stanowi¹cych odrêbne strefy po¿arowe
-	# s¹siaduj¹cych z droga ekwakuacyjn¹ przez mniej ni¿ trzy pomieszczenia
-	# wchodz¹cych w sk³ad prawid³owej drogi ewakuacyjnej
+	# suma zbiorÃ³w pokoi: 
+	# stanowiÄ…cych odrï¿½bne strefy poï¿½arowe
+	# sÄ…siadujÄ…cych z droga ekwakuacyjnÄ… przez mniej niÅ¼ trzy pomieszczenia
+	# wchodzacych w skÅ‚ad prawidÅ‚owej drogi ewakuacyjnej
 ValidRooms(r) <=> ZoneRooms(r) or ValidEvacRouteRooms(r) or steps2(r);
 
 success_msg "wszystkie pokoje ok"
-failure_msg "pewne pokoje nie spe³niaja ograniczeñ przeciwpo¿arowych"
+failure_msg "pewne pokoje nie speÅ‚niaja ograniczeÅ„ przeciwpoÅ¼arowych"
 forall r in Rooms: ValidRooms(r)
  
