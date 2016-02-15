@@ -1,3 +1,7 @@
+# Parametry dróg pożarowych na podstawie
+# Rozporządzenie Ministra Infrastruktury w sprawie warunków technicznych(...) z dnia 12 kwietnia 2002 
+# (§ 236. ust 1,2,3) (§ 237. ust 1,8)
+
 	# zbiór drzwi prowadzących do innych stref pożarowych
 ZoneDoors(d) <=> exists r in Rooms: doorsInRoom(d, r) and  type(r) = "Staircase";
 	# zbiór drzwi zapewniających  opuszczenie bieżącej strefy
