@@ -966,7 +966,7 @@
               <string>javax.swing.JLabel</string>
               <void method="setProperty">
                <string>text</string>
-               <string>Choose file to edit</string>
+               <string>Choose Test Suite to edit</string>
               </void>
               <void property="name">
                <string>label6</string>

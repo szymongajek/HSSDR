@@ -1397,7 +1397,7 @@ public class MainWindow extends JFrame implements MessageDisplayer   {
 							"default, $lgap, default, $pgap, default"));
 
 					//---- label6 ----
-					label6.setText("Choose file to edit");
+					label6.setText("Choose Test Suite to edit");
 					validationEditor.add(label6, cc.xy(1, 1, CellConstraints.CENTER, CellConstraints.DEFAULT));
 
 					//======== scrollPane3 ========
