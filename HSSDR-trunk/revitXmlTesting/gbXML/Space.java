@@ -1,7 +1,9 @@
-package revitXmlTesting;
+package revitXmlTesting.gbXML;
 
 import java.util.ArrayList;
 
+import revitXmlTesting.Point;
+@Deprecated
 public class Space {
 
 	String id, name;

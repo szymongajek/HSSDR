@@ -1,4 +1,4 @@
-package revitXmlTesting;
+package revitXmlTesting.gbXML;
 
 import java.util.ArrayList;
 import java.util.Hashtable;
@@ -8,8 +8,9 @@ import org.w3c.dom.Element;
 import org.w3c.dom.NodeList;
 
 import rectangularBoard.Path;
+import revitXmlTesting.Point;
 import util.AbstractDOMParser;
-
+@Deprecated
 public class GBXMLParser extends AbstractDOMParser{
 
 	
