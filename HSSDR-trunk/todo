@@ -1,23 +1,21 @@
 
-====
+---------todo luty----------:
 
-	
-todo1:
-
--save load - lub w todo2?
+opcjonalne:
+-save load ??
  
 
-todo2 niezale¿ne od pracy:
-- zmiana etykiety pom - trzeba klik na selsct, zrobic po klik albo enter
+ 
+-bug: toilet women dziala jak empty
+-usuwanie drzwi 
+-usuwanie sensorÃ³w
 -wyswietlanie komunikatow/kolorowanie a pietra. czyszczenie kolorowan na wszystkich pietrach po ponownych sprawdzeniu layoutu
 - dostosowanie wart atr dlugosc pow do ustawien metrow per kratka
 -dodac parametr w settings  szerowosc drzwi
 -clear - nie czysci widoku pieter
-- help jako jeden html
-  - html w dziale help
-  - dodac inne info i opisy do help
+- help jako jeden html -   dodac inne info i opisy do help
   - bug zapis etykiety - trzeba kliknac na typ
-  - w ui zabronic usuwania he, która nie jest na dole hier. proc tego nie obsluguje.
+  - w ui zabronic usuwania he, ktï¿½ra nie jest na dole hier. proc tego nie obsluguje.
  - bug : po undo stworzenie w tym samym miejscu linia przerywana
   
    java.lang.NullPointerException
@@ -41,11 +39,11 @@ todo2 niezale¿ne od pracy:
 	at editor.MainWindow.deleteDivision(MainWindow.java:525)
 	at editor.DivisionTree.deleteDivisionActionPerformed(DivisionTree.java:47)
 	
-  
+---------todo luty-end----------:
   
   ----------------------zrobione:---------------------------------
   
-  styczeñ s1
+  styczeï¿½ s1
  pietra:
 -floor nr w testach
 
@@ -66,11 +64,11 @@ lapanie wyjatkow z FOLF
 - zaznaczanie obszarow strzalkami w widoku pieter
 - blokowanie wyboru pietra na niektorych zakladkach
 - tryb all w widoku hipergrafu + blokowanie
--wyswietlanie ca³ego grafu w edytorze hipergrafu, 
--tryb jednego piêtra dla starych mechanizmów sprawdzania
-- dodanie wierzcho³ków pod³ogi i sufitu dal ka¿dego wirzcho³ka-pomieszczenia
-- rysowanie pod³ogi i sufitu - na ukos
--uwzglednienie nowych wierzcho³ków w logice podzia³u
+-wyswietlanie caï¿½ego grafu w edytorze hipergrafu, 
+-tryb jednego piï¿½tra dla starych mechanizmï¿½w sprawdzania
+- dodanie wierzchoï¿½kï¿½w podï¿½ogi i sufitu dal kaï¿½dego wirzchoï¿½ka-pomieszczenia
+- rysowanie podï¿½ogi i sufitu - na ukos
+-uwzglednienie nowych wierzchoï¿½kï¿½w w logice podziaï¿½u
 - dodawanie relacji dla dwoch pomieszczen z roznych pieter
 - wykrywanie krawedzi gornej i dolnej przy dodawaniu relacji wielopietrowych
 - rysowanie pieter w odwrotnej kolejnosci
@@ -86,7 +84,7 @@ wieloargumentowa dostepnosc
 
 po urlopie:
 - blad zmiana ilosci pieter
--obrys parteru widoczny wszêdzie
+-obrys parteru widoczny wszï¿½dzie
 	problem drog pionowych w ksztalcie y. rowziazania:
  -  wybor reacji zwyklej, lub rysowanie ciagu kom:
  -- ui wybor z 3 relacji w widoku pieter:dostepnosc, wielopietrowa dost, widocznosc. 
@@ -102,3 +100,16 @@ forms:
 - checkbox showLabels
 -help
 -usunac validationMessage.setText("text");
+
+
+linie kodu:
+500
+5700
+9800
+1900
+=
+17600
+
+====
+
+	
