@@ -187,6 +187,12 @@ public class MainWindow extends JFrame implements MessageDisplayer   {
 	
 	private void layoutEditorMouseClicked(MouseEvent e) {
 
+		requestFocusInWindow();
+		
+		if (RoomLabel.isFocusOwner()){ // jezeli wpisywany tekst w room label, klikniecie tutaj tylko przejmuje focus
+			return;
+		}
+		
 		currentLayoutEditor.clearHihglightedRooms();
 		
 		switch (currentLayoutEditor.mode) {
@@ -573,11 +579,16 @@ public class MainWindow extends JFrame implements MessageDisplayer   {
 		controller.setHGBrowserCurrentFloor(newFloor);
 	}
 
-
+	/**
+	 * po stracie focusa- klikniecie na layout edit, przyciski, taby, menu, inne okno itp - jeśli cos pod developedPath ustawia mu label
+	 * @param e
+	 */
 	private void RoomLabelFocusLost(FocusEvent e) {
-
+		
 		Path selected = currentLayoutEditor.getDevelopedPath();
-		if (selected == null) return;
+		if (selected == null){
+			return;
+		}
 		
 		selected.setUserLabel(RoomLabel.getText());
 		controller.setRoomUserLabel(selected.toString(), RoomLabel.getText());
