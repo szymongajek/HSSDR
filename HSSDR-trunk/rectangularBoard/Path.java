@@ -38,8 +38,6 @@ public class Path {
 	private int roomType=0;
 	private int floorNr;
 	
-	public static final int ROOM_TYPE_EMPTY_SPACE=9;
-	
 	private int gridMeteres=1;
 	
 	//wymiary planszy na ktorej rysowany jest Path
@@ -77,7 +75,7 @@ public class Path {
 		
 	}
 	
-	// dodaje nowy punkt, jeœli le¿y na jednej linii z poprzednim, przed³u¿a poprzedni¹ œcianê
+	// dodaje nowy punkt, jeï¿½li leï¿½y na jednej linii z poprzednim, przedï¿½uï¿½a poprzedniï¿½ ï¿½cianï¿½
 	public void add(int i, int j,int line_kind){
 		
 		if (size()>=2 && isInLineXWithPrev(i,j)){
@@ -123,7 +121,7 @@ public class Path {
 		this.interiorCount=count;
 	}	
 	
-	//sprawdza czy ostatni punkt i pierwszy nie tworz¹ œciany
+	//sprawdza czy ostatni punkt i pierwszy nie tworzï¿½ ï¿½ciany
 	public void checkEnd(){
 		//spawdz czy pierwsza sciana i ostatnia sa w tej samej linii
 		// zakladamy ze sa conajmniej 4 pkty
@@ -158,9 +156,9 @@ public class Path {
 	}
 	
 	public boolean contains (int i, int j){
-		// sprawdza czy podany punkt nalezy do punktów œcie¿ki, lub czy nale¿y do linii ³¹cz¹cej punkty tej œcie¿ki
+		// sprawdza czy podany punkt nalezy do punktï¿½w ï¿½cieï¿½ki, lub czy naleï¿½y do linii ï¿½ï¿½czï¿½cej punkty tej ï¿½cieï¿½ki
 		
-		//punkty œcie¿ki
+		//punkty ï¿½cieï¿½ki
 		int shapeX=0,shapeY=0;
 		for (int k = 0; k <size(); k++) {
 			shapeX= getX(k);
@@ -262,7 +260,7 @@ public class Path {
 	}
 	
 	public boolean containsTwoPointsInOrOnBorder (int x1, int y1,int x2, int y2 ){
-		// sprawdza czy podane dwa punkty naleza do punktów œcie¿ki, lub czy nale¿a do linii ³¹cz¹cej punkty tej œcie¿ki, lub czy sa w interior
+		// sprawdza czy podane dwa punkty naleza do punktï¿½w ï¿½cieï¿½ki, lub czy naleï¿½a do linii ï¿½ï¿½czï¿½cej punkty tej ï¿½cieï¿½ki, lub czy sa w interior
 //		samo sprawdzanie interior nie wystrczy bo interior oznacza kratki. np dla kwadratu 2x2 interior ma 4 punkty, a obwodka 8
 		return (contains(x1, y1) || hasPointInInterior(x1, y1))&&
 		(contains(x2, y2) || hasPointInInterior(x2, y2));
@@ -483,7 +481,7 @@ public class Path {
 			n.setMiddleY( py );
 		}
 		
-		// dodanie wez³ów pod³oga i sufit
+		// dodanie wezï¿½ï¿½w podï¿½oga i sufit
 //		Node floor = new Node();
 //		floor.setDirection(HLH.DIRECTION_FLOOR);
 //		floor.setAttribute(HLH.WALL_NR,String.valueOf(-1));
@@ -930,7 +928,7 @@ public class Path {
 		return false;
 	}
 	void makeclockwise(){
-		// jesli potrzeba ustawia Path w kolejnoœci zgodnie z ruchem wsk zegara
+		// jesli potrzeba ustawia Path w kolejnoï¿½ci zgodnie z ruchem wsk zegara
 		
 		if (!isClockwise()){
 			ArrayList<Integer> newpathX= new ArrayList<Integer>()  ;
@@ -1052,7 +1050,7 @@ public class Path {
 		
 		//szukamy przeciecia 1
 		
-//		punkty œcie¿ki
+//		punkty ï¿½cieï¿½ki
 	 
 		int interSect1=-1;
 		int interSect2=-1;
@@ -1188,10 +1186,10 @@ public class Path {
 			throw new RuntimeException("nie znaleziono pktow przeciecia");
 		
 		// tworzymy sciezke od intersect1 do intersect2, po edited i od intersect2 do intersect1 po readyForDivision idac do przodu 
-		Path retInc= new Path(editedPath);//dodajemy do œcieki na pocz¹tku linie dzielaca
+		Path retInc= new Path(editedPath);//dodajemy do ï¿½cieki na poczï¿½tku linie dzielaca
 
 		//		 tworzymy sciezke od intersect1 do intersect2, po edited i od intersect2 do intersect1 po readyForDivision idac do tylu
-		Path retDec= new Path(editedPath);	// dodajemy do œcie¿ek na pocz¹tku linie dzielaca
+		Path retDec= new Path(editedPath);	// dodajemy do ï¿½cieï¿½ek na poczï¿½tku linie dzielaca
 		
 		if (interSect1<interSect2){
 //			 pierwsza sciezka nie przechodz porzez pkt pocz 

@@ -1,5 +1,7 @@
 package editor;
 
+import hyperGraphs.HLH;
+
 import java.awt.BasicStroke;
 import java.awt.Color;
 import java.awt.Dimension;
@@ -38,7 +40,7 @@ public class LayoutEditor extends JPanel {
 	 
 	private double zoomedTo; // skala powiekszenia
 
-	private double zoomSpeed=10.0/100.0; // szybkoœæ  powiekszenia
+	private double zoomSpeed=10.0/100.0; // szybkoï¿½ï¿½  powiekszenia
 	private int gridSize=20; // co ile px siatka
 	private float gridMeteres=0;
 	
@@ -73,7 +75,7 @@ public class LayoutEditor extends JPanel {
 	//na biezaco rysowany podzial
 	private Path editedPath  ;
 	
-	// obszar podswietlony dla celów usuwania zaznaczany w drzewku divisionTree
+	// obszar podswietlony dla celï¿½w usuwania zaznaczany w drzewku divisionTree
 	private Path divisionPath=null;
 	
 	// obrys parteru - nie nalezy do pietra, rysowany na wyzszych pietrach jako pomoc
@@ -400,7 +402,7 @@ public class LayoutEditor extends JPanel {
 				paintEmptySpaces(g2D, nested.get(i) );
 			}
 		}else { 
-			if (toDraw.getRoomType()==Path.ROOM_TYPE_EMPTY_SPACE){
+			if (toDraw.getRoomType()==HLH.ROOM_TYPE_EMPTY_SPACE){
 				colorPathInterior(toDraw,Color.white, g2D);
 			}
 		} 
@@ -500,7 +502,7 @@ public class LayoutEditor extends JPanel {
 	}
 	
 	/**
-	 * zwraca najni¿sza w hierarchii œcie¿kê albo null jesli pusto
+	 * zwraca najniï¿½sza w hierarchii ï¿½cieï¿½kï¿½ albo null jesli pusto
 	 * @param x
 	 * @param y
 	 * @return
