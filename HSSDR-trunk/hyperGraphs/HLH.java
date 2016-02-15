@@ -76,6 +76,11 @@ public class HLH
 	}
 	
 	/**
+	 * typ empty, ktory jest rysowany bez siatki
+	 */
+	public static final int ROOM_TYPE_EMPTY_SPACE=ROOM_TYPES.Empty.ordinal() ;
+	
+	/**
 	 * root edge parteru - na potrzeby starych modulow, przekazywany im tylko parter 
 	 */
 	@Deprecated
@@ -312,7 +317,7 @@ public class HLH
     		isDoors.add(da);
         }
     	
-//    	 zbiór drzwi prowadz¹cych na zewn¹trz ExternalDoors
+//    	 zbiï¿½r drzwi prowadzï¿½cych na zewnï¿½trz ExternalDoors
 //    	#ExternalDoors(d) <=> Door(d) and ( forall x, y in Room:  
 //    	# doorsInRoom(d, x) and doorsInRoom(d, y) => x = y );
 
@@ -338,7 +343,7 @@ public class HLH
     			}
         
         // distance Doors x Doors -> liczby rzecz, 
-        //ograniczona do drzwi nale¿¹cych do tego samego pokoju
+        //ograniczona do drzwi naleï¿½ï¿½cych do tego samego pokoju
     	structure.addFunction("doorsDist", new CachingFunction( new DoorToDoor()));
       	vocabulary.addFunction("doorsDist", 2);
 
