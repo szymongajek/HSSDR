@@ -1,4 +1,4 @@
-package revitXmlTesting;
+package revitXmlTesting.gbXML;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -7,7 +7,7 @@ import java.util.Map;
 import folf.Parser;
 import folf.Result;
 import folf.Suite;
-
+@Deprecated
 public class StartGBXML {
 
 	/**

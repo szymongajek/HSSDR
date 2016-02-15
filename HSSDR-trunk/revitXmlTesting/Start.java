@@ -11,15 +11,13 @@ import folf.Result;
 import folf.Suite;
 
 public class Start {
-
+	public static String test_file="test_files/_evac_route.7.ind.test";
+	public static String input_file="Q:\\HSSDR\\HSSDR revit plugin\\revit xml\\adv sample proj.xml";
+	public static boolean DISPLAY_ROOMS = false;
 	/**
 	 * @param args
 	 */
 	public static void main(String[] args) {
-//		String test_file="test_files_revit/test_revit.3";
-		String test_file="test_files/evac_route.7eng";
-		String input_file="Q:\\HSSDR\\HSSDR revit plugin\\revit xml\\adv sample proj.xml";
-		
 		
 		//wczytaj dane z pliku
 		RevitPluginParser parser = new RevitPluginParser();
@@ -27,18 +25,20 @@ public class Start {
 		
 		List<Room> rooms= parser.rooms;
 		List<Door> doors= parser.doors;
-		for (Room r : rooms) {
-		 	if (! (r.name.contains(" 102") ||r.name.contains(" 123") ||  r.name.contains(" 107") ||  r.name.contains(" 131") ||  r.name.contains("234"))) continue;
-			r.print();
-			if (r.path!= null){
-				 RoomPainter rpainter = new RoomPainter(r,parser.MAX_COORD);
+		if (DISPLAY_ROOMS){
+			for (Room r : rooms) {
+//			 	if (! (r.name.contains(" 102") ||r.name.contains(" 123") ||  r.name.contains(" 107") ||  r.name.contains(" 131") ||  r.name.contains("234"))) continue;
+				r.print();
+				if (r.path!= null){
+					 RoomPainter rpainter = new RoomPainter(r,parser.MAX_COORD);
+				}
 			}
+//			for (Door d : doors) {
+//				System.out.println(d);
+//				 
+//			}
 		}
-//		for (Door d : doors) {
-//			System.out.println(d);
-//			 
-//		}
-				
+	
 		
 		TestData testData = new TestData(rooms, doors);
 		 
@@ -87,6 +87,8 @@ public class Start {
     			
     		}
             message+="\n";
+            System.out.println("Number of rooms:"+rooms.size());
+            System.out.println("Number of doors:"+doors.size());
             System.out.println(message);
             System.out.println("Objects:"+roomsToHighlight);
              
