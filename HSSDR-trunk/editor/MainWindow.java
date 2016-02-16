@@ -536,17 +536,19 @@ public class MainWindow extends JFrame implements MessageDisplayer   {
 		repaint();
 	}
 	public void deleteDivision(String label) {
-		controller.deleteDivision(label);
-		currentLayoutEditor.deletgeSubPathsFrom(label);
-		currentLayoutEditor.resetEditedPath();
+		if (controller.deleteDivision(label)){
+			currentLayoutEditor.deletgeSubPathsFrom(label);
+			currentLayoutEditor.resetEditedPath();
+			
+			divisionTree.delete();
+			divisionTree=null;
+			currentLayoutEditor.setDivisionPath(null);
+			
+			divisionTree = new DivisionTree(this);
+			divisionTree.createTree(controller.getGraph().getFloorRootEdge(currentFloor));
+			repaint();
+		}
 		
-		divisionTree.delete();
-		divisionTree=null;
-		currentLayoutEditor.setDivisionPath(null);
-		
-		divisionTree = new DivisionTree(this);
-		divisionTree.createTree(controller.getGraph().getFloorRootEdge(currentFloor));
-		repaint();
 	}
 	
 	protected void floorsComboFocusLost(FocusEvent e) {
