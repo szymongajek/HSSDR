@@ -535,6 +535,15 @@ public class MainWindow extends JFrame implements MessageDisplayer   {
 		currentLayoutEditor.setDivisionPath(currentLayoutEditor.findPathByLabel(label));
 		repaint();
 	}
+	
+	/**
+	 * czy mozna aktualnie zaznaczony path ususnac za pomoca delete division
+	 * @param pathLabel
+	 */
+	public boolean isDivisionDeletable(String pathLabel){
+		return controller.getGraph().findObjectHEWithLabel(pathLabel).isLeafMinusOneLevel();
+	}
+	
 	public void deleteDivision(String label) {
 		if (controller.deleteDivision(label)){
 			currentLayoutEditor.deletgeSubPathsFrom(label);
