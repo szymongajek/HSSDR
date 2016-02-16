@@ -161,19 +161,21 @@ public class ObjectHE extends HyperEdge
 		
 	}
 	/*
-     * sprawdza czy dzieci HE sa liscmi. warunek konieczny dla ususwania
+     * sprawdza czy HE ma dzieci i te dzieci sa liscmi. warunek konieczny dla ususwania
      */
     public boolean isLeafMinusOneLevel() {
+    	boolean hasAtLeastOneChild =false;
     	
     	for (HyperEdge child:childElements ){
     		if (child instanceof ObjectHE ){
+    			hasAtLeastOneChild=true;
     			if (((ObjectHE) child).hasChildElements()){
     				return false;
     			}
     		}
     	}
     	
-		return true;
+		return hasAtLeastOneChild;
 	}
 	/*
      * znajduje wezly zewnetrzne dla tej HE

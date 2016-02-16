@@ -35,6 +35,7 @@ public class DivisionTree extends JFrame implements TreeSelectionListener{
 		deleteDivision = new JButton();
 		deleteDivision.setText("Delete division");
 		deleteDivision.setPreferredSize(new Dimension(275,50));
+		deleteDivision.setEnabled(false);
 		deleteDivision.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				deleteDivisionActionPerformed(e);
@@ -49,7 +50,9 @@ public class DivisionTree extends JFrame implements TreeSelectionListener{
 	}
 
 	public void valueChanged(TreeSelectionEvent event) {
-		mainWindow.markDivisionPath(tree.getLastSelectedPathComponent().toString());
+		String pathLabel = tree.getLastSelectedPathComponent().toString();
+		mainWindow.markDivisionPath(pathLabel);
+		deleteDivision.setEnabled(mainWindow.isDivisionDeletable(pathLabel));
  
 	  }
 	
