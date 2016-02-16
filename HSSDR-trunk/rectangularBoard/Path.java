@@ -323,7 +323,7 @@ public class Path {
 	
 	public ObjectHE createObjectHE(ObjectHE parentEdge, int level, int floorNr) {
 		
-		ObjectHE he= new ObjectHE();
+		ObjectHE newHE= new ObjectHE();
 		
 		// suma wszystkich wspolrzednych z interior - do srodka ciezkosci
 		int sum_x=0, sum_y=0;
@@ -349,35 +349,19 @@ public class Path {
 		int sizeX = max_E - max_W+1;
 		int sizeY = max_S - max_N+1;
 		
-		double scale = (1-level*0.3);
+		newHE.setSizeX( sizeX );
+		newHE.setSizeY(  sizeY );
+		newHE.setMiddleX( avg_x );
+		newHE.setMiddleY( avg_y );
 		
-		sizeX*= scale;
-		sizeY*= scale;
-		
-  
-		he.setSizeX( sizeX );
-		he.setSizeY(  sizeY );
-		he.setMiddleX( avg_x );
-		he.setMiddleY( avg_y );
-		
-		he.setAttribute(HLH.LABEL, toString());
-		he.setAttribute(HLH.USER_LABEL, getUserLabel());
-		he.setAttribute(HLH.ROOM_TYPE_LABEL, HLH.ROOM_TYPES.values()[ getRoomType()].toString());
-		he.setAttribute(HLH.AREA, String.valueOf(getAreaValue()));
-		he.setAttribute(HLH.FLOOR_NR, String.valueOf( floorNr));
-		he.setInterior( getInterior());
-		he.setFloor(floorNr);
+		newHE.setAttribute(HLH.LABEL, toString());
+		newHE.setAttribute(HLH.USER_LABEL, getUserLabel());
+		newHE.setAttribute(HLH.ROOM_TYPE_LABEL, HLH.ROOM_TYPES.values()[ getRoomType()].toString());
+		newHE.setAttribute(HLH.AREA, String.valueOf(getAreaValue()));
+		newHE.setAttribute(HLH.FLOOR_NR, String.valueOf( floorNr));
+		newHE.setInterior( getInterior());
+		newHE.setFloor(floorNr);
 	 	
-		int Ncurrx=avg_x - sizeX/2;
-		int Ncurry=avg_y - sizeY/2;
-		int Ecurrx=avg_x + sizeX/2;
-		int Ecurry=avg_y - sizeY/2;
-		int Scurrx=avg_x + sizeX/2;
-		int Scurry=avg_y + sizeY/2;
-		int Wcurrx=avg_x - sizeX/2;
-		int Wcurry=avg_y + sizeY/2;
-		
-		int px=0,py=0;
 		
 //		przesuniecie pottrzebne aby numerowac zgodnie z zasadami 
 		int ct= this.findMostLeftUpperLineNr(); 
@@ -406,11 +390,9 @@ public class Path {
 			if (parentEdge!=null)
 				n.setEmbFuncNode(findEmbMappingNode(parentEdge, dir, wallNr));
 			
-			String label = String.valueOf(wallNr+1);
-			label=label+getNodeLabelFromParent(parentEdge,n);		
-			n.setAttribute(HLH.LABEL,label);
-			n.setObjectEdge(he);
-			he.addNode(n);
+			n.setAttribute(HLH.LABEL,Path.createNewNodeLabel(wallNr,parentEdge,n));
+			n.setObjectEdge(newHE);
+			newHE.addNode(n);
 
 			
 			if (parentEdge!=null && n.getEmbFuncNode()!=null){ // nie jest root edge i nie jest nowo powstala sciana 
@@ -453,62 +435,19 @@ public class Path {
 				
 			}
 			
-			len*=scale;
-			
-			if (dir.equals("N")){
-				px= (Ncurrx +  len/2 );
-				py=Ncurry -HyperGraphPainter.NODE_DIST_FROM_HE_IN_SQUARES;
-				
-				Ncurrx+= len;
-			}else if (dir.equals("S")){
-				px=(Scurrx - len/2);
-				py=Scurry +HyperGraphPainter.NODE_DIST_FROM_HE_IN_SQUARES;
-				
-				Scurrx-= len;
-			}else if (dir.equals("E")){
-				px=Ecurrx +HyperGraphPainter.NODE_DIST_FROM_HE_IN_SQUARES;
-				py=(Ecurry + len/2);
-				
-				Ecurry+= len;
-			}else if (dir.equals("W")){
-				px=Wcurrx -HyperGraphPainter.NODE_DIST_FROM_HE_IN_SQUARES;
-				py=(Wcurry - len/2);
-				
-				Wcurry-= len;
-			}
- 
-			n.setMiddleX( px );
-			n.setMiddleY( py );
 		}
 		
-		// dodanie wez��w pod�oga i sufit
-//		Node floor = new Node();
-//		floor.setDirection(HLH.DIRECTION_FLOOR);
-//		floor.setAttribute(HLH.WALL_NR,String.valueOf(-1));
-//		floor.setAttribute(HLH.LABEL,"FLOOR");
-//		floor.setObjectEdge(he);
-//		floor.setMiddleX( avg_x - sizeX/2 -ObjectPainter.NODE_DIST_FROM_HE_IN_SQUARES/2);
-//		floor.setMiddleY( avg_y + sizeY/2 +ObjectPainter.NODE_DIST_FROM_HE_IN_SQUARES/2);
-//		he.addNode(floor);
-		
-//		Node ceil = new Node();
-//		ceil.setDirection(HLH.DIRECTION_CEILING);
-//		ceil.setAttribute(HLH.WALL_NR,String.valueOf(-1));
-//		ceil.setAttribute(HLH.LABEL,"CEIL");
-//		ceil.setObjectEdge(he);
-//		ceil.setMiddleX( avg_x + sizeX/2 +ObjectPainter.NODE_DIST_FROM_HE_IN_SQUARES/2);
-//		ceil.setMiddleY( avg_y - sizeY/2 -ObjectPainter.NODE_DIST_FROM_HE_IN_SQUARES/2);
-//		he.addNode(ceil);
+		Node.calcAndSetPositionGroup(newHE.getAllNodes(),newHE);
 		
 		// wezel poloaczenia pionowe
 		Node vert = new Node();
+		vert.setFloor(floorNr);
 		vert.setDirection(HLH.DIRECTION_VERTICAL);
-		vert.setAttribute(HLH.WALL_NR,String.valueOf(-1));
-		vert.setAttribute(HLH.LABEL,"VERT");
-		vert.setObjectEdge(he);
-		vert.setMiddleX( avg_x + sizeX/2 +HyperGraphPainter.NODE_DIST_FROM_HE_IN_SQUARES/2);
-		vert.setMiddleY( avg_y - sizeY/2 -HyperGraphPainter.NODE_DIST_FROM_HE_IN_SQUARES/2);
-		he.addNode(vert);
+		vert.setAttribute(HLH.WALL_NR,String.valueOf(0));
+		vert.setAttribute(HLH.LABEL,Path.createNewVertNodeLabel(parentEdge)); 
+		vert.setObjectEdge(newHE);
+		vert.calcAndSetPositionVERT(newHE);
+		newHE.addNode(vert);
 		
 		if (parentEdge!=null){// nie jest root edge 
 			// przeniesienie reacji polaczen pionowych do nowo tworzonej relacji
@@ -532,7 +471,7 @@ public class Path {
 		}
 		
 		
-		return he;
+		return newHE;
 	}
 	void cyclicMoveWalls(int translate){
 		if (getX(0)!=getX(size()-1) || getY(0)!=getY(size()-1))
@@ -582,21 +521,34 @@ public class Path {
   	
 		ArrayList <Node> nodes  = parentEdge.getWallNodes();
 		
-		for (int i = 0; i < nodes.size(); i++) {
-			Node n = nodes.get(i);
+		for (Node n:nodes) {
 			if (n.getDirection().equals(dir)){
-				int [] tab = LayoutUtils.getWallCoord(n);
 				
-				Path test= new Path( this.maxX, this.maxY, this.floorNr);
-				test.simpleAdd(tab[0],tab[1],Path.LINE_SOLID);
-				test.simpleAdd(tab[2],tab[3], Path.LINE_SOLID);
-				test.simpleAdd(tab[0],tab[1], Path.LINE_SOLID);
-				
-				if (test.contains(getX(wallNr), getY(wallNr)) && test.contains(getX(wallNr+1), getY(wallNr+1)))
+				if (nodeWallContainsPoint(n, getX(wallNr), getY(wallNr)) 
+						&& nodeWallContainsPoint(n,getX(wallNr+1), getY(wallNr+1)))
 					return n;
 			}
 		}
 		return null;
+	}
+	
+	
+	/**
+	 * sprawdza czy punkt px, py lezy na scianie reprezentowanej przez wezel n
+	 * @param n
+	 * @param px
+	 * @param py
+	 * @return
+	 */
+	private static boolean nodeWallContainsPoint(Node n, int px, int py){
+		int [] tab = LayoutUtils.getWallCoord(n);
+		
+		Path test= new Path( 0, 0, 0);
+		test.simpleAdd(tab[0],tab[1],Path.LINE_SOLID);
+		test.simpleAdd(tab[2],tab[3], Path.LINE_SOLID);
+		test.simpleAdd(tab[0],tab[1], Path.LINE_SOLID);
+		
+		return test.contains(px, py);
 	}
 	
 	private int findMostLeftUpperLineNr() {
@@ -820,16 +772,49 @@ public class Path {
 		return nestedPaths;
 	}
 
-	private String getNodeLabelFromParent(ObjectHE parentEdge, Node newNode) {
+	/**
+	 * tworzy etykiete wezla na podst etykiety rodzica
+	 * korzysta z getEmbFuncNode, na potrzeby pozniejszego cofania
+	 * @param wallNr
+	 * @param parentEdge
+	 * @param newNode
+	 * @return
+	 */
+	private static String createNewNodeLabel(int wallNr, ObjectHE parentEdge, Node newNode) {
+		
+		String label = String.valueOf(wallNr+1);
 		
 		if (parentEdge==null) //rootEdge
-			return "";
+			return label;
 		
 		Node sub = newNode.getEmbFuncNode();
 		if (sub==null)//nowo powstala sciana
-			return "";
+			return label;
 		
-		return "."+sub.getAttribute(HLH.LABEL);
+		return label+"."+sub.getAttribute(HLH.LABEL);
+		
+	}
+	/**
+	 * tworzy etykiete wezla typu V na podst etykiety rodzica
+	 *  dla V zawsze zaczyna sie od 0,
+	 *  poniewaz V nigdy nie ma embFuncNode(bo liczy sie hookPoint) bedzie zawsze 0.0.0.0
+	 * @param wallNr
+	 * @param parentEdge
+	 * @param newNode
+	 * @return
+	 */
+	private static String createNewVertNodeLabel(ObjectHE parentEdge) {
+		
+		String label = String.valueOf(0);
+		
+		if (parentEdge==null) //rootEdge
+			return label;
+		
+		Node sub = parentEdge.getVerticalNode();
+		if (sub==null) 
+			return label;
+		
+		return label+"."+sub.getAttribute(HLH.LABEL);
 		
 	}
 	

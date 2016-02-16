@@ -17,8 +17,6 @@ public class HyperGraphPainter   {
 	
 	public static final int MIN_HE_SIZE=1;
 	
-	public static final int NODE_DIST_FROM_HE_IN_SQUARES=2; 
-	
 	public static   MovableComponent selected =null;
 	
 	public static boolean debug_mode=false;
@@ -519,12 +517,9 @@ public class HyperGraphPainter   {
 			}else if (dir.equals("W")){
 				g2D.drawLine(posX, posY, edgMiddleX, posY);
 				g2D.drawString(nodes.get(i).getAttribute(HLH.LABEL), posX-16 , posY+14 );
-			} else if (dir.equals("F")){
+			} else if (dir.equals("V")){
 				g2D.drawLine(edgMiddleX, edgMiddleY, posX, posY);
-				g2D.drawString(nodes.get(i).getAttribute(HLH.LABEL), posX-16 , posY+14 );
-			} else if (dir.equals("C")||dir.equals("V")){
-				g2D.drawLine(edgMiddleX, edgMiddleY, posX, posY);
-				g2D.drawString(nodes.get(i).getAttribute(HLH.LABEL), posX-16 , posY+14 );
+				g2D.drawString(nodes.get(i).getAttribute(HLH.LABEL), posX+6 , posY-6 );
 			}
 			
 			

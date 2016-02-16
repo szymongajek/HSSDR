@@ -107,9 +107,12 @@ public class Controller
     	 checkLayout();
     }
     
-    public void deleteDivision(String label) {
-    	graph.contentSuppression(label);
-		 checkLayout();
+    public boolean deleteDivision(String label) {
+    	if (graph.contentSuppression(label)){
+    		checkLayout();
+    		return true;
+    	}
+		return false;
 	}
 
     private static final Parser parser = new Parser();

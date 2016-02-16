@@ -95,6 +95,7 @@ public class HyperRelation extends RelationHE {
 			}
 		}
 		
+		newNode.addRelation(this);
 		oldNode.removeConnection(this);
 		
 	}

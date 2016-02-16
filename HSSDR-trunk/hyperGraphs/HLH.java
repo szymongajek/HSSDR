@@ -32,11 +32,6 @@ public class HLH
 	public static final String DIRECTION_S="S";
 	public static final String DIRECTION_W="W";
 	public static final String DIRECTION_E="E";
-	@Deprecated
-	public static final String DIRECTION_FLOOR="F";
-//	  
-	@Deprecated
-	public static final String DIRECTION_CEILING="C";
 	
 	public static final String DIRECTION_VERTICAL="V";
 	//	 dla wezlow wspolrzedne koncow sciany: dostepne przez LayoutUtils.getWallCoord(node)
@@ -594,18 +589,27 @@ public class HLH
         objectHEMap.remove(he.getAttribute(HLH.LABEL));
     }
  
-	public   void contentSuppression(String label) {
+	public   boolean contentSuppression(String label) {
 
 		ObjectHE toSuppress = findObjectHEWithLabel(label);
-		if ( toSuppress !=null){
-//			usun z mapy hiperkrawedzi dzieci oproznianiej HE 
-			for (HyperEdge child:toSuppress.getChildElements() ){
-        		if (child instanceof ObjectHE  ){
-        			removeFromMap((ObjectHE)child);
-        		}
-			}
-			toSuppress.contentSuppression();
+		if ( toSuppress ==null){
+			Logger.LOGGER.error("Nie odnaleziono HE do usuniecia");
+			return false;
 		}
+		
+		if (!toSuppress.contentSuppression()){
+			Logger.LOGGER.error("Blad podczas usuwania HE");
+			return false;
+		}
+		
+//			usun z mapy hiperkrawedzi dzieci oproznianiej HE 
+		for (HyperEdge child:toSuppress.getChildElements() ){
+    		if (child instanceof ObjectHE  ){
+    			removeFromMap((ObjectHE)child);
+    		}
+		}
+		return true;
+			
 	}
 
 	public void setRoomUserLabel(String roomString, String user_label) {

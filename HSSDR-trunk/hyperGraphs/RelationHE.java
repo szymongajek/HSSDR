@@ -86,6 +86,7 @@ public class RelationHE extends HyperEdge {
 			throw new RuntimeException("removing node not connected to relation");
 		}
 		
+		newNode.addRelation(this);
 		oldNode.removeConnection(this);
 		
 	}

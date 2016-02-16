@@ -54,7 +54,7 @@ public class LayoutUtils {
 		bx2=t2[2],
 		by2=t2[3];
 
-		if (n1.isVertical() && n2.isVertical()){ // both vertical
+		if (n1.isEastOrWest() && n2.isEastOrWest()){ // both vertical
 			if (! (ax1==bx1) &&
 					(ax2==bx2))
 				return false;
@@ -76,7 +76,7 @@ public class LayoutUtils {
 			}else {
 				return by2>ay1;
 			}
-		}else if (!n1.isVertical() && !n2.isVertical()){ // both horizontal
+		}else if (!n1.isEastOrWest() && !n2.isEastOrWest()){ // both horizontal
 			if (! (ay1==by1) &&
 					(ay2==by2))
 				return false;

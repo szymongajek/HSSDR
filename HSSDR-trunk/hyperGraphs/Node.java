@@ -3,6 +3,7 @@ package hyperGraphs;
 import java.util.Properties;
 import java.util.ArrayList;
 
+
 public class Node extends MovableComponent {
 	
 
@@ -35,7 +36,7 @@ public class Node extends MovableComponent {
 		attributes.setProperty(atr, value);
 	}
 
-	public boolean isVertical() {
+	public boolean isEastOrWest() {
 		if (this.getDirection().equals("E") || this.getDirection().equals("W"))
 			return true;
 		else
@@ -43,14 +44,12 @@ public class Node extends MovableComponent {
 
 	}
 
-	public boolean isWall() {
-		if (this.getDirection().equals(HLH.DIRECTION_FLOOR)
-				|| this.getDirection().equals(HLH.DIRECTION_CEILING)
-				|| this.getDirection().equals(HLH.DIRECTION_VERTICAL))
-			return false;
-		else
-			return true;
-
+	/**
+	 * czy Node to sciana (w odroznieniu od polaczen pionowych)
+	 * @return
+	 */
+	public boolean isVerticalConnections() {
+		return this.getDirection().equals(HLH.DIRECTION_VERTICAL);
 	}
 
 	public String toString() {
@@ -74,6 +73,7 @@ public class Node extends MovableComponent {
 	// reprezentuje wierzcholek krawedzi ktora zostala podzielona na
 	// repezentowana przez this krawedz
 	private Node embFuncNode;
+	public static final int NODE_DIST_FROM_HE_IN_SQUARES=2;
 
 	public Node getEmbFuncNode() {
 		return embFuncNode;
@@ -221,5 +221,148 @@ public class Node extends MovableComponent {
 		} else if (!objectEdge.equals(other.objectEdge))
 			return false;
 		return true;
+	}
+
+	/**
+	 * obliczas dlugisc sciany nowego wezla na podstawie tych z ktorych zlaczania powstaje
+	 * @param prevNodes
+	 */
+	void calcMergingNodeLEN(ArrayList<Node> prevNodes) {
+		 
+		  int len_sum=0;
+		  for (Node joiningNode:prevNodes){
+			  len_sum+=Integer.parseInt(joiningNode.getAttribute(HLH.LEN));
+		  }
+		  
+		  this.setAttribute(HLH.LEN, String.valueOf(len_sum));
+		  
+	}
+
+
+	/**
+	 * oblicza i ustawia polozenie wezla V. korzysta z polozenia HE  motherEdge
+	 * @param motherEdge
+	 */
+	public void calcAndSetPositionVERT(ObjectHE motherEdge) {
+		int sizeX = motherEdge.getSizeX();
+		int sizeY = motherEdge.getSizeY();
+		int avg_x = motherEdge.getMiddleX();
+		int avg_y = motherEdge.getMiddleY();
+		int px = 0, py = 0;
+		px = avg_x + sizeX / 2 + Node.NODE_DIST_FROM_HE_IN_SQUARES
+				/ 2;
+		py = avg_y - sizeY / 2 - Node.NODE_DIST_FROM_HE_IN_SQUARES
+				/ 2;
+
+		this.setMiddleX(px);
+		this.setMiddleY(py);
+	}
+	
+	/**
+	 * oblicza i ustawia polozenie wezla NSWE. korzysta z polozenia HE  motherEdge
+	 * @param motherEdge
+	 */
+	public void calcAndSetPositionSingle(ObjectHE motherEdge ) {
+
+		int sizeX = motherEdge.getSizeX();
+		int sizeY = motherEdge.getSizeY();
+		int avg_x = motherEdge.getMiddleX();
+		int avg_y = motherEdge.getMiddleY();
+
+		int Ncurrx = avg_x - sizeX / 2;
+		int Ncurry = avg_y - sizeY / 2;
+		int Ecurrx = avg_x + sizeX / 2;
+		int Ecurry = avg_y - sizeY / 2;
+		int Scurrx = avg_x + sizeX / 2;
+		int Scurry = avg_y + sizeY / 2;
+		int Wcurrx = avg_x - sizeX / 2;
+		int Wcurry = avg_y + sizeY / 2;
+
+		int px = 0, py = 0;
+		int len = Integer.parseInt(this.getAttribute(HLH.LEN));
+
+		String dir = this.getDirection();
+
+		if (dir.equals("N")) {
+			px = (Ncurrx + len / 2);
+			py = Ncurry - Node.NODE_DIST_FROM_HE_IN_SQUARES;
+
+			Ncurrx += len;
+		} else if (dir.equals("S")) {
+			px = (Scurrx - len / 2);
+			py = Scurry + Node.NODE_DIST_FROM_HE_IN_SQUARES;
+
+			Scurrx -= len;
+		} else if (dir.equals("E")) {
+			px = Ecurrx + Node.NODE_DIST_FROM_HE_IN_SQUARES;
+			py = (Ecurry + len / 2);
+
+			Ecurry += len;
+		} else if (dir.equals("W")) {
+			px = Wcurrx - Node.NODE_DIST_FROM_HE_IN_SQUARES;
+			py = (Wcurry - len / 2);
+
+			Wcurry -= len;
+		}
+		
+		this.setMiddleX(px);
+		this.setMiddleY(py);
+	}
+	
+	/**
+	 * oblicza i ustawia polozenie grupy wezlow NSWE. 
+	 * bierze pod uwage dlugosci scian, i przesuwa kolejne wezly o tej samej orentacji zeby nie byly w jednym miejscu
+	 * korzysta z polozenia HE  motherEdge
+	 * @param motherEdge
+	 */
+	public static void calcAndSetPositionGroup( ArrayList<Node> group, ObjectHE motherEdge ) {
+
+		int sizeX = motherEdge.getSizeX();
+		int sizeY = motherEdge.getSizeY();
+		int avg_x = motherEdge.getMiddleX();
+		int avg_y = motherEdge.getMiddleY();
+
+		int Ncurrx = avg_x - sizeX / 2;
+		int Ncurry = avg_y - sizeY / 2;
+		int Ecurrx = avg_x + sizeX / 2;
+		int Ecurry = avg_y - sizeY / 2;
+		int Scurrx = avg_x + sizeX / 2;
+		int Scurry = avg_y + sizeY / 2;
+		int Wcurrx = avg_x - sizeX / 2;
+		int Wcurry = avg_y + sizeY / 2;
+
+		int px = 0, py = 0;
+		
+		for (Node node:group){
+			int len = Integer.parseInt(node.getAttribute(HLH.LEN));
+
+			String dir = node.getDirection();
+
+			if (dir.equals("N")) {
+				px = (Ncurrx + len / 2);
+				py = Ncurry - Node.NODE_DIST_FROM_HE_IN_SQUARES;
+
+				Ncurrx += len;
+			} else if (dir.equals("S")) {
+				px = (Scurrx - len / 2);
+				py = Scurry + Node.NODE_DIST_FROM_HE_IN_SQUARES;
+
+				Scurrx -= len;
+			} else if (dir.equals("E")) {
+				px = Ecurrx + Node.NODE_DIST_FROM_HE_IN_SQUARES;
+				py = (Ecurry + len / 2);
+
+				Ecurry += len;
+			} else if (dir.equals("W")) {
+				px = Wcurrx - Node.NODE_DIST_FROM_HE_IN_SQUARES;
+				py = (Wcurry - len / 2);
+
+				Wcurry -= len;
+			}
+			
+			node.setMiddleX(px);
+			node.setMiddleY(py);
+		}
+		
 	}
 }

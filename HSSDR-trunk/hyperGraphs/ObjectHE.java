@@ -2,8 +2,10 @@ package hyperGraphs;
 
 
 import java.util.Hashtable;
-import java.util.Iterator;
 import java.util.ArrayList;
+
+
+import util.Logger;
 
 public class ObjectHE extends HyperEdge  
 {
@@ -25,7 +27,7 @@ public class ObjectHE extends HyperEdge
     
     /*
      * procedura usuwajaca zawartosc hiperkrawedzi - cofniecie podzialu
-     * warunek - pod ta HE sa tylko liœcie  
+     * warunek - pod ta HE sa tylko liï¿½cie  
      * alg:
      * 1. znajdz nody EXT dla tej hiperkrawedzi i ozn jako extHE
      * 2. dla wszystkich grup  el extHE rozniacych sie tylko prefiksem przed pierwsza kropka stworz jeden wezel 
@@ -34,17 +36,16 @@ public class ObjectHE extends HyperEdge
      * 5. usun   child elements
      * 6. dodaj nowo stworzone wezly do tej HE
      */
-    public void contentSuppression(){
-//    	warunek - pod ta HE sa tylko liœcie  
+    public boolean contentSuppression(){
+//    	warunek - pod ta HE sa tylko liscie  
     	
-    	for (HyperEdge child:childElements ){
-    		if (child instanceof ObjectHE  && ((ObjectHE)child).getChildElements().size()>0);
-//    			throw new RuntimeException("proba usuniecia wnetrza hiperkrawedzi nie bedacej na dole hierarchii");
-    	}
+		if (!isLeafMinusOneLevel()){
+			Logger.LOGGER.error("proba usuniecia wnetrza hiperkrawedzi nie bedacej na dole hierarchi");
+    		return false;
+		}
     	
 //		1. znajdz nody EXT dla tej hiperkrawedzi i ozn jako extHE
-    	
-    	ArrayList <Node> extHE=findExternalNodes();
+    	ArrayList <Node> extHE=findChildrensExternalNodes();
     	
 // 		2. dla wszystkich grup  el extHE rozniacych sie tylko prefiksem przed pierwsza kropka stworz jeden wezel
 //		 3. etypkieta tego wezla to etykieta z ktowych powstal  po pierwszej kropce
@@ -63,25 +64,17 @@ public class ObjectHE extends HyperEdge
     		  n.setFloor(this.getFloor());
     		  n.setObjectEdge(this);
     		  n.setAttributesFrom(vect.get(0));
+    		  n.setDirection(vect.get(0).getDirection());
     		  copyDoorsFromGroupTo(vect,n);
     		  n.setAttribute(HLH.LABEL, vect.get(0).getLabelSuffix() );
-    		  // polozenie wezla i dlugosc sciany
-    		  int len_sum=0;
-    		  int middleX=0, middleY=0;
-    		  for (Node joiningNode:vect){
-    			  len_sum+=Integer.parseInt(joiningNode.getAttribute(HLH.LEN));
-    			  middleX+=joiningNode.getMiddleX();
-    			  middleY+=joiningNode.getMiddleY();
-    		  }
-    		  n.setAttribute(HLH.LEN, String.valueOf(len_sum));
-    		  n.setMiddleX(middleX/vect.size());
-    		  n.setMiddleY(middleY/vect.size());
- 
+    		  n.calcMergingNodeLEN(vect);
+    		  n.calcAndSetPositionSingle(this);
+    		 
     		  newNodes.add(n);
     	  } 
     	  
-//        * 4. dla kazdej grupy jesli z wezlow z tej grupy wychodza relacje to zlej je w jedna, idaca do nowego wezla dla grupy
     	  
+//        * 4. dla kazdej grupy jesli z wezlow z tej grupy wychodza relacje to zlej je w jedna, idaca do nowego wezla dla grupy
     	  for (Node newNode: newNodes){
     		  ArrayList<Node> oldNodes = nodesGroups.get(newNode.getAttribute(HLH.LABEL));
     		  if (oldNodes.get(0).getRelations().size()==0){
@@ -128,26 +121,36 @@ public class ObjectHE extends HyperEdge
     		  }
     	  }
     	  
-//        * 5. usun   child elements
-//    	  ustal nowe polozenie tej hipergrawedzi
-    	  int middleX=0,middleY=0, objChildren=0;
-    	  for (HyperEdge child:childElements ){
-      		if (child instanceof ObjectHE){
-      			middleX+=child.getMiddleX();
-      			middleY+=child.getMiddleY();
-      			objChildren++;
-      		}
-    	  }
-    	  this.setMiddleX(middleX/objChildren);
-    	  this.setMiddleY(middleY/objChildren);
+    	  //4.5 dla polaczen pionowych, stworz nowy wezel i przepnij do niego relacje z usuwanych
+    	  ArrayList <Node> vertNodes=findChildrensVerticallNodes();
     	  
-      				
+    	  Node vert = new Node();
+    	  vert.setFloor(this.getFloor());
+    	  vert.setObjectEdge(this);
+    	  vert.setDirection(HLH.DIRECTION_VERTICAL);
+    	  vert.setAttributesFrom(vertNodes.get(0));
+    	  vert.calcAndSetPositionVERT(this);
+    	  vert.setAttribute(HLH.LABEL, vertNodes.get(0).getLabelSuffix());
+    	  newNodes.add(vert);
+  		
+    	  //przepiecie
+    	  
+    	  for (Node  prevNode: vertNodes){
+    		  ArrayList<RelationHE> relationsToReconnect = new ArrayList<RelationHE>() ;
+    		  relationsToReconnect.addAll(prevNode.getRelations())  ;
+    		  
+    		  for (RelationHE relationHE : relationsToReconnect) {
+  				relationHE.reconnectNodes(prevNode, vert);
+  			}
+    	  }
+		  
+//        * 5. usun   child elements
     	 this.childElements= new ArrayList<HyperEdge>();
   
 //        * 6. dodaj nowo stworzone wezly do tej HE
-    		 
     	this.nodes=newNodes;
     		 
+    	return true;
     		 
     }
 
@@ -157,7 +160,21 @@ public class ObjectHE extends HyperEdge
 		  }
 		
 	}
-
+	/*
+     * sprawdza czy dzieci HE sa liscmi. warunek konieczny dla ususwania
+     */
+    public boolean isLeafMinusOneLevel() {
+    	
+    	for (HyperEdge child:childElements ){
+    		if (child instanceof ObjectHE ){
+    			if (((ObjectHE) child).hasChildElements()){
+    				return false;
+    			}
+    		}
+    	}
+    	
+		return true;
+	}
 	/*
      * znajduje wezly zewnetrzne dla tej HE
      * zakladamy ze ta HE ma dzieci, wiec nie ma sama wezlow
@@ -165,7 +182,7 @@ public class ObjectHE extends HyperEdge
      * - nie maja podpietych relacji, sa zew dla calego grafu
      * - maja podpieta chociarz jedna relacje nie bedaca dzieckiem bierzacej HE
      */
-    private ArrayList<Node> findExternalNodes() {
+    private ArrayList<Node> findChildrensExternalNodes() {
     	ArrayList <Node> extHE=new ArrayList<Node>();
     	ArrayList <Node> nodesToCheck=new ArrayList<Node>();
     	
@@ -188,6 +205,21 @@ public class ObjectHE extends HyperEdge
     	}
     	
 		return extHE;
+	}
+    
+	/*
+     * znajduje wezly pionowe dla dzieci typu ObjectHE tej HE
+     */
+    private ArrayList<Node> findChildrensVerticallNodes() {
+    	ArrayList <Node> vertical=new ArrayList<Node>();
+    	
+    	for (HyperEdge child:childElements ){
+    		if (child instanceof ObjectHE ){
+    			vertical.add(((ObjectHE)child).getVerticalNode());
+    		}
+    	}
+    	
+		return vertical;
 	}
 
 	public void addNode(Node n)
@@ -252,31 +284,11 @@ public class ObjectHE extends HyperEdge
     {
     	ArrayList<Node> walls= new ArrayList<Node>();
     	for(Node node: nodes){
-    		if (node.isWall()){
+    		if (!node.isVerticalConnections()){
     			walls.add(node);
     		}
     	}
         return walls;
-    }
-	@Deprecated
-    public Node getCeilingNode()
-    {
-    	for(Node node: nodes){
-    		if (HLH.DIRECTION_CEILING.equals(node.getDirection())){
-    			return node;
-    		}
-    	}
-        return null;
-    }
-	@Deprecated
-    public Node getFloorNode()
-    {
-    	for(Node node: nodes){
-    		if (HLH.DIRECTION_FLOOR.equals(node.getDirection())){
-    			return node;
-    		}
-    	}
-        return null;
     }
     
     public Node getVerticalNode()
@@ -303,7 +315,7 @@ public class ObjectHE extends HyperEdge
     }
     
     /*
-     * zwraca wezel o atrybucie HLH.WALL_NR równym podanemu parametrowi
+     * zwraca wezel o atrybucie HLH.WALL_NR rï¿½wnym podanemu parametrowi
      */
     public Node  getNodeNumbered(String number){
     	 
