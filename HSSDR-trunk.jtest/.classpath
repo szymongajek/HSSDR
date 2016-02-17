@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<classpath>
+	<classpathentry kind="src" path=""/>
+	<classpathentry kind="var" path="JTEST_HOME/jtest.jar"/>
+	<classpathentry kind="var" path="JTEST_HOME/junit.jar" sourcepath="JTEST_HOME/junitsrc.zip"/>
+	<classpathentry kind="src" path="/HSSDR-trunk"/>
+	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER"/>
+	<classpathentry kind="lib" path="/HSSDR-trunk/log4j-1.2.17.jar"/>
+	<classpathentry exported="true" kind="lib" path="/HSSDR-trunk/antlr-runtime-3.2.jar"/>
+	<classpathentry exported="true" kind="lib" path="/HSSDR-trunk/forms.jar"/>
+	<classpathentry kind="con" path="org.eclipse.jdt.junit.JUNIT_CONTAINER/4"/>
+	<classpathentry kind="output" path=""/>
+</classpath>
