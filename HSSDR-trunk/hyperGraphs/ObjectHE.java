@@ -32,7 +32,9 @@ public class ObjectHE extends HyperEdge
      * 1. znajdz nody EXT dla tej hiperkrawedzi i ozn jako extHE
      * 2. dla wszystkich grup  el extHE rozniacych sie tylko prefiksem przed pierwsza kropka stworz jeden wezel 
      * 3. etypkieta tego wezla to etykieta z ktowych powstal  po pierwszej kropce
-     * 4. dla kazdej grupy jesli z wezlow z tej grupy wychodza relacje to zlej je w jedna, idaca do nowego wezla dla grupy
+     * 4. dla kazdej grupy jesli z wezlow z tej grupy wychodza relacje to:
+     * - te, ktre maja ten sam target zlej w jedna, idaca do nowego wezla dla grupy
+     * - te ktore maja inny target przepnij do nowego
      * 5. usun   child elements
      * 6. dodaj nowo stworzone wezly do tej HE
      */
@@ -44,6 +46,8 @@ public class ObjectHE extends HyperEdge
     		return false;
 		}
     	
+		Logger.LOGGER.debug("contentSuppression");
+		
 //		1. znajdz nody EXT dla tej hiperkrawedzi i ozn jako extHE
     	ArrayList <Node> extHE=findChildrensExternalNodes();
     	
@@ -74,49 +78,74 @@ public class ObjectHE extends HyperEdge
     	  } 
     	  
     	  
-//        * 4. dla kazdej grupy jesli z wezlow z tej grupy wychodza relacje to zlej je w jedna, idaca do nowego wezla dla grupy
+//        * 4. dla kazdej grupy jesli z wezlow z tej grupy wychodza relacje to przepinanie
     	  for (Node newNode: newNodes){
-    		  ArrayList<Node> oldNodes = nodesGroups.get(newNode.getAttribute(HLH.LABEL));
-    		  if (oldNodes.get(0).getRelations().size()==0){
+    		  ArrayList<Node> oldNodesGroup = nodesGroups.get(newNode.getAttribute(HLH.LABEL));
+    		  Logger.LOGGER.debug("przepinanie, ilosc wezlow w grupie:"+oldNodesGroup.size());
+    		  if (oldNodesGroup.get(0).getRelations().size()==0){
     			  // ta grupa wezlow wychodzi na zew calego grafu i nie tworzymy relacji
     			  // sprawdzamy czy tak jest dla wszystkich
-    			  for (Node n : oldNodes){
-    				  if (n.getRelations().size()!=0)
-    					  throw new RuntimeException("w grupie wezlow zlaczanej w jeden sa wezly z rel i bez.");
+    			  for (Node n : oldNodesGroup){
+    				  if (n.getRelations().size()!=0){
+    					  Logger.LOGGER.error("w grupie wezlow zlaczanej w jeden sa wezly z rel i bez.");
+    					  return false;
+    				  }
     			  }
-    		  }else{
-    			  //  wezly z tej grupy wchodza do jakis relacji
-    			  // przy podziale bianrnym drzewa kazdy z nich musi wchodzic do dokl jednej rel
-    			  // sprawdzamy czy tak jest dla wszystkich
-    			  for (Node n : oldNodes){
-    				  if (n.getRelations().size()!=1)
-    					  throw new RuntimeException("w grupie wezlow zlaczanej w jeden sa wezly z rel i bez.");
-    			  }
-    			  // znajdujemy wezel do ktorego wchodza relacje wezlow z tej grupy
-    			  RelationHE relation1 =oldNodes.get(0).getRelations().get(0);
-    			  Node theNode;
-    			  if (relation1.getSource()==oldNodes.get(0))
-    				  theNode=relation1.getTarget();
-    			  else 
-    				  theNode=relation1.getSource();
-    			  // sprawdzamy czy dla wszystkich nodow z grupy ich relacje wchodza do znalezionego wezla
-    			  for (Node n : oldNodes){
-    				  RelationHE rel =n.getRelations().get(0);
-    				  if ( !( (rel.getSource()==n && rel.getTarget()==theNode)||
-    						  (rel.getSource()==theNode && rel.getTarget()==n) ))
-    					  throw new RuntimeException("blad w wezlach zrodlowych i docelowych relacji");
-    			  }
-    			  //stworz nowa relacje, podepniej od wezlow
-//    			 skpoiuj atrybuty i ocjca z wczesniej zapamietanej relaji z pierwszego wezla relation1
-    			  RelationHE newRelation = new RelationHE(relation1,newNode,theNode); 
-//    			  podepnij nowa relacje do parent edge, na tym poziomi gdzie poprzednia mial parentEdge
-//    			  uwaga, parent edge starej relacji nie musi byc rowne this. parentEgde, moze byc gdzies wyzej w strukturze, np. poziom pierwszego podzialu
-    			  relation1.getParentEdge().getChildElements().add(newRelation);
+    			  Logger.LOGGER.debug("nic do przepiecia");
     			  
-    			  // odepnij relajcje z grupy od ich wezlow i usun 
-    			  for (Node n : oldNodes){
-    				  RelationHE rel =n.getRelations().get(0);
-    				  rel.remove();
+    		  }else{
+    			  //grupowanie relacji po wezle do ktorego ida
+    			  //lista relacji idacych do wspolnego wezla
+    			  Hashtable<String,ArrayList<RelationHE>> oldRelationsGroupsByTarget= new Hashtable<String,ArrayList<RelationHE>>();
+    			  //lista wezlow z ktorych wychodza relacja idace do wspolnego wezla
+    			  Hashtable<String,ArrayList<Node>> oldNodesGroup_NodesMap= new Hashtable<String,ArrayList<Node>>();
+    			  //wezel do ktorego idzie ta grupa relacji
+    			  Hashtable<String,Node> oldNodesGroup_OtherNodesMap= new Hashtable<String,Node>();
+    			  
+    			  for (Node n : oldNodesGroup){
+    				  for(RelationHE rel: n.getRelations()){
+    					  Node otherNode = rel.getIncidentNodeOtherThan(n);
+    					  
+    					  if (!oldRelationsGroupsByTarget.containsKey(otherNode.toString())){
+    						  oldRelationsGroupsByTarget.put(otherNode.toString(), new ArrayList<RelationHE>());
+    					  }
+    					  oldRelationsGroupsByTarget.get(otherNode.toString()).add(rel);
+    					  
+    					  if (!oldNodesGroup_NodesMap.containsKey(otherNode.toString())){
+    						  oldNodesGroup_NodesMap.put(otherNode.toString(), new ArrayList<Node>());
+    					  }
+    					  oldNodesGroup_NodesMap.get(otherNode.toString()).add(n);
+    					  
+    					  oldNodesGroup_OtherNodesMap.put(otherNode.toString(), otherNode);
+    				  }
+    			  }
+    			  for ( String otherNodeLabel: oldRelationsGroupsByTarget.keySet()){
+    				  ArrayList<RelationHE> relationsGroupList = oldRelationsGroupsByTarget.get(otherNodeLabel);
+    				  ArrayList<Node> relationsGroupList_nodesToDelete =oldNodesGroup_NodesMap.get(otherNodeLabel);
+    				  Node relationsGroupList_targetNode  =oldNodesGroup_OtherNodesMap.get(otherNodeLabel);
+    				  
+    				  if (relationsGroupList.size()>1){
+//    					  maja ten sam target zlej w jedna, idaca do nowego wezla dla grupy
+//    					  przepinamy pierwsza
+    					  Logger.LOGGER.debug("relacje maja ten sam target zlej w jedna, idaca do nowego wezla dla grupy");
+    					  Logger.LOGGER.debug("ilosc relacji w grupie:"+relationsGroupList.size()+" wezel docelowy:"+otherNodeLabel);
+    					  RelationHE toReconnect = relationsGroupList.get(0);
+    					  Node toReconnectNode = relationsGroupList_nodesToDelete.get(0);
+    					  toReconnect.reconnectNodes(toReconnectNode, newNode);
+//    					  reszte usuwamy
+    					  for (int i = 1; i < relationsGroupList.size(); i++) {
+    						  RelationHE toDelete = relationsGroupList.get(i);
+    						  toDelete.remove();
+    					  }
+    					  
+    				  }else{
+//   					  te ktore maja inny target przepnij do nowego
+    					  RelationHE toReconnect = relationsGroupList.get(0);
+    					  Logger.LOGGER.debug("relacje maja inny target przepnij do nowego");
+    					  Logger.LOGGER.debug("relacja do przepiecia:"+toReconnect+" wezel docelowy:"+otherNodeLabel);
+    					  Node toReconnectNode = relationsGroupList_nodesToDelete.get(0);
+    					  toReconnect.reconnectNodes(toReconnectNode, newNode);
+    				  }
     			  }
     		  }
     	  }

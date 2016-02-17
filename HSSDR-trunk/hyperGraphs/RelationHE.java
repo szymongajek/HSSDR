@@ -2,6 +2,8 @@ package hyperGraphs;
 
 import java.awt.Point;
 
+import util.Logger;
+
 public class RelationHE extends HyperEdge {
 	// wierzcholek source
 	private Node source;
@@ -77,6 +79,24 @@ public class RelationHE extends HyperEdge {
 
 	}
 
+	/**
+	 * zwraca wezel koncowy relacji inny niz node
+	 * jezeli node nie nalezy do rel zwraca null
+	 * @param node
+	 * @return
+	 */
+	public Node getIncidentNodeOtherThan(Node node){
+		if (target == node ) {
+			return source;
+		}else if ( source== node ){
+			return target;
+		}else{
+			Logger.LOGGER.error("node not connected to relation");
+			return null;
+		}
+		
+	}
+	
 	public void reconnectNodes(Node oldNode, Node newNode) {
 		if (oldNode == target ) {
 			target = newNode;
