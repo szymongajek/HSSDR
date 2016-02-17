@@ -68,6 +68,7 @@ public class ObjectHE extends HyperEdge
     		  n.setFloor(this.getFloor());
     		  n.setObjectEdge(this);
     		  n.setAttributesFrom(vect.get(0));
+    		  n.setAttribute(HLH.COORD,LayoutUtils.calculateMergingNodesCoord(vect ));
     		  n.setDirection(vect.get(0).getDirection());
     		  copyDoorsFromGroupTo(vect,n);
     		  n.setAttribute(HLH.LABEL, vect.get(0).getLabelSuffix() );

@@ -1,15 +1,24 @@
 package hyperGraphs;
 
+import java.util.ArrayList;
+
+import util.Logger;
+
 public class LayoutUtils {
 	// operacje na grafie charakterystyczne dla rozkladu pomieszczen i nie nalezace do def grafu
 	
+	/**
+	 * zwarca wspolrzedne pocz i konca sciany reprezentowanej przez Node,postaci x1+":"+y1+":"+x2+":"+y2;
+	 */
 	public static int [] getWallCoord(Node n){
-		// zwarca wspolrzedne pocz i konca sciany reprezentowanej przez Node,postaci x1+":"+y1+":"+x2+":"+y2;
+		
+		return getWallCoord(n.getAttribute(HLH.COORD));
+    }
+	
+	public static int [] getWallCoord(String lineString){
 		int [] ret = new int[4];
 		
-		String str  = n.getAttribute(HLH.COORD);
-		
-		String [] tab = str.split(":");
+		String [] tab = lineString.split(":");
 		for (int i = 0; i < tab.length; i++) {
 			ret[i]=Integer.parseInt(tab[i]);
 		}
@@ -55,8 +64,8 @@ public class LayoutUtils {
 		by2=t2[3];
 
 		if (n1.isEastOrWest() && n2.isEastOrWest()){ // both vertical
-			if (! (ax1==bx1) &&
-					(ax2==bx2))
+			if (! ((ax1==bx1) &&
+					(ax2==bx2)))
 				return false;
 			
 			// zamina odcinkow typu 15->9 na 9->15
@@ -77,8 +86,8 @@ public class LayoutUtils {
 				return by2>ay1;
 			}
 		}else if (!n1.isEastOrWest() && !n2.isEastOrWest()){ // both horizontal
-			if (! (ay1==by1) &&
-					(ay2==by2))
+			if (! ((ay1==by1) &&
+					(ay2==by2)))
 				return false;
 			
 //			 zamina odcinkow typu 15->9 na 9->15
@@ -173,7 +182,105 @@ public class LayoutUtils {
 		if (dir.equals("E")) return "W";
 		return null;
 	}
+
 	
 	
+	/**
+	 * oblicza COORD string dla wezla powstalego ze zlaczenia wezlow w vect
+	 * zalozenie ze sa na jednej linii
+	 * zalozenie ze jest ich dwa z uwagi na podzial binarny
+	 * @param vect
+	 * @return
+	 */
+	public static String calculateMergingNodesCoord(ArrayList<Node> vect) {
+		
+		if (vect.size()>2){
+			Logger.LOGGER.error("niebslugiwana liczba arg dla calculateMergingNodesCoord");
+		}else if (vect.size()==1){
+			//zwraca co przyszlo
+			return vect.get(0).getAttribute(HLH.COORD);
+		}
+		Node n1 = vect.get(0);
+		Node n2 = vect.get(1);
+		int [] t1 = LayoutUtils.getWallCoord(n1);
+		int [] t2 = LayoutUtils.getWallCoord(n2);
+		
+		int 
+		ax1=t1[0],
+		ay1=t1[1], 
+		ax2=t1[2],
+		ay2=t1[3],
+		bx1=t2[0],
+		by1=t2[1], 
+		bx2=t2[2],
+		by2=t2[3];
+
+		int resx1=0, resy1=0, resx2=0, resy2=0;
+		
+		if (n1.isEastOrWest() && n2.isEastOrWest()){ // both vertical
+			if (! ((ax1==bx1) && (ax2==bx2))){
+				Logger.LOGGER.error("wezly nie leza na linii");
+				return null;
+			}
+			resx1 = ax1;
+			resx2 = ax1;
+			
+			resy1=LayoutUtils.minValue(ay1,ay2,by1,by2);
+			resy2=LayoutUtils.maxValue(ay1,ay2,by1,by2);
+				
+		}else if (!n1.isEastOrWest() && !n2.isEastOrWest()){ // both horizontal
+			if (! ((ay1==by1) &&	(ay2==by2))){
+				Logger.LOGGER.error("wezly nie leza na linii");
+				return null;
+			}
+			resy1=ay1;
+			resy2=ay2;
+		 
+			resx1=LayoutUtils.minValue(ax1,ax2,bx1,bx2);
+			resx2=LayoutUtils.maxValue(ax1,ax2,bx1,bx2);
+			
+		}else{
+			Logger.LOGGER.error("wezly prostopadle");
+			return null;
+		}
+		
+		return LayoutUtils.getLineString(resx1, resy1, resx2, resy2);
+	}
+	
+	/**
+	 * oblicza minimum z podanego ciagu int
+	 * @param params
+	 * @return
+	 */
+	public static  int minValue(int ... params){
+		
+		int ret = Integer.MAX_VALUE;
+		
+		for(int x:params){
+			if (x<ret){
+				ret =x;
+			}
+		}
+		
+		return ret;
+	}
+	
+	/**
+	 * oblicza maksimum z podanego ciagu int
+	 * @param params
+	 * @return
+	 */
+	public static int maxValue(int ... params){
+		
+		int ret = Integer.MIN_VALUE;
+		
+		for(int x:params){
+			if (x>ret){
+				ret =x;
+			}
+		}
+		
+		return ret;
+	}
 	
 }
