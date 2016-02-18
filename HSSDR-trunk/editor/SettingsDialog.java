@@ -51,6 +51,10 @@ public class SettingsDialog extends JDialog {
 		this.dispose();
 	}
 	
+	/**
+	 * ustawienie podstawowych parametrów z setings dialog niewymagajacych resetu
+	 * inicjalizuje wszystkie layout editory z nowymi wart
+	 */
 	private void applyBasicSettings(){
 		int sizeX;
 		int sizeY;
@@ -62,7 +66,7 @@ public class SettingsDialog extends JDialog {
 		sizeY=Integer.parseInt( vertSize_TF.getText());
 		gridSize=Integer.parseInt( gridSize_TF.getText());
 		gridToMeters=Float.parseFloat( gridMeters_TF.getText());
-		mainWindow.initLayout(sizeX, sizeY, gridToMeters, gridSize);
+		mainWindow.initLayouts(sizeX, sizeY, gridToMeters, gridSize);
 		
 		sensorRange=Integer.parseInt( sensorRange_TF.getText());
 		mainWindow.setSensorRange(sensorRange);
@@ -116,23 +120,32 @@ public class SettingsDialog extends JDialog {
 //		}
 	}
 
+	/**
+	 * ustawia watosci z settings dialog, czysci  i inicjalizuje wszystko.
+	 * dodatkowo tworzy nowa liste layout edytoryw i floors combo -losc pieter moze sie zmienic
+	 * wywoluje applyBasicSettings ktore inicjalizuje layout editory
+	 * @param e
+	 */
 	private void applyAndResetActionPerformed(ActionEvent e) {
+		
 		int floorCount = Integer.parseInt((String )floorNumberComboBox.getSelectedItem() );
-		
-		mainWindow.clearAll();
-		
-		mainWindow.initLayoutEditorsList(  floorCount);
-		mainWindow.initFloorsEditor();
-		
-		mainWindow.initGraph();
-		
-		mainWindow.initFloorsCombo();
+		mainWindow.setFloorCount(floorCount);
 		
 		if (dashedModeVIS_radio.isSelected()){
 			mainWindow.setDashedLineMeansVis(true);
 		}else {
 			mainWindow.setDashedLineMeansVis(false);
 		}
+		
+		
+		mainWindow.clearAll();
+		mainWindow.initLayoutEditorsList();
+		
+		mainWindow.initFloorsEditor();
+		mainWindow.initFloorsCombo();
+		
+		mainWindow.initGraph();
+		
 		
 		applyBasicSettings();
 		

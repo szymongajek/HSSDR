@@ -131,7 +131,7 @@ public class MainWindow extends JFrame implements MessageDisplayer   {
 		initButtonProps(addDoorsbutton);
 		initButtonProps(undoButton);
 		
-		initLayout(sizeX, sizeY, gridToMeters, gridSize);
+		initLayouts(sizeX, sizeY, gridToMeters, gridSize);
 		resetButtons();
 		
 		validationEditor.loadFileList(testFilesSelectionTable);
@@ -139,7 +139,7 @@ public class MainWindow extends JFrame implements MessageDisplayer   {
 	}
 	
 	
-	public void initLayout(int sizeX, int sizeY, float gridToMeters, int gridSize ){
+	public void initLayouts(int sizeX, int sizeY, float gridToMeters, int gridSize ){
 		 
 		for (LayoutEditor editor : layoutEditorsList) {
 			editor.initLayout(sizeX,				
@@ -157,6 +157,15 @@ public class MainWindow extends JFrame implements MessageDisplayer   {
 		undoButton.setVisible(false);
 		roomTypes.setVisible(false);
 		showHideLineLen.setVisible(false); //TODO przywrocic/usunac -nie miesci sie combo
+	}
+	
+	/**
+	 * czyszczenie i przeinicjalizowanie wszystkiego. wywolywane z clear.
+	 */
+	public void clearAndInitAll(){
+		clearAll();
+		initFloorsEditor();
+		initGraph();
 	}
 	
 	public void clearAll(){
@@ -201,13 +210,7 @@ public class MainWindow extends JFrame implements MessageDisplayer   {
 			 currentLayoutEditor.beginRootPath(e.getX(), e.getY());
 			break;
 		case DRAWING_OUTLINE:
-			if (e.getButton()==MouseEvent.BUTTON1){
-				currentLayoutEditor.mode = Mode.EMPTY;
-				currentLayoutEditor.clear();
-				controller.clearGraph();
-				currentLayoutEditor.hideLineLen();
-				break;	
-			}else if (e.getButton()==MouseEvent.BUTTON3){
+			 if (e.getButton()==MouseEvent.BUTTON3){
 				Point ret = currentLayoutEditor.removeLastLineFromRoot(); 
 				if (ret!=null){
 					Robot robot;
@@ -391,18 +394,10 @@ public class MainWindow extends JFrame implements MessageDisplayer   {
 		return HLH.isDashedLineMeansVisible();
 	}
 
-	private void drawModeActionPerformed(ActionEvent e) {
-		
-//		mode=prevDravingMode;
-//		
-//		drawMode.setVisible(false);
-		
-	}
 	
 	private void clearButtonActionPerformed(ActionEvent e) {
 		
-		clearAll();
-//		applyAffineTransofrm();
+		 clearAndInitAll();
 	}
 	
 	private void zoomInButtonActionPerformed(ActionEvent e) {
@@ -651,8 +646,7 @@ public class MainWindow extends JFrame implements MessageDisplayer   {
 	}
 
 	private void clear_menuItemActionPerformed(ActionEvent e) {
-		clearAll();
-		initGraph();
+		clearAndInitAll();
 	}
 
 	private void open_menuItemActionPerformed(ActionEvent e) {
@@ -785,8 +779,7 @@ public class MainWindow extends JFrame implements MessageDisplayer   {
 		
 	}
 	
-	public void initLayoutEditorsList(int pFloorCount){
-		this.floorCount = pFloorCount;
+	public void initLayoutEditorsList(){
 		this.currentFloor=0;
 		layoutEditorsList=new ArrayList<LayoutEditor>();
 		for (int i = 0; i < floorCount ; i++) {
@@ -796,6 +789,7 @@ public class MainWindow extends JFrame implements MessageDisplayer   {
 		
 		initLayoutEditorsListeners();
 	}
+	
 	public void initFloorsEditor(){
 		floorsEditor.reset(layoutEditorsList);
 		floorsEditor.initLayout(sizeX );
@@ -804,7 +798,7 @@ public class MainWindow extends JFrame implements MessageDisplayer   {
 	
 	private void initComponents() {
 		
-		initLayoutEditorsList(DELAULT_FLOORS_COUNT);
+		initLayoutEditorsList();
 	 	 panelFloors=new JPanel()  ;
 		 scrollPane_floors = new JScrollPane();
 		
@@ -1683,5 +1677,9 @@ public class MainWindow extends JFrame implements MessageDisplayer   {
 	}
 	public boolean isRelTypeVisibilitySelected(){
 		return mfRelTypeVis.isSelected();
+	}
+
+	public void setFloorCount(int floorCount) {
+		this.floorCount = floorCount;
 	}
 }
