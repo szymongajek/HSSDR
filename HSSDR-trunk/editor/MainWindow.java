@@ -131,7 +131,7 @@ public class MainWindow extends JFrame implements MessageDisplayer   {
 		initButtonProps(addDoorsbutton);
 		initButtonProps(undoButton);
 		
-		initLayouts(sizeX, sizeY, gridToMeters, gridSize);
+		initLayouts();
 		resetButtons();
 		
 		validationEditor.loadFileList(testFilesSelectionTable);
@@ -139,11 +139,11 @@ public class MainWindow extends JFrame implements MessageDisplayer   {
 	}
 	
 	
-	public void initLayouts(int sizeX, int sizeY, float gridToMeters, int gridSize ){
+	public void initLayouts( ){
 		 
 		for (LayoutEditor editor : layoutEditorsList) {
-			editor.initLayout(sizeX,				
-					sizeY,gridSize, gridToMeters);
+			editor.initLayout(this.sizeX,				
+					this.sizeY,this.gridSize, this.gridToMeters);
 		}
 		
 		tabbedPane1.validate();
