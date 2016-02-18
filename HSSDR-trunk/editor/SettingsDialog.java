@@ -28,6 +28,7 @@ public class SettingsDialog extends JDialog {
 		vertSize_TF.setText(String.valueOf(mainWindow.sizeY));
 		gridSize_TF.setText(String.valueOf(mainWindow.gridSize));
 		gridMeters_TF.setText(String.valueOf(HLH.gridToMeters));
+		sensorRange_TF.setText(String.valueOf(mainWindow.getSensorRange()));
 		
 		if (mainWindow.getDashedLineMeansVis()){
 			dashedModeVIS_radio.setSelected(true);
@@ -70,42 +71,8 @@ public class SettingsDialog extends JDialog {
 		mainWindow.setSensorRange(sensorRange);
 	}
 	
-	private void horSize_TFCaretUpdate(CaretEvent e) {
-		try {
-			Integer.parseInt( horSize_TF.getText());
-		}catch (NumberFormatException ex ){
-			JOptionPane.showMessageDialog(this, "Enter a valid number");
-			horSize_TF.setText(String.valueOf(mainWindow.sizeX));
-		}
-	}
-	
-	private void vertSize_TFCaretUpdate(CaretEvent e) {
-		try {
-			Integer.parseInt( vertSize_TF.getText());
-		}catch (NumberFormatException ex ){
-			JOptionPane.showMessageDialog(this, "Enter a valid number");
-			vertSize_TF.setText(String.valueOf(mainWindow.sizeY));
-		}
-	}
-
-	private void gridSize_TFCaretUpdate(CaretEvent e) {
-		try {
-			Integer.parseInt( gridSize_TF.getText());
-		}catch (NumberFormatException ex ){
-			JOptionPane.showMessageDialog(this, "Enter a valid number");
-			gridSize_TF.setText(String.valueOf(mainWindow.gridSize));
-		}
-	}
-
-	private void gridMeters_TFCaretUpdate(CaretEvent e) {
-		try {
-			Float.parseFloat( gridMeters_TF.getText());
-		}catch (NumberFormatException ex ){
-			JOptionPane.showMessageDialog(this, "Enter a valid number");
-			gridMeters_TF.setText(String.valueOf(HLH.gridToMeters));
-		}
-	}
-
+ 
+ 
 	private void dashedModeACC_radioItemStateChanged(ItemEvent e) {
 //		if (e.getStateChange()==ItemEvent.SELECTED){
 //			mainWindow.setDashedLineMeansVis(false);
@@ -160,7 +127,44 @@ public class SettingsDialog extends JDialog {
 		try{
 			Integer.parseInt(newValue);
 		}catch (NumberFormatException ex ){
-			sensorRange_TF.setText(String.valueOf(mainWindow.DEFAULT_SENSOR_RANGE));
+			JOptionPane.showMessageDialog(this, "Enter a valid number");
+			sensorRange_TF.setText(String.valueOf(mainWindow.getSensorRange()));
+		}
+	}
+
+	private void gridMeters_TFFocusLost(FocusEvent e) {
+		try {
+			Float.parseFloat( gridMeters_TF.getText());
+		}catch (NumberFormatException ex ){
+			JOptionPane.showMessageDialog(this, "Enter a valid number");
+			gridMeters_TF.setText(String.valueOf(HLH.gridToMeters));
+		}
+	}
+
+	private void gridSize_TFFocusLost(FocusEvent e) {
+		try {
+			Integer.parseInt( gridSize_TF.getText());
+		}catch (NumberFormatException ex ){
+			JOptionPane.showMessageDialog(this, "Enter a valid number");
+			gridSize_TF.setText(String.valueOf(mainWindow.gridSize));
+		}
+	}
+
+	private void vertSize_TFFocusLost(FocusEvent e) {
+		try {
+			Integer.parseInt( vertSize_TF.getText());
+		}catch (NumberFormatException ex ){
+			JOptionPane.showMessageDialog(this, "Enter a valid number");
+			vertSize_TF.setText(String.valueOf(mainWindow.sizeY));
+		}
+	}
+
+	private void horSize_TFFocusLost(FocusEvent e) {
+		try {
+			Integer.parseInt( horSize_TF.getText());
+		}catch (NumberFormatException ex ){
+			JOptionPane.showMessageDialog(this, "Enter a valid number");
+			horSize_TF.setText(String.valueOf(mainWindow.sizeX));
 		}
 	}
 
@@ -170,7 +174,7 @@ public class SettingsDialog extends JDialog {
 
 	private void initComponents() {
 		// JFormDesigner - Component initialization - DO NOT MODIFY  //GEN-BEGIN:initComponents
-		// Generated using JFormDesigner Evaluation license - sz gajek
+		// Generated using JFormDesigner Evaluation license - szymon gajek
 		panel1 = new JPanel();
 		horSize_lab = new JLabel();
 		horSize_TF = new JTextField();
@@ -224,10 +228,10 @@ public class SettingsDialog extends JDialog {
 			panel1.add(horSize_lab, cc.xy(3, 1, CellConstraints.CENTER, CellConstraints.DEFAULT));
 
 			//---- horSize_TF ----
-			horSize_TF.addCaretListener(new CaretListener() {
+			horSize_TF.addFocusListener(new FocusAdapter() {
 				@Override
-				public void caretUpdate(CaretEvent e) {
-					horSize_TFCaretUpdate(e);
+				public void focusLost(FocusEvent e) {
+					horSize_TFFocusLost(e);
 				}
 			});
 			panel1.add(horSize_TF, cc.xy(5, 1));
@@ -237,10 +241,10 @@ public class SettingsDialog extends JDialog {
 			panel1.add(vertSize_lab, cc.xy(3, 3, CellConstraints.CENTER, CellConstraints.CENTER));
 
 			//---- vertSize_TF ----
-			vertSize_TF.addCaretListener(new CaretListener() {
+			vertSize_TF.addFocusListener(new FocusAdapter() {
 				@Override
-				public void caretUpdate(CaretEvent e) {
-					vertSize_TFCaretUpdate(e);
+				public void focusLost(FocusEvent e) {
+					vertSize_TFFocusLost(e);
 				}
 			});
 			panel1.add(vertSize_TF, cc.xy(5, 3));
@@ -250,10 +254,10 @@ public class SettingsDialog extends JDialog {
 			panel1.add(gridSize_lab, cc.xy(3, 5, CellConstraints.CENTER, CellConstraints.DEFAULT));
 
 			//---- gridSize_TF ----
-			gridSize_TF.addCaretListener(new CaretListener() {
+			gridSize_TF.addFocusListener(new FocusAdapter() {
 				@Override
-				public void caretUpdate(CaretEvent e) {
-					gridSize_TFCaretUpdate(e);
+				public void focusLost(FocusEvent e) {
+					gridSize_TFFocusLost(e);
 				}
 			});
 			panel1.add(gridSize_TF, cc.xy(5, 5));
@@ -263,10 +267,10 @@ public class SettingsDialog extends JDialog {
 			panel1.add(gridMeters_lab, cc.xy(3, 7, CellConstraints.CENTER, CellConstraints.DEFAULT));
 
 			//---- gridMeters_TF ----
-			gridMeters_TF.addCaretListener(new CaretListener() {
+			gridMeters_TF.addFocusListener(new FocusAdapter() {
 				@Override
-				public void caretUpdate(CaretEvent e) {
-					gridMeters_TFCaretUpdate(e);
+				public void focusLost(FocusEvent e) {
+					gridMeters_TFFocusLost(e);
 				}
 			});
 			panel1.add(gridMeters_TF, cc.xy(5, 7));
@@ -415,7 +419,7 @@ public class SettingsDialog extends JDialog {
 	}
 
 	// JFormDesigner - Variables declaration - DO NOT MODIFY  //GEN-BEGIN:variables
-	// Generated using JFormDesigner Evaluation license - sz gajek
+	// Generated using JFormDesigner Evaluation license - szymon gajek
 	private JPanel panel1;
 	private JLabel horSize_lab;
 	private JTextField horSize_TF;
