@@ -89,14 +89,12 @@ public class MainWindow extends JFrame implements MessageDisplayer   {
 	public static final int DEFAULT_SIZE_X=900;
 	public static final int DEFAULT_SIZE_Y=420;
 	public static final int DEFAULT_GRID_SIZE=20;
-	public static final float DEFAULT_GRID_METERS=1;
 	
 	Controller controller;
 	
 	public int sizeX=DEFAULT_SIZE_X;
 	public int sizeY=DEFAULT_SIZE_Y;
 	public int gridSize=DEFAULT_GRID_SIZE;
-	public float gridToMeters=DEFAULT_GRID_METERS;
 	
 	boolean showLineLen =true;
 	
@@ -143,7 +141,7 @@ public class MainWindow extends JFrame implements MessageDisplayer   {
 		 
 		for (LayoutEditor editor : layoutEditorsList) {
 			editor.initLayout(this.sizeX,				
-					this.sizeY,this.gridSize, this.gridToMeters);
+					this.sizeY,this.gridSize);
 		}
 		
 		tabbedPane1.validate();
@@ -190,7 +188,7 @@ public class MainWindow extends JFrame implements MessageDisplayer   {
 	}
 	
 	public void initGraph(){
-		controller.initGraph(gridToMeters, sensorRange, floorCount);
+		controller.initGraph( sensorRange, floorCount);
 	}
  
 	
@@ -319,7 +317,7 @@ public class MainWindow extends JFrame implements MessageDisplayer   {
 				currentLayoutEditor.hideLineLen();
 				
 				currentLayoutEditor.mode =Mode.OUTLINE_FINISHED;
-				controller.startOutline(currentLayoutEditor.getRootPath(), gridToMeters, DEFAULT_SENSOR_RANGE, currentFloor);
+				controller.startOutline(currentLayoutEditor.getRootPath(), DEFAULT_SENSOR_RANGE, currentFloor);
    		
 				SolidMode.setVisible(true);
 				DashedMode.setVisible(true);
@@ -379,11 +377,12 @@ public class MainWindow extends JFrame implements MessageDisplayer   {
 
 	public void setSelectedAreaInfo(Path selected){
 		if (selected==null){
-			RoomLabel.setText("---");
+			RoomLabel.setText("");
 			areaValueLabel.setText("");
 		}else{
 			RoomLabel.setText(selected.getUserLabel());
-			areaValueLabel.setText(String.valueOf(selected.getAreaValue()));
+			float areaMeters = HLH.calcGridToMetersArea(selected.getAreaValue());
+			areaValueLabel.setText(String.valueOf(areaMeters));
 		}
 	}
 	
@@ -1537,7 +1536,7 @@ public class MainWindow extends JFrame implements MessageDisplayer   {
 		currentLayoutEditor.setRootPath(outline);
 		
 		currentLayoutEditor.mode =Mode.OUTLINE_FINISHED;
-		controller.startOutline(currentLayoutEditor.getRootPath(), gridToMeters, DEFAULT_SENSOR_RANGE);
+		controller.startOutline(currentLayoutEditor.getRootPath(),  DEFAULT_SENSOR_RANGE);
 	
 		SolidMode.setVisible(true);
 		DashedMode.setVisible(true);

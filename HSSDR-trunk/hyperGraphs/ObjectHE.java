@@ -340,7 +340,7 @@ public class ObjectHE extends HyperEdge
     	return nodes.get(number).getDirection();
     }
     /*
-     * zwraca dlugosc i-tej sciany z hiperkrawedzi
+     * zwraca dlugosc i-tej sciany z hiperkrawedzi w kratkach
      */
     public int  getWallLen(int number){
     	return Integer.parseInt(nodes.get(number).getAttribute(HLH.LEN));

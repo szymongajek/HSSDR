@@ -17,8 +17,8 @@ public class MovingRobotChecker
 		for (ObjectHE r : rooms)
 			if (r.getWallNodes().size()==4){
 //				 prostokatne
-				 int rectX = r.getWallLen(0);
-				 int rectY = r.getWallLen(1);
+				 float rectX = HLH.calcGridToMetersLen(r.getWallLen(0));
+				 float rectY = HLH.calcGridToMetersLen(r.getWallLen(1));
 				 
 				err=Robot.checkRect(rectX,rectY);
 				if (!err.equals("")){
@@ -131,9 +131,9 @@ public class MovingRobotChecker
 		if (vertical){
 			 if (r.getWallDir(0). equals("E")
 					 || r.getWallDir(0). equals("W")){
-				return  posOfLargestNr(r.getWallLen(0), r.getWallLen(2), r.getWallLen(4))*2;
+				return  posOfLargestNr(HLH.calcGridToMetersLen(r.getWallLen(0)), HLH.calcGridToMetersLen(r.getWallLen(2)), HLH.calcGridToMetersLen(r.getWallLen(4)))*2;
 			 }else{
-				 return  posOfLargestNr(r.getWallLen(1), r.getWallLen(3), r.getWallLen(5))*2+1;
+				 return  posOfLargestNr(HLH.calcGridToMetersLen(r.getWallLen(1)), HLH.calcGridToMetersLen(r.getWallLen(3)), HLH.calcGridToMetersLen(r.getWallLen(5)))*2+1;
 			 }
 			
 		}else{
@@ -147,7 +147,7 @@ public class MovingRobotChecker
 
 	}
 	
-	public static int  posOfLargestNr(int x, int y, int z){
+	public static int  posOfLargestNr(float x, float y, float z){
 		if (x>y && x>z) return 0;
 		if (y>x && y>z) return 1;
 		if (z>x && z>y) return 2;

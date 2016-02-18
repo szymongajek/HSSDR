@@ -4,6 +4,8 @@
 
 package editor;
 
+import hyperGraphs.HLH;
+
 import java.awt.*;
 import java.awt.event.*;
 import javax.swing.*;
@@ -25,7 +27,7 @@ public class SettingsDialog extends JDialog {
 		horSize_TF.setText(String.valueOf(mainWindow.sizeX));
 		vertSize_TF.setText(String.valueOf(mainWindow.sizeY));
 		gridSize_TF.setText(String.valueOf(mainWindow.gridSize));
-		gridMeters_TF.setText(String.valueOf(mainWindow.gridToMeters));
+		gridMeters_TF.setText(String.valueOf(HLH.gridToMeters));
 		
 		if (mainWindow.getDashedLineMeansVis()){
 			dashedModeVIS_radio.setSelected(true);
@@ -61,7 +63,7 @@ public class SettingsDialog extends JDialog {
 		mainWindow.sizeX=Integer.parseInt( horSize_TF.getText());
 		mainWindow.sizeY=Integer.parseInt( vertSize_TF.getText());
 		mainWindow.gridSize=Integer.parseInt( gridSize_TF.getText());
-		mainWindow.gridToMeters=Float.parseFloat( gridMeters_TF.getText());
+		HLH.gridToMeters=Float.parseFloat( gridMeters_TF.getText());
 		mainWindow.initLayouts();
 		
 		sensorRange=Integer.parseInt( sensorRange_TF.getText());
@@ -100,7 +102,7 @@ public class SettingsDialog extends JDialog {
 			Float.parseFloat( gridMeters_TF.getText());
 		}catch (NumberFormatException ex ){
 			JOptionPane.showMessageDialog(this, "Enter a valid number");
-			gridMeters_TF.setText(String.valueOf(mainWindow.gridToMeters));
+			gridMeters_TF.setText(String.valueOf(HLH.gridToMeters));
 		}
 	}
 

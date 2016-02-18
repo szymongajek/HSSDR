@@ -38,8 +38,6 @@ public class Path {
 	private int roomType=0;
 	private int floorNr;
 	
-	private int gridMeteres=1;
-	
 	//wymiary planszy na ktorej rysowany jest Path
 	protected int maxX;
 	protected int maxY;
@@ -370,7 +368,7 @@ public class Path {
 		for (int wallNr = 0; wallNr <= size()-2; wallNr++) {
 			Node n = new Node();
 			n.setFloor(floorNr);
-			int len = getLineLen(wallNr)* gridMeteres;
+			int len = getLineLen(wallNr);
 			String dir=getLineDir(wallNr);
 			n.setAttribute(HLH.LEN, String.valueOf(len));
 			n.setDirection(dir);
@@ -615,14 +613,12 @@ public class Path {
 		 
 		return -1;
 	}
-	
-	public double getAreaValue() {
-		return  interiorCount*gridMeteres;
+	/** powierzchnia w kratkach
+	*/
+	public int getAreaValue() {
+		return  interiorCount;
 	}
   
-	public int getGridMeteres() {
-		return gridMeteres;
-	}
 	 
 	public int[][] getInterior() {
 		return interior;
@@ -996,9 +992,7 @@ public class Path {
 		this.nestedPaths= new ArrayList<Path>();
 		
 	}
-	public void setGridMeteres(int gridMeteres) {
-		this.gridMeteres = gridMeteres;
-	}
+	
 	public void setRoomType(int roomType) {
 		this.roomType = roomType;
 	}

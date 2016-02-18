@@ -42,7 +42,6 @@ public class LayoutEditor extends JPanel {
 
 	private double zoomSpeed=10.0/100.0; // szybko��  powiekszenia
 	private int gridSize=20; // co ile px siatka
-	private float gridMeteres=0;
 	
 	private boolean initialized = false;
 	
@@ -107,14 +106,13 @@ public class LayoutEditor extends JPanel {
 		editedPath = new Path(sizeX/gridSize, sizeY/gridSize, floorNr );
 	}
 
-	public void initLayout(int sizeX,int sizeY, int gridSize, float meteres){
+	public void initLayout(int sizeX,int sizeY, int gridSize){
 		
 		this.initialized=true;
 		
 		this.sizeX=sizeX;
 		this.sizeY=sizeY;
 		this.gridSize =gridSize;
-		this.gridMeteres=meteres;
  
 		this.setPreferredSize(new Dimension(sizeX,sizeY));
 		this.setSize(sizeX, sizeY);
@@ -224,7 +222,7 @@ public class LayoutEditor extends JPanel {
 	 	 // wyswietlanie dlugosci linii
 	 		if (showLineMeteres!=-1){
 	 			 g2D.setColor(Color.blue);
-	 			 g2D.drawString(String.valueOf(showLineMeteres*gridMeteres)+" m", showLineX, showLineY);
+	 			 g2D.drawString(String.valueOf(HLH.calcGridToMetersLen(showLineMeteres))+" m", showLineX, showLineY);
 	 		}
 	 		
 	 		 // w tarakcie dodawania czujnika

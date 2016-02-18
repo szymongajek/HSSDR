@@ -43,9 +43,9 @@ public class Controller
         HGBrowser.clear();
     }
     
-    public void initGraph(float gridToMeters, int sensorRange, int floorCount )
+    public void initGraph( int sensorRange, int floorCount )
     {
-    	graph = new HLH(gridToMeters, sensorRange, floorCount) ;
+    	graph = new HLH( sensorRange, floorCount) ;
         HGBrowser.setGraph(graph);
         setHGBrowserCurrentFloor(0);
     }
@@ -53,15 +53,15 @@ public class Controller
     	HGBrowser.setCurrentFloor(floorNr);
     }
 
-    public void startOutline(Path rootPath, float gridToMeters, int sensorRange, int floorNr)
+    public void startOutline(Path rootPath,   int sensorRange, int floorNr)
     {
-        graph.createRootEdge(rootPath.createObjectHE(null,0, floorNr),gridToMeters,sensorRange, floorNr );
+        graph.createRootEdge(rootPath.createObjectHE(null,0, floorNr) ,sensorRange, floorNr );
         checkLayout();
     }
     
-    public void startOutline(Path rootPath, float gridToMeters, int sensorRange )
+    public void startOutline(Path rootPath,  int sensorRange )
     {
-    	startOutline(  rootPath,   gridToMeters,   sensorRange, 0);
+    	startOutline(  rootPath,   sensorRange, 0);
     }
 
     public void developArea(Path developedPath, ArrayList newObjects, int level)
@@ -195,6 +195,7 @@ public class Controller
 	
     public void checkLayout()
     {
+//    	if (true)return;
     	// roboty
         //GraphMessage meesage[] = CheckerPlugin.checkStructure(graph);
         //messageDisplayer.displayMessageAndHighlight(meesage);
