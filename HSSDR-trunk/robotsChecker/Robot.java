@@ -10,7 +10,7 @@ public class Robot {
 	static double sqrt2 = Math.sqrt(2);
 	
 	//proste sprawdzanie czy robot moze przejechac przez pokoj
-	public static String checkRect(int rectX, int rectY) {
+	public static String checkRect(float rectX, float rectY) {
 		if (rectX<=rectY){
 			if (rx>rectX || ry>rectY)
 				return "Unpassable room for robot: (rect "+rectX+"x"+rectY+")";

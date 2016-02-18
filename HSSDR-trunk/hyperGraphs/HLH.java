@@ -92,11 +92,12 @@ public class HLH
     private Hashtable<String,DoorsAttributes> doorsMap;
     private ArrayList<HGSensor> sensors;
     
-    float gridToMeters;
+    public static final float DEFAULT_GRID_METERS=1;
+    public static float gridToMeters=DEFAULT_GRID_METERS;
     
     int floorCount=0;
 
-    public HLH(float gridToMeters, int sensorRange, int floorCount)
+    public HLH( int sensorRange, int floorCount)
     {
         objectHEMap = new Hashtable<String,ObjectHE>();
         doorsMap = new Hashtable<String,DoorsAttributes>();
@@ -117,7 +118,7 @@ public class HLH
         
     }
     
-    public void createRootEdge(ObjectHE rootEdge, float gridToMeters, int sensorRange, int floorNr)
+    public void createRootEdge(ObjectHE rootEdge,  int sensorRange, int floorNr)
     {
         rootEdge.setLevel(0);//poziom zaglebienia
         if (floorNr==0) this.rootEdgeGroundFloor = rootEdge;
@@ -125,7 +126,6 @@ public class HLH
         rootEdgeGraph.addChildElement(rootEdge);
         rootEdge.setParentEdge(rootEdgeGraph);
         objectHEMap.put(rootEdge.getAttribute(HLH.LABEL), rootEdge);
-        this.gridToMeters=gridToMeters;
         HGSensor.range=sensorRange;
     }
 
@@ -348,7 +348,8 @@ public class HLH
         structure.addFunction("area", area);
     	
         for (ObjectHE he : getAllRooms()){
-        	area.add(new ObjectHE[]{he},Double.valueOf(he.getAttribute(HLH.AREA)));
+        	Double areaMeters = Double.valueOf(HLH.calcGridToMetersArea(he)) ;
+        	area.add(new ObjectHE[]{he},areaMeters);
         }
         
         // sensors
@@ -663,5 +664,29 @@ public class HLH
 		
 		return newRel;
 	}
+	
+	/**
+	 * zamienia wielkosc wyrazona w kratkach na metry na podstawie ustawien gridToMeters
+	 * @param x
+	 * @return
+	 */
+	public static float calcGridToMetersLen(float x ){
+		return x*gridToMeters;
+	}
+	
+	/**
+	 * zamienia wielkosc powierzchni wyrazona w kratkach na metry na podstawie ustawien gridToMeters
+	 * @param x
+	 * @return
+	 */
+	public static float calcGridToMetersArea(float x ){
+		return x*gridToMeters*gridToMeters;
+	}
+	 
+	public static float calcGridToMetersArea(ObjectHE he ){
+		int areaVal = Integer.valueOf(he.getAttribute(HLH.AREA));
+		return  HLH.calcGridToMetersArea(areaVal);
+	}
+	
 	
 }
