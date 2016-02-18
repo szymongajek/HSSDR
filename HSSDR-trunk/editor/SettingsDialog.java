@@ -56,17 +56,13 @@ public class SettingsDialog extends JDialog {
 	 * inicjalizuje wszystkie layout editory z nowymi wart
 	 */
 	private void applyBasicSettings(){
-		int sizeX;
-		int sizeY;
-		int gridSize;
-		float gridToMeters;
 		int sensorRange;
 		
-		sizeX=Integer.parseInt( horSize_TF.getText());
-		sizeY=Integer.parseInt( vertSize_TF.getText());
-		gridSize=Integer.parseInt( gridSize_TF.getText());
-		gridToMeters=Float.parseFloat( gridMeters_TF.getText());
-		mainWindow.initLayouts(sizeX, sizeY, gridToMeters, gridSize);
+		mainWindow.sizeX=Integer.parseInt( horSize_TF.getText());
+		mainWindow.sizeY=Integer.parseInt( vertSize_TF.getText());
+		mainWindow.gridSize=Integer.parseInt( gridSize_TF.getText());
+		mainWindow.gridToMeters=Float.parseFloat( gridMeters_TF.getText());
+		mainWindow.initLayouts();
 		
 		sensorRange=Integer.parseInt( sensorRange_TF.getText());
 		mainWindow.setSensorRange(sensorRange);
