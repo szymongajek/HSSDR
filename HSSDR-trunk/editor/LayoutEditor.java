@@ -576,6 +576,7 @@ public class LayoutEditor extends JPanel {
 		
 		developedPath=null;
 		highlitedPath=null;
+		groundFloorOutline=null;
 		
 		markedGrigX =0;
 		markedGrigY=0;
