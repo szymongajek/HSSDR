@@ -36,7 +36,7 @@ public class SettingsDialog extends JDialog {
 			dashedModeACC_radio.setSelected(true);
 		}
 		
-		floorNumberComboBox.setSelectedIndex(MainWindow.DELAULT_FLOORS_COUNT-1);
+		floorNumberComboBox.setSelectedItem(String.valueOf(mainWindow.getFloorCount()));
 	}
 
 	public SettingsDialog(Dialog owner) {
@@ -107,10 +107,8 @@ public class SettingsDialog extends JDialog {
 		mainWindow.initLayoutEditorsList();
 		
 		mainWindow.initFloorsEditor();
-		mainWindow.initFloorsCombo();
-		
 		mainWindow.initGraph();
-		
+		mainWindow.initFloorsCombo();
 		
 		applyBasicSettings();
 		

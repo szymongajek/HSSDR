@@ -21,7 +21,7 @@ public class HyperGraphEditor extends JPanel implements HyperGraphBrowser {
 	private int sizeX , sizeY ; // pocztakowy rozmiar planszy  
 
 	public static double zoomedTo; // skala powiekszenia
-	public static double zoomSpeed = 10.0 / 100.0; // szybkoœæ powiekszenia
+	public static double zoomSpeed = 10.0 / 100.0; // szybkoï¿½ï¿½ powiekszenia
 
 	// TODO: ustawic to!!!!
 	public static int metersToPixels = 20; // ile px narysowac dla metra
@@ -61,6 +61,7 @@ public class HyperGraphEditor extends JPanel implements HyperGraphBrowser {
 
 	public void clear(int sizeX, int sizeY) {
 		graphRoot = null;
+		currentFloor=0;
 
 		this.sizeX = sizeX;
 		this.sizeY = sizeY;
