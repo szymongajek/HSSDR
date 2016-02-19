@@ -5,6 +5,7 @@ import folf.Result;
 import folf.Structure;
 import folf.Suite;
 import folf.Vocabulary;
+import hyperGraphs.GraphMessage;
 import hyperGraphs.HLH;
 import hyperGraphs.ObjectHE;
 import hyperGraphs.HGSensor;
@@ -16,6 +17,7 @@ import java.util.Map;
 import java.util.NoSuchElementException;
 
 import rectangularBoard.Path;
+import robotsChecker.CheckerPlugin;
 import sensors.Sensor;
 import util.Logger;
 
@@ -117,6 +119,14 @@ public class Controller
 
     private static final Parser parser = new Parser();
     
+    /**
+     * sprawdzenie zestawu testow z pliku fname, dla structure i vocabulary w parametrach
+     * 
+     * @param structure
+     * @param vocabulary
+     * @param fname
+     * @return
+     */
 	public static Object[] checkLayout(Structure structure, Vocabulary vocabulary,
 			String fname) {
 
@@ -193,14 +203,14 @@ public class Controller
 		
 	}
 	
+	/**
+	 * Sprawdzanie dla grafu przechowywanego w graph wywolywane w petli dla kazdego zaznaczonego pliku
+	 * 
+	 */
     public void checkLayout()
     {
 //    	if (true)return;
-    	// roboty
-        //GraphMessage meesage[] = CheckerPlugin.checkStructure(graph);
-        //messageDisplayer.displayMessageAndHighlight(meesage);
-        
-        // testy
+    	messageDisplayer.clearMessages();
         
         Vocabulary vocabulary;
 		Structure structure;
@@ -229,6 +239,15 @@ public class Controller
         Logger.LOGGER.debug(structure.toString());
         
        messageDisplayer.displayMessageAndHighlight(resultMessage.toString(),roomsToHighlight);
+    }
+    
+    /**
+     * testy robotow mobilnych
+     */
+    @Deprecated
+    public void mobileRobotsChecks(){
+        GraphMessage meesage[] = CheckerPlugin.checkStructure(graph);
+        messageDisplayer.displayMessageAndHighlight(meesage.toString(), new ArrayList<String>());
     }
     
     public HLH getGraph(){

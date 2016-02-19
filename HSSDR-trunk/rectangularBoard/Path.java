@@ -1209,10 +1209,12 @@ public class Path {
 	
 	public String toString(){
 		String ret="(fl:"+floorNr+") ";
-		ret+=getX(0)+","+getY(0);
-		
-		for (int i = 1; i < this.size(); i++) {
-			ret+=( (getLineKind(i)==LINE_SOLID)?"__":"_ _" )+getX(i)+","+getY(i);
+		if (this.size()>0){
+			ret+=getX(0)+","+getY(0);
+			
+			for (int i = 1; i < this.size(); i++) {
+				ret+=( (getLineKind(i)==LINE_SOLID)?"__":"_ _" )+getX(i)+","+getY(i);
+			}
 		}
 		return ret;
 	}
