@@ -1052,7 +1052,9 @@ public class LayoutEditor extends JPanel {
 	public void hihglightRooms(ArrayList<String> roomsToHighlight) {
 		for (String s: roomsToHighlight){
 			Path p = rootPath.findPathByUserLabel(s);
-			alertedPaths.add(p);
+			if (p!=null){
+				alertedPaths.add(p);
+			}
 		}
 		
 	}

@@ -1630,19 +1630,22 @@ public class MainWindow extends JFrame implements MessageDisplayer   {
 	public ValidationEditor getValidationEditor(){
 		return validationEditor;
 	}
-
-//	public void displayMessageAndHighlight(GraphMessage[] tab) {
-//		 System.out.println(tab);
-//		 for (int i = 0; i < tab.length; i++) {
-//			 JOptionPane.showMessageDialog(null, tab[i].getMessage(), "Plugin info", 1);
-////			 TODO podswietlanie wierz
-//		}
-//	}
-
+	@Override
 	public void displayMessageAndHighlight(String message, ArrayList<String> roomsToHighlight) {
 		validationMessage.setText(message);
-		currentLayoutEditor.hihglightRooms(roomsToHighlight);
+		for (LayoutEditor floor : layoutEditorsList) {
+			floor.hihglightRooms(roomsToHighlight);
+		}
 		repaint();
+	}
+	
+	@Override
+	public void clearMessages() {
+		validationMessage.setText("");
+		for (LayoutEditor floor : layoutEditorsList) {
+			floor.clearHihglightedRooms();
+		}
+		
 	}
  
 	
