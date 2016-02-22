@@ -5,6 +5,12 @@
 package editor;
 
 import java.awt.*;
+import java.awt.image.BufferedImage;
+import java.io.File;
+import java.io.IOException;
+import java.nio.file.Paths;
+
+import javax.imageio.ImageIO;
 import javax.swing.*;
 import com.jgoodies.forms.layout.*;
 
@@ -15,43 +21,62 @@ public class AboutDialog extends JDialog {
 	public AboutDialog(Frame owner) {
 		super(owner);
 		initComponents();
+		
+//		BufferedImage myPicture;
+//		try {
+//			myPicture = ImageIO.read(Paths.get("editor","helpContents","pietra2.bmp" ).toFile());
+//
+//			pictureLabel = new JLabel(new ImageIcon(myPicture));
+//			//			JLabel picLabel = new JLabel(new ImageIcon(myPicture));
+////			add(picLabel);
+//		} catch (IOException e) {
+//			// TODO Auto-generated catch block
+//			e.printStackTrace();
+//		}
+	
 	}
 
 
 	private void initComponents() {
 		// JFormDesigner - Component initialization - DO NOT MODIFY  //GEN-BEGIN:initComponents
-		// Generated using JFormDesigner Evaluation license - sz gajek
-		panel1 = new JPanel();
-		CellConstraints cc = new CellConstraints();
+		// Generated using JFormDesigner Evaluation license - szymon gajek
+		scrollPane1 = new JScrollPane();
+		BufferedImage myPicture;
+		try {
+			myPicture = ImageIO.read(Paths.get("editor","helpContents","pietra2.bmp" ).toFile());
 
-		//======== this ========
+			pictureLabel = new JLabel(new ImageIcon(myPicture));
+			//			JLabel picLabel = new JLabel(new ImageIcon(myPicture));
+//			add(picLabel);
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+//		CellConstraints cc = new CellConstraints();
+//
+//		//======== this ========
 		Container contentPane = getContentPane();
-		contentPane.setLayout(new FormLayout(
-			"default:grow",
-			"2*(default, $lgap), default"));
+//		contentPane.setLayout(new FormLayout(
+//			"default:grow",
+//			"fill:default:grow"));
 
-		//======== panel1 ========
+		//======== scrollPane1 ========
 		{
 
-			// JFormDesigner evaluation mark
-			panel1.setBorder(new javax.swing.border.CompoundBorder(
-				new javax.swing.border.TitledBorder(new javax.swing.border.EmptyBorder(0, 0, 0, 0),
-					"", javax.swing.border.TitledBorder.CENTER,
-					javax.swing.border.TitledBorder.BOTTOM, new java.awt.Font("Dialog", java.awt.Font.BOLD, 12),
-					java.awt.Color.red), panel1.getBorder())); panel1.addPropertyChangeListener(new java.beans.PropertyChangeListener(){public void propertyChange(java.beans.PropertyChangeEvent e){if("border".equals(e.getPropertyName()))throw new RuntimeException();}});
-
-			panel1.setLayout(new FormLayout(
-				"default",
-				"default"));
+			//---- pictureLabel ----
+//			pictureLabel.setText("text");
+//			scrollPane1.setViewportView(pictureLabel);
 		}
-		contentPane.add(panel1, cc.xy(1, 1));
+//		contentPane.add(scrollPane1, cc.xy(1, 1, CellConstraints.FILL, CellConstraints.FILL));
+		contentPane.add(pictureLabel);
 		pack();
 		setLocationRelativeTo(getOwner());
 		// JFormDesigner - End of component initialization  //GEN-END:initComponents
 	}
 
 	// JFormDesigner - Variables declaration - DO NOT MODIFY  //GEN-BEGIN:variables
-	// Generated using JFormDesigner Evaluation license - sz gajek
-	private JPanel panel1;
+	// Generated using JFormDesigner Evaluation license - szymon gajek
+	private JScrollPane scrollPane1;
+	private JLabel pictureLabel;
 	// JFormDesigner - End of variables declaration  //GEN-END:variables
 }
