@@ -1,0 +1,214 @@
+<html>
+ <head>
+<meta charset="UTF-8">
+</head>
+<body>
+ 
+ <!--  =====================================+++++++++++++++++++++++++++++========================================--> 
+ 
+ 
+<h1>Główne okno programu</h1> 
+  
+ Po uruchomieniu programu widoczne jest główne okno z wybraną zakładką edytora rozkładów pomieszczeń. Jego podstawowe elementy to:
+  <ol>
+<li>Menu głównych opcji.</li>
+<li>Menu ustawień.</li>
+<li>Menu pomocy.</li>
+<li>Zakładka edytora rozkładów pomieszczeń.</li>
+<li>Zakładka widoku pięter.</li>
+<li>Zakładka podglądu hipergafów.</li>
+<li>Zakładka walidacji projektu.</li>
+<li>Panel główny.</li>
+<li>Lewy panel.</li>
+ </ol>
+ <p>
+ Za pomocą zakładek(4,5,6,7) możliwa jest zmiana kontekstu pracy pomiędzy edycją rozkłądu pomieszczeń pojedynczego piętra, edycją relacji pomiędzy piętrami, a edycją lub wyborem zestawów testów zgodności które są wykonywane dla projektu.
+ Po zmianie zakładek zmienia się zawartość panelu głównego(8) oraz akcje dostępne w lewym panelu(9).
+ </p>
+ <br/>
+ <img alt="" src="UI_layout_editor.png"/> 
+
+
+
+
+ <!--  =====================================+++++++++++++++++++++++++++++========================================--> 
+ <br/> 
+<h1>Tworzenie rozkładu pomieszczeń </h1>
+ 
+<p>
+Tworzenie rozkładu pomieszczeń rozpoczyna się od narysowania obrysu. Następnie może on być dzielony na mniejsze pomieszczenia, można nanosić 
+dodatkowe elementy oraz cofać swoje akcje. Aby określenić rozmiaru dostępnego arkusza, gęstości siatki i inne parametry należy przed rozpoczęciem 
+projektowania skorzystać z ustawień systemu. Możliwa jest zmiana wielkości widoku za pomocą przycisków ("+", "-") górnej części lewego panelu.
+</p>
+<p>
+ Aby rozpocząć rysowanie obrysu należy nacisnąć lewy przycisk myszy na kratkowanym obszarze. 
+ Następnie przesuwając kursor po siatce dodawane są kolejne odcinki.<b>Aby wycofać się z aktualnie rysowanej linii należy nacisnąć prawy przycisc myszy.</b> 
+ Rysowanie obrysu kończy się w momencie zapętlenia łamanej. </p>
+ <img alt="" src="layout_contour.png"/> 
+<p>
+ Po stworzeniu obrysu można dowolnie dzielić obszary na mniejsze. Aby dokonać podziału należy zaznaczyć wybrany obszar klikając na niego lewym przyciskiem 
+ myszy.
+ Następnie, po kliknięciu na krawędzi zaznaczonego obszaru rozpoczyna się rysowanie linii podziału. <b>Aby wycofać się z aktualnie rysowanej linii należy 
+ nacisnąć prawy przycisc myszy.</b> 
+ Linia podziału kończy się w momencie osiągniecia krawędzi obszaru, w tym samym momencie obszar jest dzielony.
+</p>
+ <img alt="" src="layout_division.png"/> 
+<p>
+W celu wprowadzenia właściwości obszaru również nalezy go zaznaczyć, klikając lewym przyciskiem myszy. Zaznaczone obszary kolorowane są na żółto, 
+obszary pod kursorem na niebiesko. Aby odznaczyć należy ponownie kliknąć na zaznaczony obszar lub zaznaczyć inny.
+Dla zacznaczonego obszaru można w lewym panelu wprowadzić jego nazwę (pole Area Label) oraz wybrać rodzaj pomieszczenia (list rozwijana Area Type). 
+W kolejnym polu wyświetlnana jest powierzchnia obszaru. 
+</p>
+ <img alt="" src="layout_select_edit.png"/> 
+
+ 
+ <p>
+Dolne menu składa sie z nastepujących elementów:
+
+</p>
+  <ol>
+<li>Przycisk zmiany na ciąglą linie podziału.</li>
+<li>Przycisk zmiany na przerywaną linie podziału.</li>
+<li>Przycisk dodawania drzwi.</li>
+<li>Przycisk cofania podziału.</li>
+<li>Przycisk kasowania projektu .</li>
+<li>Przycisk wywoływania testów zgodności.</li>
+<li>Konsola walidacji projektu.</li>
+ </ol>
+ <img alt="" src="menu_bottom.png"/> 
+  
+ <p>
+ Przyciski 1 i 2 pozwalają na zmianę linii podziału pomiędzy linią ciągłą a przerywaną. Linia przerywana oznacza w zależności od wybranej konfiguracji:
+ <ul>
+<li>oddzielenie od siebie pomieszczeń w sensie logicznym, bez oddzielenia ich fizycznie, np. kuchnia połączona z salonem.</li>
+<li>relacje widoczności pomiędzy pomieszczeniami, np. biuro ze szklaną ścianą. W przypadku takiej krawędzi może ona zawierać również symbol drzwi, żeby oznaczyć dostępność.</li>
+</ul>
+</p>
+ <img alt="" src="layout_dotted.png"/> 
+
+ <p>
+ Naciśnie przycisku dodawania drzwi(3) powoduje przejście w tryb dodawania drzwi. Mogą one być umieszczane tylko na ścianach. 
+ Aby wyjść z trybu dodawania drzwi nalezy ponownie nacisnąć ten przycisk.
+</p>
+  <img alt="" src="layout door.png"/> 
+ 
+ <p>
+ Za pomocą przycisku cofania podziału(4), aktywuje się nowe okno pokazujące historię dokonanych w projekcie podziałów. 
+ Po kliknięciu na na węzeł w drzewie podziałów, pomieszczenia powstale w jego wyniku zostają podświetlone. 
+ Nastepnie klikając przycisk poniżej można usunąć zaznaczony podział. Tylko podziały na dole hierarchii mogą być usuwane. 
+ Aby usunąć podział znajdujący się wyżej w hierarchii, należy najpierw usunać późniejsze podziały. Aby zamknąć okno historii podziałów
+ należy ponownie nacisnąć przycisku cofania podziału(4).
+ 
+</p>
+ <img alt="" src="layout undo.png"/> 
+ 
+ <p>
+ Przycisk kasowania(5) usuwa cały projekt.
+</p>
+  <p>
+ Przycisk wywoływania testów zgodności(6) powoduje wykonanie aktualnie wybranych testów. Ich wyniki prezentowane są w konsoli walidacji projektu(7).
+</p>
+ 
+ <p>
+ Do projektu mozna dodawać również czujniki bezpieczeństwa, reprezentujące takie urządzenia jak czujnik ruchu, kamery przemysłowe, czujnik dymu, poziomu dwutlenku węgla lub spalin, temperatury, itp.
+W celu dodania czujnika bezpeczeństwa należy:
+<ol>
+<li>Zaznaczyć pomieszczenie w którym ma być dodanyc czujnik.</li>
+<li>Klinąć prawym przyciskiem myszy aby wybrać lokalizacje czujnika.</li>
+<li>Klinąć drugi raz prawym przyciskiem myszy aby wybrać kąt skierowania czyjnika.</li>
+</ol>
+ 
+ </p>
+ <img alt="" src="layout sensor.png"/> 
+ 
+ 
+<p>
+ Wszystkie ementy diagramów projektowych zaprezentowane są na poniższym przykładzie.
+</p>
+ <ol>
+<li>Linia obrysu planu (grubsza).</li>
+<li>Linia podziału (cieńsza).</li>
+<li>Przerywana linia podziału.</li>
+<li>Symbol wizualny drzwi.</li>
+<li>Symbol wizualny drzwi zewnętrznych.</li>
+<li>Czujnik bezpieczeństwa.</li>
+</ol>
+ <img alt="" src="layout_elements.png"/>
+ 
+ 
+ 
+  <!--  =====================================+++++++++++++++++++++++++++++========================================--> 
+   <br/>
+ <h1>Widok pięter</h1>
+ 
+ <p>
+ W przypadku projektowania bydunków wielopiętrowych należy zacząć od wybrania liczby pięter w ustawieniach. 
+ Aby wybrać piętro do edycji nalezy skorzystać z listy rozwijanej w lewym panelu.
+</p>
+ <img alt="" src="floor choose.png"/> 
+
+ <p>
+ W celu stworzenia punktu odniesienia obrys parteru jest zaznaczany jasnoszarą linią również na wyższych piętrach.
+</p>
+
+
+ <img alt="" src="floor outline.png"/>
+ 
+ <p>
+ Po wybraniu zakładki widoku pięter pokazywane są wszystkie piętra, z parterem najniżej i ostatnim pięterem najwyżej. 
+ W tym widoku można zobaczyć w całości porjektowany budynek oraz wprowadzić relacje międzypiętrowe.
+</p>
+ <p>
+ Dostępne są tutaj następujące typy relacji:
+ </p>
+  <ol>
+<li> Połączenie wilopiętrowe (Multi Floor Connection) oznaczająca klatki schodowe czy windy.</li>
+<li> Dostępność (Accessibility), oznaczająca połączenie między dwoma piętrami.</li>
+<li> Widoczność (Visibility), stosowana w celu zaznaczenia widoczności między poziomami, np. scena widoczna z trybun na wyższcyh piętrach. 
+Reprezentowana przez grubsze strzałki. </li>
+</ol>
+ <p>
+Aby dodać relację między piętrami należy po wybraniu typu relacji, kliknąć lewym przyciskiem myszy na pomieszczenie na jednym z pięter.
+Pomieszczenie znajdujące się pod kursorem zostanie podświetlone i to ono będzie wchodziło w skład relacji. 
+Po wybraniu pierwszego pomieszczenia pojawi się strzałka symbolizująca relację. Nastepnie nalezy kliknąć na kolejne pomieszczenie aby je dodać do relacji.
+Aby zakończyć nalezy użyć prawego przycisku myszy.
+ </p>
+
+ <img alt="" src="floor view arrow.png"/> 
+ 
+ <!--  =====================================+++++++++++++++++++++++++++++========================================--> 
+  <br/>
+ <h1>Podgląd hipergrafów</h1>
+ 
+  <p>
+ Hipergrafy są wewnętrzna strukturą danych używaną do zapisu projektu przez HSSDR. Ich podgląd nie jest niezbędny do używania systemu, zakładka ta służy
+ na potrzeby analizy programu. 
+ Na liście rozwijanej w lewym panelu możliwy jest wybór prezentacji wyświetlania hipergafu dla poszczególnych pięter lub całego budynku.
+ Możliwe jest przesuwanie elementów oraz zmiana wielkości widoku za pomocą przycisków ("+", "-") górnej części lewego panelu.
+</p>
+ <img alt="" src="hyper view.png"/> 
+ 
+ 
+ 
+  <!--  =====================================+++++++++++++++++++++++++++++========================================--> 
+  <br/>
+ <h1>Walidacja projektu</h1>
+ 
+ 
+  <!--  =====================================+++++++++++++++++++++++++++++========================================--> 
+  <br/>
+<h1>Ustawienia sytemu</h1>
+
+ <p>
+ 
+</p>
+ <img alt="" src=""/> 
+
+<p>
+ 
+</p>
+ <img alt="" src=""/> 
+ 
+
+</body>
+</html>
