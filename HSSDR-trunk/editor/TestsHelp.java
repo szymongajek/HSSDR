@@ -60,6 +60,7 @@ public class TestsHelp extends JDialog {
 
 		//======== this ========
 		setDefaultCloseOperation(WindowConstants.DISPOSE_ON_CLOSE);
+		setTitle("Pomoc");
 		Container contentPane = getContentPane();
 		contentPane.setLayout(new FormLayout(
 			"default:grow",
@@ -70,7 +71,7 @@ public class TestsHelp extends JDialog {
 			scrollPane1.setViewportView(htmlContent_EditorPane);
 		}
 		contentPane.add(scrollPane1, cc.xy(1, 1));
-		setSize(865, 705);
+		setSize(875, 705);
 		setLocationRelativeTo(getOwner());
 		// //GEN-END:initComponents
 	}

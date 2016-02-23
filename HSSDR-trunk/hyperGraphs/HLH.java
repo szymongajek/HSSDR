@@ -60,7 +60,7 @@ public class HLH
 	/**
 	 * gdy ustawione przerywana linia oznacza widocznosc, o dostepnosci decyduja drzwi
 	 */
-	private static boolean dashedLineMeansVisible=true;
+	private static boolean dashedLineMeansVisible=false;
 	
 	//	dla hiperkrawedzi obiektowych typ pomieszczenia reprezentwanego przez ta krawedz
 	public enum ROOM_TYPES{
