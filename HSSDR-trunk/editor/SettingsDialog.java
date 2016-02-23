@@ -211,11 +211,11 @@ public class SettingsDialog extends JDialog {
 		{
 
 			// JFormDesigner evaluation mark
-			panel1.setBorder(new javax.swing.border.CompoundBorder(
-				new javax.swing.border.TitledBorder(new javax.swing.border.EmptyBorder(0, 0, 0, 0),
-					"JFormDesigner Evaluation", javax.swing.border.TitledBorder.CENTER,
-					javax.swing.border.TitledBorder.BOTTOM, new java.awt.Font("Dialog", java.awt.Font.BOLD, 12),
-					java.awt.Color.red), panel1.getBorder())); panel1.addPropertyChangeListener(new java.beans.PropertyChangeListener(){public void propertyChange(java.beans.PropertyChangeEvent e){if("border".equals(e.getPropertyName()))throw new RuntimeException();}});
+//			panel1.setBorder(new javax.swing.border.CompoundBorder(
+//				new javax.swing.border.TitledBorder(new javax.swing.border.EmptyBorder(0, 0, 0, 0),
+//					"JFormDesigner Evaluation", javax.swing.border.TitledBorder.CENTER,
+//					javax.swing.border.TitledBorder.BOTTOM, new java.awt.Font("Dialog", java.awt.Font.BOLD, 12),
+//					java.awt.Color.red), panel1.getBorder())); panel1.addPropertyChangeListener(new java.beans.PropertyChangeListener(){public void propertyChange(java.beans.PropertyChangeEvent e){if("border".equals(e.getPropertyName()))throw new RuntimeException();}});
 
 			panel1.setLayout(new FormLayout(
 				"29dlu, $lcgap, 67dlu, $lcgap, 91dlu, $lcgap, 133dlu",
@@ -223,7 +223,7 @@ public class SettingsDialog extends JDialog {
 
 			//---- horSize_lab ----
 			horSize_lab.setText("Horizontal Size");
-			panel1.add(horSize_lab, cc.xy(3, 1, CellConstraints.CENTER, CellConstraints.DEFAULT));
+			panel1.add(horSize_lab, cc.xy(3, 1, CellConstraints.RIGHT, CellConstraints.DEFAULT));
 
 			//---- horSize_TF ----
 			horSize_TF.addFocusListener(new FocusAdapter() {
@@ -236,7 +236,7 @@ public class SettingsDialog extends JDialog {
 
 			//---- vertSize_lab ----
 			vertSize_lab.setText("Vertical Size");
-			panel1.add(vertSize_lab, cc.xy(3, 3, CellConstraints.CENTER, CellConstraints.CENTER));
+			panel1.add(vertSize_lab, cc.xy(3, 3, CellConstraints.RIGHT, CellConstraints.CENTER));
 
 			//---- vertSize_TF ----
 			vertSize_TF.addFocusListener(new FocusAdapter() {
@@ -249,7 +249,7 @@ public class SettingsDialog extends JDialog {
 
 			//---- gridSize_lab ----
 			gridSize_lab.setText("Grid size[px]");
-			panel1.add(gridSize_lab, cc.xy(3, 5, CellConstraints.CENTER, CellConstraints.DEFAULT));
+			panel1.add(gridSize_lab, cc.xy(3, 5, CellConstraints.RIGHT, CellConstraints.DEFAULT));
 
 			//---- gridSize_TF ----
 			gridSize_TF.addFocusListener(new FocusAdapter() {
@@ -261,8 +261,8 @@ public class SettingsDialog extends JDialog {
 			panel1.add(gridSize_TF, cc.xy(5, 5));
 
 			//---- gridMeters_lab ----
-			gridMeters_lab.setText("Grid size[m]");
-			panel1.add(gridMeters_lab, cc.xy(3, 7, CellConstraints.CENTER, CellConstraints.DEFAULT));
+			gridMeters_lab.setText("Grid size[meters]");
+			panel1.add(gridMeters_lab, cc.xy(3, 7, CellConstraints.RIGHT, CellConstraints.DEFAULT));
 
 			//---- gridMeters_TF ----
 			gridMeters_TF.addFocusListener(new FocusAdapter() {
@@ -274,8 +274,8 @@ public class SettingsDialog extends JDialog {
 			panel1.add(gridMeters_TF, cc.xy(5, 7));
 
 			//---- sensorRange_lab ----
-			sensorRange_lab.setText("Sensor range[m]");
-			panel1.add(sensorRange_lab, cc.xy(3, 9));
+			sensorRange_lab.setText("Sensor range[meters]");
+			panel1.add(sensorRange_lab, cc.xy(3, 9, CellConstraints.RIGHT, CellConstraints.DEFAULT));
 
 			//---- sensorRange_TF ----
 			sensorRange_TF.setText("6");
@@ -297,7 +297,7 @@ public class SettingsDialog extends JDialog {
 
 			//---- dashedLineLab ----
 			dashedLineLab.setText("Dashed Line Meaning");
-			panel3.add(dashedLineLab, cc.xy(3, 1));
+			panel3.add(dashedLineLab, cc.xy(3, 1, CellConstraints.RIGHT, CellConstraints.DEFAULT));
 
 			//---- dashedModeACC_radio ----
 			dashedModeACC_radio.setText("Accesibility");
@@ -333,7 +333,7 @@ public class SettingsDialog extends JDialog {
 
 			//---- floorsNumberLab ----
 			floorsNumberLab.setText("Floors number");
-			panel4.add(floorsNumberLab, cc.xy(3, 1));
+			panel4.add(floorsNumberLab, cc.xy(3, 1, CellConstraints.RIGHT, CellConstraints.DEFAULT));
 
 			//---- floorNumberComboBox ----
 			floorNumberComboBox.setModel(new DefaultComboBoxModel(new String[] {

@@ -68,7 +68,7 @@
           </void>
           <void method="setProperty">
            <string>hAlign</string>
-           <object class="com.jgoodies.forms.layout.CellConstraints" field="CENTER"/>
+           <object class="com.jgoodies.forms.layout.CellConstraints" field="RIGHT"/>
           </void>
          </object>
         </void>
@@ -110,7 +110,7 @@
           <class>com.jgoodies.forms.layout.CellConstraints</class>
           <void method="setProperty">
            <string>hAlign</string>
-           <object class="com.jgoodies.forms.layout.CellConstraints" field="CENTER"/>
+           <object class="com.jgoodies.forms.layout.CellConstraints" field="RIGHT"/>
           </void>
           <void method="setProperty">
            <string>vAlign</string>
@@ -176,7 +176,7 @@
           </void>
           <void method="setProperty">
            <string>hAlign</string>
-           <object class="com.jgoodies.forms.layout.CellConstraints" field="CENTER"/>
+           <object class="com.jgoodies.forms.layout.CellConstraints" field="RIGHT"/>
           </void>
          </object>
         </void>
@@ -212,7 +212,7 @@
           <string>javax.swing.JLabel</string>
           <void method="setProperty">
            <string>text</string>
-           <string>Grid size[m]</string>
+           <string>Grid size[meters]</string>
           </void>
           <void property="name">
            <string>gridMeters_lab</string>
@@ -230,7 +230,7 @@
           </void>
           <void method="setProperty">
            <string>hAlign</string>
-           <object class="com.jgoodies.forms.layout.CellConstraints" field="CENTER"/>
+           <object class="com.jgoodies.forms.layout.CellConstraints" field="RIGHT"/>
           </void>
          </object>
         </void>
@@ -266,7 +266,7 @@
           <string>javax.swing.JLabel</string>
           <void method="setProperty">
            <string>text</string>
-           <string>Sensor range[m]</string>
+           <string>Sensor range[meters]</string>
           </void>
           <void property="name">
            <string>sensorRange_lab</string>
@@ -281,6 +281,10 @@
           <void method="setProperty">
            <string>gridY</string>
            <int>9</int>
+          </void>
+          <void method="setProperty">
+           <string>hAlign</string>
+           <object class="com.jgoodies.forms.layout.CellConstraints" field="RIGHT"/>
           </void>
          </object>
         </void>
@@ -365,6 +369,10 @@
           <void method="setProperty">
            <string>gridX</string>
            <int>3</int>
+          </void>
+          <void method="setProperty">
+           <string>hAlign</string>
+           <object class="com.jgoodies.forms.layout.CellConstraints" field="RIGHT"/>
           </void>
          </object>
         </void>
@@ -523,6 +531,10 @@
           <void method="setProperty">
            <string>gridY</string>
            <int>1</int>
+          </void>
+          <void method="setProperty">
+           <string>hAlign</string>
+           <object class="com.jgoodies.forms.layout.CellConstraints" field="RIGHT"/>
           </void>
          </object>
         </void>

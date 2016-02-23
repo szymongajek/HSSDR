@@ -15,7 +15,7 @@ public class GuiUtil {
 	 * @return
 	 */
 	public static  JEditorPane loadHtml(String fileName) {
-        JEditorPane editorPane = new JEditorPane();
+        final JEditorPane editorPane = new JEditorPane();
         editorPane.setEditable(false);
         java.net.URL helpURL = GuiUtil.class.getResource(fileName);
         if (helpURL != null) {
@@ -27,6 +27,19 @@ public class GuiUtil {
         } else {
             Logger.LOGGER.error(  "Couldn't find file, helpURL == null:  "+fileName);
         }
+        
+        
+//        editorPane.addHyperlinkListener(new HyperlinkListener() {
+//            @Override public void hyperlinkUpdate(final HyperlinkEvent pE) {
+//                if (HyperlinkEvent.EventType.ACTIVATED == pE.getEventType()) {
+//                    String desc = pE.getDescription();
+//                    if (desc == null || !desc.startsWith("#")) return;
+//                    desc = desc.substring(1);
+//                    editorPane.scrollToReference(desc);
+//                    Logger.LOGGER.debug(  "scrollToReference  "+desc);
+//                }
+//            }
+//        });
 
         return editorPane;
     }
