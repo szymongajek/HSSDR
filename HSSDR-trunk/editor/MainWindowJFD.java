@@ -132,7 +132,7 @@ public class MainWindowJFD extends JFrame {
 
 	private void initComponents() {
 		// JFormDesigner - Component initialization - DO NOT MODIFY  //GEN-BEGIN:initComponents
-		// Generated using JFormDesigner Evaluation license - sz g
+		// Generated using JFormDesigner Evaluation license - szymon gajek
 		menuBar1 = new JMenuBar();
 		menu1 = new JMenu();
 		open_menuItem = new JMenuItem();
@@ -351,7 +351,7 @@ public class MainWindowJFD extends JFrame {
 				new Insets(0, 0, 3, 3), 0, 0));
 
 			//---- label9 ----
-			label9.setText("Area type");
+			label9.setText("Area Type");
 			panel5.add(label9, new GridBagConstraints(1, 4, 1, 1, 0.0, 0.0,
 				GridBagConstraints.CENTER, GridBagConstraints.BOTH,
 				new Insets(0, 0, 3, 3), 0, 0));
@@ -571,16 +571,16 @@ public class MainWindowJFD extends JFrame {
 					//---- hyperGraphEditor ----
 					hyperGraphEditor.addMouseListener(new MouseAdapter() {
 						@Override
+						public void mouseClicked(MouseEvent e) {
+							hyperGraphEditorMouseClicked(e);
+						}
+						@Override
 						public void mousePressed(MouseEvent e) {
 							hyperGraphEditorMousePressed(e);
 						}
 						@Override
 						public void mouseReleased(MouseEvent e) {
 							hyperGraphEditorMouseReleased(e);
-						}
-						@Override
-						public void mouseClicked(MouseEvent e) {
-							hyperGraphEditorMouseClicked(e);
 						}
 					});
 					hyperGraphEditor.addMouseMotionListener(new MouseMotionAdapter() {
@@ -671,7 +671,7 @@ public class MainWindowJFD extends JFrame {
 	}
 
 	// JFormDesigner - Variables declaration - DO NOT MODIFY  //GEN-BEGIN:variables
-	// Generated using JFormDesigner Evaluation license - sz g
+	// Generated using JFormDesigner Evaluation license - szymon gajek
 	private JMenuBar menuBar1;
 	private JMenu menu1;
 	private JMenuItem open_menuItem;
