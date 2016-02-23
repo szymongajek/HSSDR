@@ -92,7 +92,7 @@ public class HLH
     private Hashtable<String,DoorsAttributes> doorsMap;
     private ArrayList<HGSensor> sensors;
     
-    public static final float DEFAULT_GRID_METERS=1;
+    public static final float DEFAULT_GRID_METERS=0.5f;
     public static float gridToMeters=DEFAULT_GRID_METERS;
     
     int floorCount=0;
