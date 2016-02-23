@@ -1063,7 +1063,7 @@ public class MainWindow extends JFrame implements MessageDisplayer   {
 				new Insets(0, 0, 3, 3), 0, 0));
 
 			//---- label9 ----
-			label9.setText("Area type");
+			label9.setText("Area Type");
 			panel5.add(label9, new GridBagConstraints(1, 4, 1, 1, 0.0, 0.0,
 				GridBagConstraints.CENTER, GridBagConstraints.BOTH,
 				new Insets(0, 0, 3, 3), 0, 0));
@@ -1146,7 +1146,7 @@ public class MainWindow extends JFrame implements MessageDisplayer   {
 		
 		
 		 mfRelTypeMutliFloorPass = new JRadioButton();
-		mfRelTypeMutliFloorPass.setText("<html>Multi floor<br />connection</html>");
+		mfRelTypeMutliFloorPass.setText("<html>Multi Floor<br />Connection</html>");
 		mfRelTypeMutliFloorPass.setSelected(true);
 		mfRelTypeMutliFloorPass.addItemListener(new ItemListener() {
 			@Override

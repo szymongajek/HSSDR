@@ -206,7 +206,7 @@
           <string>javax.swing.JLabel</string>
           <void method="setProperty">
            <string>text</string>
-           <string>Area type</string>
+           <string>Area Type</string>
           </void>
           <void property="name">
            <string>label9</string>

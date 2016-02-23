@@ -33,7 +33,7 @@ import controller.Start;
  */
 public class TestsHelp extends JDialog {
 	
-	 private static final String HTML_FILE_NAME = "helpContents/help.html";
+	 private static final String HTML_FILE_NAME = "helpContents/pomoc.html";
 	 
 	private JEditorPane loadHtml() {
 	       return GuiUtil.loadHtml(HTML_FILE_NAME);
@@ -70,7 +70,7 @@ public class TestsHelp extends JDialog {
 			scrollPane1.setViewportView(htmlContent_EditorPane);
 		}
 		contentPane.add(scrollPane1, cc.xy(1, 1));
-		setSize(800, 705);
+		setSize(865, 705);
 		setLocationRelativeTo(getOwner());
 		// //GEN-END:initComponents
 	}
