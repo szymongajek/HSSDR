@@ -4,10 +4,21 @@
 </head>
 <body>
  
+  <h1>Zawartość pomocy:</h1> 
+ 
+ <ul>
+ <li href="#sec_window"> <p style="font-size:120%;" > Główne okno programu </p></li> 
+ <li href="#sec_layout"> <p style="font-size:120%;" >Tworzenie rozkładu pomieszczeń</p></li>
+ <li href="#sec_floors"><p style="font-size:120%;" >Widok pięter </p></li>
+ <li href="#sec_hyper"><p style="font-size:120%;" >Podgląd hipergrafów </p></li>
+ <li href="#sec_settings"><p style="font-size:120%;" >Ustawienia sytemu </p> </li>
+ <li href="#sec_validation"><p style="font-size:120%;" >Walidacja projektu </p></li>
+	</ul>
+</p></p>	
  <!--  =====================================+++++++++++++++++++++++++++++========================================--> 
  
  
-<h1>Główne okno programu</h1> 
+<h1 id="sec_window">Główne okno programu</h1> 
   
  Po uruchomieniu programu widoczne jest główne okno z wybraną zakładką edytora rozkładów pomieszczeń. Jego podstawowe elementy to:
   <ol>
@@ -33,7 +44,7 @@
 
  <!--  =====================================+++++++++++++++++++++++++++++========================================--> 
  <br/> 
-<h1>Tworzenie rozkładu pomieszczeń </h1>
+<h1 id="sec_layout">Tworzenie rozkładu pomieszczeń </h1>
  
 <p>
 Tworzenie rozkładu pomieszczeń rozpoczyna się od narysowania obrysu. Następnie może on być dzielony na mniejsze pomieszczenia, można nanosić 
@@ -139,7 +150,7 @@ W celu dodania czujnika bezpeczeństwa należy:
  
   <!--  =====================================+++++++++++++++++++++++++++++========================================--> 
    <br/>
- <h1>Widok pięter</h1>
+ <h1 name="sec_floors">Widok pięter</h1>
  
  <p>
  W przypadku projektowania bydunków wielopiętrowych należy zacząć od wybrania liczby pięter w ustawieniach. 
@@ -178,7 +189,7 @@ Aby zakończyć nalezy użyć prawego przycisku myszy.
  
  <!--  =====================================+++++++++++++++++++++++++++++========================================--> 
   <br/>
- <h1>Podgląd hipergrafów</h1>
+ <h1 id="sec_hyper">Podgląd hipergrafów</h1>
  
   <p>
  Hipergrafy są wewnętrzna strukturą danych używaną do zapisu projektu przez HSSDR. Ich podgląd nie jest niezbędny do używania systemu, zakładka ta służy
@@ -187,28 +198,32 @@ Aby zakończyć nalezy użyć prawego przycisku myszy.
  Możliwe jest przesuwanie elementów oraz zmiana wielkości widoku za pomocą przycisków ("+", "-") górnej części lewego panelu.
 </p>
  <img alt="" src="hyper view.png"/> 
- 
- 
- 
+  
   <!--  =====================================+++++++++++++++++++++++++++++========================================--> 
   <br/>
- <h1>Walidacja projektu</h1>
- 
- 
-  <!--  =====================================+++++++++++++++++++++++++++++========================================--> 
-  <br/>
-<h1>Ustawienia sytemu</h1>
+<h1 id="sec_settings">Ustawienia sytemu</h1>
 
  <p>
+ Po wybraniu opcji z menu Settings można zmienić następujące ustawienia systemu:
+ </p>
+   <ol>
+<li> Wielkość arkusza używanego do projektowania (Horizontal, Vertical Size). Wielkość wyrażona w pikselach.</li>
+ <li> Gestość siatki na jaką podzielony jest arkusz (Grid Size (px)). Wielkość wyrażona w pikselach.</li>
+ <li> Jaką długość w metrach reprezentuje jedna kratka arkusza (Grid size[meters]).</li>
+ <li> Zasięg czujników bezpieczeństwa (Sensor range[meters]). Wielkość wyrażona w metrach.</li>
+ <li> Znaczenie przerywanej linii podziału pomieszczenia (Dashed Line Meaning). 
+ Może ona oznaczać oddzielenie od siebie pomieszczeń wyłącznie w sensie logicznym, lub relacje widoczności pomiędzy pomieszczeniami.</li>
+ <li>Ilość pięter (Floors number).</li>
+</ol>
+ <img alt="" src="settings.png"/> 
  
-</p>
- <img alt="" src=""/> 
-
-<p>
  
-</p>
- <img alt="" src=""/> 
  
-
+  <!--  =====================================+++++++++++++++++++++++++++++========================================--> 
+  <br/>
+ <h1 id="sec_validation">Walidacja projektu</h1>
+ 
+ 
+ 
 </body>
 </html>
