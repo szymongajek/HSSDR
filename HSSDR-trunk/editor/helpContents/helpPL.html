@@ -215,6 +215,11 @@ Aby zakończyć nalezy użyć prawego przycisku myszy.
  Może ona oznaczać oddzielenie od siebie pomieszczeń wyłącznie w sensie logicznym, lub relacje widoczności pomiędzy pomieszczeniami.</li>
  <li>Ilość pięter (Floors number).</li>
 </ol>
+
+ <p>
+  Zmiana dwóch ostatnich parametrów wymaga usunięcia bieżącego projektu (przycisk Apply and Reset). 
+  Pozostałe parametry mogą być zmienione w dowolnym momencie projektowania (przycisk Apply).
+ </p>
  <img alt="" src="settings.png"/> 
  
  
@@ -224,6 +229,29 @@ Aby zakończyć nalezy użyć prawego przycisku myszy.
  <h1 id="sec_validation">Walidacja projektu</h1>
  
  
+
+<h4>Symbols available in test: </h4>
+<img alt="" src="pietra2.png"/>
+
+
+<ul>
+  <li>-logic: </li>
+   <li>   -forall, exists, in, :, forall, <=>, (), =, >=, <=, !=, and, or, #</li>
+ <li> -design:</li>
+   <li>   -adjacent(room1, room2): if rooms are directly adjacent</li>
+   <li>   -accessible(room1, room2): if rooms are directly accessible </li>
+   <li>   -Rooms(room): if argument is a room </li>
+   <li>   -type(room): get set type of a room   </li>
+    <li>  -Doors(doors): if argument is a door  </li>
+   <li>   -doorsInRoom(doors, room): if doors belong to room </li>
+   <li>   -doorsDist(doors1, doors2): distance between doors1 and doors2 in meters </li>
+   <li>   -area(room): area of room in square meters </li>
+   <li>   -Sensors(sensor): if argument is a sensor </li>
+   <li>   -sensorInRoom(sensor, room): if sensor is in room </li>
+   <li>   -surveilledDoors(doors): if doors are watched by a sensor </li>
+   <li>   -isPassageWatched(doors1,doors2): if it is impossible to get from doors1 and doors2 </li>
+   <li>   -without entering a sensor range, doors1 and doors2 are situated in one room </li>
+</ul>
  
 </body>
 </html>

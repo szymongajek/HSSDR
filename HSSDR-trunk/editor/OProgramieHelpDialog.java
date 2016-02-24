@@ -31,21 +31,21 @@ import controller.Start;
 /**
  * @author sz gajek
  */
-public class TestsHelp extends JDialog {
+public class OProgramieHelpDialog extends JDialog {
 	
-	 private static final String HTML_FILE_NAME = "helpContents/pomoc.html";
+	 private static final String HTML_FILE_NAME = "helpContents/aboutPL.html";
 	 
 	private JEditorPane loadHtml() {
 	       return GuiUtil.loadHtml(HTML_FILE_NAME);
 	    }
 	
-	public TestsHelp(Frame owner) {
+	public OProgramieHelpDialog(Frame owner) {
 		super(owner);
 		initComponents();
 
 	}
 
-	public TestsHelp(Dialog owner) {
+	public OProgramieHelpDialog(Dialog owner) {
 		super(owner);
 		initComponents();
 	}
@@ -54,23 +54,23 @@ public class TestsHelp extends JDialog {
 		// JFormDesigner - Component initialization - DO NOT MODIFY
 		// //GEN-BEGIN:initComponents
 		// Generated using JFormDesigner Evaluation license - szymon gajek
-		scrollPane1 = new JScrollPane();
+		scrollPane = new JScrollPane();
 		htmlContent_EditorPane = loadHtml();
 		CellConstraints cc = new CellConstraints();
 
 		//======== this ========
 		setDefaultCloseOperation(WindowConstants.DISPOSE_ON_CLOSE);
-		setTitle("Pomoc");
+		setTitle("O Programie");
 		Container contentPane = getContentPane();
 		contentPane.setLayout(new FormLayout(
 			"default:grow",
 			"fill:default:grow"));
 
-		//======== scrollPane1 ========
+		//======== scrollPane ========
 		{
-			scrollPane1.setViewportView(htmlContent_EditorPane);
+			scrollPane.setViewportView(htmlContent_EditorPane);
 		}
-		contentPane.add(scrollPane1, cc.xy(1, 1));
+		contentPane.add(scrollPane, cc.xy(1, 1));
 		setSize(875, 705);
 		setLocationRelativeTo(getOwner());
 		// //GEN-END:initComponents
@@ -79,7 +79,7 @@ public class TestsHelp extends JDialog {
 	// JFormDesigner - Variables declaration - DO NOT MODIFY
 	// //GEN-BEGIN:variables
 	// Generated using JFormDesigner Evaluation license - szymon gajek
-	private JScrollPane scrollPane1;
+	private JScrollPane scrollPane;
 	private JEditorPane htmlContent_EditorPane;
 	// JFormDesigner - End of variables declaration //GEN-END:variables
 	

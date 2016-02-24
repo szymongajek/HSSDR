@@ -662,14 +662,38 @@ public class MainWindow extends JFrame implements MessageDisplayer   {
 		hyperGraphEditor.repaint();
 	}
 
-	private void helpTests_menuItemActionPerformed(ActionEvent e) {
-		TestsHelp th = new TestsHelp(this);
+
+	/**
+	 * open dialog with html
+	 * @param e
+	 */
+	private void help_menuItemActionPerformed(ActionEvent e) {
+		HelpHelpDialog th = new HelpHelpDialog(this);
 		th.setVisible(true);
 	}
-
+	/**
+	 * open dialog with html
+	 * @param e
+	 */
 	private void about_menuItemActionPerformed(ActionEvent e) {
-		AboutDialog ad = new AboutDialog(this);
-		ad.setVisible(true);
+		AboutHelpDialog th = new AboutHelpDialog(this);
+		th.setVisible(true);
+	}
+	/**
+	 * open dialog with html
+	 * @param e
+	 */
+	private void helpPL_menuItemActionPerformed(ActionEvent e) {
+		PomocHelpDialog th = new PomocHelpDialog(this);
+		th.setVisible(true);
+	}
+	/**
+	 * open dialog with html
+	 * @param e
+	 */
+	private void aboutPL_menuItemActionPerformed(ActionEvent e) {
+		OProgramieHelpDialog th = new OProgramieHelpDialog(this);
+		th.setVisible(true);
 	}
 
 	private void tabbedPaneTabChanged(ChangeEvent e) {
@@ -814,10 +838,10 @@ public class MainWindow extends JFrame implements MessageDisplayer   {
 		hideNonLeafHE = new JCheckBoxMenuItem();
 		settings_menuItem = new JMenuItem();
 		menu3 = new JMenu();
+		help_menuItem = new JMenuItem();
 		about_menuItem = new JMenuItem();
-		helpLayout_menuItem = new JMenuItem();
-		helpHyper_menuItem = new JMenuItem();
-		helpTests_menuItem = new JMenuItem();
+		helpPL_menuItem = new JMenuItem();
+		aboutPL_menuItem = new JMenuItem();
 		panel5 = new JPanel();
 		panel5 = new JPanel();
 		panel4 = new JPanel();
@@ -965,6 +989,15 @@ public class MainWindow extends JFrame implements MessageDisplayer   {
 				menu3.setText("Help");
 
 				//---- about_menuItem ----
+				help_menuItem.setText("Help");
+				help_menuItem.addActionListener(new ActionListener() {
+					@Override
+					public void actionPerformed(ActionEvent e) {
+						help_menuItemActionPerformed(e);
+					}
+				});
+				menu3.add(help_menuItem);
+				//---- helpLayout_menuItem ----
 				about_menuItem.setText("About");
 				about_menuItem.addActionListener(new ActionListener() {
 					@Override
@@ -973,24 +1006,27 @@ public class MainWindow extends JFrame implements MessageDisplayer   {
 					}
 				});
 				menu3.add(about_menuItem);
-
-				//---- helpLayout_menuItem ----
-				helpLayout_menuItem.setText("Layout Sketching");
-				menu3.add(helpLayout_menuItem);
+				menu3.addSeparator();
 
 				//---- helpHyper_menuItem ----
-				helpHyper_menuItem.setText("Hypergraphs");
-				menu3.add(helpHyper_menuItem);
-
-				//---- helpTests_menuItem ----
-				helpTests_menuItem.setText("Project Testing");
-				helpTests_menuItem.addActionListener(new ActionListener() {
+				helpPL_menuItem.setText("Pomoc");
+				helpPL_menuItem.addActionListener(new ActionListener() {
 					@Override
 					public void actionPerformed(ActionEvent e) {
-						helpTests_menuItemActionPerformed(e);
+						helpPL_menuItemActionPerformed(e);
 					}
 				});
-				menu3.add(helpTests_menuItem);
+				menu3.add(helpPL_menuItem);
+
+				//---- helpTests_menuItem ----
+				aboutPL_menuItem.setText("O Programie");
+				aboutPL_menuItem.addActionListener(new ActionListener() {
+					@Override
+					public void actionPerformed(ActionEvent e) {
+						aboutPL_menuItemActionPerformed(e);
+					}
+				});
+				menu3.add(aboutPL_menuItem);
 			}
 			menuBar1.add(menu3);
 		}
@@ -1559,10 +1595,10 @@ public class MainWindow extends JFrame implements MessageDisplayer   {
 	private JCheckBoxMenuItem hideNonLeafHE;
 	private JMenuItem settings_menuItem;
 	private JMenu menu3;
+	private JMenuItem help_menuItem;
 	private JMenuItem about_menuItem;
-	private JMenuItem helpLayout_menuItem;
-	private JMenuItem helpHyper_menuItem;
-	private JMenuItem helpTests_menuItem;
+	private JMenuItem helpPL_menuItem;
+	private JMenuItem aboutPL_menuItem;
 	private JPanel panel5;
 	private JPanel panel4;
 	private JButton zoomInButton;
