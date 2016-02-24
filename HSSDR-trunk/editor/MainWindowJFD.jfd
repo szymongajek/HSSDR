@@ -1380,10 +1380,10 @@
             <string>javax.swing.JMenuItem</string>
             <void method="setProperty">
              <string>text</string>
-             <string>About</string>
+             <string>Help</string>
             </void>
             <void property="name">
-             <string>about_menuItem</string>
+             <string>help_menuItem</string>
             </void>
             <void method="addEvent">
              <object class="com.jformdesigner.model.FormEvent">
@@ -1400,10 +1400,18 @@
             <string>javax.swing.JMenuItem</string>
             <void method="setProperty">
              <string>text</string>
-             <string>Layout Sketching</string>
+             <string>About</string>
             </void>
             <void property="name">
-             <string>helpLayout_menuItem</string>
+             <string>about_menuItem</string>
+            </void>
+           </object>
+          </void>
+          <void method="add">
+           <object class="com.jformdesigner.model.FormComponent">
+            <string>javax.swing.JPopupMenu$Separator</string>
+            <void property="name">
+             <string>separator1</string>
             </void>
            </object>
           </void>
@@ -1412,10 +1420,10 @@
             <string>javax.swing.JMenuItem</string>
             <void method="setProperty">
              <string>text</string>
-             <string>Hypergraphs</string>
+             <string>Pomoc</string>
             </void>
             <void property="name">
-             <string>helpHyper_menuItem</string>
+             <string>helpPL_menuItem</string>
             </void>
            </object>
           </void>
@@ -1424,10 +1432,10 @@
             <string>javax.swing.JMenuItem</string>
             <void method="setProperty">
              <string>text</string>
-             <string>Project Testing</string>
+             <string>O Programie</string>
             </void>
             <void property="name">
-             <string>helpTests_menuItem</string>
+             <string>aboutPL_menuItem</string>
             </void>
             <void method="addEvent">
              <object class="com.jformdesigner.model.FormEvent">

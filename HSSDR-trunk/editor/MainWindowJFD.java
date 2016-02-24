@@ -143,10 +143,10 @@ public class MainWindowJFD extends JFrame {
 		menu2 = new JMenu();
 		settings_menuItem = new JMenuItem();
 		menu3 = new JMenu();
+		help_menuItem = new JMenuItem();
 		about_menuItem = new JMenuItem();
-		helpLayout_menuItem = new JMenuItem();
-		helpHyper_menuItem = new JMenuItem();
-		helpTests_menuItem = new JMenuItem();
+		helpPL_menuItem = new JMenuItem();
+		aboutPL_menuItem = new JMenuItem();
 		panel5 = new JPanel();
 		zoomMode = new JButton();
 		zoomLabel = new JLabel();
@@ -270,33 +270,34 @@ public class MainWindowJFD extends JFrame {
 			{
 				menu3.setText("Help");
 
-				//---- about_menuItem ----
-				about_menuItem.setText("About");
-				about_menuItem.addActionListener(new ActionListener() {
+				//---- help_menuItem ----
+				help_menuItem.setText("Help");
+				help_menuItem.addActionListener(new ActionListener() {
 					@Override
 					public void actionPerformed(ActionEvent e) {
 						about_menuItemActionPerformed(e);
 					}
 				});
+				menu3.add(help_menuItem);
+
+				//---- about_menuItem ----
+				about_menuItem.setText("About");
 				menu3.add(about_menuItem);
+				menu3.addSeparator();
 
-				//---- helpLayout_menuItem ----
-				helpLayout_menuItem.setText("Layout Sketching");
-				menu3.add(helpLayout_menuItem);
+				//---- helpPL_menuItem ----
+				helpPL_menuItem.setText("Pomoc");
+				menu3.add(helpPL_menuItem);
 
-				//---- helpHyper_menuItem ----
-				helpHyper_menuItem.setText("Hypergraphs");
-				menu3.add(helpHyper_menuItem);
-
-				//---- helpTests_menuItem ----
-				helpTests_menuItem.setText("Project Testing");
-				helpTests_menuItem.addActionListener(new ActionListener() {
+				//---- aboutPL_menuItem ----
+				aboutPL_menuItem.setText("O Programie");
+				aboutPL_menuItem.addActionListener(new ActionListener() {
 					@Override
 					public void actionPerformed(ActionEvent e) {
 						helpTests_menuItemActionPerformed(e);
 					}
 				});
-				menu3.add(helpTests_menuItem);
+				menu3.add(aboutPL_menuItem);
 			}
 			menuBar1.add(menu3);
 		}
@@ -682,10 +683,10 @@ public class MainWindowJFD extends JFrame {
 	private JMenu menu2;
 	private JMenuItem settings_menuItem;
 	private JMenu menu3;
+	private JMenuItem help_menuItem;
 	private JMenuItem about_menuItem;
-	private JMenuItem helpLayout_menuItem;
-	private JMenuItem helpHyper_menuItem;
-	private JMenuItem helpTests_menuItem;
+	private JMenuItem helpPL_menuItem;
+	private JMenuItem aboutPL_menuItem;
 	private JPanel panel5;
 	private JButton zoomMode;
 	private JLabel zoomLabel;

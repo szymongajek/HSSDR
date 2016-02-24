@@ -30,7 +30,7 @@
       </void>
       <void method="setProperty">
        <string>title</string>
-       <string>Pomoc</string>
+       <string>About</string>
       </void>
       <void method="add">
        <object class="com.jformdesigner.model.FormContainer">
