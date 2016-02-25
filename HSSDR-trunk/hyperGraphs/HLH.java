@@ -301,6 +301,16 @@ public class HLH
         for (ObjectHE he : getAllObjectHE()){
         	type.add(new ObjectHE[]{he},he.getAttribute(HLH.ROOM_TYPE_LABEL));
         }
+        
+     // funkcja label - etykieta uzytkownika
+
+    	vocabulary.addFunction("label", 1);
+    	TabularFunction label = new TabularFunction(1);
+        structure.addFunction("label", label);
+    	
+        for (ObjectHE he : getAllObjectHE()){
+        	label.add(new ObjectHE[]{he},he.getAttribute(HLH.USER_LABEL));
+        }
 
         // doors
         UnaryTabularRelation isDoors = new UnaryTabularRelation();
