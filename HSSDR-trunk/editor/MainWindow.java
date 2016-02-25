@@ -1493,7 +1493,7 @@ public class MainWindow extends JFrame implements MessageDisplayer   {
 					validationEditor.add(scrollPane4, cc.xy(3, 3, CellConstraints.FILL, CellConstraints.FILL));
 
 					//---- saveFileButton ----
-					saveFileButton.setText("Save file");
+					saveFileButton.setText("Save File");
 					saveFileButton.addActionListener(new ActionListener() {
 						@Override
 						public void actionPerformed(ActionEvent e) {
