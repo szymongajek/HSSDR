@@ -18,6 +18,7 @@ import javax.swing.JPanel;
 
 import rectangularBoard.Path;
 import sensors.Sensor;
+import util.Logger;
  
 
 enum Mode {
@@ -959,7 +960,8 @@ public class LayoutEditor extends JPanel {
      * the zoom percentage, to create the zoom in effect  
      */ 
     public void zoomIn() 
-    {  System.out.println("++++++++++++++++++"+this.getWidth()+  "   "+this.getHeight() );
+    { Logger.LOGGER.debug("zooming +" + this.getWidth() + "   "
+			+ this.getHeight());
     	zoomedTo += zoomSpeed; 
  
     	updateSize( );
@@ -970,7 +972,9 @@ public class LayoutEditor extends JPanel {
      * zoom percentage, to create the zoom out effect  
      */ 
     public void zoomOut() 
-    { System.out.println("-----------"+this.getWidth()+  "   "+this.getHeight() );
+    { 
+    	Logger.LOGGER.debug("zooming -" + this.getWidth() + "   "
+				+ this.getHeight());
     	zoomedTo -= zoomSpeed; 
          
     	if(zoomedTo < zoomSpeed) 

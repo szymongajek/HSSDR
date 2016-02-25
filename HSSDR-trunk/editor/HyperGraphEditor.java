@@ -9,6 +9,8 @@ import java.awt.Graphics;
 import java.awt.Graphics2D;
 import javax.swing.JPanel;
 
+import util.Logger;
+
 import controller.HyperGraphBrowser;
 
 public class HyperGraphEditor extends JPanel implements HyperGraphBrowser {
@@ -112,7 +114,7 @@ public class HyperGraphEditor extends JPanel implements HyperGraphBrowser {
 	 * create the zoom in effect
 	 */
 	public void zoomIn() {
-		System.out.println("++++++++++++++++++" + this.getWidth() + "   "
+		Logger.LOGGER.debug("zooming +" + this.getWidth() + "   "
 				+ this.getHeight());
 		zoomedTo += zoomSpeed;
 
@@ -124,7 +126,7 @@ public class HyperGraphEditor extends JPanel implements HyperGraphBrowser {
 	 * create the zoom out effect
 	 */
 	public void zoomOut() {
-		System.out.println("-----------" + this.getWidth() + "   "
+		Logger.LOGGER.debug("zooming -" + this.getWidth() + "   "
 				+ this.getHeight());
 		zoomedTo -= zoomSpeed;
 
