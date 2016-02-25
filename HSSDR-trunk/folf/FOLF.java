@@ -358,16 +358,27 @@ public class FOLF
         protected boolean value(ValuationContext ctx)
         {
             Object v1 = arg1.value(ctx), v2 = arg2.value(ctx);
-            if (! (v1 instanceof Double && v2 instanceof Double)) {
-                switch (type) {
-                    case EQUAL:
-                        return v1 == v2;
-                    case NOT_EQUAL:
-                        return v1 != v2;
-                    default:
-                        throw new RuntimeException();
-                }
-            } else {
+            if (  (v1 instanceof String && v2 instanceof String)) {
+            	String s1 = (String)v1;
+            	String s2 = (String)v2;
+            	switch (type) {
+                case EQUAL:
+                    return s1.equals(s2);
+                case NOT_EQUAL:
+                    return !s1.equals(s2);
+                case LESS_THAN:
+                    return s1.compareTo(s2)<0;//Compares two strings lexicographically
+                case LESS_OR_EQUAL:
+                    return s1.compareTo(s2)<=0;//Compares two strings lexicographically
+                case GREATER_THAN:
+                    return s1.compareTo(s2)>0;//Compares two strings lexicographically
+                case GREATER_OR_EQUAL:
+                    return s1.compareTo(s2)>=0;//Compares two strings lexicographically
+                default:
+                    throw new RuntimeException();
+            }
+            	
+            }if (  (v1 instanceof Double && v2 instanceof Double)) {
                 double d1 = ((Double) v1).doubleValue();
                 double d2 = ((Double) v2).doubleValue();
                 switch (type) {
@@ -385,6 +396,15 @@ public class FOLF
                         return d1 >= d2;
                     default:
                         throw new RuntimeException();
+                }
+            }else {
+                switch (type) {
+                case EQUAL:
+                    return v1 == v2;
+                case NOT_EQUAL:
+                    return v1 != v2;
+                default:
+                    throw new RuntimeException();
                 }
             }
         }
