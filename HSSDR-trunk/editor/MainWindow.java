@@ -1049,7 +1049,7 @@ public class MainWindow extends JFrame implements MessageDisplayer   {
 						help_menuItemActionPerformed(e);
 					}
 				});
-				menu3.add(help_menuItem);
+//				menu3.add(help_menuItem);
 				//---- helpLayout_menuItem ----
 				about_menuItem.setText("About");
 				about_menuItem.addActionListener(new ActionListener() {
@@ -1058,7 +1058,7 @@ public class MainWindow extends JFrame implements MessageDisplayer   {
 						about_menuItemActionPerformed(e);
 					}
 				});
-				menu3.add(about_menuItem);
+//				menu3.add(about_menuItem);
 				menu3.addSeparator();
 
 				//---- helpHyper_menuItem ----
