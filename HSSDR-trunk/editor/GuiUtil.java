@@ -1,8 +1,12 @@
 package editor;
 
+import java.awt.Desktop;
 import java.io.IOException;
+import java.net.URISyntaxException;
 
 import javax.swing.JEditorPane;
+import javax.swing.event.HyperlinkEvent;
+import javax.swing.event.HyperlinkListener;
 
 import util.Logger;
 
@@ -27,6 +31,25 @@ public class GuiUtil {
         } else {
             Logger.LOGGER.error(  "Couldn't find file, helpURL == null:  "+fileName);
         }
+        
+        
+        editorPane.addHyperlinkListener(new HyperlinkListener() {
+            public void hyperlinkUpdate(HyperlinkEvent e) {
+                if(e.getEventType() == HyperlinkEvent.EventType.ACTIVATED) {
+                	 if(Desktop.isDesktopSupported()) {
+                         try {
+							Desktop.getDesktop().browse(e.getURL().toURI());
+						} catch (IOException e1) {
+						Logger.LOGGER.error("problem browser opening", e1);
+						} catch (URISyntaxException e1) {
+							Logger.LOGGER.error("problem browser opening", e1);
+						}
+                     }
+                }
+            }
+        });
+
+       
         
         
 //        editorPane.addHyperlinkListener(new HyperlinkListener() {
