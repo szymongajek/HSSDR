@@ -33,6 +33,12 @@
  </li>
  <li href="#sec_validation">
  <p style="font-size:120%;" >Walidacja projektu </p>
+ <p   > Język testów HSSDR</p>
+ <p   > Wybór zestawów testów </p>
+    <p   > Zestawy testów  </p>
+ <p   >Lista dostępnych symboli</p>
+  <p   > Definiowanie nowych relacji</p>
+
  </li>
 	</ul>
 </p></p>	
@@ -290,6 +296,13 @@ Aby zakończyć nalezy użyć prawego przycisku myszy.
 
  </p>
  
+      <p> 
+W projekcie wyróżnia się pokoje (Rooms) oraz obszary (Areas). Wszystkie pomieszczenia jakie podstawly w wyniku podziałów to obszary, natomiast pokoje to 
+pomieszczenia znajdujące się na dole hierarchiii podziałów które nie były dalej dzielone.Obszary zawierają pokoje w hierarchii podziałów.. Pokoje są widoczne w edytytorze pomieszczeń, hierarchie obszarów można
+zobaczyć za pomocą opcji cofania podziału. 
+ </p>
+ 
+ 
  
    <h2>Wybór zestawów testów </h2>
   
@@ -305,28 +318,30 @@ Każdy zestaw testów to plik tekstowy, identyfikowany przez nazwę pliku. W lew
  <img alt="" src="validation.png"/>
  
  
- <h2>Lista dostępnych symboli</h2>
+ <h2>Zestawy testów</h2>
   
    <p>
   
+ Ograniczenia projektowe zostały  
+ zorganizowane w zestawy testów, które można aktywować dopasowując swój wybór do konkretnego projektu. 
+  
+ Zestawy testów są zbiorami formuł języka testów HSSDR przechowywanymi w plikach. 
+ Mogą one zawierać formuły końcowe oraz definicje pomocnicze.  </p>
+    <p>
+ W skład pojedynczego zestawu testów wchodzi:
  </p>
- <img alt="" src=""/>
+ <ul>
+  <li>dowolna liczba definicji relacji pomocniczych, </li>
+    <li>dowolna liczba komentarzy w liniach rozpoczynających się od „#”,</li>
+	  <li> co najmniej jedna formuła końcowa, czyli formuła rozpoczynająca się od <i>forall</i> lub <i>exists</i> oraz nie zawierająca zmiennych wolnych.
+  </li>
+	  </ul>
  
  
  
  
-symbole relacji jednoargumentowych:
-Areas, Rooms, Doors, Sensors, surveilledDoors, externalDoors
-
-symbole relacji dwuargumentowych:
-adjacent, accessible, doorsInRoom, sensorInRoom, isPassageWatched, isDirectChild, isInDescendants,
- symbole funkcji jednoargumentowych:
-type, area,label,
- symbole funkcji dwuargumentowych:
-doorsDist,
- symbole stałych, np.:
-„Apartment”, „Kitchen”, 30, 15.5.
-
+ <h2>Lista dostępnych symboli</h2>
+  
 <ul>
 <li>Symbole kontrolne:</li>
 	<ul>
@@ -346,36 +361,41 @@ doorsDist,
 		<li> <b>()</b> nawiasy konieczne do zagnieżdżania warunków</li>
 		<li><b> = != > <  >= <=  </b> operotory porównań (równe, różne,więskze, mniejsze, więszke lub równe, mniejsze lub równe), służące do porównywania liczb i łańcuchów znaków, np. 	<i>area(x) >= area(y)</i></li>
 		<li><b>+ - * /</b>	operatory arytmetyczne (dodawanie, odejmowanie, mnożenie, dzielenie), np.	<i> area(x) >= 10 + 2*area(x) </i>  </li>
-		<li> <b>;</b>	<b>średnik, konieczny po każdej instrukcji!</b>	 </li>
-		<li>  </li>
-		<i> </i>
-<b></b>		
+		<li> <b>;</b>	 średnik, konieczny po każdej instrukcji! 	 </li>
 	   </ul>
 <li> Stałe i zmienne</li>	 
 		 <ul>  
 		 <li> <b>x r area Area2 </b>zmienna indywidualna. Nazwa musi spełniać wyrażenie regularne: (a..z|A..Z)(a..z|A..Z|0..9|_)*</li>	
-		 <li> <b>1 20 -350 </b> Liczba naturalna lub całkowita. Spełnia wyrażenie regularne: 0..9+(.0..9+)?EXP?|.0..9+EXP? gdzie EXP: (e|E) (+|-)? (0..9)+</li>	
-		 <li> <b> "Staircase"  "Public"  "sypialnia dla gosci"</b> stała tekstowa (Tekst ujęty w cudzysłowie) </li>
+		 <li> <b>1 20 3.5 -350 </b> liczba całkowita lub wymierna. Spełnia wyrażenie regularne: 0..9+(.0..9+)?EXP?|.0..9+EXP? gdzie EXP: (e|E) (+|-)? (0..9)+</li>	
+		 <li> <b> "Staircase"  "Public"  "sypialnia dla gosci"</b> stała tekstowa (tekst ujęty w cudzysłowie) </li>
 		</ul>   
- <li> Relacje i funkcje:</li>
+ <li> Relacje</li>
 		 <ul>
-		   <li>   -adjacent(room1, room2): if rooms are directly adjacent</li>
-		   <li>   -accessible(room1, room2): if rooms are directly accessible </li>
-		   <li>   -Rooms(room): if argument is a room </li>
-		   <li>   -type(room): get set type of a room   </li>
-			<li>  -Doors(doors): if argument is a door  </li>
-		   <li>   -doorsInRoom(doors, room): if doors belong to room </li>
-		   <li>   -doorsDist(doors1, doors2): distance between doors1 and doors2 in meters </li>
-		   <li>   -area(room): area of room in square meters </li>
-		   <li>   -Sensors(sensor): if argument is a sensor </li>
-		   <li>   -sensorInRoom(sensor, room): if sensor is in room </li>
-		   <li>   -surveilledDoors(doors): if doors are watched by a sensor </li>
-		   <li>   -isPassageWatched(doors1,doors2): if it is impossible to get from doors1 and doors2 </li>
-		   <li>   -without entering a sensor range, doors1 and doors2 are situated in one room </li>
+			<li> <b>Areas(room)</b> czy room jest obszarem lub pokojem. Samo <i>Areas</i> reprezentuje zbiór wszystkich obszarów.</li>
+			<li> <b>Rooms(room)</b> czy room jest pokojem - obszarem na dole hierarchii który nie został dalej podzielony. Samo <i>Rooms</i> reprezentuje zbiór wszystkich pokoi.</li>
+			<li> <b>Doors(doors)</b> czy doors jest drzwiami. Samo <i>Doors</i> reprezentuje zbiór wszystkich drzwi.</li>
+			<li> <b>Sensors(sensor)</b> czy sensor jest czujnikiem. Samo <i>Sensors</i> reprezentuje zbiór wszystkich czujników.</li>
+			<li> <b>surveilledDoors(doors)</b> czy drzwi sa obserwowane przez jakiś czujnik</li>
+			<li> <b>externalDoors(doors)</b> czy drzwi wychodzą na zewnątrz budynku</li>
+			<li> <b>adjacent(room1, room2)</b> czy pokoje sasiadują ze sobą (mają wspólną ścianę)</li>
+			<li> <b>accessible(room1, room2)</b> czy room1 jest bezpośrednio dostępny z room2 </li>
+			<li> <b>doorsInRoom(doors, room)</b> czy drzwi doors znajdują się w pokoju room</li>
+			<li> <b>sensorInRoom(sensor, room)</b> czy czujnik sensor znajduje się w pokoju room</li>
+			<li> <b>isPassageWatched(doors1,doors2)</b> czy możliwe jest przejście pomiędzy doors1 i doors2 bez wchodzenia w zasięg czujnika. Drzwi muszą znajdować się w jednym pomieszczeniu.</li>
+			<li> <b>isDirectChild(area1, area2)</b> czy area1 jest bespośrenio pod area2 w hierarchii podziałów</li>
+			<li> <b>isInDescendants(area1, area2)</b> czy area1 jest pod area2 w hierarchii podziałów (nie koniecznie bezpośrednio)</li>
+     </ul>
+	  <li> Funkcje:</li>
+		 <ul>
+		   <li> <b>type(room)</b> typ pomieszczenia,np. "Kitchen" ,  </li>
+		   <li> <b>area(room)</b> powierzchnia pomieszczenia w metrach kwadratowych</li>
+		   <li> <b>label(room)</b> etykieta przypisana dla obszaru przez użytkownika</li>
+			<li> <b>doorsDist(doors1, doors2)</b> zwraca długość w metrach najkrótszej ścieżki pomiędzy drzwiami znajdującymi się w jednym pomieszczeniu </li>
+
      </ul>
 </ul>
  
-  
+ 
     <h2>Definiowanie nowych relacji</h2>
   
    <p>
@@ -404,27 +424,7 @@ FireSafetyDoors :<br/><br/>
  
 
  
-   <h2>Zestawy testów</h2>
-  
-   <p>
-  
- Ograniczenia projektowe zostały  
- zorganizowane w zestawy testów, które można aktywować dopasowując swój wybór do konkretnego projektu. 
-  
- Zestawy testów są zbiorami formuł języka testów HSSDR przechowywanymi w plikach. 
- Mogą one zawierać formuły końcowe oraz definicje pomocnicze.  </p>
-    <p>
- W skład pojedynczego zestawu testów wchodzi:
- </p>
- <ul>
-  <li>dowolna liczba definicji relacji pomocniczych, </li>
-    <li>dowolna liczba komentarzy w liniach rozpoczynających się od „#”,</li>
-	  <li> co najmniej jedna formuła końcowa, czyli formuła rozpoczynająca się od <i>forall</i> lub <i>exists</i> oraz nie zawierająca zmiennych wolnych.
-  </li>
-	  </ul>
- 
- 
- 
+   
 
  
 </body>
