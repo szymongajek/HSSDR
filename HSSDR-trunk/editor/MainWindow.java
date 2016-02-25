@@ -405,20 +405,24 @@ public class MainWindow extends JFrame implements MessageDisplayer   {
 		case  LAYOUT_EDITOR:
 			currentLayoutEditor.zoomIn();
 			currentLayoutEditor.validate();// ????
+			tabbedPane1.validate();
+			scrollPane1.validate();// ????
+			zoomLabel.setText(currentLayoutEditor.getZoomedPerc() + "%");
 			break;
 		case FLOORS:
 			break;
 		case HYPER_GRPAH_EDITOR:
 			hyperGraphEditor.zoomIn();
 			hyperGraphEditor.validate();// ????
+			tabbedPane1.validate();
+			scrollPane1.validate();// ????
+			zoomLabel.setText(hyperGraphEditor.getZoomedPerc() + "%");
 			break;
 		case VALIDATION:
 			break;
 		}
 
-		tabbedPane1.validate();
-		scrollPane1.validate();// ????
-		zoomLabel.setText(currentLayoutEditor.getZoomedPerc() + "%");
+		
 	}
 
 	private void zoomOutButtonActionPerformed(ActionEvent e) {
@@ -427,21 +431,24 @@ public class MainWindow extends JFrame implements MessageDisplayer   {
 		case  LAYOUT_EDITOR:
 			currentLayoutEditor.zoomOut();
 			currentLayoutEditor.validate();// ????
+			tabbedPane1.validate();
+			scrollPane1.validate();// ????
+			zoomLabel.setText(currentLayoutEditor.getZoomedPerc() + "%");
 			break;
 		case FLOORS:
-			
 			break;
 		case HYPER_GRPAH_EDITOR:
 			hyperGraphEditor.zoomOut();
 			hyperGraphEditor.validate();// ????
+			tabbedPane1.validate();
+			scrollPane1.validate();// ????
+			zoomLabel.setText(hyperGraphEditor.getZoomedPerc() + "%");
 			break;
 		case VALIDATION:
 			break;
 		}
 
-		tabbedPane1.validate();
-		scrollPane1.validate();// ????
-		zoomLabel.setText(currentLayoutEditor.getZoomedPerc() + "%");
+		
 
 	}
 	 
@@ -717,8 +724,14 @@ public class MainWindow extends JFrame implements MessageDisplayer   {
 					editor.mode=Mode.OUTLINE_FINISHED;
 				}
 			}
+			
+			// current zoom label
+			zoomLabel.setText(currentLayoutEditor.getZoomedPerc() + "%");
+			
 			hideShowFirstTabButtons(true);
+			hideShowZoomingButtons(true);
 			hideShowMultifloorRelButtons(false);
+			hideShowFloorsCombo(true);
 			break;
 		case 1:
 			currentTab=TABS.FLOORS;
@@ -726,7 +739,9 @@ public class MainWindow extends JFrame implements MessageDisplayer   {
 			floorsCombo.setEnabled(false);
 			
 			hideShowFirstTabButtons(false);
+			hideShowZoomingButtons(false);
 			hideShowMultifloorRelButtons(true);
+			hideShowFloorsCombo(false);
 			break;
 		case 2:
 			currentTab=TABS.HYPER_GRPAH_EDITOR;
@@ -735,28 +750,55 @@ public class MainWindow extends JFrame implements MessageDisplayer   {
 			floorsCombo.setSelectedIndex(prevSelected2);
 			floorsCombo.setEnabled(true);
 			
+			// current zoom label
+			zoomLabel.setText(hyperGraphEditor.getZoomedPerc() + "%");
+			
 			hideShowFirstTabButtons(false);
+			hideShowZoomingButtons(true);
 			hideShowMultifloorRelButtons(false);
+			hideShowFloorsCombo(true);
 			break;
 		case 3:
 			currentTab=TABS.VALIDATION;
 			floorsCombo.setEnabled(false);
 			
 			hideShowFirstTabButtons(false);
+			hideShowZoomingButtons(false);
 			hideShowMultifloorRelButtons(false);
+			hideShowFloorsCombo(false);
 			break;
 		}
 		
 	}
 	
+	/**
+	 * hide or show ui elements related to multi floor
+	 * @param visible
+	 */
 	private void hideShowMultifloorRelButtons(boolean visible){
 		
 		labelMultiFloorRelType.setVisible(visible);
 		 mfRelTypeMutliFloorPass.setVisible(visible);
 		  mfRelTypeAcc.setVisible(visible);
 		  mfRelTypeVis .setVisible(visible);
+		 
+	}
+	/**
+	 * hide or show floors combo and it's label
+	 * @param visible
+	 */
+	private void hideShowFloorsCombo(boolean visible){
+		
+		 floorsCombo.setVisible(visible);
+		  labelFloors.setVisible(visible);
 	}
 	
+	
+	
+	/**
+	 * hide or show ui elements related to layout edititng - first tab only
+	 * @param visible
+	 */
 	private void hideShowFirstTabButtons(boolean visible){
 		
 		label5.setVisible(visible);
@@ -765,6 +807,17 @@ public class MainWindow extends JFrame implements MessageDisplayer   {
 		roomTypes .setVisible(visible);
 		label8 .setVisible(visible);
 		areaValueLabel.setVisible(visible);
+	}
+	
+	/**
+	 * hide or show ui elements related zooming. active in layout and hipergraph editors
+	 * @param visible
+	 */
+	private void hideShowZoomingButtons(boolean visible){
+		
+		zoomInButton.setVisible(visible);
+		zoomOutButton.setVisible(visible);
+		zoomLabel.setVisible(visible);
 	}
 	
 	public  void initLayoutEditorsListeners(){
@@ -906,14 +959,14 @@ public class MainWindow extends JFrame implements MessageDisplayer   {
 				menu1.setText("File");
 
 				//---- open_menuItem ----
-				open_menuItem.setText("Open");
-				open_menuItem.addActionListener(new ActionListener() {
-					@Override
-					public void actionPerformed(ActionEvent e) {
-						open_menuItemActionPerformed(e);
-					}
-				});
-				menu1.add(open_menuItem);
+//				open_menuItem.setText("Open");
+//				open_menuItem.addActionListener(new ActionListener() {
+//					@Override
+//					public void actionPerformed(ActionEvent e) {
+//						open_menuItemActionPerformed(e);
+//					}
+//				});
+//				menu1.add(open_menuItem);
 
 				//---- import_menuItem ----
 				import_menuItem.setText("Import Outline");
@@ -926,8 +979,8 @@ public class MainWindow extends JFrame implements MessageDisplayer   {
 				menu1.add(import_menuItem);
 
 				//---- save_menuItem ----
-				save_menuItem.setText("Save");
-				menu1.add(save_menuItem);
+//				save_menuItem.setText("Save");
+//				menu1.add(save_menuItem);
 
 				//---- clear_menuItem ----
 				clear_menuItem.setText("Clear");
