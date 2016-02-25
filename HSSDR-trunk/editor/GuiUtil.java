@@ -21,6 +21,7 @@ public class GuiUtil {
 	public static  JEditorPane loadHtml(String fileName) {
         final JEditorPane editorPane = new JEditorPane();
         editorPane.setEditable(false);
+        editorPane.setContentType("text/html;charset=UTF-8");// UTF-8 set here to avoid problems after jar packaging
         java.net.URL helpURL = GuiUtil.class.getResource(fileName);
         if (helpURL != null) {
             try {
