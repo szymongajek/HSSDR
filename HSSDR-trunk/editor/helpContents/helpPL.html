@@ -8,9 +8,7 @@
  
  <ul>
  <li href="#sec_window"> 
- <p style="font-size:120%;" > Główne okno programu </p>
-  <p   >  Elementy głównego okna </p>
-   
+ <p style="font-size:120%;" > Elementy głównego okna programu </p>
  </li> 
  <li href="#sec_layout"> 
  <p style="font-size:120%;" >Tworzenie rozkładu pomieszczeń</p>
@@ -23,7 +21,7 @@
  <li href="#sec_floors">
  <p style="font-size:120%;" >Widok pięter </p>
  <p   >  Ustawianie liczby pięter </p>
- <p   >  Widok wielu pięter i realcje między piętrami  </p>
+ <p   >  Widok wielu pięter i relacje między piętrami  </p>
  </li>
  <li href="#sec_hyper">
  <p style="font-size:120%;" >Podgląd hipergrafów </p>
@@ -45,9 +43,8 @@
  <!--  =====================================+++++++++++++++++++++++++++++========================================--> 
  
  
-<h1 id="sec_window">Główne okno programu</h1> 
-  
-<h2> Elementy głównego okna</h2>
+<h1 id="sec_window">Elementy głównego okna programu</h1> 
+ 
  Po uruchomieniu programu widoczne jest główne okno z wybraną zakładką edycji rozkładów pomieszczeń. Jego podstawowe elementy to:
   <ol>
 <li>Menu głównych opcji.</li>
@@ -55,13 +52,13 @@
 <li>Menu pomocy.</li>
 <li>Zakładka edycji rozkładów pomieszczeń.</li>
 <li>Zakładka widoku pięter.</li>
-<li>Zakładka podglądu hipergafów.</li>
+<li>Zakładka podglądu hipergrafów.</li>
 <li>Zakładka walidacji projektu.</li>
 <li>Panel główny.</li>
 <li>Lewy panel.</li>
  </ol>
  <p>
- Za pomocą zakładek(4,5,6,7) możliwa jest zmiana kontekstu pracy pomiędzy edycją rozkłądu pomieszczeń pojedynczego piętra, edycją relacji pomiędzy piętrami, a edycją lub wyborem zestawów testów zgodności które są wykonywane dla projektu.
+ Za pomocą zakładek(4,5,6,7) możliwa jest zmiana kontekstu pracy pomiędzy edycją rozkładu pomieszczeń pojedynczego piętra, edycją relacji pomiędzy piętrami, a edycją lub wyborem zestawów testów zgodności które są wykonywane dla projektu.
  Po zmianie zakładek zmienia się zawartość panelu głównego(8) oraz akcje dostępne w lewym panelu(9).
  </p>
  <br/>
@@ -76,14 +73,14 @@
  
 <p>
 Tworzenie rozkładu pomieszczeń rozpoczyna się od narysowania obrysu. Następnie może on być dzielony na mniejsze pomieszczenia, można nanosić 
-dodatkowe elementy oraz cofać swoje akcje. Aby określenić rozmiaru dostępnego arkusza, gęstości siatki i inne parametry należy przed rozpoczęciem 
+dodatkowe elementy oraz cofać swoje akcje. Aby określić rozmiaru dostępnego arkusza, gęstości siatki i inne parametry należy przed rozpoczęciem 
 projektowania skorzystać z ustawień systemu. Możliwa jest zmiana wielkości widoku za pomocą przycisków ("+", "-") górnej części lewego panelu.
 </p>
 
 <h2> Tworzenie obrysu</h2>
 <p>
  Aby rozpocząć rysowanie obrysu należy nacisnąć lewy przycisk myszy na kratkowanym obszarze. 
- Następnie przesuwając kursor po siatce dodawane są kolejne odcinki.<b>Aby wycofać się z aktualnie rysowanej linii należy nacisnąć prawy przycisc myszy.</b> 
+ Następnie przesuwając kursor po siatce dodawane są kolejne odcinki.<b>Aby wycofać się z aktualnie rysowanej linii należy nacisnąć prawy przycisk  myszy.</b> 
  Rysowanie obrysu kończy się w momencie zapętlenia łamanej. </p>
  <img alt="" src="layout_contour.png"/> 
  
@@ -92,27 +89,27 @@ projektowania skorzystać z ustawień systemu. Możliwa jest zmiana wielkości w
  Po stworzeniu obrysu można dowolnie dzielić obszary na mniejsze. Aby dokonać podziału należy zaznaczyć wybrany obszar klikając na niego lewym przyciskiem 
  myszy.
  Następnie, po kliknięciu na krawędzi zaznaczonego obszaru rozpoczyna się rysowanie linii podziału. <b>Aby wycofać się z aktualnie rysowanej linii należy 
- nacisnąć prawy przycisc myszy.</b> 
+ nacisnąć prawy przycisk  myszy.</b> 
  Linia podziału kończy się w momencie osiągniecia krawędzi obszaru, w tym samym momencie obszar jest dzielony.
 </p>
  <img alt="" src="layout_division.png"/> 
  
  <h2>Właściwości obszarów</h2>
 <p>
-W celu wprowadzenia właściwości obszaru również nalezy go zaznaczyć, klikając lewym przyciskiem myszy. Zaznaczone obszary kolorowane są na żółto, 
-obszary pod kursorem na niebiesko. Aby odznaczyć należy ponownie kliknąć na zaznaczony obszar lub zaznaczyć inny.
-Dla zacznaczonego obszaru można w lewym panelu wprowadzić jego nazwę (pole Area Label) oraz wybrać rodzaj pomieszczenia (list rozwijana Area Type). 
-W kolejnym polu wyświetlnana jest powierzchnia obszaru. 
+W celu wprowadzenia właściwości obszaru należy go najpierw zaznaczyć, klikając lewym przyciskiem myszy. Zaznaczone obszary kolorowane są na żółto, 
+natomiast obszary znajdujące się pod kursorem na niebiesko. Aby odznaczyć należy ponownie kliknąć na zaznaczony obszar lub zaznaczyć inny. 
+Dla zaznaczonego obszaru można w lewym panelu wprowadzić jego nazwę (pole „Area Label”) 
+oraz wybrać rodzaj pomieszczenia (list rozwijana „Area Type”). W kolejnym polu wyświetlana jest powierzchnia obszaru w metrach kwadratowych.
 </p>
  <img alt="" src="layout_select_edit.png"/> 
 
  <h2>Drzwi, linie przerywane, cofanie podziału, czujniki bezpieczeństwa, testy zgodności</h2>
  <p>
-Dolne menu składa sie z nastepujących elementów:
+Dolne menu składa się z następujących elementów:
 
 </p>
   <ol>
-<li>Przycisk zmiany na ciąglą linie podziału.</li>
+<li>Przycisk zmiany na ciągłą  linie podziału.</li>
 <li>Przycisk zmiany na przerywaną linie podziału.</li>
 <li>Przycisk dodawania drzwi.</li>
 <li>Przycisk cofania podziału.</li>
@@ -132,17 +129,18 @@ Dolne menu składa sie z nastepujących elementów:
  <img alt="" src="layout_dotted.png"/> 
 
  <p>
- Naciśnie przycisku dodawania drzwi(3) powoduje przejście w tryb dodawania drzwi. Mogą one być umieszczane tylko na ścianach. 
- Aby wyjść z trybu dodawania drzwi nalezy ponownie nacisnąć ten przycisk.
+Naciśnie przycisku dodawania drzwi (3) powoduje przejście w tryb dodawania drzwi. Mogą one być umieszczane tylko na ścianach,
+ za pomocą lewego przycisku myszy. 
+Aby wyjść z trybu dodawania drzwi należy ponownie nacisnąć przycisk dodawania drzwi
 </p>
   <img alt="" src="layout door.png"/> 
  
  <p>
- Za pomocą przycisku cofania podziału(4), aktywuje się nowe okno pokazujące historię dokonanych w projekcie podziałów. 
- Po kliknięciu na na węzeł w drzewie podziałów, pomieszczenia powstale w jego wyniku zostają podświetlone. 
- Nastepnie klikając przycisk poniżej można usunąć zaznaczony podział. Tylko podziały na dole hierarchii mogą być usuwane. 
- Aby usunąć podział znajdujący się wyżej w hierarchii, należy najpierw usunać późniejsze podziały. Aby zamknąć okno historii podziałów
- należy ponownie nacisnąć przycisku cofania podziału(4).
+Za pomocą przycisku cofania podziału (4), aktywuje się nowe okno pokazujące historię podziałów dokonanych w projekcie. 
+Po kliknięciu na węzeł w drzewie podziałów, pomieszczenia powstałe w jego wyniku zostają podświetlone.
+ Następnie, klikając przycisk poniżej można usunąć zaznaczony podział. Tylko podziały na dole hierarchii mogą być usuwane. 
+ Aby usunąć podział znajdujący się wyżej w hierarchii, należy najpierw usunąć późniejsze podziały. 
+Aby zamknąć okno historii podziałów należy ponownie nacisnąć przycisku cofania podziału (4).
  
 </p>
  <img alt="" src="layout undo.png"/> 
@@ -156,11 +154,11 @@ Dolne menu składa sie z nastepujących elementów:
  
  <p>
  Do projektu mozna dodawać również czujniki bezpieczeństwa, reprezentujące takie urządzenia jak czujnik ruchu, kamery przemysłowe, czujnik dymu, poziomu dwutlenku węgla lub spalin, temperatury, itp.
-W celu dodania czujnika bezpeczeństwa należy:
+W celu dodania czujnika bezpieczeństwa  należy:
 <ol>
-<li>Zaznaczyć pomieszczenie w którym ma być dodanyc czujnik.</li>
-<li>Klinąć prawym przyciskiem myszy aby wybrać lokalizacje czujnika.</li>
-<li>Klinąć drugi raz prawym przyciskiem myszy aby wybrać kąt skierowania czyjnika.</li>
+<li>Zaznaczyć pomieszczenie w którym ma być dodany  czujnik.</li>
+<li>Kliknąć  prawym przyciskiem myszy aby wybrać lokalizacje czujnika.</li>
+<li>Kliknąć drugi raz prawym przyciskiem myszy aby wybrać kąt skierowania czujnika.</li>
 </ol>
  
  </p>
@@ -188,8 +186,8 @@ W celu dodania czujnika bezpeczeństwa należy:
  
  <h2>Ustawianie liczby pięter</h2>
  <p>
- W przypadku projektowania bydunków wielopiętrowych należy zacząć od wybrania liczby pięter w ustawieniach. 
- Aby wybrać piętro do edycji nalezy skorzystać z listy rozwijanej w lewym panelu.
+W przypadku projektowania budynków wielopiętrowych należy zacząć od wybrania liczby pięter w ustawieniach.
+ Aby wybrać piętro do edycji należy  skorzystać z listy rozwijanej w lewym panelu.
 </p>
  <img alt="" src="floor choose.png"/> 
 
@@ -201,25 +199,25 @@ W celu dodania czujnika bezpeczeństwa należy:
  <img alt="" src="floor outline.png"/>
  
  
- <h2>Widok wielu pięter i realcje między piętrami</h2>
+ <h2>Widok wielu pięter i relacje między piętrami</h2>
  <p>
- Po wybraniu zakładki widoku pięter pokazywane są wszystkie piętra, z parterem najniżej i ostatnim pięterem najwyżej. 
- W tym widoku można zobaczyć w całości porjektowany budynek oraz wprowadzić relacje międzypiętrowe.
+Po wybraniu zakładki widoku pięter pokazywane są wszystkie piętra, z parterem najniżej i ostatnim piętrem najwyżej. 
+W tym widoku można zobaczyć w całości projektowany budynek oraz wprowadzić relacje międzypiętrowe.
 </p>
  <p>
  Dostępne są tutaj następujące typy relacji:
  </p>
   <ol>
-<li> Połączenie wilopiętrowe (Multi Floor Connection) oznaczająca klatki schodowe czy windy.</li>
+<li> Połączenie wielopiętrowe  (Multi Floor Connection) oznaczająca klatki schodowe czy windy.</li>
 <li> Dostępność (Accessibility), oznaczająca połączenie między dwoma piętrami.</li>
-<li> Widoczność (Visibility), stosowana w celu zaznaczenia widoczności między poziomami, np. scena widoczna z trybun na wyższcyh piętrach. 
+<li> Widoczność (Visibility), stosowana w celu zaznaczenia widoczności między poziomami, np. scena widoczna z trybun na wyższych  piętrach. 
 Reprezentowana przez grubsze strzałki. </li>
 </ol>
  <p>
 Aby dodać relację między piętrami należy po wybraniu typu relacji, kliknąć lewym przyciskiem myszy na pomieszczenie na jednym z pięter.
 Pomieszczenie znajdujące się pod kursorem zostanie podświetlone i to ono będzie wchodziło w skład relacji. 
-Po wybraniu pierwszego pomieszczenia pojawi się strzałka symbolizująca relację. Nastepnie nalezy kliknąć na kolejne pomieszczenie aby je dodać do relacji.
-Aby zakończyć nalezy użyć prawego przycisku myszy.
+Po wybraniu pierwszego pomieszczenia pojawi się strzałka symbolizująca relację. Następnie należy kliknąć na kolejne pomieszczenie aby je dodać do relacji.
+Aby zakończyć należy użyć prawego przycisku myszy.
  </p>
 
  <img alt="" src="floor view arrow.png"/> 
@@ -231,8 +229,8 @@ Aby zakończyć nalezy użyć prawego przycisku myszy.
   <p>
  Hipergrafy są wewnętrzna strukturą danych używaną do zapisu projektu przez HSSDR. Ich podgląd nie jest niezbędny do używania systemu, zakładka ta służy
  na potrzeby analizy programu. 
- Na liście rozwijanej w lewym panelu możliwy jest wybór prezentacji wyświetlania hipergafu dla poszczególnych pięter lub całego budynku.
- Możliwe jest przesuwanie elementów oraz zmiana wielkości widoku za pomocą przycisków ("+", "-") górnej części lewego panelu.
+ Na liście rozwijanej w lewym panelu możliwy jest wybór prezentacji wyświetlania hipergrafu  dla poszczególnych pięter lub całego budynku.
+ Możliwe jest przesuwanie elementów na planszy. W celu powiększenia/pomniejszania należy skorzystać z przycisków ("+", "-") w górnej części lewego panelu.
 </p>
  <img alt="" src="hyper view.png"/> 
   
@@ -245,7 +243,7 @@ Aby zakończyć nalezy użyć prawego przycisku myszy.
  </p>
    <ol>
 <li> Wielkość arkusza używanego do projektowania (Horizontal, Vertical Size). Wielkość wyrażona w pikselach.</li>
- <li> Gestość siatki na jaką podzielony jest arkusz (Grid Size (px)). Wielkość wyrażona w pikselach.</li>
+ <li> Gęstość  siatki na jaką podzielony jest arkusz (Grid Size (px)). Wielkość wyrażona w pikselach.</li>
  <li> Jaką długość w metrach reprezentuje jedna kratka arkusza (Grid size[meters]).</li>
  <li> Zasięg czujników bezpieczeństwa (Sensor range[meters]). Wielkość wyrażona w metrach.</li>
  <li> Znaczenie przerywanej linii podziału pomieszczenia (Dashed Line Meaning). 
@@ -308,10 +306,11 @@ zobaczyć za pomocą opcji cofania podziału.
   
    <p>
 W zakładce walidacji projektu można włączać/wyłączać zestawy testów a także modyfikować ich zawartość.<br/>
-Każdy zestaw testów to plik tekstowy, identyfikowany przez nazwę pliku. W lewej cześci ekranu znajduje się lista zestawów testów.
- Aby zestaw był prany pod uwage podczas pracy nad projektem należy zaznaczyć odpowienie pole(kolumna Enabled).</br>
- Po wybraniu pliku na liście jego zawartość jest wyświetlana w prawej części ekranu. Zawartość zestawy testów można modyfikować. 
- Aby zmiany zostały zapisane należy skorzystać z przycisku poniżej (Save File).
+Każdy zestaw testów to plik tekstowy, identyfikowany przez nazwę pliku. W lewej części ekranu znajduje się lista zestawów testów.
+ Aby zestaw był prany pod uwagę podczas pracy nad projektem należy zaznaczyć odpowiednie pole(kolumna „Enabled”).<br/>
+Po wybraniu pliku na liście, jego zawartość jest wyświetlana w prawej części ekranu. Zawartość zestawy testów można modyfikować.
+ Aby zmiany zostały zapisane należy skorzystać z przycisku poniżej zapisu („Save File”).
+
 
  </p>
  </br>
