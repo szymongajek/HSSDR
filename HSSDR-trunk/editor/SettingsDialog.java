@@ -332,7 +332,7 @@ public class SettingsDialog extends JDialog {
 				"3*(default, $lgap), default"));
 
 			//---- floorsNumberLab ----
-			floorsNumberLab.setText("Floors number");
+			floorsNumberLab.setText("Number of floors");
 			panel4.add(floorsNumberLab, cc.xy(3, 1, CellConstraints.RIGHT, CellConstraints.DEFAULT));
 
 			//---- floorNumberComboBox ----
