@@ -248,7 +248,7 @@ Aby zakończyć należy użyć prawego przycisku myszy.
  <li> Zasięg czujników bezpieczeństwa (Sensor range[meters]). Wielkość wyrażona w metrach.</li>
  <li> Znaczenie przerywanej linii podziału pomieszczenia (Dashed Line Meaning). 
  Może ona oznaczać oddzielenie od siebie pomieszczeń wyłącznie w sensie logicznym, lub relacje widoczności pomiędzy pomieszczeniami.</li>
- <li>Ilość pięter (Floors number).</li>
+ <li>Ilość pięter (Number of floors).</li>
 </ol>
 
  <p>
@@ -296,7 +296,8 @@ Aby zakończyć należy użyć prawego przycisku myszy.
  
       <p> 
 W projekcie wyróżnia się pokoje (Rooms) oraz obszary (Areas). Wszystkie pomieszczenia jakie podstawly w wyniku podziałów to obszary, natomiast pokoje to 
-pomieszczenia znajdujące się na dole hierarchiii podziałów które nie były dalej dzielone.Obszary zawierają pokoje w hierarchii podziałów.. Pokoje są widoczne w edytytorze pomieszczeń, hierarchie obszarów można
+pomieszczenia znajdujące się na dole hierarchiii podziałów które nie były dalej dzielone.Obszary zawierają pokoje w hierarchii podziałów.
+ Pokoje są widoczne w edytytorze pomieszczeń, hierarchie obszarów można
 zobaczyć za pomocą opcji cofania podziału. 
  </p>
  
@@ -307,6 +308,7 @@ zobaczyć za pomocą opcji cofania podziału.
    <p>
 W zakładce walidacji projektu można włączać/wyłączać zestawy testów a także modyfikować ich zawartość.<br/>
 Każdy zestaw testów to plik tekstowy, identyfikowany przez nazwę pliku. W lewej części ekranu znajduje się lista zestawów testów.
+W celu stworzenia nowego zestawu testów należy dodać nowy plik tekstowy do folderu test_files.
  Aby zestaw był prany pod uwagę podczas pracy nad projektem należy zaznaczyć odpowiednie pole(kolumna „Enabled”).<br/>
 Po wybraniu pliku na liście, jego zawartość jest wyświetlana w prawej części ekranu. Zawartość zestawy testów można modyfikować.
  Aby zmiany zostały zapisane należy skorzystać z przycisku poniżej zapisu („Save File”).
@@ -358,7 +360,7 @@ Po wybraniu pliku na liście, jego zawartość jest wyświetlana w prawej częś
 		<li> <b>=></b>implikacja (wynikanie, jeśli A to B),  np. <i>forall x,y in Rooms : type(x) = "Bedroom" and type(y) = "Kitchen" => not accessible(x,y);</i> oznacza dla każdych pokoji jeśli jeden jest typu sypialnia, a drugi kuchnia, to nie mogą być bezpośrednio dostępne</li>
 		<li> <b><=></b> równoważność formuł</li>
 		<li> <b>()</b> nawiasy konieczne do zagnieżdżania warunków</li>
-		<li><b> = != > <  >= <=  </b> operotory porównań (równe, różne,więskze, mniejsze, więszke lub równe, mniejsze lub równe), służące do porównywania liczb i łańcuchów znaków, np. 	<i>area(x) >= area(y)</i></li>
+		<li><b> = != > <  >= <=  </b> operatory porównań (równe, różne,więskze, mniejsze, więszke lub równe, mniejsze lub równe), służące do porównywania liczb i łańcuchów znaków, np. 	<i>area(x) >= area(y)</i></li>
 		<li><b>+ - * /</b>	operatory arytmetyczne (dodawanie, odejmowanie, mnożenie, dzielenie), np.	<i> area(x) >= 10 + 2*area(x) </i>  </li>
 		<li> <b>;</b>	 średnik, konieczny po każdej instrukcji! 	 </li>
 	   </ul>
