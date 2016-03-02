@@ -383,7 +383,7 @@ public class LayoutEditor extends JPanel {
 		
 		Arc2D.Double  arc= new Arc2D.Double();
 		
-		arc.setArcByCenter(calcXY(s.getArc().getCenterX()), calcXY(s.getArc().getCenterY()), calcXY(Sensor.range), s.getArc().getAngleStart(), s.getArc().getAngleExtent(), s.getArc().getArcType());
+		arc.setArcByCenter(calcXY(s.sx), calcXY(s.sy), calcXY(HLH.sensorRange), s.calcArcAngleStart(), HLH.SENSOR_ANGLE_SIZE, Arc2D.PIE);
 		
 		Color rgb=Color.gray;
 		int alfa =100;
