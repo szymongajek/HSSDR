@@ -39,7 +39,7 @@
          <class>com.jgoodies.forms.layout.FormLayout</class>
          <void method="setProperty">
           <string>$columnSpecs</string>
-          <string>29dlu, labelcompgap, 67dlu, labelcompgap, 91dlu, labelcompgap, 133dlu</string>
+          <string>29dlu, labelcompgap, 67dlu, labelcompgap, 93dlu, labelcompgap, 133dlu</string>
          </void>
          <void method="setProperty">
           <string>$rowSpecs</string>
@@ -319,6 +319,29 @@
           </void>
          </object>
         </void>
+        <void method="add">
+         <object class="com.jformdesigner.model.FormComponent">
+          <string>javax.swing.JLabel</string>
+          <void method="setProperty">
+           <string>text</string>
+           <string></string>
+          </void>
+          <void property="name">
+           <string>sensorRangeRightColLabel</string>
+          </void>
+         </object>
+         <object class="com.jformdesigner.model.FormLayoutConstraints">
+          <class>com.jgoodies.forms.layout.CellConstraints</class>
+          <void method="setProperty">
+           <string>gridX</string>
+           <int>7</int>
+          </void>
+          <void method="setProperty">
+           <string>gridY</string>
+           <int>9</int>
+          </void>
+         </object>
+        </void>
        </object>
        <object class="com.jformdesigner.model.FormLayoutConstraints">
         <class>com.jgoodies.forms.layout.CellConstraints</class>
@@ -417,7 +440,7 @@
            <string>(requires reset)</string>
           </void>
           <void property="name">
-           <string>label1</string>
+           <string>dashedModeRightColLabel</string>
           </void>
          </object>
          <object class="com.jformdesigner.model.FormLayoutConstraints">
@@ -516,7 +539,7 @@
           <string>javax.swing.JLabel</string>
           <void method="setProperty">
            <string>text</string>
-           <string>Floors number</string>
+           <string>Number of floors</string>
           </void>
           <void property="name">
            <string>floorsNumberLab</string>
@@ -637,7 +660,7 @@
            <string>(requires reset)</string>
           </void>
           <void property="name">
-           <string>label4</string>
+           <string>floorNumberRightColLabel</string>
           </void>
          </object>
          <object class="com.jformdesigner.model.FormLayoutConstraints">

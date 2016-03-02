@@ -1,5 +1,7 @@
 package sensors;
 
+import hyperGraphs.HLH;
+
 import java.awt.geom.Arc2D;
 import java.awt.geom.Rectangle2D;
 
@@ -13,10 +15,7 @@ public class Sensor {
 	  */
 	public final int dx,dy;
 	
-	public static int range;
-	public static int angleSize=90;
 	
-	Arc2D.Double arc;
 	
 	
 	public Sensor(int sx, int sy, int dx, int dy) {
@@ -24,11 +23,29 @@ public class Sensor {
 		this.sy = sy;
 		this.dx = dx;
 		this.dy = dy;
-		createArc();
 	}
 	
 	 
-	private void createArc(){
+	private Arc2D.Double createArc(){
+		Arc2D.Double arc;
+		
+		int startAngle = calcArcAngleStart();
+		 
+//		System.out.println("xdif: "+xdif+" ydif: "+ydif+" tang: "+tang+" radAng"+radAng+" startAngle: "+startAngle);
+		
+		arc=new Arc2D.Double(Arc2D.PIE);
+		
+		arc.setArcByCenter( sx , sy , HLH.sensorRange,startAngle, HLH.SENSOR_ANGLE_SIZE, Arc2D.PIE);
+		return arc;
+	}
+
+
+	/**
+	 * for needs of setArcByCenter method calculates starting angle of arc. arc is constructued with use of starting angle+angle range,
+	 * not arc middle+range/2 in both sides
+	 * @return
+	 */
+	public int calcArcAngleStart() {
 		int startAngle;
 		
 		int ydif=-( dy- sy);
@@ -44,21 +61,12 @@ public class Sensor {
 			startAngle=(int) Math.round(Math.toDegrees(radAng));
 		}
 		
-		startAngle-= angleSize/2;
-		 
-//		System.out.println("xdif: "+xdif+" ydif: "+ydif+" tang: "+tang+" radAng"+radAng+" startAngle: "+startAngle);
-		
-		this.arc=new Arc2D.Double(Arc2D.PIE);
-		
-		arc.setArcByCenter( sx , sy , range,startAngle,angleSize, Arc2D.PIE);
-	}
-	public Arc2D.Double getArc(){
-		return arc;
+		startAngle-= HLH.SENSOR_ANGLE_SIZE/2;
+		return startAngle;
 	}
 	public boolean isPointInRange(double x, double y) {
-		double rangeTolerance=.1;
-		Rectangle2D.Double rect = new Rectangle2D.Double(x-rangeTolerance,y-rangeTolerance,2*rangeTolerance,2*rangeTolerance);
-		return arc.intersects(rect);
+		Rectangle2D.Double rect = new Rectangle2D.Double(x-HLH.SENSOR_CALC_RANGE_TOLERANCE,y-HLH.SENSOR_CALC_RANGE_TOLERANCE,2*HLH.SENSOR_CALC_RANGE_TOLERANCE,2*HLH.SENSOR_CALC_RANGE_TOLERANCE);
+		return createArc().intersects(rect);
 //		return  arc.contains(x,y);
 	}
 

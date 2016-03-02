@@ -97,9 +97,18 @@ public class HLH
     
     public static final float  DEFAULT_SENSOR_RANGE=6;
     public static  float  sensorRange = DEFAULT_SENSOR_RANGE;
-    
+    /**
+     * sensor pie size in degreees.
+     */
+    public static final int SENSOR_ANGLE_SIZE=90;
+    /**
+     * range doors represented by point are enlarged by square of this size*2 during sensor range check
+     */
+    public static final double SENSOR_CALC_RANGE_TOLERANCE=.2;
     
     int floorCount=0;
+	
+	
 
     public HLH( int floorCount)
     {

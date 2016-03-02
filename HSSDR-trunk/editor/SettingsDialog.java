@@ -182,15 +182,16 @@ public class SettingsDialog extends JDialog {
 		gridMeters_TF = new JTextField();
 		sensorRange_lab = new JLabel();
 		sensorRange_TF = new JTextField();
+		sensorRangeRightColLabel = new JLabel();
 		panel3 = new JPanel();
 		dashedLineLab = new JLabel();
 		dashedModeACC_radio = new JRadioButton();
-		label1 = new JLabel();
+		dashedModeRightColLabel = new JLabel();
 		dashedModeVIS_radio = new JRadioButton();
 		panel4 = new JPanel();
 		floorsNumberLab = new JLabel();
 		floorNumberComboBox = new JComboBox();
-		label4 = new JLabel();
+		floorNumberRightColLabel = new JLabel();
 		panel2 = new JPanel();
 		applyAndReset = new JButton();
 		apply_button = new JButton();
@@ -208,15 +209,9 @@ public class SettingsDialog extends JDialog {
 		//======== panel1 ========
 		{
 
-			// JFormDesigner evaluation mark
-//			panel1.setBorder(new javax.swing.border.CompoundBorder(
-//				new javax.swing.border.TitledBorder(new javax.swing.border.EmptyBorder(0, 0, 0, 0),
-//					"JFormDesigner Evaluation", javax.swing.border.TitledBorder.CENTER,
-//					javax.swing.border.TitledBorder.BOTTOM, new java.awt.Font("Dialog", java.awt.Font.BOLD, 12),
-//					java.awt.Color.red), panel1.getBorder())); panel1.addPropertyChangeListener(new java.beans.PropertyChangeListener(){public void propertyChange(java.beans.PropertyChangeEvent e){if("border".equals(e.getPropertyName()))throw new RuntimeException();}});
 
 			panel1.setLayout(new FormLayout(
-				"29dlu, $lcgap, 67dlu, $lcgap, 91dlu, $lcgap, 133dlu",
+				"29dlu, $lcgap, 67dlu, $lcgap, 93dlu, $lcgap, 133dlu",
 				"4*(default, $lgap), default"));
 
 			//---- horSize_lab ----
@@ -284,6 +279,10 @@ public class SettingsDialog extends JDialog {
 				}
 			});
 			panel1.add(sensorRange_TF, cc.xy(5, 9));
+
+			//---- sensorRangeRightColLabel ----
+			sensorRangeRightColLabel.setText("");
+			panel1.add(sensorRangeRightColLabel, cc.xy(7, 9));
 		}
 		contentPane.add(panel1, cc.xy(1, 3, CellConstraints.LEFT, CellConstraints.TOP));
 
@@ -307,9 +306,9 @@ public class SettingsDialog extends JDialog {
 			});
 			panel3.add(dashedModeACC_radio, cc.xy(5, 1));
 
-			//---- label1 ----
-			label1.setText("(requires reset)");
-			panel3.add(label1, cc.xy(7, 1, CellConstraints.LEFT, CellConstraints.DEFAULT));
+			//---- dashedModeRightColLabel ----
+			dashedModeRightColLabel.setText("(requires reset)");
+			panel3.add(dashedModeRightColLabel, cc.xy(7, 1, CellConstraints.LEFT, CellConstraints.DEFAULT));
 
 			//---- dashedModeVIS_radio ----
 			dashedModeVIS_radio.setText("Visibility and Adjency");
@@ -361,9 +360,9 @@ public class SettingsDialog extends JDialog {
 			});
 			panel4.add(floorNumberComboBox, cc.xy(5, 1, CellConstraints.LEFT, CellConstraints.DEFAULT));
 
-			//---- label4 ----
-			label4.setText("(requires reset)");
-			panel4.add(label4, cc.xy(7, 1, CellConstraints.LEFT, CellConstraints.DEFAULT));
+			//---- floorNumberRightColLabel ----
+			floorNumberRightColLabel.setText("(requires reset)");
+			panel4.add(floorNumberRightColLabel, cc.xy(7, 1, CellConstraints.LEFT, CellConstraints.DEFAULT));
 		}
 		contentPane.add(panel4, cc.xy(1, 7, CellConstraints.LEFT, CellConstraints.TOP));
 
@@ -427,15 +426,16 @@ public class SettingsDialog extends JDialog {
 	private JTextField gridMeters_TF;
 	private JLabel sensorRange_lab;
 	private JTextField sensorRange_TF;
+	private JLabel sensorRangeRightColLabel;
 	private JPanel panel3;
 	private JLabel dashedLineLab;
 	private JRadioButton dashedModeACC_radio;
-	private JLabel label1;
+	private JLabel dashedModeRightColLabel;
 	private JRadioButton dashedModeVIS_radio;
 	private JPanel panel4;
 	private JLabel floorsNumberLab;
 	private JComboBox floorNumberComboBox;
-	private JLabel label4;
+	private JLabel floorNumberRightColLabel;
 	private JPanel panel2;
 	private JButton applyAndReset;
 	private JButton apply_button;
