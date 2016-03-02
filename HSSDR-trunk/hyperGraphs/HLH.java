@@ -95,9 +95,13 @@ public class HLH
     public static final float DEFAULT_GRID_METERS=0.5f;
     public static float gridToMeters=DEFAULT_GRID_METERS;
     
+    public static final float  DEFAULT_SENSOR_RANGE=6;
+    public static  float  sensorRange = DEFAULT_SENSOR_RANGE;
+    
+    
     int floorCount=0;
 
-    public HLH( int sensorRange, int floorCount)
+    public HLH( int floorCount)
     {
         objectHEMap = new Hashtable<String,ObjectHE>();
         doorsMap = new Hashtable<String,DoorsAttributes>();
@@ -118,7 +122,7 @@ public class HLH
         
     }
     
-    public void createRootEdge(ObjectHE rootEdge,  int sensorRange, int floorNr)
+    public void createRootEdge(ObjectHE rootEdge, int floorNr)
     {
         rootEdge.setLevel(0);//poziom zaglebienia
         if (floorNr==0) this.rootEdgeGroundFloor = rootEdge;
@@ -126,7 +130,6 @@ public class HLH
         rootEdgeGraph.addChildElement(rootEdge);
         rootEdge.setParentEdge(rootEdgeGraph);
         objectHEMap.put(rootEdge.getAttribute(HLH.LABEL), rootEdge);
-        HGSensor.range=sensorRange;
     }
 
     @Deprecated

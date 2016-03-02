@@ -82,8 +82,6 @@ public class MainWindow extends JFrame implements MessageDisplayer   {
  
 	private static final long serialVersionUID = -319515686608844806L;
 
-	public static final int  DEFAULT_SENSOR_RANGE=6;
-	
 	public static final int DELAULT_FLOORS_COUNT=3;
 	
 	public static final int DEFAULT_SIZE_X=900;
@@ -106,8 +104,6 @@ public class MainWindow extends JFrame implements MessageDisplayer   {
 	
 	int floorCount=DELAULT_FLOORS_COUNT;
 	int currentFloor=0;
-	
-	private int sensorRange = DEFAULT_SENSOR_RANGE;
 	
 	private ArrayList<LayoutEditor> layoutEditorsList;
 	LayoutEditor currentLayoutEditor;
@@ -188,7 +184,7 @@ public class MainWindow extends JFrame implements MessageDisplayer   {
 	}
 	
 	public void initGraph(){
-		controller.initGraph( sensorRange, floorCount);
+		controller.initGraph(  floorCount);
 	}
  
 	
@@ -317,7 +313,7 @@ public class MainWindow extends JFrame implements MessageDisplayer   {
 				currentLayoutEditor.hideLineLen();
 				
 				currentLayoutEditor.mode =Mode.OUTLINE_FINISHED;
-				controller.startOutline(currentLayoutEditor.getRootPath(), DEFAULT_SENSOR_RANGE, currentFloor);
+				controller.startOutline(currentLayoutEditor.getRootPath(), currentFloor);
    		
 				SolidMode.setVisible(true);
 				DashedMode.setVisible(true);
@@ -1625,7 +1621,7 @@ public class MainWindow extends JFrame implements MessageDisplayer   {
 		currentLayoutEditor.setRootPath(outline);
 		
 		currentLayoutEditor.mode =Mode.OUTLINE_FINISHED;
-		controller.startOutline(currentLayoutEditor.getRootPath(),  DEFAULT_SENSOR_RANGE);
+		controller.startOutline(currentLayoutEditor.getRootPath());
 	
 		SolidMode.setVisible(true);
 		DashedMode.setVisible(true);
@@ -1751,15 +1747,6 @@ public class MainWindow extends JFrame implements MessageDisplayer   {
 			floor.clearDevelopedPath();
 		}
 	}
-	
-	public int getSensorRange() {
-		return sensorRange;
-	}
-
-	public void setSensorRange(int sensorRange) {
-		this.sensorRange = sensorRange;
-	}
-	
 	public boolean isRelTypeMultiFloorSelected(){
 		return mfRelTypeMutliFloorPass.isSelected();
 	}

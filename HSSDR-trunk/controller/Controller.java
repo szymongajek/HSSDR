@@ -45,9 +45,9 @@ public class Controller
         HGBrowser.clear();
     }
     
-    public void initGraph( int sensorRange, int floorCount )
+    public void initGraph(int floorCount )
     {
-    	graph = new HLH( sensorRange, floorCount) ;
+    	graph = new HLH(floorCount) ;
         HGBrowser.setGraph(graph);
         setHGBrowserCurrentFloor(0);
     }
@@ -55,15 +55,15 @@ public class Controller
     	HGBrowser.setCurrentFloor(floorNr);
     }
 
-    public void startOutline(Path rootPath,   int sensorRange, int floorNr)
+    public void startOutline(Path rootPath,int floorNr)
     {
-        graph.createRootEdge(rootPath.createObjectHE(null,0, floorNr) ,sensorRange, floorNr );
+        graph.createRootEdge(rootPath.createObjectHE(null,0, floorNr) , floorNr );
         checkLayout();
     }
     
-    public void startOutline(Path rootPath,  int sensorRange )
+    public void startOutline(Path rootPath)
     {
-    	startOutline(  rootPath,   sensorRange, 0);
+    	startOutline(  rootPath, 0);
     }
 
     public void developArea(Path developedPath, ArrayList newObjects, int level)

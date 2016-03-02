@@ -28,7 +28,7 @@ public class SettingsDialog extends JDialog {
 		vertSize_TF.setText(String.valueOf(mainWindow.sizeY));
 		gridSize_TF.setText(String.valueOf(mainWindow.gridSize));
 		gridMeters_TF.setText(String.valueOf(HLH.gridToMeters));
-		sensorRange_TF.setText(String.valueOf(mainWindow.getSensorRange()));
+		sensorRange_TF.setText(String.valueOf(HLH.sensorRange));
 		
 		if (mainWindow.getDashedLineMeansVis()){
 			dashedModeVIS_radio.setSelected(true);
@@ -59,16 +59,14 @@ public class SettingsDialog extends JDialog {
 	 * inicjalizuje wszystkie layout editory z nowymi wart
 	 */
 	private void applyBasicSettings(){
-		int sensorRange;
 		
 		mainWindow.sizeX=Integer.parseInt( horSize_TF.getText());
 		mainWindow.sizeY=Integer.parseInt( vertSize_TF.getText());
 		mainWindow.gridSize=Integer.parseInt( gridSize_TF.getText());
 		HLH.gridToMeters=Float.parseFloat( gridMeters_TF.getText());
+		HLH.sensorRange = Float.parseFloat(sensorRange_TF.getText());
 		mainWindow.initLayouts();
 		
-		sensorRange=Integer.parseInt( sensorRange_TF.getText());
-		mainWindow.setSensorRange(sensorRange);
 	}
 	
  
@@ -123,10 +121,10 @@ public class SettingsDialog extends JDialog {
 		String newValue = sensorRange_TF.getText();
 		
 		try{
-			Integer.parseInt(newValue);
+			Float.parseFloat(newValue);
 		}catch (NumberFormatException ex ){
-			JOptionPane.showMessageDialog(this, "Enter a valid number");
-			sensorRange_TF.setText(String.valueOf(mainWindow.getSensorRange()));
+			JOptionPane.showMessageDialog(this, "Enter a valid float number");
+			sensorRange_TF.setText(String.valueOf(HLH.sensorRange));
 		}
 	}
 
@@ -134,7 +132,7 @@ public class SettingsDialog extends JDialog {
 		try {
 			Float.parseFloat( gridMeters_TF.getText());
 		}catch (NumberFormatException ex ){
-			JOptionPane.showMessageDialog(this, "Enter a valid number");
+			JOptionPane.showMessageDialog(this, "Enter a valid float number");
 			gridMeters_TF.setText(String.valueOf(HLH.gridToMeters));
 		}
 	}
@@ -143,7 +141,7 @@ public class SettingsDialog extends JDialog {
 		try {
 			Integer.parseInt( gridSize_TF.getText());
 		}catch (NumberFormatException ex ){
-			JOptionPane.showMessageDialog(this, "Enter a valid number");
+			JOptionPane.showMessageDialog(this, "Enter a valid integer number");
 			gridSize_TF.setText(String.valueOf(mainWindow.gridSize));
 		}
 	}
@@ -152,7 +150,7 @@ public class SettingsDialog extends JDialog {
 		try {
 			Integer.parseInt( vertSize_TF.getText());
 		}catch (NumberFormatException ex ){
-			JOptionPane.showMessageDialog(this, "Enter a valid number");
+			JOptionPane.showMessageDialog(this, "Enter a valid integer number");
 			vertSize_TF.setText(String.valueOf(mainWindow.sizeY));
 		}
 	}
@@ -161,7 +159,7 @@ public class SettingsDialog extends JDialog {
 		try {
 			Integer.parseInt( horSize_TF.getText());
 		}catch (NumberFormatException ex ){
-			JOptionPane.showMessageDialog(this, "Enter a valid number");
+			JOptionPane.showMessageDialog(this, "Enter a valid integer number");
 			horSize_TF.setText(String.valueOf(mainWindow.sizeX));
 		}
 	}
