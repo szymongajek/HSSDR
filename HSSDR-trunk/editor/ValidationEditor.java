@@ -2,6 +2,7 @@ package editor;
  
 import java.io.*;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
@@ -49,6 +50,9 @@ public class ValidationEditor extends JPanel implements TestChooser   {
         public void setNewDataClearCheckboxes(String[] fileNames){
         	
         	data =  new Object[fileNames.length][];	
+        	
+        	//sort file names list
+        	Arrays.sort(fileNames);
         	
         	for(int i=0; i<fileNames.length; i++){
         		data[i]=new Object []{ new Boolean(false), fileNames[i]};
