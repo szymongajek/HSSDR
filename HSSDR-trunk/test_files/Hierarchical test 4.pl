@@ -1,4 +1,4 @@
-# toalety mêskie, damksie oraz dla osób niepe³nosprawnych
+# toalety mÄ™skie, damksie oraz dla osÃ³b niepeÅ‚nosprawnych
 isToilet(x)  <=> type(x)="ToiletMen" or type(x)="ToiletWomen" or type(x)="ToiledAccessible";
 
 failure_msg "Brak toalety w sekcji prywatnej"
