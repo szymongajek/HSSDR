@@ -875,7 +875,6 @@ public class MainWindow extends JFrame implements MessageDisplayer   {
 		 scrollPane_floors = new JScrollPane();
 		
 		// JFormDesigner - Component initialization - DO NOT MODIFY  //GEN-BEGIN:initComponents
-		// Generated using JFormDesigner Evaluation license - sz gajek
 		menuBar1 = new JMenuBar();
 		menu1 = new JMenu();
 		open_menuItem = new JMenuItem();
@@ -1391,7 +1390,6 @@ public class MainWindow extends JFrame implements MessageDisplayer   {
 						checkLayoutButton.setText("Check Layout");
 						checkLayoutButton.setSelectedIcon(null);
 						checkLayoutButton.setFont(new Font("Tahoma", Font.PLAIN, 18));
-						checkLayoutButton.setPreferredSize(new Dimension(145, 33));
 						checkLayoutButton.setRequestFocusEnabled(false);
 						checkLayoutButton.addActionListener(new ActionListener() {
 							@Override
@@ -1632,7 +1630,6 @@ public class MainWindow extends JFrame implements MessageDisplayer   {
 	
 
 	// JFormDesigner - Variables declaration - DO NOT MODIFY  //GEN-BEGIN:variables
-	// Generated using JFormDesigner Evaluation license - sz gajek
 	private JMenuBar menuBar1;
 	private JMenu menu1;
 	private JMenuItem open_menuItem;
