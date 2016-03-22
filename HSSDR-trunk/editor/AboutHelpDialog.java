@@ -33,7 +33,6 @@ public class AboutHelpDialog extends JDialog {
 
 	private void initComponents() {
 		// JFormDesigner - Component initialization - DO NOT MODIFY  //GEN-BEGIN:initComponents
-		// Generated using JFormDesigner Evaluation license - szymon gajek
 		scrollPane1 = new JScrollPane();
 		htmlContent_EditorPane = loadHtml();
 		CellConstraints cc = new CellConstraints();
@@ -57,7 +56,6 @@ public class AboutHelpDialog extends JDialog {
 	}
 
 	// JFormDesigner - Variables declaration - DO NOT MODIFY  //GEN-BEGIN:variables
-	// Generated using JFormDesigner Evaluation license - szymon gajek
 	private JScrollPane scrollPane1;
 	private JEditorPane htmlContent_EditorPane;
 	// JFormDesigner - End of variables declaration  //GEN-END:variables

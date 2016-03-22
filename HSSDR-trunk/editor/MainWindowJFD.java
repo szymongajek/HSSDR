@@ -132,7 +132,6 @@ public class MainWindowJFD extends JFrame {
 
 	private void initComponents() {
 		// JFormDesigner - Component initialization - DO NOT MODIFY  //GEN-BEGIN:initComponents
-		// Generated using JFormDesigner Evaluation license - szymon gajek
 		menuBar1 = new JMenuBar();
 		menu1 = new JMenu();
 		open_menuItem = new JMenuItem();
@@ -306,12 +305,6 @@ public class MainWindowJFD extends JFrame {
 		//======== panel5 ========
 		{
 
-			// JFormDesigner evaluation mark
-			panel5.setBorder(new javax.swing.border.CompoundBorder(
-				new javax.swing.border.TitledBorder(new javax.swing.border.EmptyBorder(0, 0, 0, 0),
-					"JFormDesigner Evaluation", javax.swing.border.TitledBorder.CENTER,
-					javax.swing.border.TitledBorder.BOTTOM, new java.awt.Font("Dialog", java.awt.Font.BOLD, 12),
-					java.awt.Color.red), panel5.getBorder())); panel5.addPropertyChangeListener(new java.beans.PropertyChangeListener(){public void propertyChange(java.beans.PropertyChangeEvent e){if("border".equals(e.getPropertyName()))throw new RuntimeException();}});
 
 			panel5.setLayout(new GridBagLayout());
 			((GridBagLayout)panel5.getLayout()).columnWidths = new int[] {8, 85, 0, 0};
@@ -672,7 +665,6 @@ public class MainWindowJFD extends JFrame {
 	}
 
 	// JFormDesigner - Variables declaration - DO NOT MODIFY  //GEN-BEGIN:variables
-	// Generated using JFormDesigner Evaluation license - szymon gajek
 	private JMenuBar menuBar1;
 	private JMenu menu1;
 	private JMenuItem open_menuItem;

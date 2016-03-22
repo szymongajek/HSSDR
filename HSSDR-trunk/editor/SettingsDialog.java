@@ -170,7 +170,6 @@ public class SettingsDialog extends JDialog {
 
 	private void initComponents() {
 		// JFormDesigner - Component initialization - DO NOT MODIFY  //GEN-BEGIN:initComponents
-		// Generated using JFormDesigner Evaluation license - szymon gajek
 		panel1 = new JPanel();
 		horSize_lab = new JLabel();
 		horSize_TF = new JTextField();
@@ -192,7 +191,7 @@ public class SettingsDialog extends JDialog {
 		floorsNumberLab = new JLabel();
 		floorNumberComboBox = new JComboBox();
 		floorNumberRightColLabel = new JLabel();
-		panel2 = new JPanel();
+		buttonsBottomPanel = new JPanel();
 		applyAndReset = new JButton();
 		apply_button = new JButton();
 		cancel_button = new JButton();
@@ -209,14 +208,13 @@ public class SettingsDialog extends JDialog {
 		//======== panel1 ========
 		{
 
-
 			panel1.setLayout(new FormLayout(
-				"29dlu, $lcgap, 67dlu, $lcgap, 93dlu, $lcgap, 133dlu",
+				"85dlu, $lcgap, 95dlu, $lcgap, default:grow",
 				"4*(default, $lgap), default"));
 
 			//---- horSize_lab ----
 			horSize_lab.setText("Horizontal Size");
-			panel1.add(horSize_lab, cc.xy(3, 1, CellConstraints.RIGHT, CellConstraints.DEFAULT));
+			panel1.add(horSize_lab, cc.xy(1, 1, CellConstraints.RIGHT, CellConstraints.DEFAULT));
 
 			//---- horSize_TF ----
 			horSize_TF.addFocusListener(new FocusAdapter() {
@@ -225,11 +223,11 @@ public class SettingsDialog extends JDialog {
 					horSize_TFFocusLost(e);
 				}
 			});
-			panel1.add(horSize_TF, cc.xy(5, 1));
+			panel1.add(horSize_TF, cc.xy(3, 1));
 
 			//---- vertSize_lab ----
 			vertSize_lab.setText("Vertical Size");
-			panel1.add(vertSize_lab, cc.xy(3, 3, CellConstraints.RIGHT, CellConstraints.CENTER));
+			panel1.add(vertSize_lab, cc.xy(1, 3, CellConstraints.RIGHT, CellConstraints.CENTER));
 
 			//---- vertSize_TF ----
 			vertSize_TF.addFocusListener(new FocusAdapter() {
@@ -238,11 +236,11 @@ public class SettingsDialog extends JDialog {
 					vertSize_TFFocusLost(e);
 				}
 			});
-			panel1.add(vertSize_TF, cc.xy(5, 3));
+			panel1.add(vertSize_TF, cc.xy(3, 3));
 
 			//---- gridSize_lab ----
 			gridSize_lab.setText("Grid size[px]");
-			panel1.add(gridSize_lab, cc.xy(3, 5, CellConstraints.RIGHT, CellConstraints.DEFAULT));
+			panel1.add(gridSize_lab, cc.xy(1, 5, CellConstraints.RIGHT, CellConstraints.DEFAULT));
 
 			//---- gridSize_TF ----
 			gridSize_TF.addFocusListener(new FocusAdapter() {
@@ -251,11 +249,11 @@ public class SettingsDialog extends JDialog {
 					gridSize_TFFocusLost(e);
 				}
 			});
-			panel1.add(gridSize_TF, cc.xy(5, 5));
+			panel1.add(gridSize_TF, cc.xy(3, 5));
 
 			//---- gridMeters_lab ----
 			gridMeters_lab.setText("Grid size[meters]");
-			panel1.add(gridMeters_lab, cc.xy(3, 7, CellConstraints.RIGHT, CellConstraints.DEFAULT));
+			panel1.add(gridMeters_lab, cc.xy(1, 7, CellConstraints.RIGHT, CellConstraints.DEFAULT));
 
 			//---- gridMeters_TF ----
 			gridMeters_TF.addFocusListener(new FocusAdapter() {
@@ -264,11 +262,11 @@ public class SettingsDialog extends JDialog {
 					gridMeters_TFFocusLost(e);
 				}
 			});
-			panel1.add(gridMeters_TF, cc.xy(5, 7));
+			panel1.add(gridMeters_TF, cc.xy(3, 7));
 
 			//---- sensorRange_lab ----
 			sensorRange_lab.setText("Sensor range[meters]");
-			panel1.add(sensorRange_lab, cc.xy(3, 9, CellConstraints.RIGHT, CellConstraints.DEFAULT));
+			panel1.add(sensorRange_lab, cc.xy(1, 9, CellConstraints.RIGHT, CellConstraints.DEFAULT));
 
 			//---- sensorRange_TF ----
 			sensorRange_TF.setText("6");
@@ -278,23 +276,23 @@ public class SettingsDialog extends JDialog {
 					sensorRange_TFFocusLost(e);
 				}
 			});
-			panel1.add(sensorRange_TF, cc.xy(5, 9));
+			panel1.add(sensorRange_TF, cc.xy(3, 9));
 
 			//---- sensorRangeRightColLabel ----
 			sensorRangeRightColLabel.setText("");
-			panel1.add(sensorRangeRightColLabel, cc.xy(7, 9));
+			panel1.add(sensorRangeRightColLabel, cc.xy(5, 9));
 		}
 		contentPane.add(panel1, cc.xy(1, 3, CellConstraints.LEFT, CellConstraints.TOP));
 
 		//======== panel3 ========
 		{
 			panel3.setLayout(new FormLayout(
-				"22dlu, $lcgap, 73dlu, $lcgap, 95dlu, $lcgap, 129dlu",
+				"85dlu, $lcgap, 95dlu, $lcgap, default:grow",
 				"2*(default)"));
 
 			//---- dashedLineLab ----
 			dashedLineLab.setText("Dashed Line Meaning");
-			panel3.add(dashedLineLab, cc.xy(3, 1, CellConstraints.RIGHT, CellConstraints.DEFAULT));
+			panel3.add(dashedLineLab, cc.xy(1, 1, CellConstraints.RIGHT, CellConstraints.DEFAULT));
 
 			//---- dashedModeACC_radio ----
 			dashedModeACC_radio.setText("Accesibility");
@@ -304,11 +302,11 @@ public class SettingsDialog extends JDialog {
 					dashedModeACC_radioItemStateChanged(e);
 				}
 			});
-			panel3.add(dashedModeACC_radio, cc.xy(5, 1));
+			panel3.add(dashedModeACC_radio, cc.xy(3, 1));
 
 			//---- dashedModeRightColLabel ----
 			dashedModeRightColLabel.setText("(requires reset)");
-			panel3.add(dashedModeRightColLabel, cc.xy(7, 1, CellConstraints.LEFT, CellConstraints.DEFAULT));
+			panel3.add(dashedModeRightColLabel, cc.xy(5, 1, CellConstraints.LEFT, CellConstraints.DEFAULT));
 
 			//---- dashedModeVIS_radio ----
 			dashedModeVIS_radio.setText("Visibility and Adjency");
@@ -318,19 +316,19 @@ public class SettingsDialog extends JDialog {
 					dashedModeVIS_radioItemStateChanged(e);
 				}
 			});
-			panel3.add(dashedModeVIS_radio, cc.xy(5, 2));
+			panel3.add(dashedModeVIS_radio, cc.xy(3, 2));
 		}
 		contentPane.add(panel3, cc.xy(1, 5, CellConstraints.LEFT, CellConstraints.TOP));
 
 		//======== panel4 ========
 		{
 			panel4.setLayout(new FormLayout(
-				"27dlu, $lcgap, 67dlu, $lcgap, 95dlu, $lcgap, 125dlu",
-				"3*(default, $lgap), default"));
+				"85dlu, $lcgap, 95dlu, $lcgap, default:grow",
+				"2*(default, $lgap), default"));
 
 			//---- floorsNumberLab ----
 			floorsNumberLab.setText("Number of floors");
-			panel4.add(floorsNumberLab, cc.xy(3, 1, CellConstraints.RIGHT, CellConstraints.DEFAULT));
+			panel4.add(floorsNumberLab, cc.xy(1, 1, CellConstraints.RIGHT, CellConstraints.DEFAULT));
 
 			//---- floorNumberComboBox ----
 			floorNumberComboBox.setModel(new DefaultComboBoxModel(new String[] {
@@ -358,19 +356,17 @@ public class SettingsDialog extends JDialog {
 					floorNumberComboBoxItemStateChanged(e);
 				}
 			});
-			panel4.add(floorNumberComboBox, cc.xy(5, 1, CellConstraints.LEFT, CellConstraints.DEFAULT));
+			panel4.add(floorNumberComboBox, cc.xy(3, 1, CellConstraints.LEFT, CellConstraints.DEFAULT));
 
 			//---- floorNumberRightColLabel ----
 			floorNumberRightColLabel.setText("(requires reset)");
-			panel4.add(floorNumberRightColLabel, cc.xy(7, 1, CellConstraints.LEFT, CellConstraints.DEFAULT));
+			panel4.add(floorNumberRightColLabel, cc.xy(5, 1, CellConstraints.LEFT, CellConstraints.DEFAULT));
 		}
 		contentPane.add(panel4, cc.xy(1, 7, CellConstraints.LEFT, CellConstraints.TOP));
 
-		//======== panel2 ========
+		//======== buttonsBottomPanel ========
 		{
-			panel2.setLayout(new FormLayout(
-				"3*(default:grow, $lcgap), 43dlu:grow, 2*($lcgap, 43dlu), $lcgap, 3dlu",
-				"default"));
+			buttonsBottomPanel.setLayout(new FlowLayout(FlowLayout.RIGHT));
 
 			//---- applyAndReset ----
 			applyAndReset.setText("Apply and Reset");
@@ -380,7 +376,7 @@ public class SettingsDialog extends JDialog {
 					applyAndResetActionPerformed(e);
 				}
 			});
-			panel2.add(applyAndReset, cc.xy(7, 1));
+			buttonsBottomPanel.add(applyAndReset);
 
 			//---- apply_button ----
 			apply_button.setText("Apply");
@@ -390,7 +386,7 @@ public class SettingsDialog extends JDialog {
 					apply_buttonActionPerformed(e);
 				}
 			});
-			panel2.add(apply_button, cc.xy(9, 1));
+			buttonsBottomPanel.add(apply_button);
 
 			//---- cancel_button ----
 			cancel_button.setText("Cancel");
@@ -400,9 +396,9 @@ public class SettingsDialog extends JDialog {
 					cancel_buttonActionPerformed(e);
 				}
 			});
-			panel2.add(cancel_button, cc.xy(11, 1));
+			buttonsBottomPanel.add(cancel_button);
 		}
-		contentPane.add(panel2, cc.xy(1, 9, CellConstraints.FILL, CellConstraints.BOTTOM));
+		contentPane.add(buttonsBottomPanel, cc.xy(1, 9, CellConstraints.FILL, CellConstraints.BOTTOM));
 		setSize(520, 375);
 		setLocationRelativeTo(getOwner());
 
@@ -414,7 +410,6 @@ public class SettingsDialog extends JDialog {
 	}
 
 	// JFormDesigner - Variables declaration - DO NOT MODIFY  //GEN-BEGIN:variables
-	// Generated using JFormDesigner Evaluation license - szymon gajek
 	private JPanel panel1;
 	private JLabel horSize_lab;
 	private JTextField horSize_TF;
@@ -436,7 +431,7 @@ public class SettingsDialog extends JDialog {
 	private JLabel floorsNumberLab;
 	private JComboBox floorNumberComboBox;
 	private JLabel floorNumberRightColLabel;
-	private JPanel panel2;
+	private JPanel buttonsBottomPanel;
 	private JButton applyAndReset;
 	private JButton apply_button;
 	private JButton cancel_button;
