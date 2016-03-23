@@ -209,7 +209,7 @@ public class SettingsDialog extends JDialog {
 		{
 
 			panel1.setLayout(new FormLayout(
-				"85dlu, $lcgap, 95dlu, $lcgap, default:grow",
+				"75dlu, $lcgap, 95dlu, $lcgap, default:grow",
 				"4*(default, $lgap), default"));
 
 			//---- horSize_lab ----
@@ -287,7 +287,7 @@ public class SettingsDialog extends JDialog {
 		//======== panel3 ========
 		{
 			panel3.setLayout(new FormLayout(
-				"85dlu, $lcgap, 95dlu, $lcgap, default:grow",
+				"75dlu, $lcgap, 95dlu, $lcgap, default:grow",
 				"2*(default)"));
 
 			//---- dashedLineLab ----
@@ -323,7 +323,7 @@ public class SettingsDialog extends JDialog {
 		//======== panel4 ========
 		{
 			panel4.setLayout(new FormLayout(
-				"85dlu, $lcgap, 95dlu, $lcgap, default:grow",
+				"75dlu, $lcgap, 95dlu, $lcgap, default:grow",
 				"2*(default, $lgap), default"));
 
 			//---- floorsNumberLab ----
@@ -399,7 +399,7 @@ public class SettingsDialog extends JDialog {
 			buttonsBottomPanel.add(cancel_button);
 		}
 		contentPane.add(buttonsBottomPanel, cc.xy(1, 9, CellConstraints.FILL, CellConstraints.BOTTOM));
-		setSize(520, 375);
+		setSize(530, 375);
 		setLocationRelativeTo(getOwner());
 
 		//---- dashedMeaning_BG ----
