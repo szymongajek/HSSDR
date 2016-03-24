@@ -1,0 +1,432 @@
+<html>
+ <head>
+<meta charset="UTF-8">
+</head>
+<body>
+ 
+  <h1>Zawartość pomocy:</h1> 
+ 
+ <ul>
+ <li href="#sec_window"> 
+ <p style="font-size:120%;" > Elementy głównego okna programu </p>
+ </li> 
+ <li href="#sec_layout"> 
+ <p style="font-size:120%;" >Tworzenie rozkładu pomieszczeń</p>
+ <p   > Tworzenie obrysu  </p>
+ <p   > Dzielenie obszarów  </p>
+ <p   > Właściwości obszarów  </p>
+ <p   > Drzwi, linie przerywane, cofanie podziału, czujniki bezpieczeństwa, testy zgodności  </p>
+ <p   > Elementy diagramów projektowych  </p>
+ </li>
+ <li href="#sec_floors">
+ <p style="font-size:120%;" >Widok pięter </p>
+ <p   >  Ustawianie liczby pięter </p>
+ <p   >  Widok wielu pięter i relacje między piętrami  </p>
+ </li>
+ <li href="#sec_hyper">
+ <p style="font-size:120%;" >Podgląd hipergrafów </p>
+ </li>
+ <li href="#sec_settings">
+ <p style="font-size:120%;" >Ustawienia sytemu </p> 
+ </li>
+ <li href="#sec_validation">
+ <p style="font-size:120%;" >Walidacja projektu </p>
+ <p   > Język testów HSSDR</p>
+ <p   > Wybór zestawów testów </p>
+    <p   > Zestawy testów  </p>
+ <p   >Lista dostępnych symboli</p>
+  <p   > Definiowanie nowych relacji</p>
+
+ </li>
+	</ul>
+</p></p>	
+ <!--  =====================================+++++++++++++++++++++++++++++========================================--> 
+ 
+ 
+<h1 id="sec_window">Elementy głównego okna programu</h1> 
+ 
+ Po uruchomieniu programu widoczne jest główne okno z wybraną zakładką edycji rozkładów pomieszczeń. Jego podstawowe elementy to:
+  <ol>
+<li>Menu głównych opcji.</li>
+<li>Menu ustawień.</li>
+<li>Menu pomocy.</li>
+<li>Zakładka edycji rozkładów pomieszczeń.</li>
+<li>Zakładka widoku pięter.</li>
+<li>Zakładka podglądu hipergrafów.</li>
+<li>Zakładka walidacji projektu.</li>
+<li>Panel główny.</li>
+<li>Lewy panel.</li>
+ </ol>
+ <p>
+ Za pomocą zakładek(4,5,6,7) możliwa jest zmiana kontekstu pracy pomiędzy edycją rozkładu pomieszczeń pojedynczego piętra, edycją relacji pomiędzy piętrami, a edycją lub wyborem zestawów testów zgodności które są wykonywane dla projektu.
+ Po zmianie zakładek zmienia się zawartość panelu głównego(8) oraz akcje dostępne w lewym panelu(9).
+ </p>
+ <br/>
+ <img alt="" src="UI_layout_editor.png"/> 
+
+
+
+
+ <!--  =====================================+++++++++++++++++++++++++++++========================================--> 
+ <br/> 
+<h1 id="sec_layout">Tworzenie rozkładu pomieszczeń </h1>
+ 
+<p>
+Tworzenie rozkładu pomieszczeń rozpoczyna się od narysowania obrysu. Następnie może on być dzielony na mniejsze pomieszczenia, można nanosić 
+dodatkowe elementy oraz cofać swoje akcje. Aby określić rozmiaru dostępnego arkusza, gęstości siatki i inne parametry należy przed rozpoczęciem 
+projektowania skorzystać z ustawień systemu. Możliwa jest zmiana wielkości widoku za pomocą przycisków ("+", "-") górnej części lewego panelu.
+</p>
+
+<h2> Tworzenie obrysu</h2>
+<p>
+ Aby rozpocząć rysowanie obrysu należy nacisnąć lewy przycisk myszy na kratkowanym obszarze. 
+ Następnie przesuwając kursor po siatce dodawane są kolejne odcinki.<b>Aby wycofać się z aktualnie rysowanej linii należy nacisnąć prawy przycisk  myszy.</b> 
+ Rysowanie obrysu kończy się w momencie zapętlenia łamanej. </p>
+ <img alt="" src="layout_contour.png"/> 
+ 
+ <h2>Dzielenie obszarów</h2>
+<p>
+ Po stworzeniu obrysu można dowolnie dzielić obszary na mniejsze. Aby dokonać podziału należy zaznaczyć wybrany obszar klikając na niego lewym przyciskiem 
+ myszy.
+ Następnie, po kliknięciu na krawędzi zaznaczonego obszaru rozpoczyna się rysowanie linii podziału. <b>Aby wycofać się z aktualnie rysowanej linii należy 
+ nacisnąć prawy przycisk  myszy.</b> 
+ Linia podziału kończy się w momencie osiągniecia krawędzi obszaru, w tym samym momencie obszar jest dzielony.
+</p>
+ <img alt="" src="layout_division.png"/> 
+ 
+ <h2>Właściwości obszarów</h2>
+<p>
+W celu wprowadzenia właściwości obszaru należy go najpierw zaznaczyć, klikając lewym przyciskiem myszy. Zaznaczone obszary kolorowane są na żółto, 
+natomiast obszary znajdujące się pod kursorem na niebiesko. Aby odznaczyć należy ponownie kliknąć na zaznaczony obszar lub zaznaczyć inny. 
+Dla zaznaczonego obszaru można w lewym panelu wprowadzić jego nazwę (pole „Area Label”) 
+oraz wybrać rodzaj pomieszczenia (list rozwijana „Area Type”). W kolejnym polu wyświetlana jest powierzchnia obszaru w metrach kwadratowych.
+</p>
+ <img alt="" src="layout_select_edit.png"/> 
+
+ <h2>Drzwi, linie przerywane, cofanie podziału, czujniki bezpieczeństwa, testy zgodności</h2>
+ <p>
+Dolne menu składa się z następujących elementów:
+
+</p>
+  <ol>
+<li>Przycisk zmiany na ciągłą  linie podziału.</li>
+<li>Przycisk zmiany na przerywaną linie podziału.</li>
+<li>Przycisk dodawania drzwi.</li>
+<li>Przycisk cofania podziału.</li>
+<li>Przycisk kasowania projektu .</li>
+<li>Przycisk wywoływania testów zgodności.</li>
+<li>Konsola walidacji projektu.</li>
+ </ol>
+ <img alt="" src="menu_bottom.png"/> 
+  
+ <p>
+ Przyciski 1 i 2 pozwalają na zmianę linii podziału pomiędzy linią ciągłą a przerywaną. Linia przerywana oznacza w zależności od wybranej konfiguracji:
+ <ul>
+<li>oddzielenie od siebie pomieszczeń w sensie logicznym, bez oddzielenia ich fizycznie, np. kuchnia połączona z salonem.</li>
+<li>relacje widoczności pomiędzy pomieszczeniami, np. biuro ze szklaną ścianą. W przypadku takiej krawędzi może ona zawierać również symbol drzwi, żeby oznaczyć dostępność.</li>
+</ul>
+</p>
+ <img alt="" src="layout_dotted.png"/> 
+
+ <p>
+Naciśnie przycisku dodawania drzwi (3) powoduje przejście w tryb dodawania drzwi. Mogą one być umieszczane tylko na ścianach,
+ za pomocą lewego przycisku myszy. 
+Aby wyjść z trybu dodawania drzwi należy ponownie nacisnąć przycisk dodawania drzwi
+</p>
+  <img alt="" src="layout door.png"/> 
+ 
+ <p>
+Za pomocą przycisku cofania podziału (4), aktywuje się nowe okno pokazujące historię podziałów dokonanych w projekcie. 
+Po kliknięciu na węzeł w drzewie podziałów, pomieszczenia powstałe w jego wyniku zostają podświetlone.
+ Następnie, klikając przycisk poniżej można usunąć zaznaczony podział. Tylko podziały na dole hierarchii mogą być usuwane. 
+ Aby usunąć podział znajdujący się wyżej w hierarchii, należy najpierw usunąć późniejsze podziały. 
+Aby zamknąć okno historii podziałów należy ponownie nacisnąć przycisku cofania podziału (4).
+ 
+</p>
+ <img alt="" src="layout undo.png"/> 
+ 
+ <p>
+ Przycisk kasowania(5) usuwa cały projekt.
+</p>
+  <p>
+ Przycisk wywoływania testów zgodności(6) powoduje wykonanie aktualnie wybranych testów. Ich wyniki prezentowane są w konsoli walidacji projektu(7).
+</p>
+ 
+ <p>
+ Do projektu mozna dodawać również czujniki bezpieczeństwa, reprezentujące takie urządzenia jak czujnik ruchu, kamery przemysłowe, czujnik dymu, poziomu dwutlenku węgla lub spalin, temperatury, itp.
+W celu dodania czujnika bezpieczeństwa  należy:
+<ol>
+<li>Zaznaczyć pomieszczenie w którym ma być dodany  czujnik.</li>
+<li>Kliknąć  prawym przyciskiem myszy aby wybrać lokalizacje czujnika.</li>
+<li>Kliknąć drugi raz prawym przyciskiem myszy aby wybrać kąt skierowania czujnika.</li>
+</ol>
+ 
+ </p>
+ <img alt="" src="layout sensor.png"/> 
+ 
+ <h2>Elementy diagramów projektowych</h2>
+<p>
+ Wszystkie ementy diagramów projektowych zaprezentowane są na poniższym przykładzie.
+</p>
+ <ol>
+<li>Linia obrysu planu (grubsza).</li>
+<li>Linia podziału (cieńsza).</li>
+<li>Przerywana linia podziału.</li>
+<li>Symbol wizualny drzwi.</li>
+<li>Symbol wizualny drzwi zewnętrznych.</li>
+<li>Czujnik bezpieczeństwa.</li>
+</ol>
+ <img alt="" src="layout_elements.png"/>
+ 
+ 
+ 
+  <!--  =====================================+++++++++++++++++++++++++++++========================================--> 
+   <br/>
+ <h1 name="sec_floors">Widok pięter</h1>
+ 
+ <h2>Ustawianie liczby pięter</h2>
+ <p>
+W przypadku projektowania budynków wielopiętrowych należy zacząć od wybrania liczby pięter w ustawieniach.
+ Aby wybrać piętro do edycji należy  skorzystać z listy rozwijanej w lewym panelu.
+</p>
+ <img alt="" src="floor choose.png"/> 
+
+ <p>
+ W celu stworzenia punktu odniesienia obrys parteru jest zaznaczany jasnoszarą linią również na wyższych piętrach.
+</p>
+
+
+ <img alt="" src="floor outline.png"/>
+ 
+ 
+ <h2>Widok wielu pięter i relacje między piętrami</h2>
+ <p>
+Po wybraniu zakładki widoku pięter pokazywane są wszystkie piętra, z parterem najniżej i ostatnim piętrem najwyżej. 
+W tym widoku można zobaczyć w całości projektowany budynek oraz wprowadzić relacje międzypiętrowe.
+</p>
+ <p>
+ Dostępne są tutaj następujące typy relacji:
+ </p>
+  <ol>
+<li> Połączenie wielopiętrowe  (Multi Floor Connection) oznaczająca klatki schodowe czy windy.</li>
+<li> Dostępność (Accessibility), oznaczająca połączenie między dwoma piętrami.</li>
+<li> Widoczność (Visibility), stosowana w celu zaznaczenia widoczności między poziomami, np. scena widoczna z trybun na wyższych  piętrach. 
+Reprezentowana przez grubsze strzałki. </li>
+</ol>
+ <p>
+Aby dodać relację między piętrami należy po wybraniu typu relacji, kliknąć lewym przyciskiem myszy na pomieszczenie na jednym z pięter.
+Pomieszczenie znajdujące się pod kursorem zostanie podświetlone i to ono będzie wchodziło w skład relacji. 
+Po wybraniu pierwszego pomieszczenia pojawi się strzałka symbolizująca relację. Następnie należy kliknąć na kolejne pomieszczenie aby je dodać do relacji.
+Aby zakończyć należy użyć prawego przycisku myszy.
+ </p>
+
+ <img alt="" src="floor view arrow.png"/> 
+ 
+ <!--  =====================================+++++++++++++++++++++++++++++========================================--> 
+  <br/>
+ <h1 id="sec_hyper">Podgląd hipergrafów</h1>
+ 
+  <p>
+ Hipergrafy są wewnętrzna strukturą danych używaną do zapisu projektu przez HSSDR. Ich podgląd nie jest niezbędny do używania systemu, zakładka ta służy
+ na potrzeby analizy programu. 
+ Na liście rozwijanej w lewym panelu możliwy jest wybór prezentacji wyświetlania hipergrafu  dla poszczególnych pięter lub całego budynku.
+ Możliwe jest przesuwanie elementów na planszy. W celu powiększenia/pomniejszania należy skorzystać z przycisków ("+", "-") w górnej części lewego panelu.
+</p>
+ <img alt="" src="hyper view.png"/> 
+  
+  <!--  =====================================+++++++++++++++++++++++++++++========================================--> 
+  <br/>
+<h1 id="sec_settings">Ustawienia sytemu</h1>
+
+ <p>
+ Po wybraniu opcji z menu Settings można zmienić następujące ustawienia systemu:
+ </p>
+   <ol>
+<li> Wielkość arkusza używanego do projektowania (Horizontal, Vertical Size). Wielkość wyrażona w pikselach.</li>
+ <li> Gęstość  siatki na jaką podzielony jest arkusz (Grid Size (px)). Wielkość wyrażona w pikselach.</li>
+ <li> Jaką długość w metrach reprezentuje jedna kratka arkusza (Grid size[meters]).</li>
+ <li> Zasięg czujników bezpieczeństwa (Sensor range[meters]). Wielkość wyrażona w metrach.</li>
+ <li> Znaczenie przerywanej linii podziału pomieszczenia (Dashed Line Meaning). 
+ Może ona oznaczać oddzielenie od siebie pomieszczeń wyłącznie w sensie logicznym, lub relacje widoczności pomiędzy pomieszczeniami.</li>
+ <li>Ilość pięter (Number of floors).</li>
+</ol>
+
+ <p>
+  Zmiana dwóch ostatnich parametrów wymaga usunięcia bieżącego projektu (przycisk Apply and Reset). 
+  Pozostałe parametry mogą być zmienione w dowolnym momencie projektowania (przycisk Apply).
+ </p>
+ <img alt="" src="settings.png"/> 
+ 
+ 
+ 
+  <!--  =====================================+++++++++++++++++++++++++++++========================================--> 
+  <br/>
+ <h1 id="sec_validation">Walidacja projektu</h1>
+ 
+ 
+   <h2>Język testów HSSDR</h2>
+  
+   <p>
+   
+   Język testów HSSDR jest ogólnym  językiem   pozwalającym formułować waunki dla projektu. Warunki te są zapisywane w formie testów, zgupowanych w 
+   zestawy testów. Mogą one dotyczyć:
+ </p>
+ <ul>
+<li>wiedzy charakterystycznej dla konkretnej dziedziny jak standardy ekologiczne, ograniczenia prawne, wymogi bezpieczeństwa, ograniczenia ekonomiczne,</li>
+<li>ustalonych praktyk projektowania,</li>
+<li>specyficznych wymagań dla konkretnego projektu.</li>
+   </ul>
+  
+   <p>  Formuły języka testów HSSDR odnoszą się do obiektów istniejących w analizowanym projekcie, a więc do drzwi, pomieszczeń, 
+   a także do relacji i właściwości charakteryzujących obiekty, zarówno bezpośrednich jak i obliczonych przez system. 
+    Wewnętrzna reprezentacja projektu jest aktualizowana automatycznie po każdej zmianie projektu.
+   Rezultaty testów, wykonywanych w tle, są prezentowane poprzez informacje tekstową w konsoli walidacji projektu
+   lub poprzez wyróżnienie niespełniających 
+   wymagać fragmentów projektu.
+   </p>
+   
+  
+     <p> 
+ Język testów HSSDR jest oparty na języku logiki pierwszego rzędu. Zawiera on także pewne dodatkowe konstrukcje przydatne podczas definiowania 
+ zestawów testów dla projektów architektonicznych.
+ Umożliwia on dodawanie komentarzy oraz instrukcji określających wiadomości przekazywane użytkownikom po wykonaniu testów. 
+ Język ten korzysta ze słów kluczowych, zmiennych oraz predefiniowanych funkcji i relacji, ale pozwala też użytkownikom definiować własne relacje.
+
+ </p>
+ 
+      <p> 
+W projekcie wyróżnia się pokoje (Rooms) oraz obszary (Areas). Wszystkie pomieszczenia jakie podstawly w wyniku podziałów to obszary, natomiast pokoje to 
+pomieszczenia znajdujące się na dole hierarchiii podziałów które nie były dalej dzielone.Obszary zawierają pokoje w hierarchii podziałów.
+ Pokoje są widoczne w edytytorze pomieszczeń, hierarchie obszarów można
+zobaczyć za pomocą opcji cofania podziału. 
+ </p>
+ 
+ 
+ 
+   <h2>Wybór zestawów testów </h2>
+  
+   <p>
+W zakładce walidacji projektu można włączać/wyłączać zestawy testów a także modyfikować ich zawartość.<br/>
+Każdy zestaw testów to plik tekstowy, identyfikowany przez nazwę pliku. W lewej części ekranu znajduje się lista zestawów testów.
+W celu stworzenia nowego zestawu testów należy dodać nowy plik tekstowy do folderu test_files.
+ Aby zestaw był prany pod uwagę podczas pracy nad projektem należy zaznaczyć odpowiednie pole(kolumna „Enabled”).<br/>
+Po wybraniu pliku na liście, jego zawartość jest wyświetlana w prawej części ekranu. Zawartość zestawy testów można modyfikować.
+ Aby zmiany zostały zapisane należy skorzystać z przycisku poniżej zapisu („Save File”).
+
+
+ </p>
+ </br>
+ <img alt="" src="validation.png"/>
+ 
+ 
+ <h2>Zestawy testów</h2>
+  
+   <p>
+  
+ Ograniczenia projektowe zostały  
+ zorganizowane w zestawy testów, które można aktywować dopasowując swój wybór do konkretnego projektu. 
+  
+ Zestawy testów są zbiorami formuł języka testów HSSDR przechowywanymi w plikach. 
+ Mogą one zawierać formuły końcowe oraz definicje pomocnicze.  </p>
+    <p>
+ W skład pojedynczego zestawu testów wchodzi:
+ </p>
+ <ul>
+  <li>dowolna liczba definicji relacji pomocniczych, </li>
+    <li>dowolna liczba komentarzy w liniach rozpoczynających się od „#”,</li>
+	  <li> co najmniej jedna formuła końcowa, czyli formuła rozpoczynająca się od <i>forall</i> lub <i>exists</i> oraz nie zawierająca zmiennych wolnych.
+  </li>
+	  </ul>
+ 
+ 
+ 
+ 
+ <h2>Lista dostępnych symboli</h2>
+  
+<ul>
+<li>Symbole kontrolne:</li>
+	<ul>
+		<li><b>failure_msg "treść komunikatu"</b> wiadomość wyświetlana w przypadku niepowodzenia testu </li>
+		<li><b>success_msg "treść komunikatu"</b> wyświetlane w przypadku powodzenia testu   </li>
+		 <li><b>&lt;=&gt;</b> operator definiowania relacji</li> 
+		<li><b>#</b> znak komentarza. Dalsza cześć linii po znaku komentarza jest ignorowana przez parser języka</li>
+  </ul>
+  <li>Logika i operatory: </li>
+	  <ul>
+		<li><b> forall <i>zmienna</i> in <i>  zbiór</i>:</b>	 kwantyfikator ogólny, np. <i>forall r in Rooms: warunek  </i> oznacza: dla każdego pokoju r, zachodzi warunek. </li>
+		<li><b> exists <i>zmienna</i> in <i>  zbiór</i>:</b>	 kwantyfikator egzystencjalny, np. <i>exists x in Rooms: warunek  </i> oznacza: istnieje taki pokór r,że zachodzi warunek. </li>
+		<li> <b>and  or </b> operatory logiczne "i" oraz "lub" pozwalające łączyć warunki </li>
+		<li> <b>not </b> negacja, np. <i> not exists p in Rooms:  </i> oznacza nieprawda że istnieje taki pokój, że ...</li>
+		<li> <b>=></b>implikacja (wynikanie, jeśli A to B),  np. <i>forall x,y in Rooms : type(x) = "Bedroom" and type(y) = "Kitchen" => not accessible(x,y);</i> oznacza dla każdych pokoji jeśli jeden jest typu sypialnia, a drugi kuchnia, to nie mogą być bezpośrednio dostępne</li>
+		<li> <b><=></b> równoważność formuł</li>
+		<li> <b>()</b> nawiasy konieczne do zagnieżdżania warunków</li>
+		<li><b> = != > <  >= <=  </b> operatory porównań (równe, różne,więskze, mniejsze, więszke lub równe, mniejsze lub równe), służące do porównywania liczb i łańcuchów znaków, np. 	<i>area(x) >= area(y)</i></li>
+		<li><b>+ - * /</b>	operatory arytmetyczne (dodawanie, odejmowanie, mnożenie, dzielenie), np.	<i> area(x) >= 10 + 2*area(x) </i>  </li>
+		<li> <b>;</b>	 średnik, konieczny po każdej instrukcji! 	 </li>
+	   </ul>
+<li> Stałe i zmienne</li>	 
+		 <ul>  
+		 <li> <b>x r area Area2 </b>zmienna indywidualna. Nazwa musi spełniać wyrażenie regularne: (a..z|A..Z)(a..z|A..Z|0..9|_)*</li>	
+		 <li> <b>1 20 3.5 -350 </b> liczba całkowita lub wymierna. Spełnia wyrażenie regularne: 0..9+(.0..9+)?EXP?|.0..9+EXP? gdzie EXP: (e|E) (+|-)? (0..9)+</li>	
+		 <li> <b> "Staircase"  "Public"  "sypialnia dla gosci"</b> stała tekstowa (tekst ujęty w cudzysłowie) </li>
+		</ul>   
+ <li> Relacje</li>
+		 <ul>
+			<li> <b>Areas(room)</b> czy room jest obszarem lub pokojem. Samo <i>Areas</i> reprezentuje zbiór wszystkich obszarów.</li>
+			<li> <b>Rooms(room)</b> czy room jest pokojem - obszarem na dole hierarchii który nie został dalej podzielony. Samo <i>Rooms</i> reprezentuje zbiór wszystkich pokoi.</li>
+			<li> <b>Doors(doors)</b> czy doors jest drzwiami. Samo <i>Doors</i> reprezentuje zbiór wszystkich drzwi.</li>
+			<li> <b>Sensors(sensor)</b> czy sensor jest czujnikiem. Samo <i>Sensors</i> reprezentuje zbiór wszystkich czujników.</li>
+			<li> <b>surveilledDoors(doors)</b> czy drzwi sa obserwowane przez jakiś czujnik</li>
+			<li> <b>externalDoors(doors)</b> czy drzwi wychodzą na zewnątrz budynku</li>
+			<li> <b>adjacent(room1, room2)</b> czy pokoje sasiadują ze sobą (mają wspólną ścianę)</li>
+			<li> <b>accessible(room1, room2)</b> czy room1 jest bezpośrednio dostępny z room2 </li>
+			<li> <b>doorsInRoom(doors, room)</b> czy drzwi doors znajdują się w pokoju room</li>
+			<li> <b>sensorInRoom(sensor, room)</b> czy czujnik sensor znajduje się w pokoju room</li>
+			<li> <b>isPassageWatched(doors1,doors2)</b> czy możliwe jest przejście pomiędzy doors1 i doors2 bez wchodzenia w zasięg czujnika. Drzwi muszą znajdować się w jednym pomieszczeniu.</li>
+			<li> <b>isDirectChild(area1, area2)</b> czy area1 jest bespośrenio pod area2 w hierarchii podziałów</li>
+			<li> <b>isInDescendants(area1, area2)</b> czy area1 jest pod area2 w hierarchii podziałów (nie koniecznie bezpośrednio)</li>
+     </ul>
+	  <li> Funkcje:</li>
+		 <ul>
+		   <li> <b>type(room)</b> typ pomieszczenia,np. "Kitchen" ,  </li>
+		   <li> <b>area(room)</b> powierzchnia pomieszczenia w metrach kwadratowych</li>
+		   <li> <b>label(room)</b> etykieta przypisana dla obszaru przez użytkownika</li>
+			<li> <b>doorsDist(doors1, doors2)</b> zwraca długość w metrach najkrótszej ścieżki pomiędzy drzwiami znajdującymi się w jednym pomieszczeniu </li>
+
+     </ul>
+</ul>
+ 
+ 
+    <h2>Definiowanie nowych relacji</h2>
+  
+   <p>
+   W języku testów HSSDR istnieje także możliwość definiowania nowych relacji o dowolnej liczbie argumentów w następujący sposób: 
+ <br/><br/>
+ <i>nazwa( ) <=> formuła;</i><br/>
+  lub<br/>
+  <i>nazwa(x,y,z,…) <=> formuła;</i>
+  </p>
+  <p>
+Tak zdefiniowana relacja  może być następnie używana w dalszych formułach.  
+Dla przykładu, w testach opisujących normy przeciwpożarowe ( Evacuation Route RMI-2002) wprowadzona zostaje definicja relacji 
+jednoargumentowej ZoneDoors:  <br/><br/>
+<i>ZoneDoors(d) <=> exists r in Rooms: doorsInRoom(d,r) and  type(r) = "Staircase";</i><br/> <br/>
+która następnie może być użyta w kolejnych formułach, np. w celu zdefiniowana kolejnej relacji
+FireSafetyDoors :<br/><br/>
+<i>FireSafetyDoors(d)<=> ExternalDoors(d) or ZoneDoors(d);</i></p>
+   
+ <p> Możliwe jest również definiowanie relacji w sposób rekurencyjny, np:
+ <br/> <br/>
+ <i>silnia(x,y) <=> x>=1 and y>= 1 and ((x=1 and y=1) or silnia(x-1,y/x) );</i>
+  </p> 
+ <p> Zdefiniowane przez użytkownika relacje pomocnicze są dostępne tylko w obrębie pojedynczego zestawu testów.
+ 
+ </p>
+ 
+
+ 
+   
+
+ 
+</body>
+</html>
