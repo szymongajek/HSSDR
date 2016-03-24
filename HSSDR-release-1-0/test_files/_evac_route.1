@@ -1,0 +1,12 @@
+# czy dwie pary drzwi prowadzą do tego samego pokoju
+doorsInTheSameRoom(d1, d2)  <=>  exists r in Rooms:
+   doorsInRoom(d1, r) and doorsInRoom(d2, r);
+
+
+
+success_msg "mamy kuchnię z dwojgiem drzwi"
+failure_msg "brak dwojga drzwi w kuchni"
+
+exists x in Rooms : exists d1, d2 in Doors:  
+doorsInRoom(d1,x) and  d1!=d2 and doorsInTheSameRoom(d1, d2)
+and type(x)="Kitchen" ;

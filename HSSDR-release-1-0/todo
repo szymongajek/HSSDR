@@ -1,0 +1,115 @@
+
+---------todo luty----------:
+
+opcjonalne:
+-save load ??
+ 
+
+ 
+-bug: toilet women dziala jak empty
+-usuwanie drzwi 
+-usuwanie sensorów
+-wyswietlanie komunikatow/kolorowanie a pietra. czyszczenie kolorowan na wszystkich pietrach po ponownych sprawdzeniu layoutu
+- dostosowanie wart atr dlugosc pow do ustawien metrow per kratka
+-dodac parametr w settings  szerowosc drzwi
+-clear - nie czysci widoku pieter
+- help jako jeden html -   dodac inne info i opisy do help
+  - bug zapis etykiety - trzeba kliknac na typ
+  - w ui zabronic usuwania he, kt�ra nie jest na dole hier. proc tego nie obsluguje.
+ - bug : po undo stworzenie w tym samym miejscu linia przerywana
+  
+   java.lang.NullPointerException
+	at hyperGraphs.Node.isWall(Node.java:47)
+	at hyperGraphs.ObjectHE.getWallNodes(ObjectHE.java:248)
+	at rectangularBoard.Path.findEmbMappingNode(Path.java:584)
+	at rectangularBoard.Path.createObjectHE(Path.java:408)
+	at controller.Controller.developArea(Controller.java:75)
+	at editor.MainWindow.layoutEditorMouseMoved(MainWindow.java:344)
+
+
+-bug delete division n razy
+
+" java.lang.NullPointerException
+	at hyperGraphs.Node.isWall(Node.java:47)
+	at hyperGraphs.ObjectHE.getWallNodes(ObjectHE.java:248)
+	at hyperGraphs.ObjectHE.findExternalNodes(ObjectHE.java:174)
+	at hyperGraphs.ObjectHE.contentSuppression(ObjectHE.java:47)
+	at hyperGraphs.HLH.contentSuppression(HLH.java:493)
+	at controller.Controller.deleteDivision(Controller.java:110)
+	at editor.MainWindow.deleteDivision(MainWindow.java:525)
+	at editor.DivisionTree.deleteDivisionActionPerformed(DivisionTree.java:47)
+	
+---------todo luty-end----------:
+  
+  ----------------------zrobione:---------------------------------
+  
+  stycze� s1
+ pietra:
+-floor nr w testach
+
+niezwiazane z modyf pieter
+hide non leaf
+tablka wybor testow
+przycisk check layout
+lapanie wyjatkow z FOLF
+  
+  zrobione w toku prac na wielopietrowym hg
+ 
+- zasieg sensorow w oknie ustawien
+- przyciski do powiekszania jako +/-
+- wybor ilosci pieter w oknie ustawien
+- zmiana widoku pieter na plaskie
+- zaznaczanie obszarow w widoku pieter
+- wykrywanie pietra pod myszka
+- zaznaczanie obszarow strzalkami w widoku pieter
+- blokowanie wyboru pietra na niektorych zakladkach
+- tryb all w widoku hipergrafu + blokowanie
+-wyswietlanie ca�ego grafu w edytorze hipergrafu, 
+-tryb jednego pi�tra dla starych mechanizm�w sprawdzania
+- dodanie wierzcho�k�w pod�ogi i sufitu dal ka�dego wirzcho�ka-pomieszczenia
+- rysowanie pod�ogi i sufitu - na ukos
+-uwzglednienie nowych wierzcho�k�w w logice podzia�u
+- dodawanie relacji dla dwoch pomieszczen z roznych pieter
+- wykrywanie krawedzi gornej i dolnej przy dodawaniu relacji wielopietrowych
+- rysowanie pieter w odwrotnej kolejnosci
+
+wieloargumentowa dostepnosc
+
+- zlaczenie wierzcholkow podlogi i sufitu w jeden
+-dodawanie do istniejacej relacji w przypadku dostepnesci miedzy pietrami
+-rysowanie wieloarg relacji
+- uwzglenienie wiloarg w logice wyszukiwania polaczen w grafie
+- bug podczas sprawdzania -poprawki plaiki testowe
+
+
+po urlopie:
+- blad zmiana ilosci pieter
+-obrys parteru widoczny wsz�dzie
+	problem drog pionowych w ksztalcie y. rowziazania:
+ -  wybor reacji zwyklej, lub rysowanie ciagu kom:
+ -- ui wybor z 3 relacji w widoku pieter:dostepnosc, wielopietrowa dost, widocznosc. 
+  -- podpiecie akcji do ui wyboru relacji
+ -- rel wielopietrowe tworzenie jednym ciagiem   
+- logika podzialu+ wiele pieter - wykrywanie miejsca konca strzalki i rozbijanie relacji jak przy podziale plaskim
+
+
+
+
+forms:
+
+- checkbox showLabels
+-help
+-usunac validationMessage.setText("text");
+
+
+linie kodu:
+500
+5700
+9800
+1900
+=
+17600
+
+====
+
+	
