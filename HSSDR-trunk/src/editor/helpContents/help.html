@@ -1,0 +1,437 @@
+<html>
+ <head>
+<meta charset="UTF-8">
+</head>
+<body>
+ 
+  <h1>Help contents:</h1> 
+ 
+ <ul>
+ <li href="#sec_window"> 
+ <p style="font-size:120%;" > Main window </p>
+ </li> 
+ <li href="#sec_layout"> 
+ <p style="font-size:120%;" >Floor layout</p>
+ <p   > Contour </p>
+ <p   > Area division </p>
+ <p   > Area properties  </p>
+ <p   > Doors, dotted lines, content suppression, sensors, compliance tests  </p>
+ <p   > Diagrams' building elements </p>
+ </li>
+ <li href="#sec_floors">
+ <p style="font-size:120%;" >Floors view </p>
+ <p   > Setting number of floors </p>
+ <p   >  Multi-floor view and cross-floor relations </p>
+ </li>
+ <li href="#sec_hyper">
+ <p style="font-size:120%;" >Hypergraph view </p>
+ </li>
+ <li href="#sec_settings">
+ <p style="font-size:120%;" >Settings </p> 
+ </li>
+ <li href="#sec_validation">
+ <p style="font-size:120%;" >Project validation </p>
+ <p   > Language of HSSDR tests</p>
+ <p   > Enabling tests sets </p>
+    <p   > Test sets  </p>
+ <p   >List of symbols available in tests </p>
+  <p   > Adding new relations</p>
+
+ </li>
+	</ul>
+</p></p>	
+ <!--  =====================================+++++++++++++++++++++++++++++========================================--> 
+ 
+ 
+<h1 id="sec_window"> Main window </h1> 
+ Main window with default Floor Layout tab is displayed after program starts. Its main building elements are:  
+  <ol>
+<li>File menu.</li>
+<li>Settings menu.</li>
+<li>Help menu.</li>
+<li>Floor Layout tab.</li>
+<li>Floors View tab.</li>
+<li>Hypergraph View tab.</li>
+<li>Project Validation tab.</li>
+<li>Main panel.</li>
+<li>Left panel.</li>
+ </ol>
+ <p>
+ Tabs (4,5,6,7) allow to switch between editing of a floor layout, editing relations  between floors and editing or enabling test sets.
+ While switching between tabs main panel contents change, together  with actions available in left panel.
+
+ </p>
+ <br/>
+ <img alt="" src="UI_layout_editor.png"/> 
+
+
+
+
+ <!--  =====================================+++++++++++++++++++++++++++++========================================--> 
+ <br/> 
+<h1 id="sec_layout">Floor layout</h1>
+ 
+<p>
+Creation of floor layout starts with the contour. Next,  contour may be divided on smaller areas, additional elements can be added  
+and users actions may be withdrawn.
+In order to choose editor size,  grid density and other parameters setting appropriate option in Settings is needed before starting to design.
+Zooming is possible with use of  ("+", "-") buttons in upper  part of left panel. 
+</p>
+
+<h2> Contour</h2>
+<p>
+ Left mouse click on the gridded area starts input of  the contour. Then, while moving cursor on the grid another sections are added.  <b>
+ Quitting currently edited line is possible with use of right mouse button. </b> 
+ Contour  edition ends with looping the line. </p>
+ <img alt="" src="layout_contour.png"/> 
+ 
+ <h2>Area division</h2>
+<p>
+ After inputting the contour it is possible to divide it into smaller areas. Left click selects an area. 
+ Clicking on a wall of selected area starts the division by initiating  division line. 
+  <b>
+ Quitting currently edited line is possible with use of right mouse button. </b> 
+   After reaching another wall of selected area the area is divided into two smaller areas. 
+</p>
+ <img alt="" src="layout_division.png"/> 
+ 
+ <h2>Area properties</h2>
+<p>
+Inputting properties of an area is possible after selecting it with left mouse click.  
+Currently selected ares are yeallow, while area indicated by cursor position is blue. 
+Another  left click on selected area deselects  it, as well as selection of another area.  
+ For selected area its  name can be input(„Area Label” field) and its  area type can be chosen from combo box. 
+ Area in square meters is displayed below.
+ 
+</p>
+ <img alt="" src="layout_select_edit.png"/> 
+
+ <h2>Doors, dotted lines, content suppression, sensors, compliance tests</h2>
+ <p>
+The bottom menu consist  of following elements:
+
+</p>
+  <ol>
+<li>Solid line button, sets division line to solid mode.</li>
+<li>Dotted line button, sets division line to dotted mode.</li>
+<li>Doors adding button.</li>
+<li>Content suppression button.</li>
+<li>Clear workspace button.</li>
+<li>Running project validation button.</li>
+<li>Validation output console.</li>
+ </ol>
+ <img alt="" src="menu_bottom.png"/> 
+  
+ <p>
+ First and second  buttons allows for changing division line between solid and dotted. Depending of current configuration, dotted line may represent:
+ <ul>
+<li>area division in purely logical sense, e.g.. a kitchen with dining room as one area./li>
+<li>visibility relation between area, e.g.. office with a glass wall. In this case wall may also contain doors, to indicate accessibility.</li>
+</ul>
+</p>
+ <img alt="" src="layout_dotted.png"/> 
+
+ <p>
+Pressing Add Doors button starts doors adding  mode. Doors can be placed on walls only. 
+Another click on the button ends doors adding mode. 
+ 
+</p>
+  <img alt="" src="layout door.png"/> 
+ 
+ <p>
+ The Undo button activates new window shoving history of divisions made in current project. 
+Selection of a node in division tree marks areas involved in the division. With division selected, pressing the button below deletes  the division. 
+Only the divisions at the very bottom of the division  hierarchy can be deleted. 
+In order to delete division in  middle of hierarchy, all below divisions have to be deleted first. 
+Another click on Undo button closes the division window.
+ 
+</p>
+ <img alt="" src="layout undo.png"/> 
+ 
+ <p>
+ The clear button deletes whole project. 
+ 
+</p>
+  <p>
+  The check layout button is responsible  for calling currently selects compliance tests. Their results are presented in validation output console(7).
+ 
+</p>
+ 
+ <p>
+ Sensors represent devices like motion sensors, CCTV cameras, smoke sensors, carbon dioxide, exhaust gas or temperature  sensors, etc.
+In order to add a sensor  to the project following actions are required:
+<ol>
+<li>Selecting an area where the sensor will be placed.</li>
+<li>Right click on desired localization.</li>
+<li>Right click again, to indicate direction of the sensor.</li>
+</ol>
+ 
+ </p>
+ <img alt="" src="layout sensor.png"/> 
+ 
+ <h2>Diagrams' building elements</h2>
+<p>
+ All diagrams' building elements are presented on the screen below:
+</p>
+ <ol>
+<li>Contour line (thicker).</li>
+<li>Division line (thinner).</li>
+<li>Dotted division line.</li>
+<li>Doors symbol.</li>
+<li>External doors symbol.</li>
+<li>Sensor.</li>
+</ol>
+ <img alt="" src="layout_elements.png"/>
+ 
+ 
+ 
+  <!--  =====================================+++++++++++++++++++++++++++++========================================--> 
+   <br/>
+ <h1 name="sec_floors">Floors view</h1>
+ 
+ <h2>Setting number of floors</h2>
+ <p>
+ While designing multi-storey buildings, number of floors has to be set prior to start of designing.
+ Current floor for edition can be set with use of combo box  in the left panel. 
+</p>
+ <img alt="" src="floor choose.png"/> 
+
+ <p>
+ Ground floor contour is displayed with light grey line on all floors for reference. 
+</p>
+
+
+ <img alt="" src="floor outline.png"/>
+ 
+ 
+ <h2>Multi-floor view and cross-floor relations</h2>
+ <p>
+ In multi-floor view all floors are displayed. Ground floor is shown at the bottom. 
+ This view allows for seeing whole building and introducing multi-floor relations. 
+</p>
+ <p>
+ Following types of relations are available:
+ </p>
+  <ol>
+<li> Multi Floor Connection, representing staircases  or elevators.</li>
+<li>  Accessibility, representing connection between two floors.</li>
+<li>  Visibility between areas on separate floors, like scene visible from stands on other floors. 
+This type of relation is represented by thicker arrows. </li>
+</ol>
+ <p>
+ In order to place a relation, user has to choose desired relation type. Then, left mouse click on one of areas on a floor starts a relation. 
+  An arrow is displayed  while moving cursor. Another left click on selected area on another floor adds it to relation.
+  Right mouse click ends placing the relation.
+ 
+ </p>
+
+ <img alt="" src="floor view arrow.png"/> 
+ 
+ <!--  =====================================+++++++++++++++++++++++++++++========================================--> 
+  <br/>
+ <h1 id="sec_hyper">Hypergraph view</h1>
+ 
+  <p>
+  Hypergraphs are internal data structure used to represent design in HSSDR.
+  Hypergraph view tab is mainly used by HSSDR creators for program analysis. Using this tab in not needed for architectural design.<br/>
+  Combo box on left panel changes  view between single floor and whole building. Displayed elements can be moved around the board for convenience. 
+  Zooming is possible with use of  "+" and  "-" in upper part of left panel.
+  
+</p>
+ <img alt="" src="hyper view.png"/> 
+  
+  <!--  =====================================+++++++++++++++++++++++++++++========================================--> 
+  <br/>
+<h1 id="sec_settings">Settings</h1>
+
+ <p>
+ With use of the Settings menu following parameters can be changed:
+ </p>
+   <ol>
+<li> Size of design board (Horizontal Size, Vertical Size). Expressed in pixels.</li>
+ <li> Grid density  on design board (Grid Size (px)). Expressed in pixels.</li>
+ <li> Length in meters represented by one grid (Grid size[meters]).</li>
+ <li>    Sensor range. Expressed in meters.</li>
+ <li>  Dashed Line Meaning. Dashed line may represent logical separation of areas or physical separation with visibility. </li>
+ <li> Number of floors.</li>
+</ol>
+
+ <p>
+ Modification of two last parameters requires usage of Apply and Reset button, in result current design is deleted. 
+Rest of  parameters can be changed in any moment with use of Apply button.
+ </p>
+ <img alt="" src="settings.png"/> 
+ 
+ 
+ 
+  <!--  =====================================+++++++++++++++++++++++++++++========================================--> 
+  <br/>
+ <h1 id="sec_validation">Project validation</h1>
+ 
+ 
+   <h2>Language of HSSDR tests</h2>
+  
+   <p>
+   With use of language of HSSDR large family of design constraints can be expressed. Those constraints are grouped in test sets. 
+   They can concern: 
+ </p>
+ <ul>
+<li>domain knowledge, like ecological standards, legal, security or economical constraints </li>
+<li>common design practices</li>
+<li>specific project requirements.</li>
+   </ul>
+  
+   <p> 
+   Formulas of language of HSSDR tests express conditions concerning design elements  like doors or areas 
+   and relations between design elements: direct ones as well as computed by the system. 
+   The internal design representation is updated after every user action. 
+   Tests are executed in background and their output is presented on validation console  and by pointing non-conform areas.
+    
+   </p>
+   
+  
+     <p> 
+	 Language of HSSDR tests is based on first-order logic. Additionally it contains also some useful  elements needed to reason about architectural design. 
+	  Adding comments is possible as well as specification of failure and success  messaged for tests.
+	  Language is built  of keywords, variables and predefined relations and functions, but is allows user  to define their own relations.  
+ </p>
+ 
+      <p> 
+	  A design contains Rooms and Areas. 
+	  All spaces are Areas, while Rooms are spaces that have not been yet divided. Rooms are children of Areas in division hierarchy. 
+	  Division hierarchy can be displayed by clicking Undo button in Layout Editor. 
+ </p>
+ 
+ 
+ 
+   <h2>Enabling tests sets</h2>
+  
+   <p>
+   Project Validation tab is used for switching on or off tests sets and for modification of tests sets' contents.  <br/>
+   
+ Test sets are text files, identified by file name. List of available test sets is displayed in left part of the validation tab.
+  New tests sets can be added by creating new file in test_files folder.
+  A tests set is taken into consideration during design analysis if appropriate checkbox in enabled. <br/>
+  When a test set is chosen on the list, its content is displayed in right side of the tab, and can be modified
+  and saved with use of Save File button. 
+
+  
+ </p>
+ </br>
+ <img alt="" src="validation.png"/>
+ 
+ 
+ <h2>Test sets</h2>
+  
+   <p>
+  Design constraints are organized  into tests sets. 
+  Tests sets enabled for a design may vary for different design types. 
+  Test set contain formulas  of language of HSSDR tests and are stored in text files. 
+  They contain final conditions and auxiliary definitions.  </p>
+    <p>
+ A single test set may contain:
+ </p>
+ <ul>
+  <li>unlimited number of auxiliary definitions, </li>
+    <li>unlimited number of comments, in lines starting with „#”,</li>
+	  <li>at least one final condition, that is a formula starting with <i>forall</i> or <i>exists</i> and not containing any free variables.
+  </li>
+	  </ul>
+ 
+ 
+ 
+ 
+ <h2>List of symbols available in tests</h2>
+  
+<ul>
+<li>Control symbols:</li>
+	<ul>
+		<li><b>failure_msg "message content"</b> message displayed in case of test failure </li>
+		<li><b>success_msg "message content"</b> message displayed in case of test success </li>
+		 <li><b>&lt;=&gt;</b> relation definition operator</li> 
+		<li><b>#</b> comment. Rest of line contents is ignored by language parser.</li>
+  </ul>
+  <li>Logic and operators: </li>
+	  <ul>
+		<li><b> forall <i>variable</i> in <i>  set</i>:</b>	 universal quantifier,  e.g. <i>forall r in Rooms: condition  </i> 
+		stands for: for each room r, condition holds. </li>
+		<li><b> exists <i>variable</i> in <i>  set</i>:</b>	 existential quantifier,  e.g. <i>exists x in Rooms: condition  </i> o
+		stands for: there exists such room r that condition holds. </li>
+		<li> <b>and  or </b> logical conjunction and alternative</li>
+		<li> <b>not </b> negation, e.g.. <i> not exists p in Rooms:  </i> stands for: there  is no such room, that... </li>
+		<li> <b>=></b>implication (  if  A then B),  e.g. <i>forall x,y in Rooms : type(x) = "Bedroom" and type(y) = "Kitchen" => not accessible(x,y);</i> 
+		stands for: for all pairs of rooms, if one of them  is a bedroom, and another one is a kitchen, those rooms cannot be directly accessible </li>
+		<li> <b><=></b> formula equivalence</li>
+		<li> <b>()</b> parenthesis  needed for formula nesting</li>
+		<li><b> = != > <  >= <=  </b> comparisons  (equal , not equal, greater than,  less than, greater than or equal to, less than or equal to), used to compare numbers and strings, e.g. 	<i>area(x) >= area(y)</i></li>
+		<li><b>+ - * /</b>	arithmetical  operators (addition ,subtraction ,multiplication,division), e.g.	<i> area(x) >= 10 + 2*area(x) </i>  </li>
+		<li> <b>;</b>	 semicolon, necessary  after each formula </li>
+	   </ul>
+<li> Variables and constants</li>	 
+		 <ul>  
+		 <li> <b>x r area Area2 </b>variable. Variable name must follow regular  expression: (a..z|A..Z)(a..z|A..Z|0..9|_)*</li>	
+		 <li> <b>1 20 3.5 -350 </b> integer or rational number. Follow regular  expression: 0..9+(.0..9+)?EXP?|.0..9+EXP? where EXP: (e|E) (+|-)? (0..9)+</li>	
+		 <li> <b> "Staircase"  "Public"  "guests bedroom"</b> text constants. </li>
+		</ul>   
+ <li> Relations</li>
+		 <ul>
+			<li> <b>Areas(r)</b> if  r is an Area or a Room. <i>Areas</i> itself represents set of all Areas .</li>
+			<li> <b>Rooms(r)</b> if r is a Room - space that has not been yet divided. <i>Rooms</i> itself represents set of all Rooms.</li>
+			<li> <b>Doors(d)</b> if d is doors. <i>Doors</i> itself represents set of all doors.</li>
+			<li> <b>Sensors(s)</b> if s is a sensor. <i>Sensors</i> itself represents set of all sensors.</li>
+			<li> <b>surveilledDoors(d)</b> if doors d are in a range of a sensor</li>
+			<li> <b>externalDoors(d)</b> if doors d leads outside  the building</li>
+			<li> <b>adjacent(room1, room2)</b> if rooms room1 and room2 are adjacent(have common wall)</li>
+			<li> <b>accessible(room1, room2)</b> if room1 is directly accessible from room2 </li>
+			<li> <b>doorsInRoom(d, r)</b> if doors d are situated in room r</li>
+			<li> <b>sensorInRoom(s, r)</b> if  sensor s is situated in room r</li>
+			<li> <b>isPassageWatched(doors1,doors2)</b> if passing between doors1 and doors2 without  entering in a sensor range is possible.
+			Both doors have to be situated in one room.</li>
+			<li> <b>isDirectChild(area1, area2)</b> if area1 is direct descendant  of area2 in division hierarchy</li>
+			<li> <b>isInDescendants(area1, area2)</b>if area1 is a descendant  of area2 in division hierarchy </li>
+     </ul>
+	  <li> Functions:</li>
+		 <ul>
+		   <li> <b>type(room)</b> area type, like "Kitchen" ,  </li>
+		   <li> <b>area(room)</b> space area in square meters</li>
+		   <li> <b>label(room)</b> label that may be assigned by user</li>
+			<li> <b>doorsDist(doors1, doors2)</b> in meters, length of shortest path connecting doors1 and doors2. 
+			Both doors have to be situated in one room. </li>
+
+     </ul>
+</ul>
+ 
+ 
+    <h2>Adding user relations</h2>
+  
+   <p>
+   It is possible to add new relations in tests sets. User can decide  about number of arguments:
+
+ <br/><br/>
+ <i>relation_name( ) <=> formula;</i><br/>
+  or<br/>
+  <i>relation_name(x,y,z,…) <=> formula;</i>
+  </p>
+  <p>
+  Such relation can be then used in following formulas.  
+  For example, tests describing fire safety constraints   ( Evacuation Route RMI-2002) introduce one argument relation ZoneDoors:  <br/><br/>
+<i>ZoneDoors(d) <=> exists r in Rooms: doorsInRoom(d,r) and  type(r) = "Staircase";</i><br/> <br/>
+this relation is then used in following formulas, in this case to define another relation: 
+FireSafetyDoors :<br/><br/>
+<i>FireSafetyDoors(d)<=> ExternalDoors(d) or ZoneDoors(d);</i></p>
+   
+ <p> Recursion is allowed in user relations, eg:
+ <br/> <br/>
+ <i>factorial(x,y) <=> x>=1 and y>= 1 and ((x=1 and y=1) or factorial(x-1,y/x) );</i>
+  </p> 
+ <p> UUser defined relations are visible only within a single tests set.
+ 
+ </p>
+ 
+
+ 
+   
+
+ 
+</body>
+</html>
