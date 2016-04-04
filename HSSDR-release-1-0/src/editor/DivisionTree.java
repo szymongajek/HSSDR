@@ -1,4 +1,5 @@
 package editor;
+import hyperGraphs.HLH;
 import hyperGraphs.HyperEdge;
 import hyperGraphs.ObjectHE;
 
@@ -45,12 +46,24 @@ public class DivisionTree extends JFrame implements TreeSelectionListener{
 	}
 	
 	protected void deleteDivisionActionPerformed(ActionEvent e) {
-		mainWindow.deleteDivision(tree.getLastSelectedPathComponent().toString());
+		DefaultMutableTreeNode node = (DefaultMutableTreeNode)  tree.getLastSelectedPathComponent();
+		if (node == null){
+			 return;
+		}
+		ObjectHE selectedHE = (ObjectHE)node.getUserObject(); 
+		String pathLabel = selectedHE.getAttribute(HLH.LABEL);
+		
+		mainWindow.deleteDivision(pathLabel);
 		repaint();
 	}
 
 	public void valueChanged(TreeSelectionEvent event) {
-		String pathLabel = tree.getLastSelectedPathComponent().toString();
+		DefaultMutableTreeNode node = (DefaultMutableTreeNode)  tree.getLastSelectedPathComponent();
+		if (node == null){
+			 return;
+		}
+		ObjectHE selectedHE = (ObjectHE)node.getUserObject(); 
+		String pathLabel = selectedHE.getAttribute(HLH.LABEL);
 		mainWindow.markDivisionPath(pathLabel);
 		deleteDivision.setEnabled(mainWindow.isDivisionDeletable(pathLabel));
  
