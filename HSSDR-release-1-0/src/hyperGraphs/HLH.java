@@ -170,7 +170,6 @@ public class HLH
                 throw new IllegalArgumentException("bad arity");
             PathCalulator calc = new PathCalulator((DoorsAttributes)args.get(0),(DoorsAttributes)args.get(1) );
             double d =  calc.distanceBetweenDoors();
-             System.out.println("calc dist:"+d);
             return d;
         }
     }

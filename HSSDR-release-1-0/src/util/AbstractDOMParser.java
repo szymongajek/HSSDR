@@ -77,11 +77,11 @@ public abstract class AbstractDOMParser {
 			//parse using builder to get DOM representation of the XML file
 			dom = db.parse(fileName );
 		}catch(ParserConfigurationException pce) {
-			pce.printStackTrace();
+			Logger.LOGGER.error("", pce); 
 		}catch(SAXException se) {
-			se.printStackTrace();
+			Logger.LOGGER.error("", se); 
 		}catch(IOException ioe) {
-			ioe.printStackTrace();
+			Logger.LOGGER.error("", ioe); 
 		}
 	}
 	
@@ -94,11 +94,11 @@ public abstract class AbstractDOMParser {
 			//parse using builder to get DOM representation of the XML file
 			dom = db.parse(file );
 		}catch(ParserConfigurationException pce) {
-			pce.printStackTrace();
+			Logger.LOGGER.error("", pce); 
 		}catch(SAXException se) {
-			se.printStackTrace();
+			Logger.LOGGER.error("", se); 
 		}catch(IOException ioe) {
-			ioe.printStackTrace();
+			Logger.LOGGER.error("", ioe); 
 		}
 	}
 	
@@ -111,11 +111,11 @@ public abstract class AbstractDOMParser {
 			//parse using builder to get DOM representation of the XML file
 			dom = db.parse( new ByteArrayInputStream(content.getBytes() ) );
 		}catch(ParserConfigurationException pce) {
-			pce.printStackTrace();
+			Logger.LOGGER.error("", pce); 
 		}catch(SAXException se) {
-			se.printStackTrace();
+			Logger.LOGGER.error("", se); 
 		}catch(IOException ioe) {
-			ioe.printStackTrace();
+			Logger.LOGGER.error("", ioe); 
 		}
 	}
 	

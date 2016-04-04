@@ -8,6 +8,8 @@ import java.net.InetAddress;
 import java.net.Socket;
 import java.net.UnknownHostException;
 
+import util.Logger;
+
 public class ClientTest {
 	
 	public static void main(String[] args) {
@@ -41,12 +43,12 @@ public class ClientTest {
 			in = new BufferedReader(new InputStreamReader(socket
 					.getInputStream()));
 			while ((fromServer = in.readLine()) != null) {
-				System.out.println("Server: " + fromServer);
+				Logger.LOGGER.debug("Server: " + fromServer);
 				if (fromServer.equals("Bye."))
 					break;
 				fromUser = userIn.readLine();
 				if (fromUser != null) {
-					System.out.println("Client: " + fromUser);
+					Logger.LOGGER.debug("Client: " + fromUser);
 					out.println(fromUser);
 				}
 			}

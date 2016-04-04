@@ -4,6 +4,8 @@ import java.io.PrintStream;
 import java.io.StringWriter;
 import java.util.Properties;
 
+import util.Logger;
+
 public class SUObject {
 	
 	public final String AREA = "AREA";
@@ -40,7 +42,7 @@ public class SUObject {
 		return props.getProperty("ROOMNAME");
 	}
 	public String getArea() {
-		System.out.println("area: "+Double.valueOf(props.getProperty("AREA")));
+		Logger.LOGGER.debug("area: "+Double.valueOf(props.getProperty("AREA")));
 		return props.getProperty("AREA");
 	}
 

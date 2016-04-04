@@ -3,6 +3,8 @@ package revitXmlTesting;
 
 import java.util.List;
 
+import util.Logger;
+
 import folf.AbstractFunction;
 import folf.CachingFunction;
 import folf.Structure;
@@ -68,7 +70,7 @@ public class TestData {
 	    		structure.addDomainObject(d);
 	    		isDoors.add(d);
 	        }
-//	    	 zbiór drzwi prowadz¹cych na zewn¹trz ExternalDoors
+//	    	 zbiï¿½r drzwi prowadzï¿½cych na zewnï¿½trz ExternalDoors
 //	    	#ExternalDoors(d) <=> Door(d) and ( forall x, y in Room:  
 //	    	# doorsInRoom(d, x) and doorsInRoom(d, y) => x = y );
 
@@ -94,7 +96,7 @@ public class TestData {
 	      	}
 	    	 
 	        // distance Doors x Doors -> liczby rzecz, 
-	        //ograniczona do drzwi nale¿¹cych do tego samego pokoju
+	        //ograniczona do drzwi naleï¿½ï¿½cych do tego samego pokoju
 	    	structure.addFunction("doorsDist", new CachingFunction( new DoorToDoorRevit()));
 	      	vocabulary.addFunction("doorsDist", 2);
 
@@ -122,7 +124,7 @@ public class TestData {
 	                throw new IllegalArgumentException("bad arity");
 	            PathCalculatorRevit calc = new PathCalculatorRevit((Door)args.get(0),(Door)args.get(1) );
 	            double d =  calc.distanceBetweenDoors();
-	             System.out.println("calc dist:"+d);
+	            Logger.LOGGER.debug("calc dist:"+d);
 	            return d;
 	        }
 	    }

@@ -10,6 +10,7 @@ import org.w3c.dom.NodeList;
 import rectangularBoard.Path;
 import revitXmlTesting.Point;
 import util.AbstractDOMParser;
+import util.Logger;
 @Deprecated
 public class GBXMLParser extends AbstractDOMParser{
 
@@ -30,8 +31,8 @@ public class GBXMLParser extends AbstractDOMParser{
 				Element el = (Element)nl.item(i);
 				Space s = getSpace(el);
 				if (s==null){
-					 System.out.print("Uwaga!!Blad parsowania XML dla space id:");
-					 System.out.println (Integer.parseInt(el.getAttribute("id")));
+					Logger.LOGGER.debug("Uwaga!!Blad parsowania XML dla space id:");
+					Logger.LOGGER.debug (Integer.parseInt(el.getAttribute("id")));
 					 continue;
 				}
 				spaces.add(s);

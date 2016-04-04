@@ -143,7 +143,7 @@ public class ValidationEditor extends JPanel implements TestChooser   {
             r.close();
 //			ta.setEditable(false);  
 		}catch (IOException ioe) {  
-			ioe.printStackTrace();  
+			Logger.LOGGER.error("",ioe ); 
 		}
 		
 	}

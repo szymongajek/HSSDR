@@ -34,7 +34,7 @@ public class Start {
 				}
 			}
 //			for (Door d : doors) {
-//				System.out.println(d);
+//				Logger.LOGGER.debug(d);
 //				 
 //			}
 		}
@@ -49,14 +49,14 @@ public class Start {
         
         Suite su = p.suiteFromFile(test_file, testData.getVocabulary());
             if (su == null) {
-                System.out.println("syntax or file error!");
+                Logger.LOGGER.debug("syntax or file error!");
                 message+="syntax or file error!  ";
                 String msg = p.getErrorMessages();
                 if (msg != null){
-                	 System.out.print(msg);
+                	Logger.LOGGER.debug(msg);
                 	 message+=msg+"\n";
                 }
-                System.out.println(message);
+                Logger.LOGGER.debug(message);
             }
             Result[] res = su.getCompleteResults(testData.getStructure(), 99);
             for (int i = 0; i < res.length; ++i) {
@@ -87,10 +87,10 @@ public class Start {
     			
     		}
             message+="\n";
-            System.out.println("Number of rooms:"+rooms.size());
-            System.out.println("Number of doors:"+doors.size());
-            System.out.println(message);
-            System.out.println("Objects:"+roomsToHighlight);
+            Logger.LOGGER.debug("Number of rooms:"+rooms.size());
+            Logger.LOGGER.debug("Number of doors:"+doors.size());
+            Logger.LOGGER.debug(message);
+            Logger.LOGGER.debug("Objects:"+roomsToHighlight);
              
  
 	}

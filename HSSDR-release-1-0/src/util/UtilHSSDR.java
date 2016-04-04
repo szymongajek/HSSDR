@@ -9,10 +9,10 @@ public class UtilHSSDR {
 		File dir = new File(dirName);
 		
 		if (dir.list() == null) {
-		    System.out.println("directory missing: "+dirName);
+		    Logger.LOGGER.debug("directory missing: "+dirName);
 		    boolean success = dir.mkdir();
 		    if (success) {
-		      System.out.println("Directory: " + dirName + " created");
+		    	Logger.LOGGER.debug("Directory: " + dirName + " created");
 		    }else {
 		    	throw new RuntimeException("Directory"+dirName +"cannot be created.");
 		    }

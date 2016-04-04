@@ -15,6 +15,8 @@ import java.net.ServerSocket;
 import java.net.Socket;
 import java.util.ArrayList;
 
+import util.Logger;
+
 import controller.Controller;
 
 public class HssdrServerTest {
@@ -42,9 +44,9 @@ public class HssdrServerTest {
         //
         while (true) {
             try {
-            	System.out.println("Waiting for client message...");
+            	Logger.LOGGER.debug("Waiting for client message...");
                 Socket socket = server.accept();
-                System.out.println("Incoming connection");
+                Logger.LOGGER.debug("Incoming connection");
 //                new ConnectionHandler(socket);
                 new SketchupConnectionHandlerTest(socket);
             } catch (IOException e) {
@@ -79,11 +81,11 @@ class SketchupConnectionHandlerTest implements Runnable {
 			out.println(outputLine);
 
 			while ((inputLine = in.readLine()) != null) {
-				System.out.println("server got: "+inputLine);
+				Logger.LOGGER.debug("server got: "+inputLine);
 //				outputLine = "ok";
 //				out.println(outputLine);
 				if (inputLine.equals("EXIT")){
-					System.out.println("got exit signal, exiting...");
+					Logger.LOGGER.debug("got exit signal, exiting...");
 					break;
 				}
 			}

@@ -4,6 +4,8 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
+import util.Logger;
+
 import folf.Parser;
 import folf.Result;
 import folf.Suite;
@@ -24,7 +26,7 @@ public class StartGBXML {
 		
 		List<Space> spaces= parser.spaces;
 		for (Space sp : spaces) {
-			System.out.println(sp);
+			Logger.LOGGER.debug(sp);
 		}
 	 
 		

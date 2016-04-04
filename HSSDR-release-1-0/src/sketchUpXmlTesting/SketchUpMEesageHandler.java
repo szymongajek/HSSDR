@@ -15,6 +15,7 @@ import folf.UnaryTabularRelation;
 import folf.Vocabulary;
 
 import server.MessageHandler;
+import util.Logger;
 
 public class SketchUpMEesageHandler implements MessageHandler {
 
@@ -41,13 +42,13 @@ public class SketchUpMEesageHandler implements MessageHandler {
 		 for (SUObject suObject : list) {
 		 ret += suObject;
 		 }
-		 System.out.println("objects"+ret);
+		 Logger.LOGGER.debug("objects"+ret);
 
 		 String ret2 = "";
 		 for (SUObject suObject : getRooms(list)) {
 			 ret2 += suObject;
 		 }
-		 System.out.println("room: "+ret);
+		 Logger.LOGGER.debug("room: "+ret);
 
 		 
 		Object [] tab =  createStructureAndVocabulary(list);
@@ -127,7 +128,7 @@ public class SketchUpMEesageHandler implements MessageHandler {
 //    		structure.addDomainObject(da);
 //    		isDoors.add(da);
 	    	
-//	    	 zbiór drzwi prowadz¹cych na zewn¹trz ExternalDoors
+//	    	 zbiï¿½r drzwi prowadzï¿½cych na zewnï¿½trz ExternalDoors
 //	    	#ExternalDoors(d) <=> Door(d) and ( forall x, y in Room:  
 //	    	# doorsInRoom(d, x) and doorsInRoom(d, y) => x = y );
 
@@ -147,7 +148,7 @@ public class SketchUpMEesageHandler implements MessageHandler {
 //	      	doorsInRoom.add(doors, room);
 	        
 	        // distance Doors x Doors -> liczby rzecz, 
-	        //ograniczona do drzwi nale¿¹cych do tego samego pokoju
+	        //ograniczona do drzwi naleï¿½ï¿½cych do tego samego pokoju
 	      	 // here not adding:
 //	    	structure.addFunction("doorsDist", new CachingFunction( new DoorToDoor()));
 //	      	vocabulary.addFunction("doorsDist", 2);

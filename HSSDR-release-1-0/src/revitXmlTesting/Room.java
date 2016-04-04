@@ -3,6 +3,7 @@ package revitXmlTesting;
 import java.util.ArrayList;
 
 import rectangularBoard.Path;
+import util.Logger;
 
 
 public class Room {
@@ -28,9 +29,9 @@ public class Room {
 		return doors ;
 	}
 	public void print(){
-		System.out.println("Room, id="+id+" name="+name +" "+bbox);
+		Logger.LOGGER.debug("Room, id="+id+" name="+name +" "+bbox);
 		if (path!=null)
-			System.out.println("	path:"+path);
+			Logger.LOGGER.debug("	path:"+path);
 	}
 	public int getId(){
 		return id;
