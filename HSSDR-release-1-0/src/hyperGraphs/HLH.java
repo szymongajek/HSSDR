@@ -619,13 +619,16 @@ public class HLH
 			return false;
 		}
 		
+		//saving children for purpose of removing from map, child elements is modified in contentSuppression()
+		ArrayList<HyperEdge> toSuppressChildren = toSuppress.getChildElements();
+		
 		if (!toSuppress.contentSuppression()){
 			Logger.LOGGER.error("Blad podczas usuwania HE");
 			return false;
 		}
 		
 //			usun z mapy hiperkrawedzi dzieci oproznianiej HE 
-		for (HyperEdge child:toSuppress.getChildElements() ){
+		for (HyperEdge child:toSuppressChildren ){
     		if (child instanceof ObjectHE  ){
     			removeFromMap((ObjectHE)child);
     		}
