@@ -444,7 +444,7 @@ public class LayoutEditor extends JPanel {
  			
  			String label = toDraw.getUserLabel();
  			
- 			if (showLabels && toDraw.isFinished() && !"".equals(label) ){
+ 			if (showLabels && toDraw.isFinished() && !"".equals(label) && (!isRootPath || toDraw.getNestedPaths().size()==0) ){
  				
  				int labx=calcXY(toDraw.getX(0))+calcXY(1)/2+2, 
  				laby=calcXY(toDraw.getY(0))+calcXY(1)-4;
