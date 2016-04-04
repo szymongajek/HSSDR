@@ -9,6 +9,7 @@ import java.awt.Graphics2D;
 import javax.swing.*;
 
 import rectangularBoard.Path;
+import util.Logger;
 
 
  
@@ -119,7 +120,7 @@ public class RoomPainter extends JFrame {
 		sizeY= MAX_COORD*grid_size;  
 		
 		
-		System.out.println(room.name+": "+room.path);
+		Logger.LOGGER.debug(room.name+": "+room.path);
 		this.rPanel = new RoomPanel(room); 
 		add(rPanel);
 		this.setPreferredSize(new Dimension(sizeX+20,sizeY+40));

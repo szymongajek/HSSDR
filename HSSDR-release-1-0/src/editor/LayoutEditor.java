@@ -484,7 +484,7 @@ public class LayoutEditor extends JPanel {
 			if (previous == developedPath)
 				developedPath=null;
 			if (developedPath!=null)
-				System.out.println(developedPath);
+				Logger.LOGGER.debug(developedPath);
 			repaint();
 		}
 		

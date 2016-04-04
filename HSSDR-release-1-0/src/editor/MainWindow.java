@@ -212,7 +212,7 @@ public class MainWindow extends JFrame implements MessageDisplayer   {
 						robot = new Robot();  
 						robot.mouseMove(ret.x+currentLayoutEditor.getLocationOnScreen().x ,ret.y+currentLayoutEditor.getLocationOnScreen().y );
 					} catch (AWTException e1) {
-						e1.printStackTrace();
+						Logger.LOGGER.error("", e1);
 					}
 				}
 				break;
@@ -244,7 +244,7 @@ public class MainWindow extends JFrame implements MessageDisplayer   {
 						robot = new Robot();  
 						robot.mouseMove(ret.x+currentLayoutEditor.getLocationOnScreen().x ,ret.y+currentLayoutEditor.getLocationOnScreen().y );
 					} catch (AWTException e1) {
-						e1.printStackTrace();
+						Logger.LOGGER.error("", e1);
 					}
 				}
 				break;

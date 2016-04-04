@@ -15,6 +15,8 @@ import java.net.ServerSocket;
 import java.net.Socket;
 import java.util.ArrayList;
 
+import util.Logger;
+
 import controller.Controller;
 
 public class HssdrServer {
@@ -25,7 +27,7 @@ public class HssdrServer {
         try {
             server = new ServerSocket(port); 
         } catch (IOException e) {
-            e.printStackTrace();
+        	Logger.LOGGER.error("", e); 
         }
     }
 
@@ -38,13 +40,13 @@ public class HssdrServer {
         //
         while (true) {
             try {
-            	System.out.println("Waiting for client message...");
+            	Logger.LOGGER.debug("Waiting for client message...");
                 Socket socket = server.accept();
-                System.out.println("Incoming connection");
+                Logger.LOGGER.debug("Incoming connection");
 //                new ConnectionHandler(socket);
                 new SketchupConnectionHandler(socket, handler);
             } catch (IOException e) {
-                e.printStackTrace();
+            	Logger.LOGGER.error("", e); 
             }
         }
     }
@@ -76,9 +78,9 @@ class SketchupConnectionHandler implements Runnable {
 			String message="";
 
 			while ((inputLine = in.readLine()) != null) {
-				System.out.println("server got: "+inputLine);
+				Logger.LOGGER.debug("server got: "+inputLine);
 				if (inputLine.equals("END_OF_MESSAGE")){
-					System.out.println("got exit signal, exiting...");
+					Logger.LOGGER.debug("got exit signal, exiting...");
 					break;
 				}
 				message+=inputLine;
@@ -88,18 +90,18 @@ class SketchupConnectionHandler implements Runnable {
 			out.println(outputLine);
 			
 		} catch (IOException e) {
-			e.printStackTrace();
+			Logger.LOGGER.error("", e); 
 		} finally{
 			out.close();
 			try {
 				in.close();
 			} catch (IOException e) {
-				e.printStackTrace();
+				Logger.LOGGER.error("", e); 
 			}
 			try {
 				socket.close();
 			} catch (IOException e) {
-				e.printStackTrace();
+				Logger.LOGGER.error("", e); 
 			}
 		}
 		

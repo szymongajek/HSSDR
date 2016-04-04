@@ -1,10 +1,12 @@
 package server;
 
+import util.Logger;
+
 public class SimpleMessageHandler implements MessageHandler {
 
 	@Override
 	public String handle(String message) {
-		System.out.println(message);
+		Logger.LOGGER.debug(message);
 		return 	  "Thanks for : "+message.length();
 		
 	}

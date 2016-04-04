@@ -3,6 +3,8 @@ package robotsChecker;
 import java.lang.reflect.Method;
 import java.util.LinkedList;
 
+import util.Logger;
+
 import hyperGraphs.GraphMessage;
 import hyperGraphs.HLH;
 
@@ -28,7 +30,7 @@ public class CheckerPlugin
 					results.add(arr[j]);
 				}
 			} catch (Exception e) {
-				e.printStackTrace();
+				Logger.LOGGER.error("", e); 
 			}
 		}
 		return results.toArray(new GraphMessage[0]);

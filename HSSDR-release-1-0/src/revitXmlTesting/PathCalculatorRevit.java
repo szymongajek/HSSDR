@@ -1,5 +1,6 @@
 package revitXmlTesting;
 
+import util.Logger;
 import hyperGraphs.PathCalulator;
 
 public class PathCalculatorRevit  extends PathCalulator{
@@ -17,7 +18,7 @@ public class PathCalculatorRevit  extends PathCalulator{
 		else 
 			throw new RuntimeException("drzwi nie naleza do tego samego pokoju");
 		
-		System.out.println("calc dist dla pokoju:"+room.name);
+		Logger.LOGGER.debug("calc dist dla pokoju:"+room.name);
 		
 		this.room_interior = room.path.getInterior();
 		

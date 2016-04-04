@@ -8,6 +8,8 @@ import java.util.List;
 
 import javax.swing.DefaultListModel;
 
+import util.Logger;
+
 import controller.TestChooser;
 
 public class SketchUpTestChooser implements TestChooser{
@@ -18,10 +20,10 @@ public class SketchUpTestChooser implements TestChooser{
 		File dir = new File(TEST_DIR);
 
 		if (dir.list() == null) {
-		    System.out.println("directory missing: "+TEST_DIR);
+			Logger.LOGGER.debug("directory missing: "+TEST_DIR);
 		    boolean success = dir.mkdir();
 		    if (success) {
-		      System.out.println("Directory: " + TEST_DIR + " created");
+		    	Logger.LOGGER.debug("Directory: " + TEST_DIR + " created");
 		    }else {
 		    	throw new RuntimeException("Directory"+TEST_DIR +"cannot be created.");
 		    }
