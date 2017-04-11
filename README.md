@@ -19,6 +19,21 @@
  </p>
  <h1 id="sec_window"> Repository content </h1> 
  
+ Feel free to use this code to continue this research or for another purposes.
+ Repository contains following elements:
+  <ol>
+<li>HSSDR-release-1-0 most recent, release barnch of code.</li>
+<li>HSSDR-trunk legacy branch of code stored for history reference</li>
+<li>tags legacy targs marking major changes</li>
+<li>other files - used only for this readme doc</li>
+<li>External doors symbol.</li>
+<li>Sensor.</li>
+</ol>
+
+<p>Branches contain Eclipse project and all required jars(not a maven project. To configure development environment in eclipse use simple import, only Java JRE is needed. To run application indicate Start.main() as main method. No further configuration is required.
+ </p>
+
+ 
  <h1 id="sec_window"> Application features review </h1> 
   <h2 id="sec_window"> Main window </h2> 
  Main window with default Floor Layout tab is displayed after program starts.
@@ -32,12 +47,12 @@
 Creation of floor layout starts with the contour. Next,  contour may be divided on smaller areas, additional elements can be added  
 and users actions may be withdrawn.
 In order to choose editor size,  grid density and other parameters setting appropriate option in Settings is needed before starting to design.
-Zooming is possible with use of  ("+", "-") buttons in upper  part of left panel. 
+
 </p>
   <img alt="" src="layout_division.png"/> 
    <img alt="" src="layout_select_edit.png"/> 
    
-    <h2>Diagrams' building elements</h2>
+<h2>Diagrams' building elements</h2>
 <p>
  All diagrams' building elements are presented on the screen below:
 </p>
@@ -90,16 +105,11 @@ Zooming is possible with use of  ("+", "-") buttons in upper  part of left panel
    Tests are executed in background and their output is presented on validation console  and by pointing non-conform areas.
     
    </p>
-   
-  
-     <p> 
-	 Language of HSSDR tests is based on first-order logic. Additionally it contains also some useful  elements needed to reason about architectural design. 
+     <p> Language of HSSDR tests is based on first-order logic. Additionally it contains also some useful  elements needed to reason about architectural design. 
 	  Adding comments is possible as well as specification of failure and success  messaged for tests.
 	  Language is built  of keywords, variables and predefined relations and functions, but is allows user  to define their own relations.  
  </p>
- 
-      <p> 
-	  A design contains Rooms and Areas. 
+<p> A design contains Rooms and Areas. 
 	  All spaces are Areas, while Rooms are spaces that have not been yet divided. Rooms are children of Areas in division hierarchy. 
 	  Division hierarchy can be displayed by clicking Undo button in Layout Editor. 
  </p>
