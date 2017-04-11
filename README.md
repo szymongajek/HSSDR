@@ -19,15 +19,14 @@
  </p>
  <h1 id="sec_window"> Repository content </h1> 
  
- Feel free to use this code to continue this research or for another purposes.
- Repository contains following elements:
+ <p>Feel free to use this code to continue this research or for another purposes. Source code is released under   the Apache License, Version 2.0.</p>
+ 
+ <p>Repository contains following elements: </p>
   <ol>
 <li>HSSDR-release-1-0 most recent, release barnch of code.</li>
 <li>HSSDR-trunk legacy branch of code stored for history reference</li>
 <li>tags legacy targs marking major changes</li>
 <li>other files - used only for this readme doc</li>
-<li>External doors symbol.</li>
-<li>Sensor.</li>
 </ol>
 
 <p>Branches contain Eclipse project and all required jars(not a maven project. To configure development environment in eclipse use simple import, only Java JRE is needed. To run application indicate Start.main() as main method. No further configuration is required.
