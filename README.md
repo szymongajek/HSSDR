@@ -15,12 +15,15 @@
  <p>
  HSSDR was created as part of ph. d. thesis by Szymon Gajek and members of a team at Department of Design and Computer Graphics
  at Faculty of Physics, Astronomy and Applied Computer Science of Jagiellonian University
- ( <a href="http://zpgk.fais.uj.edu.pl">http://zpgk.fais.uj.edu.pl</a>). 
- 
-
-  
+ ( <a href="http://zpgk.fais.uj.edu.pl">http://zpgk.fais.uj.edu.pl</a>).  
  </p>
+ <p>
+ Tabs (4,5,6,7) allow to switch between editing of a floor layout, editing relations  between floors and editing or enabling test sets.
+ While switching between tabs main panel contents change, together  with actions available in left panel.
 
+ </p>
+ <br/>
+ <img alt="" src="UI_layout_editor.png"/> 
   
  
 </body>
